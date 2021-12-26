@@ -1,0 +1,8 @@
+.input-field .startButton p{
+    text-align: center;
+    background-color: darkorange;
+    margin-top: 5vh;
+    color: #ffff;
+    font-size: x-large;
+    border-radius: 20px;
+}

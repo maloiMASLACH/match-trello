@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './input.css';
 
 interface InputBlockProps{
@@ -12,14 +12,13 @@ const InputBlock = function (props:InputBlockProps) {
   const {
     id, ref, label, type,
   } = props;
+  const [inputValue, setInputValue] = useState('');
+  const [isInputVisible, setIsInputVisible] = useState(false);
   if (type === 'password') {
-    const changeVis = function (e:React.MouseEvent) {
-      console.log(e);
-    };
     return (
       <>
-        <input type={type} id={id} ref={ref} />
-        <i className="fa fa-eye" aria-hidden="true" onClick={changeVis} />
+        <input type={isInputVisible ? 'text' : 'password'} value={inputValue} onChange={(e) => setInputValue(e.target.value)} id={id} ref={ref} />
+        <i className="fa fa-eye" aria-hidden="true" onClick={() => setIsInputVisible(!isInputVisible)} />
         <label htmlFor={id} className="active singInputText">
           {label}
           <input type="radio" />
