@@ -1,8 +1,11 @@
-.input-field .startButton p{
+.input-field .linkButton p{
     text-align: center;
     background-color: darkorange;
     margin-top: 5vh;
     color: #ffff;
     font-size: x-large;
     border-radius: 20px;
+}
+.input-field .linkButton.disabled p{
+    opacity: 0.2;
 }

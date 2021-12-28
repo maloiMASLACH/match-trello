@@ -3,21 +3,27 @@ import './input.css';
 
 interface InputBlockProps{
   id:string,
-  ref:React.RefObject<HTMLInputElement>,
+  parentRef:React.RefObject<HTMLInputElement>,
   label:string,
   type:string
 }
 
 const InputBlock = function (props:InputBlockProps) {
   const {
-    id, ref, label, type,
+    id, parentRef, label, type,
   } = props;
   const [inputValue, setInputValue] = useState('');
   const [isInputVisible, setIsInputVisible] = useState(false);
   if (type === 'password') {
     return (
       <>
-        <input type={isInputVisible ? 'text' : 'password'} value={inputValue} onChange={(e) => setInputValue(e.target.value)} id={id} ref={ref} />
+        <input
+          type={isInputVisible ? 'text' : 'password'}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          id={id}
+          ref={parentRef}
+        />
         <i className="fa fa-eye" aria-hidden="true" onClick={() => setIsInputVisible(!isInputVisible)} />
         <label htmlFor={id} className="active singInputText">
           {label}
@@ -28,7 +34,13 @@ const InputBlock = function (props:InputBlockProps) {
   }
   return (
     <>
-      <input type={type} id={id} ref={ref} />
+      <input
+        type={type}
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        id={id}
+        ref={parentRef}
+      />
       <label htmlFor={id} className="active singInputText">
         {label}
         <input type="radio" />

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import InputBlock from '../input/input';
-import StartButton from '../startButton/startButton';
+import LinkButton from '../linkButton/linkButton';
 import './singIn.css';
 
 const SingInForm:React.FC = function () {
@@ -9,9 +9,9 @@ const SingInForm:React.FC = function () {
 
   return (
     <div className="input-field">
-      <InputBlock id="Login" ref={inputName} label="User Name (Login)" type="text" />
-      <InputBlock id="Password" ref={inputPassword} label="Password" type="password" />
-      <StartButton text="SING IN" />
+      <InputBlock id="Email" parentRef={inputName} label="E-Mail" type="email" />
+      <InputBlock id="Password" parentRef={inputPassword} label="Password" type="password" />
+      <LinkButton text="SING IN" disabled />
     </div>
   );
 };
