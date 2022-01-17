@@ -3,6 +3,7 @@ import './singUp.css';
 import InputBlock from '../input/input';
 import LinkButton from '../linkButton/linkButton';
 import Firebase, { FirebaseContext } from '../../fireBase';
+import patterns from '../../constants/patterns';
 
 interface SingUpBlockProps {
   firebase: Firebase
@@ -24,13 +25,14 @@ class SingUpBlock extends React.Component<SingUpBlockProps> {
     confirmPas:string,
     setVisibly:React.Dispatch<React.SetStateAction<boolean>>,
   ) => {
-    if (mail && name && password && password === confirmPas) {
+    if (mail && name && password && password === confirmPas
+      && patterns.mail.test(mail) && patterns.name.test(name) && patterns.password.test(password)) {
       setVisibly(true);
     } else setVisibly(false);
   };
 
-  onSubmit = () => {
-    console.log('singUp submit');
+  onSubmit = (mail:string, pass:string, firebase:Firebase) => {
+    firebase.doCreateUserWithEmailAndPassword(mail, pass);
   };
 
   render(): React.ReactNode {
@@ -52,9 +54,8 @@ class SingUpBlock extends React.Component<SingUpBlockProps> {
           <InputBlock id="Email" parentRef={state.mail} label="Your E-mail" type="email" />
           <InputBlock id="Password" parentRef={state.password} label="Password" type="password" />
           <InputBlock id="ConfirmPassword" parentRef={state.confirmPas} label="Conform Password" type="password" />
-
         </div>
-        <LinkButton text="SING UP" disabled={state.correct} onClick={() => this.onSubmit()} />
+        <LinkButton text="SING UP" disabled={state.correct} onClick={() => this.onSubmit(state.mail.current!.value, state.password.current!.value, firebase)} />
 
       </>
     );

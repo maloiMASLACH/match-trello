@@ -5,7 +5,7 @@ interface InputBlockProps{
   id:string,
   parentRef:React.RefObject<HTMLInputElement>,
   label:string,
-  type:string
+  type:string,
 }
 
 const InputBlock = function (props:InputBlockProps) {
@@ -23,6 +23,7 @@ const InputBlock = function (props:InputBlockProps) {
           onChange={(e) => setInputValue(e.target.value)}
           id={id}
           ref={parentRef}
+          pattern="[a-z][a-z]"
         />
         <i className="fa fa-eye" aria-hidden="true" onClick={() => setIsInputVisible(!isInputVisible)} />
         <label htmlFor={id} className="active singInputText">

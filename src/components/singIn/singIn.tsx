@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import patterns from '../../constants/patterns';
 import Firebase, { FirebaseContext } from '../../fireBase';
 import InputBlock from '../input/input';
 import LinkButton from '../linkButton/linkButton';
@@ -20,7 +21,7 @@ class SingInBlock extends React.Component<SingInBlockProps> {
     password:string,
     setVisibly:React.Dispatch<React.SetStateAction<boolean>>,
   ) => {
-    if (mail && password) {
+    if (mail && password && patterns.mail.test(mail) && patterns.password.test(password)) {
       setVisibly(true);
     } else setVisibly(false);
   };
