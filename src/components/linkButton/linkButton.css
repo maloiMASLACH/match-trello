@@ -1,11 +1,18 @@
-.input-field .linkButton p{
+.linkButton{
+    margin: 0;
+    width: 100%;
     text-align: center;
     background-color: darkorange;
-    margin-top: 5vh;
+    margin-top: 4vh;
     color: #ffff;
     font-size: x-large;
+    border: none;
+    padding: 10px 0;
     border-radius: 20px;
 }
-.input-field .linkButton.disabled p{
+.linkButton:active{
+    background-color: darkorange;
+}
+.linkButton:disabled{
     opacity: 0.2;
 }
