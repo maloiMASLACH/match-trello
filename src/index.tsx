@@ -1,13 +1,14 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import firebase, { FirebaseContext } from './fireBase';
+import Firebase, { FirebaseContext } from './fireBase';
 
 ReactDOM.render(
   <React.StrictMode>
-    <FirebaseContext.Provider value={firebase}>
+    <FirebaseContext.Provider value={new Firebase()}>
       <App />
     </FirebaseContext.Provider>
   </React.StrictMode>,
