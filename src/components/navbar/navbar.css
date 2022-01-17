@@ -1,3 +1,19 @@
 .paddings1{
     padding: 0 10%;
 }
+
+@media only screen and (max-width: 992px)
+{
+    .hide-on-med-and-down {
+         display: flex !important; 
+    }
+    nav .brand-logo {
+        left: 10%;
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+    .paddings1 {
+         padding: 0 5%;
+    }
+}
+

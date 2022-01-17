@@ -1,20 +1,19 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { app } from '../../constants/roterLinks';
 import './linkButton.css';
 
 interface StartButtonProps{
   text: string;
-  disabled: boolean
+  disabled: boolean;
+  onClick: () => void;
 }
 
 const LinkButton = function (props:StartButtonProps) {
-  const { text, disabled } = props;
+  const { text, disabled, onClick } = props;
   console.log(disabled);
   return (
-    <NavLink to={app} className={disabled ? 'linkButton' : 'linkButton disabled'}>
-      <p>{text}</p>
-    </NavLink>
+    <button disabled={!disabled} type="submit" onClick={onClick} className="linkButton">
+      {text}
+    </button>
   );
 };
 export default LinkButton;
