@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import patterns from '../../constants/patterns';
+import { welcome } from '../../constants/routerLinks';
 import Firebase, { FirebaseContext } from '../../fireBase';
 import InputBlock from '../input/input';
 import LinkButton from '../linkButton/linkButton';
@@ -11,7 +13,8 @@ interface SingInBlockProps{
     mail: React.RefObject<HTMLInputElement>,
     password: React.RefObject<HTMLInputElement>,
     correct: boolean;
-    setVisibly: React.Dispatch<React.SetStateAction<boolean>>;
+    setVisibly: React.Dispatch<React.SetStateAction<boolean>>,
+    nav: NavigateFunction;
   }
 }
 
@@ -26,8 +29,8 @@ class SingInBlock extends React.Component<SingInBlockProps> {
     } else setVisibly(false);
   };
 
-  onSubmit = () => {
-    console.log('singIn submit');
+  onSubmit = (mail:string, password:string, nav: NavigateFunction, firebase: Firebase) => {
+    firebase.doSignInWithEmailAndPassword(mail, password).then((res) => console.log(res));
   };
 
   render(): React.ReactNode {
@@ -39,7 +42,7 @@ class SingInBlock extends React.Component<SingInBlockProps> {
           <InputBlock id="Password" parentRef={state.password} label="Password" type="password" />
 
         </div>
-        <LinkButton text="SING IN" disabled={state.correct} onClick={() => this.onSubmit()} />
+        <LinkButton text="SING IN" disabled={state.correct} onClick={() => this.onSubmit(state.mail.current!.value, state.password.current!.value, state.nav, firebase)} />
 
       </>
     );
@@ -50,12 +53,15 @@ const SingInForm:React.FC = function () {
   const inputMail = useRef<HTMLInputElement>(null);
   const inputPassword = useRef<HTMLInputElement>(null);
 
+  const navigate = useNavigate();
+
   const [isCorrect, setCorrect] = useState(Boolean);
   const state = {
     mail: inputMail,
     password: inputPassword,
     correct: isCorrect,
     setVisibly: setCorrect,
+    nav: navigate,
   };
   return (
     <FirebaseContext.Consumer>
