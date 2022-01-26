@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { User } from '../../constants/interfaces';
 import patterns from '../../constants/patterns';
 import { welcome } from '../../constants/routerLinks';
 import Firebase, { FirebaseContext } from '../../fireBase';
@@ -7,7 +8,13 @@ import InputBlock from '../input/input';
 import LinkButton from '../linkButton/linkButton';
 import './singIn.css';
 
-const SingInForm:React.FC = function () {
+interface SingInFormProps{
+  setUser:React.Dispatch<React.SetStateAction<User>>,
+  user:User
+}
+
+const SingInForm:React.FC<SingInFormProps> = function (props) {
+  const { setUser, user } = props;
   const inputMail = useRef<HTMLInputElement>(null);
   const inputPassword = useRef<HTMLInputElement>(null);
 
@@ -27,6 +34,8 @@ const SingInForm:React.FC = function () {
 
   const onSubmit = (mail:string, password:string, nav: NavigateFunction, firebase: Firebase) => {
     firebase.doSignInWithEmailAndPassword(mail, password).then((res) => {
+      const newUser:User = { email: mail, shortMail: mail };
+      setUser(newUser);
       nav(welcome);
       console.log(res.user, firebase);
     });

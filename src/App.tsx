@@ -10,15 +10,15 @@ import * as router from './constants/routerLinks';
 import UserPage from './components/userPage/userPage';
 
 const App: React.FC = function () {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({ email: '', shortMail: '' });
   return (
     <BrowserRouter>
-      <NavBar user={user} />
+      <NavBar setUser={setUser} user={user} />
       <div className="container">
         <Routes>
           <Route element={<WelcomePage />} path={router.welcome} />
-          <Route element={<SingInForm />} path={router.singIn} />
-          <Route element={<SingUpForm />} path={router.singUp} />
+          <Route element={<SingInForm setUser={setUser} user={user} />} path={router.singIn} />
+          <Route element={<SingUpForm setUser={setUser} user={user} />} path={router.singUp} />
           <Route element={<AppPage />} path={router.app} />
           <Route element={<UserPage />} path={router.userPage} />
         </Routes>

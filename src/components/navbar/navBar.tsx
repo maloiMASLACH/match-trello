@@ -5,9 +5,15 @@ import {
   welcome, singIn, singUp, userPage,
 } from '../../constants/routerLinks';
 import SingOut from '../singOut/singOut';
+import { User } from '../../constants/interfaces';
 
 interface NavBarProps{
-  user: any
+  setUser:React.Dispatch<React.SetStateAction<User>>,
+  user:User
+}
+
+interface NavBarWithUserProps{
+  setUser:React.Dispatch<React.SetStateAction<User>>,
 }
 
 const NavBarNoUser = function () {
@@ -24,14 +30,15 @@ const NavBarNoUser = function () {
   );
 };
 
-const NavBarWithUser = function () {
+const NavBarWithUser = function (props:NavBarWithUserProps) {
+  const { setUser } = props;
   return (
     <nav>
       <div className="nav-wrapper  yellow darken-4 paddings1">
         <NavLink to={welcome} className="brand-logo ">Mach Trello</NavLink>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
           <li><NavLink to={userPage}>User</NavLink></li>
-          <li><SingOut /></li>
+          <li><SingOut setUser={setUser} /></li>
         </ul>
       </div>
     </nav>
@@ -39,9 +46,9 @@ const NavBarWithUser = function () {
 };
 
 const NavBar = function (props:NavBarProps) {
-  const { user } = props;
+  const { setUser, user } = props;
   console.log({ user });
-  return (<div>{user ? <NavBarWithUser /> : <NavBarNoUser />}</div>);
+  return (<div>{user.email ? <NavBarWithUser setUser={setUser} /> : <NavBarNoUser />}</div>);
 };
 
 export default NavBar;

@@ -6,8 +6,15 @@ import LinkButton from '../linkButton/linkButton';
 import Firebase, { FirebaseContext } from '../../fireBase';
 import patterns from '../../constants/patterns';
 import { welcome } from '../../constants/routerLinks';
+import { User } from '../../constants/interfaces';
 
-const SingUpForm:React.FC = function () {
+interface SingUpFormProps{
+  setUser:React.Dispatch<React.SetStateAction<User>>,
+  user:User
+}
+
+const SingUpForm:React.FC<SingUpFormProps> = function (props) {
+  const { setUser, user } = props;
   const inputMail = useRef<HTMLInputElement>(null);
   const inputName = useRef<HTMLInputElement>(null);
   const inputPassword = useRef<HTMLInputElement>(null);
@@ -30,7 +37,11 @@ const SingUpForm:React.FC = function () {
   };
 
   const onSubmit = (mail:string, pass:string, firebase:Firebase, nav:any) => {
-    firebase.doCreateUserWithEmailAndPassword(mail, pass).then(() => nav(welcome));
+    firebase.doCreateUserWithEmailAndPassword(mail, pass).then(() => {
+      const newUser:User = { email: mail, shortMail: mail };
+      setUser(newUser);
+      nav(welcome);
+    });
   };
   return (
     <FirebaseContext.Consumer>
