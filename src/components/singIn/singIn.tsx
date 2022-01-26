@@ -7,19 +7,15 @@ import InputBlock from '../input/input';
 import LinkButton from '../linkButton/linkButton';
 import './singIn.css';
 
-interface SingInBlockProps{
-  firebase: Firebase,
-  state: {
-    mail: React.RefObject<HTMLInputElement>,
-    password: React.RefObject<HTMLInputElement>,
-    correct: boolean;
-    setVisibly: React.Dispatch<React.SetStateAction<boolean>>,
-    nav: NavigateFunction;
-  }
-}
+const SingInForm:React.FC = function () {
+  const inputMail = useRef<HTMLInputElement>(null);
+  const inputPassword = useRef<HTMLInputElement>(null);
 
-class SingInBlock extends React.Component<SingInBlockProps> {
-  checkIsCorrect = (
+  const navigate = useNavigate();
+
+  const [isCorrect, setCorrect] = useState(Boolean);
+
+  const checkIsCorrect = (
     mail:string,
     password:string,
     setVisibly:React.Dispatch<React.SetStateAction<boolean>>,
@@ -29,43 +25,26 @@ class SingInBlock extends React.Component<SingInBlockProps> {
     } else setVisibly(false);
   };
 
-  onSubmit = (mail:string, password:string, nav: NavigateFunction, firebase: Firebase) => {
-    firebase.doSignInWithEmailAndPassword(mail, password).then((res) => console.log(res));
+  const onSubmit = (mail:string, password:string, nav: NavigateFunction, firebase: Firebase) => {
+    firebase.doSignInWithEmailAndPassword(mail, password).then((res) => {
+      nav(welcome);
+      console.log(res.user, firebase);
+    });
   };
 
-  render(): React.ReactNode {
-    const { firebase, state } = this.props;
-    return (
-      <>
-        <div className="input-field" onChange={() => { this.checkIsCorrect(state.mail.current!.value, state.password.current!.value, state.setVisibly); }}>
-          <InputBlock id="Email" parentRef={state.mail} label="E-Mail" type="email" />
-          <InputBlock id="Password" parentRef={state.password} label="Password" type="password" />
-
-        </div>
-        <LinkButton text="SING IN" disabled={state.correct} onClick={() => this.onSubmit(state.mail.current!.value, state.password.current!.value, state.nav, firebase)} />
-
-      </>
-    );
-  }
-}
-
-const SingInForm:React.FC = function () {
-  const inputMail = useRef<HTMLInputElement>(null);
-  const inputPassword = useRef<HTMLInputElement>(null);
-
-  const navigate = useNavigate();
-
-  const [isCorrect, setCorrect] = useState(Boolean);
-  const state = {
-    mail: inputMail,
-    password: inputPassword,
-    correct: isCorrect,
-    setVisibly: setCorrect,
-    nav: navigate,
-  };
   return (
     <FirebaseContext.Consumer>
-      {(firebase) => <SingInBlock firebase={firebase} state={state} />}
+      {(firebase) => (
+        <>
+          <div className="input-field" onChange={() => { checkIsCorrect(inputMail.current!.value, inputPassword.current!.value, setCorrect); }}>
+            <InputBlock id="Email" parentRef={inputMail} label="E-Mail" type="email" />
+            <InputBlock id="Password" parentRef={inputPassword} label="Password" type="password" />
+
+          </div>
+          <LinkButton text="SING IN" disabled={isCorrect} onClick={() => onSubmit(inputMail.current!.value, inputPassword.current!.value, navigate, firebase)} />
+
+        </>
+      )}
 
     </FirebaseContext.Consumer>
   );
