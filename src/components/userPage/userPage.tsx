@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
-import { FirebaseContext } from '../../fireBase';
+import { FirebaseContext } from '../../utils/fireBase';
 import './userPage.css';
 
 const UserPage:React.FC = function () {

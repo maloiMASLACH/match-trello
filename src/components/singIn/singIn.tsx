@@ -1,20 +1,13 @@
 import React, { useRef, useState } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { User } from '../../constants/interfaces';
 import patterns from '../../constants/patterns';
 import { welcome } from '../../constants/routerLinks';
-import Firebase, { FirebaseContext } from '../../fireBase';
+import Firebase, { FirebaseContext } from '../../utils/fireBase';
 import InputBlock from '../input/input';
 import LinkButton from '../linkButton/linkButton';
 import './singIn.css';
 
-interface SingInFormProps{
-  setUser:React.Dispatch<React.SetStateAction<User>>,
-  user:User
-}
-
-const SingInForm:React.FC<SingInFormProps> = function (props) {
-  const { setUser, user } = props;
+const SingInForm:React.FC = function () {
   const inputMail = useRef<HTMLInputElement>(null);
   const inputPassword = useRef<HTMLInputElement>(null);
 
@@ -32,12 +25,15 @@ const SingInForm:React.FC<SingInFormProps> = function (props) {
     } else setVisibly(false);
   };
 
-  const onSubmit = (mail:string, password:string, nav: NavigateFunction, firebase: Firebase) => {
-    firebase.doSignInWithEmailAndPassword(mail, password).then((res) => {
-      const newUser:User = { email: mail, shortMail: mail };
-      setUser(newUser);
+  const onSubmit = (
+    mail:string,
+    password:string,
+    nav: NavigateFunction,
+    firebase: Firebase,
+  ) => {
+    console.log(firebase.auth.currentUser?.email);
+    firebase.doSignInWithEmailAndPassword(mail, password).then(() => {
       nav(welcome);
-      console.log(res.user, firebase);
     });
   };
 

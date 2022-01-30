@@ -4,12 +4,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Firebase, { FirebaseContext } from './fireBase';
+import Firebase, { FirebaseContext } from './utils/fireBase';
 
 ReactDOM.render(
   <React.StrictMode>
     <FirebaseContext.Provider value={new Firebase()}>
-      <App />
+      <FirebaseContext.Consumer>
+        {(firebase) => (
+          <App firebase={firebase} />
+        )}
+
+      </FirebaseContext.Consumer>
     </FirebaseContext.Provider>
   </React.StrictMode>,
   document.getElementById('root'),

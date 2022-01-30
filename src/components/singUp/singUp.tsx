@@ -1,20 +1,13 @@
 import React, { useRef, useState } from 'react';
 import './singUp.css';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import InputBlock from '../input/input';
 import LinkButton from '../linkButton/linkButton';
-import Firebase, { FirebaseContext } from '../../fireBase';
+import Firebase, { FirebaseContext } from '../../utils/fireBase';
 import patterns from '../../constants/patterns';
 import { welcome } from '../../constants/routerLinks';
-import { User } from '../../constants/interfaces';
 
-interface SingUpFormProps{
-  setUser:React.Dispatch<React.SetStateAction<User>>,
-  user:User
-}
-
-const SingUpForm:React.FC<SingUpFormProps> = function (props) {
-  const { setUser, user } = props;
+const SingUpForm:React.FC = function (props) {
   const inputMail = useRef<HTMLInputElement>(null);
   const inputName = useRef<HTMLInputElement>(null);
   const inputPassword = useRef<HTMLInputElement>(null);
@@ -38,8 +31,6 @@ const SingUpForm:React.FC<SingUpFormProps> = function (props) {
 
   const onSubmit = (mail:string, pass:string, firebase:Firebase, nav:any) => {
     firebase.doCreateUserWithEmailAndPassword(mail, pass).then(() => {
-      const newUser:User = { email: mail, shortMail: mail };
-      setUser(newUser);
       nav(welcome);
     });
   };
