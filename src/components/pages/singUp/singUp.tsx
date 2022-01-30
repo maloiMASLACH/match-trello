@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
 import './singUp.css';
 import { useNavigate } from 'react-router-dom';
-import InputBlock from '../input/input';
-import LinkButton from '../linkButton/linkButton';
-import Firebase, { FirebaseContext } from '../../utils/fireBase';
-import patterns from '../../constants/patterns';
-import { welcome } from '../../constants/routerLinks';
+import InputBlock from '../../input/input';
+import LinkButton from '../../linkButton/linkButton';
+import Firebase, { FirebaseContext } from '../../../utils/fireBase';
+import patterns from '../../../constants/patterns';
+import { welcome } from '../../../constants/routerLinks';
 
 const SingUpForm:React.FC = function (props) {
   const inputMail = useRef<HTMLInputElement>(null);

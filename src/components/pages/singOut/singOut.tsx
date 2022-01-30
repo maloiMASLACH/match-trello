@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { welcome } from '../../constants/routerLinks';
-import Firebase, { FirebaseContext } from '../../utils/fireBase';
+import { welcome } from '../../../constants/routerLinks';
+import Firebase, { FirebaseContext } from '../../../utils/fireBase';
 import './singOut.css';
 
 const SingOut = function () {

@@ -4,8 +4,8 @@ import { NavLink } from 'react-router-dom';
 import {
   welcome, singIn, singUp, userPage,
 } from '../../constants/routerLinks';
-import SingOut from '../singOut/singOut';
 import AuthUserContext from '../../utils/sessionHandler';
+import SingOut from '../pages/singOut/singOut';
 
 const NavBarNoUser = function () {
   return (

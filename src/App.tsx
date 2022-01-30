@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import SingInForm from './components/singIn/singIn';
-import SingUpForm from './components/singUp/singUp';
+import SingInForm from './components/pages/singIn/singIn';
 import NavBar from './components/navbar/navBar';
 import WelcomePage from './components/welcomePage/welcomePage';
-import AppPage from './components/appPage/appPage';
 import * as router from './constants/routerLinks';
 import UserPage from './components/userPage/userPage';
 import Firebase from './utils/fireBase';
 import AuthUserContext from './utils/sessionHandler';
+import SingUpForm from './components/pages/singUp/singUp';
+import AppPage from './components/pages/appPage/appPage';
 
 interface AppProps{
   firebase: Firebase

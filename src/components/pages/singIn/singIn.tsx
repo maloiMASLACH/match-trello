@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import patterns from '../../constants/patterns';
-import { welcome } from '../../constants/routerLinks';
-import Firebase, { FirebaseContext } from '../../utils/fireBase';
-import InputBlock from '../input/input';
-import LinkButton from '../linkButton/linkButton';
+import patterns from '../../../constants/patterns';
+import { welcome } from '../../../constants/routerLinks';
+import Firebase, { FirebaseContext } from '../../../utils/fireBase';
+import InputBlock from '../../input/input';
+import LinkButton from '../../linkButton/linkButton';
 import './singIn.css';
 
 const SingInForm:React.FC = function () {
