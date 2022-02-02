@@ -1,0 +1,36 @@
+.userPage{
+    margin: 5vh auto;
+    height: 20vh;
+    display: inline;
+    justify-content: center;
+}
+.userPage .userIcon{
+    margin: 5vh auto;
+    width: fit-content;
+    text-align: center;
+    text-transform: capitalize;
+    background-color: rgba(255, 140, 0, 0.7);
+    border-radius: 10px;
+    font-size: 12vh;
+    color: white;
+    line-height: 12vh;
+    padding: 30px;
+}
+.userPage .commonInfo{
+    width: 50%;
+    margin: 0 auto;
+}
+.userPage .commonInfo div{
+    display: flex;
+    color: black;
+    font-size: x-large;
+    justify-content: space-between;
+}
+.userPage.notAuthUser{
+    margin-top: 10vh;
+    color: darkorange;
+    font-size: xx-large;
+    font-weight: 900;
+    display:block;
+    text-align: center;
+}

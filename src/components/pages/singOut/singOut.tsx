@@ -7,9 +7,8 @@ import './singOut.css';
 const SingOut = function () {
   const navigate = useNavigate();
   const onClick = (firebase:Firebase, nav:NavigateFunction) => {
-    firebase.doSignOut().then(() => {
-      nav(welcome);
-    });
+    nav(welcome);
+    firebase.doSignOut();
   };
   return (
     <FirebaseContext.Consumer>

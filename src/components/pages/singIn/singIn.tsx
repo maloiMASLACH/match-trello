@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import patterns from '../../../constants/patterns';
-import { welcome } from '../../../constants/routerLinks';
+import { passForget, userPage, welcome } from '../../../constants/routerLinks';
 import Firebase, { FirebaseContext } from '../../../utils/fireBase';
 import InputBlock from '../../input/input';
 import LinkButton from '../../linkButton/linkButton';
+import PasswordActionLink from '../../passwordChangeLink/passwordChangeLink';
 import './singIn.css';
 
 const SingInForm:React.FC = function () {
@@ -31,10 +32,12 @@ const SingInForm:React.FC = function () {
     nav: NavigateFunction,
     firebase: Firebase,
   ) => {
-    console.log(firebase.auth.currentUser?.email);
     firebase.doSignInWithEmailAndPassword(mail, password).then(() => {
-      nav(welcome);
-    });
+      nav(userPage);
+    })
+      .catch((err) => {
+        alert('Incorrect data');
+      });
   };
 
   return (
@@ -47,7 +50,7 @@ const SingInForm:React.FC = function () {
 
           </div>
           <LinkButton text="SING IN" disabled={isCorrect} onClick={() => onSubmit(inputMail.current!.value, inputPassword.current!.value, navigate, firebase)} />
-
+          <PasswordActionLink text="forget password?" link={passForget} />
         </>
       )}
 

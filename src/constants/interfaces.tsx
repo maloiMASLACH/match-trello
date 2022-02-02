@@ -1,4 +1,4 @@
 export interface User{
-  email:string,
-  shortMail:string
+  mail:string,
+  name:string
 }

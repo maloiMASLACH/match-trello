@@ -3,13 +3,16 @@ import './App.css';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import SingInForm from './components/pages/singIn/singIn';
 import NavBar from './components/navbar/navBar';
-import WelcomePage from './components/welcomePage/welcomePage';
 import * as router from './constants/routerLinks';
-import UserPage from './components/userPage/userPage';
+import UserPage from './components/pages/userPage/userPage';
 import Firebase from './utils/fireBase';
 import AuthUserContext from './utils/sessionHandler';
 import SingUpForm from './components/pages/singUp/singUp';
 import AppPage from './components/pages/appPage/appPage';
+import PasswordForget from './components/pages/passwordPages/passwordForget/passwordForget';
+import PasswordReset from './components/pages/passwordPages/passwordReset/passwordReset';
+import WelcomePage from './components/pages/welcomePage/welcomePage';
+import AdminPage from './components/pages/adminPage/adminPage';
 
 interface AppProps{
   firebase: Firebase
@@ -36,6 +39,9 @@ const App = function (props:AppProps) {
             <Route element={<SingUpForm />} path={router.singUp} />
             <Route element={<AppPage />} path={router.app} />
             <Route element={<UserPage />} path={router.userPage} />
+            <Route element={<PasswordForget />} path={router.passForget} />
+            <Route element={<PasswordReset />} path={router.passReset} />
+            <Route element={<AdminPage />} path={router.admin} />
           </Routes>
         </div>
       </AuthUserContext.Provider>

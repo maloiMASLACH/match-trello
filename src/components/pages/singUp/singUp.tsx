@@ -29,10 +29,13 @@ const SingUpForm:React.FC = function (props) {
     } else setVisibly(false);
   };
 
-  const onSubmit = (mail:string, pass:string, firebase:Firebase, nav:any) => {
-    firebase.doCreateUserWithEmailAndPassword(mail, pass).then(() => {
-      nav(welcome);
-    });
+  const onSubmit = (name:string, mail:string, pass:string, firebase:Firebase, nav:any) => {
+    firebase.doCreateUserWithEmailAndPassword(mail, pass)
+      .then((newUser) => firebase.user(newUser.user!.uid).set({ name, mail }))
+      .then(() => nav(welcome))
+      .catch((err) => {
+        alert('Incorrect data');
+      });
   };
   return (
     <FirebaseContext.Consumer>
@@ -53,7 +56,7 @@ const SingUpForm:React.FC = function (props) {
             <InputBlock id="Password" parentRef={inputPassword} label="Password" type="password" />
             <InputBlock id="ConfirmPassword" parentRef={confirmPassword} label="Conform Password" type="password" />
           </div>
-          <LinkButton text="SING UP" disabled={isCorrect} onClick={() => onSubmit(inputMail.current!.value, inputPassword.current!.value, firebase, navigate)} />
+          <LinkButton text="SING UP" disabled={isCorrect} onClick={() => onSubmit(inputName.current!.value, inputMail.current!.value, inputPassword.current!.value, firebase, navigate)} />
 
         </>
       )}

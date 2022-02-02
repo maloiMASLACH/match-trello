@@ -1,0 +1,32 @@
+.adminPage{
+    margin: 5vh auto;
+    display: inline;
+    justify-content: center;
+}
+.adminPage .usersList p.adminPageTitle{
+    margin-left: 50px;
+    background-color: darkorange;
+    font-size: xx-large;
+    width: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+}
+.adminPage .usersList div{
+    display: flex;
+    flex-wrap: wrap;
+}
+.adminPage .usersList div ul{
+    color:white;
+    margin: 15px 50px;
+    padding: 20px;
+    background-color: darkorange;
+    transition: 0.3s;
+}
+.adminPage .usersList div ul:hover{
+    background-color: rgb(209, 138, 50);
+}
+.adminPage .usersList div ul li{
+    color:white;
+    margin: 10px auto;
+}
