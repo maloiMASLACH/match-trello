@@ -1,4 +1,5 @@
 export interface User{
   mail:string,
-  name:string
+  name:string,
+  uid:string,
 }

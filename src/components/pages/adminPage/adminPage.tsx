@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { User } from '../../../constants/interfaces';
 import Firebase, { FirebaseContext } from '../../../utils/fireBase';
+import { app } from '../../../constants/routerLinks';
 import AuthUserContext from '../../../utils/sessionHandler';
 import './adminPage.css';
 
@@ -20,10 +22,12 @@ const UsersList = function (props:UsersListProps) {
         <p className="adminPageTitle">Users</p>
         <div>
           {users.map((user) => (
-            <ul>
-              <li>{user.mail}</li>
-              <li>{user.name}</li>
-            </ul>
+            <NavLink to={user.uid}>
+              <ul>
+                <li>{user.mail}</li>
+                <li>{user.name}</li>
+              </ul>
+            </NavLink>
           ))}
         </div>
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import { User } from '../../../constants/interfaces';
-import { passReset } from '../../../constants/routerLinks';
+import { passReset, app } from '../../../constants/routerLinks';
 import Firebase, { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
 import PasswordActionLink from '../../passwordChangeLink/passwordChangeLink';
@@ -38,6 +39,9 @@ const UserPageBlockRender = function (props:UserPageBlockRenderProps) {
             <p>Tasks Count</p>
             <p>2</p>
           </div>
+        </div>
+        <div className="linkToAppContainer">
+          <NavLink className="linkToApp" to={app}>Your decks</NavLink>
         </div>
         <PasswordActionLink text="change password" link={passReset} />
       </div>
