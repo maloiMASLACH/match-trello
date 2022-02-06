@@ -24,7 +24,6 @@ const App = function (props:AppProps) {
   const userType = new Firebase().auth.currentUser;
   const [user, setUser] = useState < typeof userType | null>(null);
   const [usersLinks, setUsers] = useState <string[]>([]);
-  console.log(usersLinks);
   useEffect(() => {
     FetchInfo(firebase, setUser, setUsers);
   }, []);
@@ -37,7 +36,7 @@ const App = function (props:AppProps) {
             <Route element={<WelcomePage />} path={router.welcome} />
             <Route element={<SingInForm />} path={router.singIn} />
             <Route element={<SingUpForm />} path={router.singUp} />
-            {usersLinks.map((path) => <Route path={path} element={<AppPage />} />)}
+            {usersLinks.map((path) => <Route path={path} element={<AppPage path={path} />} />)}
             <Route element={<UserPage />} path={router.userPage} />
             <Route element={<PasswordForget />} path={router.passForget} />
             <Route element={<PasswordReset />} path={router.passReset} />

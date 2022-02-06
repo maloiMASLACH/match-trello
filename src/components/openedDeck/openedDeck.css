@@ -1,0 +1,40 @@
+.openedDeckBlock{    
+    border: 5px dashed darkorange;
+    position: absolute;
+    margin: 0;
+    background-color: #ffc57f;
+    width: 65%;
+    height: 43vw;
+    border-radius: 30px;
+}
+.openedDeckBlock h3 {
+    width: 100%;
+    text-align: center;
+    color: white;
+
+}
+.openedDeckBlockHead {
+    border-bottom: 8px dashed darkorange ;
+    display: flex;
+}
+.openedDeckBlockHead img{
+    width:5%;
+    height: 5%;
+}
+.colons{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.colon{
+    font-size: x-large;
+    line-height: 10%;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    border: 3px darkorange dashed;
+    border-radius: 10px;
+}
+.colon:hover{
+    border: 3px darkorange solid;
+}

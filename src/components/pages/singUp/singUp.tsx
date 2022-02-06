@@ -31,7 +31,9 @@ const SingUpForm:React.FC = function (props) {
 
   const onSubmit = (name:string, mail:string, pass:string, firebase:Firebase, nav:any) => {
     firebase.doCreateUserWithEmailAndPassword(mail, pass)
-      .then((newUser) => firebase.user(newUser.user!.uid).set({ name, mail, uid: `/${newUser.user!.uid}` }))
+      .then((newUser) => firebase.user(newUser.user!.uid).set({
+        name, mail, uid: `/${newUser.user!.uid}`, decks: { FirstDeck: { FirstColon: { task: { taskName: 'task', date: 'tomorrow', completed: false } } } },
+      }))
       .then(() => nav(welcome))
       .catch((err) => {
         alert('Incorrect data');

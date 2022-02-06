@@ -1,20 +1,46 @@
-import React from 'react';
-import { FirebaseContext } from '../../../utils/fireBase';
+import React, { useEffect, useState } from 'react';
+import { User } from '../../../constants/interfaces';
+import Firebase, { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
+import DeckWithInfo from '../../deckWithInfo/deckWithInfo';
+import NewDeck from '../../newDeck/newDeck';
+import './appPage.css';
 
-const PageWithUser = function () {
+interface AppPageProps{
+  path: string
+}
+
+interface PageWithUserProps{
+  firebase: Firebase,
+  path: string
+}
+
+const PageWithUser = function (props: PageWithUserProps) {
+  const { firebase, path } = props;
+  const [userState, setUserState] = useState <User>({
+    mail: '', name: '', uid: path, decks: {},
+  });
+  useEffect(() => {
+    firebase.user(path).on('value', (snapshot) => {
+      setUserState(snapshot.val());
+    });
+  }, []);
+
   return (
-    <FirebaseContext.Consumer>
-      {(firebase) => (
-        <div className="appPage">
-          <div className="commonInfo">
-            APP
-          </div>
-          <div className="functionBlock" />
-        </div>
+    <div className="appPage">
+      {Object.keys(userState.decks).map(
+        (deckName) => (
+          <DeckWithInfo
+            deckInfo={userState.decks[deckName]}
+            deckName={deckName}
+            path={path}
+            userState={userState}
+            setUserState={setUserState}
+          />
+        ),
       )}
-
-    </FirebaseContext.Consumer>
+      <NewDeck userState={userState} setUserState={setUserState} />
+    </div>
   );
 };
 const PageNoUser = function () {
@@ -26,10 +52,19 @@ const PageNoUser = function () {
   );
 };
 
-const AppPage:React.FC = function () {
+const AppPage:React.FC<AppPageProps> = function (props) {
+  const { path } = props;
+  console.log(path);
   return (
     <AuthUserContext.Consumer>
-      {(value) => (value ? <PageWithUser /> : <PageNoUser />)}
+      {(value) => (value ? (
+        <FirebaseContext.Consumer>
+          {(firebase) => (
+            <PageWithUser firebase={firebase} path={path} />
+          )}
+
+        </FirebaseContext.Consumer>
+      ) : <PageNoUser />)}
 
     </AuthUserContext.Consumer>
 

@@ -18,6 +18,12 @@ interface UserPageBlockRenderProps{
 
 const UserPageBlockRender = function (props:UserPageBlockRenderProps) {
   const { userInfo } = props;
+  let taskCount = 0;
+  if (userInfo?.decks) {
+    Object.keys(userInfo.decks).forEach(
+      (colon) => { taskCount += Object.keys(userInfo.decks[colon]).length; },
+    );
+  }
   if (userInfo) {
     return (
       <div className="userPage">
@@ -33,15 +39,15 @@ const UserPageBlockRender = function (props:UserPageBlockRenderProps) {
           </div>
           <div>
             <p>Tables count</p>
-            <p>1</p>
+            <p>{Object.keys(userInfo.decks).length}</p>
           </div>
           <div>
             <p>Tasks Count</p>
-            <p>2</p>
+            <p>{taskCount}</p>
           </div>
         </div>
         <div className="linkToAppContainer">
-          <NavLink className="linkToApp" to={app}>Your decks</NavLink>
+          <NavLink className="linkToApp" to={userInfo.uid}>Your decks</NavLink>
         </div>
         <PasswordActionLink text="change password" link={passReset} />
       </div>

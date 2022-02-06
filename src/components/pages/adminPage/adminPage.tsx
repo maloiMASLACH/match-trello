@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { User } from '../../../constants/interfaces';
 import Firebase, { FirebaseContext } from '../../../utils/fireBase';
-import { app } from '../../../constants/routerLinks';
 import AuthUserContext from '../../../utils/sessionHandler';
 import './adminPage.css';
 
@@ -40,7 +39,6 @@ const UsersList = function (props:UsersListProps) {
 const AdminPageBLockRender = function (props:AdminPageBLockRenderProps) {
   const { firebase } = props;
   const [users, setUsers] = useState <User[] | null>(null);
-  console.log(users);
   useEffect(() => {
     firebase.users().on('value', (snapshot) => {
       setUsers(Object.values(snapshot.val()));
