@@ -1,0 +1,57 @@
+.taskDelete{
+  position: absolute;
+  width: 50px;
+  margin-top: -24px;
+  margin-left: 25%;
+}
+.taskRedact{
+  position: absolute;
+  width: 50px;
+  margin-top: -24px;
+  margin-left: 10%;
+}
+input.newTaskName[type=text]:not(.browser-default){
+  border-bottom: darkorange solid 3px;
+  color: white;
+  font-size: xx-large;
+  width: 40%;
+}
+.newTaskName::placeholder{
+  font-size: xx-large;
+  color: rgba(245, 173, 86, 0.534) ;
+}
+.taskRedactSubmit{
+  background-color: darkorange;
+  border: none;
+  width: 10%;
+  color: white;
+  font-weight: 400;
+  margin-left: 0px;
+}
+
+@media screen and (max-width: 1440px) {
+  .taskDelete{
+    margin-left: 35%;
+  }
+  .taskRedact{
+    margin-left: 20%;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .taskDelete{
+    width: 30px;
+  }
+  .taskRedact{
+    width: 30px;
+  }
+}
+
+
+@media screen and (max-width: 425px) {
+  .taskDelete{
+    margin-left: 35%;
+  }
+  .taskRedact{
+    margin-left: 5%;
+  }
+}

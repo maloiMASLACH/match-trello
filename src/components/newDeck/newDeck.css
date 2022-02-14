@@ -9,6 +9,7 @@
     justify-content: space-around;
 }
 .addBlock p{
+    text-align: center;
     margin: 10px auto;
     width: 70%;
     color: white;
@@ -57,3 +58,27 @@
 .addBlock button:hover {
     opacity: 0.7;
 }
+ @media screen and (max-width: 1440px) {
+    .addBlock img.addDeckImg{
+        width: 60%;
+    }
+ }
+ @media screen and (max-width: 1024px) {
+    .addBlock{
+        width: 31vw;
+    }
+    .addBlock img.addDeckImg{
+        margin: 0 auto;
+        width: 40%;
+    }
+    .addBlock p{
+        width: 80%;
+    }
+ }
+ @media screen and (max-width: 768px) {
+    .addBlock{
+        width: 80vw;
+        height: 50vw;
+    }
+ }
+ 

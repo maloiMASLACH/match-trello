@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { User } from '../../constants/interfaces';
+import { idText } from 'typescript';
+import { ColonType, DeckType, User } from '../../constants/interfaces';
 import OpenedDeck from '../openedDeck/openedDeck';
 import './deckWithInfo.css';
 
 interface DeckWithInfoProps{
-  deckInfo:User
+  deckInfo:DeckType
   deckName:string
-  path:string
   userState: User
   setUserState: React.Dispatch<React.SetStateAction<User>>
 }
@@ -14,20 +14,30 @@ interface DeckWithInfoProps{
 const DeckWithInfo = function (props: DeckWithInfoProps) {
   const [isOpen, setOpenDeck] = useState <boolean>(false);
   const {
-    deckInfo, deckName, path, userState, setUserState,
+    deckInfo, deckName, userState, setUserState,
   } = props;
   let taskCount = 0;
-  Object.keys(deckInfo).forEach(
-    (colon) => { taskCount += Object.keys(deckInfo[colon as keyof User]).length; },
-  );
+  if (deckInfo.colons) {
+    Object.values(deckInfo.colons).forEach((colon:ColonType) => {
+      if (colon.tasks) {
+        taskCount += Object.keys(colon.tasks).length;
+      }
+    });
+  }
+
   return (
     <>
-      <div className="infoBlock" onClick={() => { setOpenDeck(true); }} aria-hidden="true">
+      <div
+        className="infoBlock"
+        onClick={() => { setOpenDeck(true); }}
+        aria-hidden="true"
+      >
         <h3>
           {deckName}
         </h3>
         <p>
-          {Object.keys(deckInfo).length}
+          {deckInfo.colons ? Object.keys(deckInfo.colons).length : 0 }
+          {}
           {' '}
           colons
         </p>

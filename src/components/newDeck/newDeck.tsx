@@ -31,10 +31,27 @@ const AddForm = function (props:AddFormProps) {
   const [inputValue, setInputValue] = useState('');
 
   const addDeck = function (name:string, firebase:Firebase) {
-    const newDeck = userState;
+    const newState = userState;
     const deckName = name.split(' ').join('_');
-    newDeck.decks[deckName] = { colon: { task: { taskName: 'task', date: 'now', completed: false } } };
-    setUserState(newDeck);
+    const newDeck = {
+      colons: {
+        First_Colon: {
+          tasks: {
+            task: {
+              taskName: 'task', date: 'tomorrow', completed: false, id: 1,
+            },
+          },
+          id: 1,
+          colonName: 'First Colon',
+        },
+      },
+      id: userState.decks ? Object.keys(userState.decks).length + 1 : 1,
+    };
+    if (!newState.decks) {
+      newState.decks = {};
+    }
+    newState.decks[deckName] = newDeck;
+    setUserState(newState);
     firebase.user(userState.uid.slice(1)).set(userState).then(() => {
       setActive(false);
     });

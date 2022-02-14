@@ -15,5 +15,6 @@
     "@typescript-eslint/no-unused-vars": ["warn"],
     "@typescript-eslint/no-useless-constructor":"off",
     "class-methods-use-this":"off",
+    "no-unsafe-finally":"off",
   }
 }

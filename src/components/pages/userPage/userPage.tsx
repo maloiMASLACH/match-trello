@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { User } from '../../../constants/interfaces';
-import { passReset, app } from '../../../constants/routerLinks';
+import { passReset } from '../../../constants/routerLinks';
 import Firebase, { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
 import PasswordActionLink from '../../passwordChangeLink/passwordChangeLink';
@@ -19,40 +19,47 @@ interface UserPageBlockRenderProps{
 const UserPageBlockRender = function (props:UserPageBlockRenderProps) {
   const { userInfo } = props;
   let taskCount = 0;
-  if (userInfo?.decks) {
-    Object.keys(userInfo.decks).forEach(
-      (colon) => { taskCount += Object.keys(userInfo.decks[colon]).length; },
-    );
+  try {
+    if (userInfo?.decks) {
+      Object.keys(userInfo.decks).forEach(
+        (deck) => {
+          Object.keys(userInfo.decks[deck].colons).forEach((colon) => {
+            taskCount += Object.keys(userInfo.decks[deck].colons[colon].tasks).length;
+          });
+        },
+      );
+    }
+  } finally {
+    if (userInfo) {
+      return (
+        <div className="userPage">
+          <div className="userIcon">{userInfo.name}</div>
+          <div className="commonInfo">
+            <div>
+              <p>Your E-mail address</p>
+              <p>{userInfo.mail}</p>
+            </div>
+            <div>
+              <p>User Name</p>
+              <p>{userInfo.name}</p>
+            </div>
+            <div>
+              <p>Tables count</p>
+              <p>{Object.keys(userInfo.decks).length}</p>
+            </div>
+            <div>
+              <p>Tasks Count</p>
+              <p>{taskCount}</p>
+            </div>
+          </div>
+          <div className="linkToAppContainer">
+            <NavLink className="linkToApp" to={userInfo.uid}>Your decks</NavLink>
+          </div>
+          <PasswordActionLink text="change password" link={passReset} />
+        </div>
+      );
+    } return <div />;
   }
-  if (userInfo) {
-    return (
-      <div className="userPage">
-        <div className="userIcon">{userInfo.name}</div>
-        <div className="commonInfo">
-          <div>
-            <p>Your E-mail address</p>
-            <p>{userInfo.mail}</p>
-          </div>
-          <div>
-            <p>User Name</p>
-            <p>{userInfo.name}</p>
-          </div>
-          <div>
-            <p>Tables count</p>
-            <p>{Object.keys(userInfo.decks).length}</p>
-          </div>
-          <div>
-            <p>Tasks Count</p>
-            <p>{taskCount}</p>
-          </div>
-        </div>
-        <div className="linkToAppContainer">
-          <NavLink className="linkToApp" to={userInfo.uid}>Your decks</NavLink>
-        </div>
-        <PasswordActionLink text="change password" link={passReset} />
-      </div>
-    );
-  } return <div />;
 };
 
 const PageWithUser = function (props:PageWithUserProps) {

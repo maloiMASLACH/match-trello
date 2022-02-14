@@ -18,7 +18,7 @@
     padding: 30px;
 }
 .userPage .commonInfo{
-    width: 50%;
+    width: 80%;
     margin: 0 auto;
 }
 .userPage .commonInfo div{
@@ -50,3 +50,17 @@
     display:block;
     text-align: center;
 }
+@media screen and (max-width: 768px) {
+    .userPage .userIcon{
+        width: 70%;
+        border-radius: 10px;
+        font-size: 50px;
+        color: white;
+        line-height: 3vh;
+    }
+    .userPage .commonInfo{
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+

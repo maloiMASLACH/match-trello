@@ -19,11 +19,15 @@
   width: 5%;
   height: 5%;
 }
+.openedColonBlockHead img.deckDelete {
+margin-right: 50px;
+}
+
 .tasks {
   display: flex;
   flex-wrap: wrap;
 }
-.task {
+.appPage div.task {
   display: flex;
   width: 45%;
   font-size: x-large;
@@ -134,4 +138,53 @@
   transform: translate(0);
   opacity: 1;
 }
+@media screen and (max-width: 1440px) {
+  .appPage div.task {
+    width: 80%;
+  }
+  .task label {
+    margin-left: 27.5%;
+  }
+}
+@media screen and (max-width: 1024px) {
 
+  .task label {
+    margin-top: -10px;
+    width: 30px;
+  height: 30px;
+  }
+  .task label:before {
+    width: 15px;
+    height: 15px;
+  }
+  
+  .task label:hover:before {
+    width: 20px;
+    height: 20px;
+  }
+  #tick_mark {
+
+    top: -13px;
+    left: -13px;
+    width: 30px;
+  }
+  #tick_mark:before {
+    width: 3px;
+    height: 15px;
+  }
+  
+  #tick_mark:after {
+    width: 60%;
+    height: 5px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.23);
+    transform: translateX(78px);
+  }
+}
+@media screen and (max-width: 425px) {
+  .appPage div.task {
+    width: 90%;
+  }
+  .task label {
+    margin-left: 20.5%;
+  }
+}

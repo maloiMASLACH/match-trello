@@ -37,7 +37,20 @@ const AddForm = function (props:AddFormProps) {
   const addColon = function (name:string, firebase:Firebase) {
     const newDeck = userState;
     const colonName = name.split(' ').join('_');
-    newDeck.decks[deckName][colonName] = { task: { taskName: 'task', date: 'now', completed: false } };
+    const newColon = {
+      tasks: {
+        task: {
+          taskName: 'task', date: 'tomorrow', completed: false, id: 1,
+        },
+      },
+      id: userState.decks[deckName].colons
+        ? Object.keys(userState.decks[deckName].colons).length + 1 : 1,
+      colonName: name,
+    };
+    if (!newDeck.decks[deckName].colons) {
+      newDeck.decks[deckName].colons = {};
+    }
+    newDeck.decks[deckName].colons[colonName] = newColon;
     setUserState(newDeck);
     firebase.user(userState.uid.slice(1)).set(userState).then(() => {
       setActive(false);

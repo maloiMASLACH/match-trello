@@ -7,7 +7,7 @@ import Firebase, { FirebaseContext } from '../../../utils/fireBase';
 import patterns from '../../../constants/patterns';
 import { welcome } from '../../../constants/routerLinks';
 
-const SingUpForm:React.FC = function (props) {
+const SingUpForm:React.FC = function () {
   const inputMail = useRef<HTMLInputElement>(null);
   const inputName = useRef<HTMLInputElement>(null);
   const inputPassword = useRef<HTMLInputElement>(null);
@@ -32,10 +32,28 @@ const SingUpForm:React.FC = function (props) {
   const onSubmit = (name:string, mail:string, pass:string, firebase:Firebase, nav:any) => {
     firebase.doCreateUserWithEmailAndPassword(mail, pass)
       .then((newUser) => firebase.user(newUser.user!.uid).set({
-        name, mail, uid: `/${newUser.user!.uid}`, decks: { FirstDeck: { FirstColon: { task: { taskName: 'task', date: 'tomorrow', completed: false } } } },
+        name,
+        mail,
+        uid: `/${newUser.user!.uid}`,
+        decks: {
+          First_Deck: {
+            colons: {
+              First_Colon: {
+                tasks: {
+                  task: {
+                    taskName: 'task', date: 'tomorrow', completed: false, id: 1,
+                  },
+                },
+                id: 1,
+                colonName: 'First Colon',
+              },
+            },
+            id: 1,
+          },
+        },
       }))
       .then(() => nav(welcome))
-      .catch((err) => {
+      .catch(() => {
         alert('Incorrect data');
       });
   };

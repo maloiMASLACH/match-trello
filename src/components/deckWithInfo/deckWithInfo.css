@@ -24,9 +24,14 @@
     font-size: xx-large;
     color: white;
 }
-.owerflow{
-    background-color: black;
-    width: 500px;
-    height: 500px;
-    position: absolute;
-}
+@media screen and (max-width: 1024px) {
+    .infoBlock{
+        width: 31vw;
+    }
+ }
+ @media screen and (max-width: 768px) {
+    .infoBlock{
+        width: 80vw;
+        height: 50vw;
+    }
+ }

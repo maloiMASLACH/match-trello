@@ -28,17 +28,16 @@ const PageWithUser = function (props: PageWithUserProps) {
 
   return (
     <div className="appPage">
-      {Object.keys(userState.decks).map(
+      {userState.decks ? Object.keys(userState.decks).map(
         (deckName) => (
           <DeckWithInfo
             deckInfo={userState.decks[deckName]}
             deckName={deckName}
-            path={path}
             userState={userState}
             setUserState={setUserState}
           />
         ),
-      )}
+      ) : null}
       <NewDeck userState={userState} setUserState={setUserState} />
     </div>
   );
@@ -54,7 +53,6 @@ const PageNoUser = function () {
 
 const AppPage:React.FC<AppPageProps> = function (props) {
   const { path } = props;
-  console.log(path);
   return (
     <AuthUserContext.Consumer>
       {(value) => (value ? (

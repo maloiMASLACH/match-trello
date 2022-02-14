@@ -6,7 +6,7 @@ import './newTask.css';
 interface NewTaskProps{
   userState: User
   deckName:string
-  colon:string
+  colonName:string
   setUserState: React.Dispatch<React.SetStateAction<User>>
 }
 interface AddTabletProps {
@@ -17,7 +17,7 @@ interface AddFormProps {
   userState: User
   setUserState: React.Dispatch<React.SetStateAction<User>>
   deckName:string
-  colon:string
+  colonName:string
 }
 
 const AddTablet = function (props:AddTabletProps) {
@@ -32,7 +32,7 @@ const AddTablet = function (props:AddTabletProps) {
 
 const AddForm = function (props:AddFormProps) {
   const {
-    setActive, userState, setUserState, deckName, colon,
+    setActive, userState, setUserState, deckName, colonName,
   } = props;
   const [inputName, setInputName] = useState('');
   const [inputDate, setInputDate] = useState('');
@@ -40,7 +40,18 @@ const AddForm = function (props:AddFormProps) {
   const addTask = function (name:string, date:string, firebase:Firebase) {
     const newDeck = userState;
     const taskName = name.split(' ').join('');
-    newDeck.decks[deckName][colon][taskName] = { taskName, date, completed: true };
+    const colonObj = colonName.split(' ').join('_');
+    const newTask = {
+      taskName,
+      date,
+      completed: false,
+      id: userState.decks[deckName].colons[colonObj].tasks
+        ? Object.keys(userState.decks[deckName].colons[colonObj].tasks).length + 1 : 1,
+    };
+    if (!userState.decks[deckName].colons[colonObj].tasks) {
+      newDeck.decks[deckName].colons[colonObj].tasks = {};
+    }
+    newDeck.decks[deckName].colons[colonObj].tasks[taskName] = newTask;
     setUserState(newDeck);
     firebase.user(userState.uid.slice(1)).set(userState).then(() => {
       setActive(false);
@@ -74,7 +85,7 @@ const AddForm = function (props:AddFormProps) {
 
 const NewTask = function (props:NewTaskProps) {
   const {
-    userState, setUserState, deckName, colon,
+    userState, setUserState, deckName, colonName,
   } = props;
   const [isActive, setActive] = useState <boolean>(false);
   if (isActive) {
@@ -84,7 +95,7 @@ const NewTask = function (props:NewTaskProps) {
         userState={userState}
         setUserState={setUserState}
         deckName={deckName}
-        colon={colon}
+        colonName={colonName}
       />
     );
   } return (<AddTablet setActive={setActive} />);

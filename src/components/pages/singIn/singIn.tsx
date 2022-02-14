@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import patterns from '../../../constants/patterns';
-import { passForget, userPage, welcome } from '../../../constants/routerLinks';
+import { passForget, userPage } from '../../../constants/routerLinks';
 import Firebase, { FirebaseContext } from '../../../utils/fireBase';
 import InputBlock from '../../input/input';
 import LinkButton from '../../linkButton/linkButton';
@@ -35,7 +35,7 @@ const SingInForm:React.FC = function () {
     firebase.doSignInWithEmailAndPassword(mail, password).then(() => {
       nav(userPage);
     })
-      .catch((err) => {
+      .catch(() => {
         alert('Incorrect data');
       });
   };

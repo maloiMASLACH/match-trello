@@ -4,12 +4,6 @@ import Firebase from '../fireBase';
 
 const userType = new Firebase().auth.currentUser;
 
-interface FetchInfoProps {
-  firebase:Firebase
-  setUser: React.Dispatch<React.SetStateAction<typeof userType | null>>
-  setUsers: React.Dispatch<React.SetStateAction<string[]>>
-}
-
 const FetchInfo = function (
   firebase:Firebase,
   setUser: React.Dispatch<React.SetStateAction<typeof userType | null>>,

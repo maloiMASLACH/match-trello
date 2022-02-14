@@ -1,84 +1,119 @@
 import React, { useState } from 'react';
-import { User } from '../../constants/interfaces';
+import { ColonType, TaskType, User } from '../../constants/interfaces';
 import Firebase, { FirebaseContext } from '../../utils/fireBase';
+import sortCards from '../../utils/sortCards';
 import NewTask from '../newTask/newTask';
+import Task from '../taskBlock/taskBlock';
 import './openedColon.css';
 
 interface OpenedColonProps{
-  colon:string
-  colonInfo:any
+  colon:ColonType
   deckName:string
   userState: User
   setUserState: React.Dispatch<React.SetStateAction<User>>
   setOpenColon:React.Dispatch<React.SetStateAction<boolean>>
 }
-interface TaskProps{
-  colon:string
-  taskInfo:any
-  deckName:string
+interface ChangeNameFieldProps{
   userState: User
   setUserState: React.Dispatch<React.SetStateAction<User>>
+  deckName:string
+  setChanging: React.Dispatch<React.SetStateAction<boolean>>
+  colonName:string
+  firebase:Firebase
 }
-
-const Task = function (props:TaskProps) {
+const ChangeNameField = function (props:ChangeNameFieldProps) {
   const {
-    deckName, colon, taskInfo, userState, setUserState,
+    userState, setUserState, deckName, colonName, setChanging, firebase,
   } = props;
-  const [checked, setChecked] = useState<boolean>(taskInfo.completed);
-
-  const setCompleted = function (firebase:Firebase) {
-    const newState = userState;
-    newState.decks[deckName as keyof User][colon][taskInfo.taskName].completed = !checked;
-    setUserState(newState);
+  const renameDeck = function (inputValue:string) {
+    const newDeck = userState;
+    const oldColonName = colonName.split(' ').join('_');
+    const newColonName = inputValue.split(' ').join('_');
+    newDeck.decks[deckName].colons[newColonName] = newDeck.decks[deckName].colons[oldColonName];
+    newDeck.decks[deckName].colons[newColonName].colonName = inputValue;
+    newDeck.decks[deckName].colons[oldColonName] = null;
+    setUserState(newDeck);
     firebase.user(userState.uid.slice(1)).set(userState).then(() => {
-      setChecked(!checked);
+      setChanging(false);
     });
   };
-
+  const [inputValue, setInputValue] = useState('');
   return (
-    <FirebaseContext.Consumer>
-      {(firebase) => (
-        <div className="task">
-          <p>{taskInfo.taskName}</p>
-          <input className="taskCheckBox" type="checkbox" checked={checked} id={taskInfo.taskName} onClick={() => setCompleted(firebase)} />
-          <label htmlFor={taskInfo.taskName}>
-            <input type="checkbox" id="rule" />
-            <div id="tick_mark" />
-          </label>
-          <p>{taskInfo.date}</p>
-        </div>
-      )}
+    <>
+      <input
+        className="newDeckName"
+        type="text"
+        value={inputValue}
+        placeholder="New colon name"
+        onChange={(e) => setInputValue(e.target.value)}
+      />
+      <button className="newDeckNameSubmit" type="submit" onClick={() => renameDeck(inputValue)}>OK</button>
 
-    </FirebaseContext.Consumer>
+    </>
+
   );
 };
 
 const OpenedColon = function (props: OpenedColonProps) {
   const {
-    colon, colonInfo, deckName, userState, setUserState, setOpenColon,
+    colon, deckName, userState, setUserState, setOpenColon,
   } = props;
-  console.log(colonInfo);
+  const [isChanging, setChanging] = useState<boolean>(false);
+  const [currentTask, setCurrentTask] = useState<TaskType | null>(null);
+  const deleteColon = function (
+    firebase:Firebase,
+    setClose:React.Dispatch<React.SetStateAction<boolean>>,
+  ) {
+    const newDeck = userState;
+    const colonName = colon.colonName.split(' ').join('_');
+    newDeck.decks[deckName].colons[colonName] = null;
+    setUserState(newDeck);
+    firebase.user(userState.uid.slice(1)).set(userState).then(() => {
+      setClose(false);
+    });
+  };
   return (
     <div className="openedColonBlock">
-      <div className="openedColonBlockHead">
-        <h3>
-          {colon}
-        </h3>
-        <img src="./x.png" alt="x" onClick={() => { setOpenColon(false); }} aria-hidden="true" />
-      </div>
+      <FirebaseContext.Consumer>
+        {(firebase) => (
+          <div className="openedColonBlockHead">
+            <h3>
+              {!isChanging ? colon.colonName : ''}
+              {isChanging ? (
+                <ChangeNameField
+                  userState={userState}
+                  setUserState={setUserState}
+                  deckName={deckName}
+                  colonName={colon.colonName}
+                  setChanging={setChanging}
+                  firebase={firebase}
+                />
+              ) : null}
+            </h3>
+            <img src="./redact.png" className="deckDelete" alt="x" onClick={() => { setChanging(!isChanging); }} aria-hidden="true" />
+            <img className="deckDelete" alt="delete" src="./delete.png" onClick={() => deleteColon(firebase, setOpenColon)} aria-hidden="true" />
+            <img src="./x.png" alt="x" onClick={() => { setOpenColon(false); }} aria-hidden="true" />
+          </div>
+        )}
+
+      </FirebaseContext.Consumer>
       <div className="tasks">
-        {Object.keys(colonInfo).map((task) => (
-          <Task
-            deckName={deckName}
-            colon={colon}
-            taskInfo={colonInfo[task]}
-            userState={userState}
-            setUserState={setUserState}
-          />
-        ))}
+        {colon.tasks ? (
+          Object.values(colon.tasks).sort(sortCards).map((task:TaskType) => (
+            <Task
+              deckName={deckName}
+              colonName={colon.colonName}
+              taskInfo={task}
+              userState={userState}
+              setUserState={setUserState}
+              currentCard={currentTask}
+              setCurrentCard={setCurrentTask}
+            />
+          ))
+        ) : null}
         <NewTask
           deckName={deckName}
-          colon={colon}
+          colonName={colon.colonName}
           userState={userState}
           setUserState={setUserState}
         />

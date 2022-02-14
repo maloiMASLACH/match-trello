@@ -1,7 +1,7 @@
 .addTaskBlock{
     border: 5px solid rgba(255, 140, 0);
     border-radius: 30px;
-    width: 95%;
+    width: 80%;
     background-color: rgba(255, 140, 0, 0.5);
     display: flex;
     align-items: center;
@@ -54,3 +54,26 @@
 .addTaskBlock button:hover {
     opacity: 0.7;
 }
+
+@media screen and (max-width: 768px) {
+    .addTaskBlock{
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+    }
+    .addTaskBlock img.addTaskImg{
+        margin: 0px auto;
+        width: 20%;
+    }
+    .addTaskBlock input[type=text]:not(.browser-default){
+        margin: 16px auto;
+        color: white;
+        font-size: x-large;
+        width: 90%;
+        border-bottom: 2px solid darkorange;
+    }
+    .addTaskBlock img.addTaskImgClose{
+        margin: 15px 0;
+        width: 10%;
+    }
+  }
