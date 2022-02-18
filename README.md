@@ -1,10 +1,10 @@
 # 1. TasK
 # https://docs.google.com/document/d/1VqWU3it9O2Ov5FfVGfP6Ece_jSdRBxsAUAROHYoFGNk/edit
 # 2. How to run
- npm install
- npm run dev
- or
- npm run build
+    npm install
+    npm run start
+    or
+    npm run build
 # 3. Database snapshot
     Database : 
         User token : {}
