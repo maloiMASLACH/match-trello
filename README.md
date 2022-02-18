@@ -38,9 +38,9 @@
             uid: /O8EHA5j....
         }
 # 4. Deploy https://admiring-poincare-da02b3.netlify.app/
-!!! To sing in like admin:
-    e-mail: admin@gmail.com
-    pass: 1234567890
+        !!! To sing in like admin:
+                e-mail: admin@gmail.com
+                pass: 1234567890
 # 5. File structure
     Root:
         -mode_modules
