@@ -42,7 +42,7 @@
                 e-mail: admin@gmail.com
                 pass: 1234567890
 # 5. File structure
-Rooot:
+    Root:
         -mode_modules
         -public  /public assets\
         -src 
