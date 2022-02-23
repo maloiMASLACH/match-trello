@@ -1,0 +1,19 @@
+.linkButton{
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    background-color: darkorange;
+    margin-top: 4vh;
+    color: #ffff;
+    font-size: x-large;
+    border: none;
+    padding: 10px 0;
+    border-radius: 20px;
+}
+.linkButton:active{
+    background-color: darkorange;
+}
+.linkButton:disabled{
+    opacity: 0.2;
+}
+

@@ -1,0 +1,66 @@
+.userPage{
+    margin: 5vh auto;
+    width: 70vw;
+    height: 20vh;
+    display: inline;
+    justify-content: center;
+}
+.userPage .userIcon{
+    margin: 5vh auto;
+    width: fit-content;
+    text-align: center;
+    text-transform: capitalize;
+    background-color: rgba(255, 140, 0, 0.7);
+    border-radius: 10px;
+    font-size: 10vh;
+    color: white;
+    line-height: 8vh;
+    padding: 30px;
+}
+.userPage .commonInfo{
+    width: 80%;
+    margin: 0 auto;
+}
+.userPage .commonInfo div{
+    display: flex;
+    color: black;
+    font-size: x-large;
+    justify-content: space-between;
+}
+.userPage .linkToAppContainer{
+    text-align: center;
+    background-color: #ff8c00;
+    margin: 0 auto;
+    margin-top: 2vh;
+    padding:  10px 0;
+    width: 50%;
+    border-radius: 30px;
+}
+.userPage a.linkToApp{
+    color: white;
+    font-size: xx-large;
+
+
+}
+.userPage.notAuthUser{
+    margin-top: 10vh;
+    color: darkorange;
+    font-size: xx-large;
+    font-weight: 900;
+    display:block;
+    text-align: center;
+}
+@media screen and (max-width: 768px) {
+    .userPage .userIcon{
+        width: 70%;
+        border-radius: 10px;
+        font-size: 50px;
+        color: white;
+        line-height: 3vh;
+    }
+    .userPage .commonInfo{
+        width: 90%;
+        margin: 0 auto;
+    }
+}
+

@@ -1,0 +1,50 @@
+.input-field{
+    margin-top: 30vh;
+    width: 100%;
+}
+.input-field .singInputText{
+    position: relative;
+}
+input[type=text]:not(.browser-default):focus:not([readonly]){
+    border-bottom: 1px solid darkorange;
+     box-shadow: 0 1px 0 0 darkorange;
+}
+input[type=password]:not(.browser-default):focus:not([readonly]){
+    border-bottom: 1px solid darkorange;
+     box-shadow: 0 1px 0 0 darkorange;
+}
+input[type=email]:not(.browser-default):focus:not([readonly]){
+    border-bottom: 1px solid darkorange;
+     box-shadow: 0 1px 0 0 darkorange;
+}
+input[type=text]:not(.browser-default):focus:not([readonly])+label{
+    color: darkorange;
+}
+input[type=password]:not(.browser-default):focus:not([readonly])+label{
+    color: darkorange;
+}
+input[type=email]:not(.browser-default):focus:not([readonly])+label{
+    color: darkorange;
+}
+input[type=text]:not(.browser-default):focus:not([readonly])+i{
+    color: darkorange;
+}
+input[type=password]:not(.browser-default):focus:not([readonly])+i{
+    color: darkorange;
+}
+input[type=email]:not(.browser-default):focus:not([readonly])+i{
+    color: darkorange;
+}
+.input-field > i {
+    color:#000000; 
+    position: absolute;
+    right: 5%;
+    margin-top: 0px;
+    transition:.3s;
+}
+.fa{
+    font: normal normal normal 20px/2 FontAwesome;
+}
+.input-field > i:hover {
+opacity: 0.5;
+}

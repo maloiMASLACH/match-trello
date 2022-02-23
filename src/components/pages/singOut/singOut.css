@@ -1,0 +1,11 @@
+.nav-wrapper li button.singOut{
+    border: none;
+    position: absolute;
+    height: 100%;
+    background-color: unset;
+    color: #ffff;
+    transition: 0.5s;
+}
+.nav-wrapper li button.singOut:hover{
+    background-color: rgba(0, 0, 0, 0.274);
+}

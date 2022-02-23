@@ -1,0 +1,79 @@
+.addTaskBlock{
+    border: 5px solid rgba(255, 140, 0);
+    border-radius: 30px;
+    width: 80%;
+    background-color: rgba(255, 140, 0, 0.5);
+    display: flex;
+    align-items: center;
+}
+.addTaskBlock p{
+    margin: 10px auto;
+    color: white;
+    font-weight: 600;
+    font-size: x-large;
+
+}
+.addTaskBlock img.addTaskImg{
+    margin: 10px auto;
+    width: 10%;
+}
+.addTaskBlock img.addTaskImg:hover{
+    opacity: 0.7;
+}
+
+.addTaskBlock img.addTaskImgClose{
+    margin: 5px 0;
+    margin-right: 10px;
+    width: 5%;
+}
+.addTaskBlock img.addTaskImgClose:hover{
+    opacity: 0.7;
+}
+.addTaskBlock input[type=text]:not(.browser-default){
+    margin: 16px auto;
+    color: white;
+    font-size: x-large;
+    width: 30%;
+    border-bottom: 2px solid darkorange;
+}
+.addTaskBlock input[type=text]:not(.browser-default)::placeholder{
+    color: rgba(255, 255, 255, 0.7);
+}
+.addTaskBlock button {
+    margin: 0 auto;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: large;
+    font-weight: 800;
+    letter-spacing: 1px;
+    background-color: darkorange;
+    height: 50px;
+    width: 150px;
+}
+.addTaskBlock button:hover {
+    opacity: 0.7;
+}
+
+@media screen and (max-width: 768px) {
+    .addTaskBlock{
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+    }
+    .addTaskBlock img.addTaskImg{
+        margin: 0px auto;
+        width: 20%;
+    }
+    .addTaskBlock input[type=text]:not(.browser-default){
+        margin: 16px auto;
+        color: white;
+        font-size: x-large;
+        width: 90%;
+        border-bottom: 2px solid darkorange;
+    }
+    .addTaskBlock img.addTaskImgClose{
+        margin: 15px 0;
+        width: 10%;
+    }
+  }
