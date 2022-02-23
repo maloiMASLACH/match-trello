@@ -13,7 +13,7 @@ import PasswordForget from './components/pages/passwordPages/passwordForget/pass
 import PasswordReset from './components/pages/passwordPages/passwordReset/passwordReset';
 import WelcomePage from './components/pages/welcomePage/welcomePage';
 import AdminPage from './components/pages/adminPage/adminPage';
-import FetchInfo from './utils/fetchInfo/fetchInfo';
+import FetchInfo from './utils/fetchURIInfo/fetchInfo';
 
 interface AppProps{
   firebase: Firebase
