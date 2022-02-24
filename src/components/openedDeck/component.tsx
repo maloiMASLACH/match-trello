@@ -57,7 +57,7 @@ const Colon = (props: ColonProps) => {
           task(s)
         </p>
       </div>
-      {isOpenColon ? (
+      {isOpenColon && (
         <OpenedColon
           colon={colon}
           deckName={deckName}
@@ -65,7 +65,7 @@ const Colon = (props: ColonProps) => {
           setUserState={setUserState}
           setOpenColon={setOpenColon}
         />
-      ) : null}
+      )}
     </>
   );
 };
@@ -146,8 +146,8 @@ const OpenedDeck = (props: OpenedDeckProps) => {
           <>
             <div className="openedDeckBlockHead">
               <h3>
-                {!isChanging ? deckName : ''}
-                {isChanging ? (
+                {!isChanging && deckName}
+                {isChanging && (
                   <ChangeNameField
                     userState={userState}
                     setUserState={setUserState}
@@ -155,7 +155,7 @@ const OpenedDeck = (props: OpenedDeckProps) => {
                     setChanging={setChanging}
                     firebase={firebase}
                   />
-                ) : null}
+                )}
               </h3>
               <img
                 className="deckDelete"

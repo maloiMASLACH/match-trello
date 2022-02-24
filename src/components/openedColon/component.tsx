@@ -91,8 +91,8 @@ const OpenedColon = (props: OpenedColonProps) => {
         {(firebase) => (
           <div className="openedColonBlockHead">
             <h3>
-              {!isChanging ? colon.colonName : ''}
-              {isChanging ? (
+              {!isChanging && colon.colonName }
+              {isChanging && (
                 <ChangeNameField
                   userState={userState}
                   setUserState={setUserState}
@@ -101,7 +101,7 @@ const OpenedColon = (props: OpenedColonProps) => {
                   setChanging={setChanging}
                   firebase={firebase}
                 />
-              ) : null}
+              )}
             </h3>
             <img
               src="./redact.png"
