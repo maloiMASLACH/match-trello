@@ -1,7 +1,9 @@
-export interface InputBlockProps {
+import { HTMLAttributes } from 'react';
+
+export interface InputBlockProps extends HTMLAttributes<HTMLElement> {
   id: string;
   value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   label: string;
   type: string;
 }

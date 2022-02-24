@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import patterns from '../../../constants/patterns';
 import { passForget, userPage } from '../../../constants/routerLinks';
-import { FirebaseContext } from '../../../utils/fireBase';
+import Firebase, { FirebaseContext } from '../../../utils/fireBase';
 import InputBlock from '../../input';
 import LinkButton from '../../linkButton';
 import PasswordActionLink from '../../passwordChangeLink/component';
 import './styles.css';
-import { CheckIsCorrectProps, OnSubmitProps } from './types';
 
 const SingInForm: React.FC = () => {
   const [inputMail, setInputMail] = useState('');
@@ -17,28 +16,22 @@ const SingInForm: React.FC = () => {
 
   const [isCorrect, setCorrect] = useState(Boolean);
 
-  const checkIsCorrect = ({
-    mail,
-    password,
-    setVisibly,
-  }: CheckIsCorrectProps) => {
+  const checkIsCorrect = () => {
     if (
-      mail
-      && password
-      && patterns.mail.test(mail)
-      && patterns.password.test(password)
+      inputMail
+      && inputPassword
+      && patterns.mail.test(inputMail)
+      && patterns.password.test(inputPassword)
     ) {
-      setVisibly(true);
-    } else setVisibly(false);
+      setCorrect(true);
+    } else setCorrect(false);
   };
 
-  const onSubmit = ({
-    mail, password, nav, firebase,
-  }: OnSubmitProps) => {
+  const onSubmit = (firebase:Firebase) => {
     firebase
-      .doSignInWithEmailAndPassword(mail, password)
+      .doSignInWithEmailAndPassword(inputMail, inputPassword)
       .then(() => {
-        nav(userPage);
+        navigate(userPage);
       })
       .catch(() => {
         alert('Incorrect data');
@@ -46,11 +39,7 @@ const SingInForm: React.FC = () => {
   };
 
   useEffect(() => {
-    checkIsCorrect({
-      mail: inputMail,
-      password: inputPassword,
-      setVisibly: setCorrect,
-    });
+    checkIsCorrect();
   });
 
   return (
@@ -60,24 +49,20 @@ const SingInForm: React.FC = () => {
           <div
             className="input-field"
             onChange={() => {
-              checkIsCorrect({
-                mail: inputMail,
-                password: inputPassword,
-                setVisibly: setCorrect,
-              });
+              checkIsCorrect();
             }}
           >
             <InputBlock
               id="Email"
               value={inputMail}
-              setValue={setInputMail}
+              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
               label="E-Mail"
               type="email"
             />
             <InputBlock
               id="Password"
               value={inputPassword}
-              setValue={setInputPassword}
+              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setInputPassword(e.target.value)}
               label="Password"
               type="password"
             />
@@ -85,12 +70,7 @@ const SingInForm: React.FC = () => {
           <LinkButton
             text="SING IN"
             disabled={isCorrect}
-            onClick={() => onSubmit({
-              mail: inputMail,
-              password: inputPassword,
-              nav: navigate,
-              firebase,
-            })}
+            onClick={() => onSubmit(firebase)}
           />
           <PasswordActionLink text="forget password?" link={passForget} />
         </>

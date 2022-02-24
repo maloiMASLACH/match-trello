@@ -4,44 +4,27 @@ import { InputBlockProps } from './types';
 
 const InputBlock = (props: InputBlockProps) => {
   const {
-    id, value, setValue, label, type,
+    id, value, onChange, label, type, ...rest
   } = props;
 
   const [isInputVisible, setIsInputVisible] = useState(false);
 
-  if (type === 'password') {
-    return (
-      <>
-        <input
-          type={isInputVisible ? 'text' : 'password'}
-          value={value}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-          id={id}
-        />
+  return (
+    <>
+      <input
+        type={(type === 'password') ? (isInputVisible ? 'text' : 'password') : 'text'}
+        value={value}
+        onChange={(e) => onChange(e)}
+        id={id}
+        {...rest}
+      />
+      {(type === 'password') ? (
         <i
           className="fa fa-eye"
           aria-hidden="true"
           onClick={() => setIsInputVisible(!isInputVisible)}
         />
-        <label htmlFor={id} className="active singInputText">
-          {label}
-          <input type="radio" />
-        </label>
-      </>
-    );
-  }
-  return (
-    <>
-      <input
-        type={type}
-        value={value}
-        onChange={(e) => {
-          setValue(e.target.value);
-        }}
-        id={id}
-      />
+      ) : null }
       <label htmlFor={id} className="active singInputText">
         {label}
         <input type="radio" />
