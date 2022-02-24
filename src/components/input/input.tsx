@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 import './input.css';
-
-interface InputBlockProps {
-  id: string;
-  parentRef: React.RefObject<HTMLInputElement>;
-  label: string;
-  type: string;
-}
+import { InputBlockProps } from './inputTypes';
 
 const InputBlock = (props: InputBlockProps) => {
   const {
-    id, parentRef, label, type,
+    id, setValue, label, type,
   } = props;
 
   const [inputValue, setInputValue] = useState('');
@@ -22,9 +16,11 @@ const InputBlock = (props: InputBlockProps) => {
         <input
           type={isInputVisible ? 'text' : 'password'}
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e) => {
+            setInputValue(e.target.value);
+            setValue(e.target.value);
+          }}
           id={id}
-          ref={parentRef}
         />
         <i
           className="fa fa-eye"
@@ -43,9 +39,11 @@ const InputBlock = (props: InputBlockProps) => {
       <input
         type={type}
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) => {
+          setInputValue(e.target.value);
+          setValue(e.target.value);
+        }}
         id={id}
-        ref={parentRef}
       />
       <label htmlFor={id} className="active singInputText">
         {label}

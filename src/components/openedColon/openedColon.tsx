@@ -1,26 +1,12 @@
 import React, { useState } from 'react';
-import { ColonType, TaskType, User } from '../../constants/interfaces';
+import { TaskType } from '../../constants/interfaces';
 import Firebase, { FirebaseContext } from '../../utils/fireBase';
 import sortCards from '../../utils/sortCards';
 import NewTask from '../newTask/newTask';
 import Task from '../taskBlock/taskBlock';
 import './openedColon.css';
+import { ChangeNameFieldProps, OpenedColonProps } from './openedColonTypes';
 
-interface OpenedColonProps {
-  colon: ColonType;
-  deckName: string;
-  userState: User;
-  setUserState: React.Dispatch<React.SetStateAction<User>>;
-  setOpenColon: React.Dispatch<React.SetStateAction<boolean>>;
-}
-interface ChangeNameFieldProps {
-  userState: User;
-  setUserState: React.Dispatch<React.SetStateAction<User>>;
-  deckName: string;
-  setChanging: React.Dispatch<React.SetStateAction<boolean>>;
-  colonName: string;
-  firebase: Firebase;
-}
 const ChangeNameField = (props: ChangeNameFieldProps) => {
   const {
     userState,

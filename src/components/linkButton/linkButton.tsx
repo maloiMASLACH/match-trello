@@ -1,11 +1,6 @@
 import React from 'react';
 import './linkButton.css';
-
-interface StartButtonProps {
-  text: string;
-  disabled: boolean;
-  onClick: () => void;
-}
+import { StartButtonProps } from './linkButtonTypes';
 
 const LinkButton = (props: StartButtonProps) => {
   const { text, disabled, onClick } = props;

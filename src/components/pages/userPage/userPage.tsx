@@ -2,19 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { User } from '../../../constants/interfaces';
 import { passReset } from '../../../constants/routerLinks';
-import Firebase, { FirebaseContext } from '../../../utils/fireBase';
+import { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
 import PasswordActionLink from '../../passwordChangeLink/passwordChangeLink';
 import './userPage.css';
-
-interface PageWithUserProps {
-  user: any;
-  firebase: Firebase;
-}
-
-interface UserPageBlockRenderProps {
-  userInfo: User | null;
-}
+import { UserPageBlockRenderProps, PageWithUserProps } from './userPageTypes';
 
 const UserPageBlockRender = (props: UserPageBlockRenderProps) => {
   const { userInfo } = props;

@@ -1,9 +1,3 @@
-export interface User {
-  mail: string;
-  name: string;
-  uid: string;
-  decks: any;
-}
 export interface TaskType {
   taskName: string;
   completed: boolean;
@@ -18,4 +12,10 @@ export interface ColonType {
 export interface DeckType {
   colons: ColonType[];
   id: number;
+}
+export interface User {
+  mail: string;
+  name: string;
+  uid: string;
+  decks: any;
 }

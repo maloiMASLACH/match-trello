@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TaskType, User } from '../../constants/interfaces';
+import { User } from '../../constants/interfaces';
 import {
   onDragEnd,
   onDragLeave,
@@ -9,25 +9,8 @@ import {
 } from '../../utils/dragEvents';
 import Firebase, { FirebaseContext } from '../../utils/fireBase';
 import './taskBlock.css';
+import { ChangeNameFieldProps, TaskProps } from './taskBlockTypes';
 
-interface TaskProps {
-  colonName: string;
-  taskInfo: TaskType;
-  deckName: string;
-  userState: User;
-  setUserState: React.Dispatch<React.SetStateAction<User>>;
-  currentCard: TaskType | null;
-  setCurrentCard: React.Dispatch<React.SetStateAction<TaskType | null>>;
-}
-interface ChangeNameFieldProps {
-  userState: User;
-  setUserState: React.Dispatch<React.SetStateAction<User>>;
-  deckName: string;
-  setChanging: React.Dispatch<React.SetStateAction<boolean>>;
-  colonName: string;
-  taskName: string;
-  firebase: Firebase;
-}
 const ChangeNameField = (props: ChangeNameFieldProps) => {
   const {
     userState,
