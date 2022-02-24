@@ -47,7 +47,7 @@ const PasswordForget: React.FC = () => {
             <InputBlock
               id="Email"
               value={inputMail}
-              setValue={setInputMail}
+              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
               label="E-Mail"
               type="email"
             />

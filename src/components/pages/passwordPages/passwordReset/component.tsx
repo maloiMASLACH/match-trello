@@ -61,14 +61,16 @@ const PasswordReset: React.FC = () => {
             <InputBlock
               id="oldPassword"
               value={passwordOne}
-              setValue={setFirstPassword}
+              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setFirstPassword(e.target.value)}
               label="New Password"
               type="password"
             />
             <InputBlock
               id="newPassword"
               value={passwordTwo}
-              setValue={setSecondPassword}
+              onChange={(
+                e:React.ChangeEvent<HTMLInputElement>,
+              ) => setSecondPassword(e.target.value)}
               label="Confirm Password"
               type="password"
             />

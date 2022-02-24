@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import './styles.css';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import InputBlock from '../../input';
 import LinkButton from '../../linkButton';
 import Firebase, { FirebaseContext } from '../../../utils/fireBase';
 import patterns from '../../../constants/patterns';
 import { welcome } from '../../../constants/routerLinks';
-import { CheckIsCorrectProps } from './types';
 
 const SingUpForm: React.FC = () => {
   const [inputMail, setInputMail] = useState('');
@@ -18,34 +17,26 @@ const SingUpForm: React.FC = () => {
 
   const [isCorrect, setCorrect] = useState(Boolean);
 
-  const checkIsCorrect = ({
-    mail, name, password, confirmPas, setVisibly,
-  }:CheckIsCorrectProps) => {
+  const checkIsCorrect = () => {
     if (
-      mail
-      && name
-      && password
-      && password === confirmPas
-      && patterns.mail.test(mail)
-      && patterns.name.test(name)
-      && patterns.password.test(password)
+      inputMail
+      && inputName
+      && inputPassword
+      && inputPassword === confirmPassword
+      && patterns.mail.test(inputMail)
+      && patterns.name.test(inputName)
+      && patterns.password.test(inputPassword)
     ) {
-      setVisibly(true);
-    } else setVisibly(false);
+      setCorrect(true);
+    } else setCorrect(false);
   };
 
-  const onSubmit = (
-    name: string,
-    mail: string,
-    pass: string,
-    firebase: Firebase,
-    nav: NavigateFunction,
-  ) => {
+  const onSubmit = (firebase:Firebase) => {
     firebase
-      .doCreateUserWithEmailAndPassword(mail, pass)
+      .doCreateUserWithEmailAndPassword(inputMail, inputPassword)
       .then((newUser) => firebase.user(newUser.user!.uid).set({
-        name,
-        mail,
+        inputName,
+        inputMail,
         uid: `/${newUser.user!.uid}`,
         decks: {
           First_Deck: {
@@ -67,7 +58,7 @@ const SingUpForm: React.FC = () => {
           },
         },
       }))
-      .then(() => nav(welcome))
+      .then(() => navigate(welcome))
       .catch(() => {
         alert('Incorrect data');
       });
@@ -79,41 +70,37 @@ const SingUpForm: React.FC = () => {
         <>
           <div
             className="input-field"
-            onChange={() => checkIsCorrect(
-              {
-                mail: inputMail,
-                name: inputName,
-                password: inputPassword,
-                confirmPas: confirmPassword,
-                setVisibly: setCorrect,
-              },
-            )}
+            onChange={() => checkIsCorrect()}
           >
             <InputBlock
               id="Login"
               value={inputName}
-              setValue={setInputName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputName(e.target.value)}
               label="User Name (Login)"
               type="text"
             />
             <InputBlock
               id="Email"
               value={inputMail}
-              setValue={setInputMail}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
               label="Your E-mail"
               type="email"
             />
             <InputBlock
               id="Password"
               value={inputPassword}
-              setValue={setInputPassword}
+              onChange={(
+                e: React.ChangeEvent<HTMLInputElement>,
+              ) => setInputPassword(e.target.value)}
               label="Password"
               type="password"
             />
             <InputBlock
               id="ConfirmPassword"
               value={confirmPassword}
-              setValue={setConfirmPassword}
+              onChange={(
+                e: React.ChangeEvent<HTMLInputElement>,
+              ) => setConfirmPassword(e.target.value)}
               label="Conform Password"
               type="password"
             />
@@ -121,13 +108,7 @@ const SingUpForm: React.FC = () => {
           <LinkButton
             text="SING UP"
             disabled={isCorrect}
-            onClick={() => onSubmit(
-              inputName,
-              inputMail,
-              inputPassword,
-              firebase,
-              navigate,
-            )}
+            onClick={() => onSubmit(firebase)}
           />
         </>
       )}
