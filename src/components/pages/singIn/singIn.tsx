@@ -8,7 +8,7 @@ import LinkButton from '../../linkButton/linkButton';
 import PasswordActionLink from '../../passwordChangeLink/passwordChangeLink';
 import './singIn.css';
 
-const SingInForm:React.FC = function () {
+const SingInForm: React.FC = () => {
   const inputMail = useRef<HTMLInputElement>(null);
   const inputPassword = useRef<HTMLInputElement>(null);
 
@@ -17,24 +17,31 @@ const SingInForm:React.FC = function () {
   const [isCorrect, setCorrect] = useState(Boolean);
 
   const checkIsCorrect = (
-    mail:string,
-    password:string,
-    setVisibly:React.Dispatch<React.SetStateAction<boolean>>,
+    mail: string,
+    password: string,
+    setVisibly: React.Dispatch<React.SetStateAction<boolean>>,
   ) => {
-    if (mail && password && patterns.mail.test(mail) && patterns.password.test(password)) {
+    if (
+      mail
+      && password
+      && patterns.mail.test(mail)
+      && patterns.password.test(password)
+    ) {
       setVisibly(true);
     } else setVisibly(false);
   };
 
   const onSubmit = (
-    mail:string,
-    password:string,
+    mail: string,
+    password: string,
     nav: NavigateFunction,
     firebase: Firebase,
   ) => {
-    firebase.doSignInWithEmailAndPassword(mail, password).then(() => {
-      nav(userPage);
-    })
+    firebase
+      .doSignInWithEmailAndPassword(mail, password)
+      .then(() => {
+        nav(userPage);
+      })
       .catch(() => {
         alert('Incorrect data');
       });
@@ -44,16 +51,42 @@ const SingInForm:React.FC = function () {
     <FirebaseContext.Consumer>
       {(firebase) => (
         <>
-          <div className="input-field" onChange={() => { checkIsCorrect(inputMail.current!.value, inputPassword.current!.value, setCorrect); }}>
-            <InputBlock id="Email" parentRef={inputMail} label="E-Mail" type="email" />
-            <InputBlock id="Password" parentRef={inputPassword} label="Password" type="password" />
-
+          <div
+            className="input-field"
+            onChange={() => {
+              checkIsCorrect(
+                inputMail.current!.value,
+                inputPassword.current!.value,
+                setCorrect,
+              );
+            }}
+          >
+            <InputBlock
+              id="Email"
+              parentRef={inputMail}
+              label="E-Mail"
+              type="email"
+            />
+            <InputBlock
+              id="Password"
+              parentRef={inputPassword}
+              label="Password"
+              type="password"
+            />
           </div>
-          <LinkButton text="SING IN" disabled={isCorrect} onClick={() => onSubmit(inputMail.current!.value, inputPassword.current!.value, navigate, firebase)} />
+          <LinkButton
+            text="SING IN"
+            disabled={isCorrect}
+            onClick={() => onSubmit(
+              inputMail.current!.value,
+              inputPassword.current!.value,
+              navigate,
+              firebase,
+            )}
+          />
           <PasswordActionLink text="forget password?" link={passForget} />
         </>
       )}
-
     </FirebaseContext.Consumer>
   );
 };

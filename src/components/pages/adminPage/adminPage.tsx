@@ -5,16 +5,16 @@ import Firebase, { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
 import './adminPage.css';
 
-interface AdminPageBLockRenderProps{
+interface AdminPageBLockRenderProps {
   firebase: Firebase;
 }
-interface UsersListProps{
+interface UsersListProps {
   users: User[] | null;
 }
 
-const UsersList = function (props:UsersListProps) {
+const UsersList = (props: UsersListProps) => {
   const { users } = props;
-  console.log(users);
+
   if (users) {
     return (
       <>
@@ -29,21 +29,23 @@ const UsersList = function (props:UsersListProps) {
             </NavLink>
           ))}
         </div>
-
       </>
     );
   }
   return null;
 };
 
-const AdminPageBLockRender = function (props:AdminPageBLockRenderProps) {
+const AdminPageBLockRender = (props: AdminPageBLockRenderProps) => {
   const { firebase } = props;
-  const [users, setUsers] = useState <User[] | null>(null);
+
+  const [users, setUsers] = useState<User[] | null>(null);
+
   useEffect(() => {
     firebase.users().on('value', (snapshot) => {
       setUsers(Object.values(snapshot.val()));
     });
   }, []);
+
   return (
     <div className="adminPage">
       <div className="usersList">
@@ -53,40 +55,29 @@ const AdminPageBLockRender = function (props:AdminPageBLockRenderProps) {
   );
 };
 
-const PageWithAccess = function () {
-  return (
-    <FirebaseContext.Consumer>
-      {(firebase) => (
-        <AdminPageBLockRender firebase={firebase} />
-      )}
+const PageWithAccess = () => (
+  <FirebaseContext.Consumer>
+    {(firebase) => <AdminPageBLockRender firebase={firebase} />}
+  </FirebaseContext.Consumer>
+);
+const PageNoAccess = () => (
+  <div className="userPage notAuthUser">
+    <p>Sorry, but this page require an administration rules</p>
+    <img src="./errorRobot.png" alt="error" />
+  </div>
+);
 
-    </FirebaseContext.Consumer>
-  );
-};
-const PageNoAccess = function () {
-  return (
-    <div className="userPage notAuthUser">
-      <p>Sorry, but this page require an administration rules</p>
-      <img src="./errorRobot.png" alt="error" />
-    </div>
-  );
-};
-
-const AdminPage:React.FC = function () {
-  return (
-    <AuthUserContext.Consumer>
-      {(value) => {
-        if (value) {
-          if (value.email === 'admin@gmail.com') {
-            return <PageWithAccess />;
-          }
-          return <PageNoAccess />;
+const AdminPage: React.FC = () => (
+  <AuthUserContext.Consumer>
+    {(value) => {
+      if (value) {
+        if (value.email === 'admin@gmail.com') {
+          return <PageWithAccess />;
         }
         return <PageNoAccess />;
-      }}
-
-    </AuthUserContext.Consumer>
-
-  );
-};
+      }
+      return <PageNoAccess />;
+    }}
+  </AuthUserContext.Consumer>
+);
 export default AdminPage;

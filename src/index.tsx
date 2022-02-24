@@ -10,10 +10,7 @@ ReactDOM.render(
   <React.StrictMode>
     <FirebaseContext.Provider value={new Firebase()}>
       <FirebaseContext.Consumer>
-        {(firebase) => (
-          <App firebase={firebase} />
-        )}
-
+        {(firebase) => <App firebase={firebase} />}
       </FirebaseContext.Consumer>
     </FirebaseContext.Provider>
   </React.StrictMode>,
