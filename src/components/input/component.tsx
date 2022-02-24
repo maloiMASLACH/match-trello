@@ -12,19 +12,19 @@ const InputBlock = (props: InputBlockProps) => {
   return (
     <>
       <input
-        type={(type === 'password') ? (isInputVisible ? 'text' : 'password') : 'text'}
-        value={value}
-        onChange={(e) => onChange(e)}
-        id={id}
         {...rest}
+        type={(type === 'password') ? (isInputVisible ? 'text' : 'password') : type}
+        value={value}
+        onChange={onChange}
+        id={id}
       />
-      {(type === 'password') ? (
+      {(type === 'password') && (
         <i
           className="fa fa-eye"
           aria-hidden="true"
           onClick={() => setIsInputVisible(!isInputVisible)}
         />
-      ) : null }
+      ) }
       <label htmlFor={id} className="active singInputText">
         {label}
         <input type="radio" />

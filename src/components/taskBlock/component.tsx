@@ -128,7 +128,7 @@ const Task = (props: TaskProps) => {
           )}
           draggable
         >
-          {!isChanging ? (
+          {!isChanging && (
             <>
               <p>{taskInfo.taskName}</p>
               <img
@@ -160,8 +160,6 @@ const Task = (props: TaskProps) => {
               </label>
               <p>{taskInfo.date}</p>
             </>
-          ) : (
-            ''
           )}
           {isChanging ? (
             <ChangeNameField
