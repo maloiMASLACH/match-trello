@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { ColonType, DeckType, User } from '../../constants/interfaces';
 import {
-  onDragEnd, onDragLeave, onDragOver, onDragStart, onDropColon,
+  onDragEnd,
+  onDragLeave,
+  onDragOver,
+  onDragStart,
+  onDropColon,
 } from '../../utils/dragEvents';
 import Firebase, { FirebaseContext } from '../../utils/fireBase';
 import sortCards from '../../utils/sortCards';
@@ -9,37 +13,48 @@ import NewColon from '../newColon/newColon';
 import OpenedColon from '../openedColon/openedColon';
 import './openedDeck.css';
 
-interface OpenedDeckProps{
-  deckInfo:DeckType
-  deckName:string
-  setOpenDeck:React.Dispatch<React.SetStateAction<boolean>>
-  userState: User
-  setUserState: React.Dispatch<React.SetStateAction<User>>
+interface OpenedDeckProps {
+  deckInfo: DeckType;
+  deckName: string;
+  setOpenDeck: React.Dispatch<React.SetStateAction<boolean>>;
+  userState: User;
+  setUserState: React.Dispatch<React.SetStateAction<User>>;
 }
-interface ColonProps{
-  colon:ColonType
-  deckName:string
-  userState: User
-  setUserState: React.Dispatch<React.SetStateAction<User>>
-  currentCard:ColonType | null
-  setCurrentCard:React.Dispatch<React.SetStateAction<ColonType | null>>
-  firebase:Firebase
+interface ColonProps {
+  colon: ColonType;
+  deckName: string;
+  userState: User;
+  setUserState: React.Dispatch<React.SetStateAction<User>>;
+  currentCard: ColonType | null;
+  setCurrentCard: React.Dispatch<React.SetStateAction<ColonType | null>>;
+  firebase: Firebase;
 }
-interface ChangeNameFieldProps{
-  userState: User
-  setUserState: React.Dispatch<React.SetStateAction<User>>
-  deckName:string
-  setChanging: React.Dispatch<React.SetStateAction<boolean>>
-  firebase:Firebase
+interface ChangeNameFieldProps {
+  userState: User;
+  setUserState: React.Dispatch<React.SetStateAction<User>>;
+  deckName: string;
+  setChanging: React.Dispatch<React.SetStateAction<boolean>>;
+  firebase: Firebase;
 }
 
-const Colon = function (props:ColonProps) {
+const Colon = (props: ColonProps) => {
   const {
-    colon, deckName, userState, setUserState, currentCard, setCurrentCard, firebase,
+    colon,
+    deckName,
+    userState,
+    setUserState,
+    currentCard,
+    setCurrentCard,
+    firebase,
   } = props;
-  const [isOpenColon, setOpenColon] = useState <boolean>(false);
+
+  const [isOpenColon, setOpenColon] = useState<boolean>(false);
+
   let taskLength = 0;
-  if (colon.tasks) { taskLength = Object.keys(colon.tasks).length; }
+
+  if (colon.tasks) {
+    taskLength = Object.keys(colon.tasks).length;
+  }
 
   return (
     <>
@@ -50,57 +65,58 @@ const Colon = function (props:ColonProps) {
         onDragLeave={(e) => onDragLeave(e)}
         onDragEnd={(e) => onDragEnd(e)}
         onDragOver={(e) => onDragOver(e)}
-        onDrop={() => onDropColon(
-          colon,
-          currentCard,
-          deckName,
-          userState,
-          firebase,
-        )}
+        onDrop={() => onDropColon(colon, currentCard, deckName, userState, firebase)}
         draggable
         className="colon"
-        onClick={() => { setOpenColon(true); }}
+        onClick={() => {
+          setOpenColon(true);
+        }}
         aria-hidden="true"
       >
-        <h4>
-          {colon.colonName}
-        </h4>
+        <h4>{colon.colonName}</h4>
         <p>
           {taskLength}
           {' '}
           task(s)
         </p>
       </div>
-      {isOpenColon
-        ? (
-          <OpenedColon
-            colon={colon}
-            deckName={deckName}
-            userState={userState}
-            setUserState={setUserState}
-            setOpenColon={setOpenColon}
-          />
-        )
-        : null }
+      {isOpenColon ? (
+        <OpenedColon
+          colon={colon}
+          deckName={deckName}
+          userState={userState}
+          setUserState={setUserState}
+          setOpenColon={setOpenColon}
+        />
+      ) : null}
     </>
   );
 };
 
-const ChangeNameField = function (props:ChangeNameFieldProps) {
+const ChangeNameField = (props: ChangeNameFieldProps) => {
   const {
     userState, setUserState, deckName, setChanging, firebase,
   } = props;
-  const renameDeck = function (inputValue:string) {
+
+  const renameDeck = (inputValue: string) => {
     const newDeck = userState;
     const newDeckName = inputValue.split(' ').join('_');
     newDeck.decks[newDeckName] = newDeck.decks[deckName];
+
     newDeck.decks[deckName] = null;
+
     setUserState(newDeck);
-    firebase.user(userState.uid.slice(1)).set(userState).then(() => {
-      setChanging(false);
-    });
+
+    firebase
+      .user(userState.uid.slice(1))
+      .set(userState)
+      .then(() => {
+        setChanging(false);
+      });
   };
+
   const [inputValue, setInputValue] = useState('');
+
   return (
     <>
       <input
@@ -110,29 +126,36 @@ const ChangeNameField = function (props:ChangeNameFieldProps) {
         placeholder="New deck name"
         onChange={(e) => setInputValue(e.target.value)}
       />
-      <button className="newDeckNameSubmit" type="submit" onClick={() => renameDeck(inputValue)}>OK</button>
-
+      <button
+        className="newDeckNameSubmit"
+        type="submit"
+        onClick={() => renameDeck(inputValue)}
+      >
+        OK
+      </button>
     </>
-
   );
 };
 
-const OpenedDeck = function (props: OpenedDeckProps) {
+const OpenedDeck = (props: OpenedDeckProps) => {
   const {
     deckInfo, deckName, setOpenDeck, userState, setUserState,
   } = props;
   const [isChanging, setChanging] = useState<boolean>(false);
   const [currentColon, setCurrentColon] = useState<ColonType | null>(null);
-  const deleteDeck = function (
-    firebase:Firebase,
-    setCloseDeck:React.Dispatch<React.SetStateAction<boolean>>,
-  ) {
+  const deleteDeck = (
+    firebase: Firebase,
+    setCloseDeck: React.Dispatch<React.SetStateAction<boolean>>,
+  ) => {
     const newDeck = userState;
     newDeck.decks[deckName] = null;
     setUserState(newDeck);
-    firebase.user(userState.uid.slice(1)).set(userState).then(() => {
-      setCloseDeck(false);
-    });
+    firebase
+      .user(userState.uid.slice(1))
+      .set(userState)
+      .then(() => {
+        setCloseDeck(false);
+      });
   };
 
   return (
@@ -153,35 +176,56 @@ const OpenedDeck = function (props: OpenedDeckProps) {
                   />
                 ) : null}
               </h3>
-              <img className="deckDelete" src="./redact.png" alt="redact" onClick={() => { setChanging(!isChanging); }} aria-hidden="true" />
-              <img className="deckDelete" alt="delete" src="./delete.png" onClick={() => deleteDeck(firebase, setOpenDeck)} aria-hidden="true" />
-              <img src="./x.png" alt="x" onClick={() => { setOpenDeck(false); }} aria-hidden="true" />
+              <img
+                className="deckDelete"
+                src="./redact.png"
+                alt="redact"
+                onClick={() => {
+                  setChanging(!isChanging);
+                }}
+                aria-hidden="true"
+              />
+              <img
+                className="deckDelete"
+                alt="delete"
+                src="./delete.png"
+                onClick={() => deleteDeck(firebase, setOpenDeck)}
+                aria-hidden="true"
+              />
+              <img
+                src="./x.png"
+                alt="x"
+                onClick={() => {
+                  setOpenDeck(false);
+                }}
+                aria-hidden="true"
+              />
             </div>
             <div className="colons">
-              { deckInfo.colons
-                ? Object.values(deckInfo.colons).sort(sortCards).map((colon:ColonType) => (
-                  <Colon
-                    colon={colon}
-                    deckName={deckName}
-                    userState={userState}
-                    setUserState={setUserState}
-                    currentCard={currentColon}
-                    setCurrentCard={setCurrentColon}
-                    firebase={firebase}
-                  />
-                )) : null}
+              {deckInfo.colons
+                ? Object.values(deckInfo.colons)
+                  .sort(sortCards)
+                  .map((colon: ColonType) => (
+                    <Colon
+                      colon={colon}
+                      deckName={deckName}
+                      userState={userState}
+                      setUserState={setUserState}
+                      currentCard={currentColon}
+                      setCurrentCard={setCurrentColon}
+                      firebase={firebase}
+                    />
+                  ))
+                : null}
               <NewColon
                 deckName={deckName}
                 userState={userState}
                 setUserState={setUserState}
               />
             </div>
-
           </>
         )}
-
       </FirebaseContext.Consumer>
-
     </div>
   );
 };

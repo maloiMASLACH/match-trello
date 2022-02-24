@@ -6,18 +6,22 @@ import './singOut.css';
 
 const SingOut = function () {
   const navigate = useNavigate();
-  const onClick = (firebase:Firebase, nav:NavigateFunction) => {
+
+  const onClick = (firebase: Firebase, nav: NavigateFunction) => {
     nav(welcome);
     firebase.doSignOut();
   };
   return (
     <FirebaseContext.Consumer>
       {(firebase) => (
-        <button type="button" onClick={() => onClick(firebase, navigate)} className="singOut">
+        <button
+          type="button"
+          onClick={() => onClick(firebase, navigate)}
+          className="singOut"
+        >
           Sing Out
         </button>
       )}
-
     </FirebaseContext.Consumer>
   );
 };

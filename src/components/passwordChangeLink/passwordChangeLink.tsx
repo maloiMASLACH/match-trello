@@ -2,18 +2,17 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './passwordChangeLink.css';
 
-interface ChangeLinkProps{
+interface ChangeLinkProps {
   text: string;
-  link:string;
+  link: string;
 }
 
-const PasswordActionLink = function (props:ChangeLinkProps) {
+const PasswordActionLink = (props: ChangeLinkProps) => {
   const { text, link } = props;
+
   return (
     <div className="passwordProblem">
-      <NavLink to={link}>
-        {text}
-      </NavLink>
+      <NavLink to={link}>{text}</NavLink>
     </div>
   );
 };

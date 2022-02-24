@@ -1,4 +1,4 @@
-const sortCards = (a:any, b:any) => {
+const sortCards = (a: any, b: any) => {
   if (a.id > b.id) {
     return 1;
   }
