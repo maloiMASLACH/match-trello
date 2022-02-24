@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import patterns from '../../../constants/patterns';
 import { passForget, userPage } from '../../../constants/routerLinks';
 import { FirebaseContext } from '../../../utils/fireBase';
-import InputBlock from '../../input/input';
-import LinkButton from '../../linkButton/linkButton';
-import PasswordActionLink from '../../passwordChangeLink/passwordChangeLink';
-import './singIn.css';
-import { CheckIsCorrectProps, OnSubmitProps } from './singInTypes';
+import InputBlock from '../../input';
+import LinkButton from '../../linkButton';
+import PasswordActionLink from '../../passwordChangeLink/component';
+import './styles.css';
+import { CheckIsCorrectProps, OnSubmitProps } from './types';
 
 const SingInForm: React.FC = () => {
   const [inputMail, setInputMail] = useState('');
@@ -69,12 +69,14 @@ const SingInForm: React.FC = () => {
           >
             <InputBlock
               id="Email"
+              value={inputMail}
               setValue={setInputMail}
               label="E-Mail"
               type="email"
             />
             <InputBlock
               id="Password"
+              value={inputPassword}
               setValue={setInputPassword}
               label="Password"
               type="password"

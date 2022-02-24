@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import Firebase, { FirebaseContext } from '../../utils/fireBase';
-import './newDeck.css';
-import { AddTabletProps, AddFormProps, NewDeckProps } from './newDeckTypes';
+import './styles.css';
+import { AddTabletProps, AddFormProps, NewColonProps } from './types';
 
 const AddTablet = (props: AddTabletProps) => {
   const { setActive } = props;
+
   return (
-    <div className="addBlock">
-      <p>Create new deck</p>
+    <div className="addColonBlock">
+      <p>Create new colon</p>
       <img
         src="./plus.png"
         alt="add"
-        className="addDeckImg"
+        className="addColonImg"
         onClick={() => setActive(true)}
         aria-hidden="true"
       />
@@ -20,38 +21,35 @@ const AddTablet = (props: AddTabletProps) => {
 };
 
 const AddForm = (props: AddFormProps) => {
-  const { setActive, userState, setUserState } = props;
+  const {
+    setActive, userState, setUserState, deckName,
+  } = props;
 
   const [inputValue, setInputValue] = useState('');
 
-  const addDeck = (name: string, firebase: Firebase) => {
-    const newState = userState;
-    const deckName = name.split(' ').join('_');
-    const newDeck = {
-      colons: {
-        First_Colon: {
-          tasks: {
-            task: {
-              taskName: 'task',
-              date: 'tomorrow',
-              completed: false,
-              id: 1,
-            },
-          },
+  const addColon = (name: string, firebase: Firebase) => {
+    const newDeck = userState;
+    const colonName = name.split(' ').join('_');
+    const newColon = {
+      tasks: {
+        task: {
+          taskName: 'task',
+          date: 'tomorrow',
+          completed: false,
           id: 1,
-          colonName: 'First Colon',
         },
       },
-      id: userState.decks ? Object.keys(userState.decks).length + 1 : 1,
+      id: userState.decks[deckName].colons
+        ? Object.keys(userState.decks[deckName].colons).length + 1
+        : 1,
+      colonName: name,
     };
-
-    if (!newState.decks) {
-      newState.decks = {};
+    if (!newDeck.decks[deckName].colons) {
+      newDeck.decks[deckName].colons = {};
     }
+    newDeck.decks[deckName].colons[colonName] = newColon;
 
-    newState.decks[deckName] = newDeck;
-
-    setUserState(newState);
+    setUserState(newDeck);
 
     firebase
       .user(userState.uid.slice(1))
@@ -64,24 +62,24 @@ const AddForm = (props: AddFormProps) => {
   return (
     <FirebaseContext.Consumer>
       {(firebase) => (
-        <div className="addBlock">
+        <div className="addColonBlock">
           <img
             src="./x.png"
             alt="add"
-            className="addDeckImgClose"
+            className="addColonImgClose"
             onClick={() => setActive(false)}
             aria-hidden="true"
           />
           <input
             type="text"
             value={inputValue}
-            placeholder="Deck name"
+            placeholder="Colon name"
             onChange={(e) => setInputValue(e.target.value)}
           />
           <button
             type="submit"
             onClick={() => {
-              addDeck(inputValue, firebase);
+              addColon(inputValue, firebase);
             }}
           >
             confirm
@@ -92,8 +90,8 @@ const AddForm = (props: AddFormProps) => {
   );
 };
 
-const NewDeck = (props: NewDeckProps) => {
-  const { userState, setUserState } = props;
+const NewColon = (props: NewColonProps) => {
+  const { userState, setUserState, deckName } = props;
 
   const [isActive, setActive] = useState<boolean>(false);
 
@@ -103,10 +101,11 @@ const NewDeck = (props: NewDeckProps) => {
         setActive={setActive}
         userState={userState}
         setUserState={setUserState}
+        deckName={deckName}
       />
     );
   }
   return <AddTablet setActive={setActive} />;
 };
 
-export default NewDeck;
+export default NewColon;

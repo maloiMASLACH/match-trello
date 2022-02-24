@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { TaskType } from '../../constants/interfaces';
 import Firebase, { FirebaseContext } from '../../utils/fireBase';
 import sortCards from '../../utils/sortCards';
-import NewTask from '../newTask/newTask';
-import Task from '../taskBlock/taskBlock';
-import './openedColon.css';
-import { ChangeNameFieldProps, OpenedColonProps } from './openedColonTypes';
+import NewTask from '../newTask';
+import Task from '../taskBlock';
+import './styles.css';
+import { ChangeNameFieldProps, OpenedColonProps } from './types';
 
 const ChangeNameField = (props: ChangeNameFieldProps) => {
   const {

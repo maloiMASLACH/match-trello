@@ -4,9 +4,9 @@ import { User } from '../../../constants/interfaces';
 import { passReset } from '../../../constants/routerLinks';
 import { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
-import PasswordActionLink from '../../passwordChangeLink/passwordChangeLink';
-import './userPage.css';
-import { UserPageBlockRenderProps, PageWithUserProps } from './userPageTypes';
+import PasswordActionLink from '../../passwordChangeLink';
+import './styles.css';
+import { UserPageBlockRenderProps, PageWithUserProps } from './types';
 
 const UserPageBlockRender = (props: UserPageBlockRenderProps) => {
   const { userInfo } = props;

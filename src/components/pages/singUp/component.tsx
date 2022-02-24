@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import './singUp.css';
+import './styles.css';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import InputBlock from '../../input/input';
-import LinkButton from '../../linkButton/linkButton';
+import InputBlock from '../../input';
+import LinkButton from '../../linkButton';
 import Firebase, { FirebaseContext } from '../../../utils/fireBase';
 import patterns from '../../../constants/patterns';
 import { welcome } from '../../../constants/routerLinks';
-import { CheckIsCorrectProps } from './singUpTypes';
+import { CheckIsCorrectProps } from './types';
 
 const SingUpForm: React.FC = () => {
   const [inputMail, setInputMail] = useState('');
@@ -91,24 +91,28 @@ const SingUpForm: React.FC = () => {
           >
             <InputBlock
               id="Login"
+              value={inputName}
               setValue={setInputName}
               label="User Name (Login)"
               type="text"
             />
             <InputBlock
               id="Email"
+              value={inputMail}
               setValue={setInputMail}
               label="Your E-mail"
               type="email"
             />
             <InputBlock
               id="Password"
+              value={inputPassword}
               setValue={setInputPassword}
               label="Password"
               type="password"
             />
             <InputBlock
               id="ConfirmPassword"
+              value={confirmPassword}
               setValue={setConfirmPassword}
               label="Conform Password"
               type="password"

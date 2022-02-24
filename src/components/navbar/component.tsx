@@ -1,5 +1,5 @@
 import React from 'react';
-import './navbar.css';
+import './styles.css';
 import { NavLink } from 'react-router-dom';
 import {
   welcome,
@@ -9,7 +9,7 @@ import {
   admin,
 } from '../../constants/routerLinks';
 import AuthUserContext from '../../utils/sessionHandler';
-import SingOut from '../pages/singOut/singOut';
+import SingOut from '../pages/singOut';
 
 const NavBarNoUser = () => (
   <nav>

@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import SingInForm from './components/pages/singIn/singIn';
-import NavBar from './components/navbar/navBar';
+import SingInForm from './components/pages/singIn';
+import NavBar from './components/navbar';
 import * as router from './constants/routerLinks';
-import UserPage from './components/pages/userPage/userPage';
+import UserPage from './components/pages/userPage';
 import Firebase from './utils/fireBase';
 import AuthUserContext from './utils/sessionHandler';
-import SingUpForm from './components/pages/singUp/singUp';
-import AppPage from './components/pages/appPage/appPage';
-import PasswordForget from './components/pages/passwordPages/passwordForget/passwordForget';
-import PasswordReset from './components/pages/passwordPages/passwordReset/passwordReset';
-import WelcomePage from './components/pages/welcomePage/welcomePage';
-import AdminPage from './components/pages/adminPage/adminPage';
-import FetchInfo from './utils/fetchURIInfo/fetchInfo';
+import SingUpForm from './components/pages/singUp';
+import AppPage from './components/pages/appPage';
+import PasswordForget from './components/pages/passwordPages/passwordForget';
+import PasswordReset from './components/pages/passwordPages/passwordReset';
+import WelcomePage from './components/pages/welcomePage';
+import AdminPage from './components/pages/adminPage';
+import FetchInfo from './utils/fetchURIInfo';
 
 interface AppProps {
   firebase: Firebase;

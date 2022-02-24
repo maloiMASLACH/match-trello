@@ -9,10 +9,10 @@ import {
 } from '../../utils/dragEvents';
 import Firebase, { FirebaseContext } from '../../utils/fireBase';
 import sortCards from '../../utils/sortCards';
-import NewColon from '../newColon/newColon';
-import OpenedColon from '../openedColon/openedColon';
-import './openedDeck.css';
-import { ColonProps, ChangeNameFieldProps, OpenedDeckProps } from './openedDeckTypes';
+import NewColon from '../newColon';
+import OpenedColon from '../openedColon';
+import './styles.css';
+import { ColonProps, ChangeNameFieldProps, OpenedDeckProps } from './types';
 
 const Colon = (props: ColonProps) => {
   const {
