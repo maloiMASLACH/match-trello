@@ -1,22 +1,7 @@
 import React, { useState } from 'react';
-import { User } from '../../constants/interfaces';
 import Firebase, { FirebaseContext } from '../../utils/fireBase';
 import './newColon.css';
-
-interface NewColonProps {
-  userState: User;
-  setUserState: React.Dispatch<React.SetStateAction<User>>;
-  deckName: string;
-}
-interface AddTabletProps {
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
-}
-interface AddFormProps {
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
-  userState: User;
-  setUserState: React.Dispatch<React.SetStateAction<User>>;
-  deckName: string;
-}
+import { AddTabletProps, AddFormProps, NewColonProps } from './newColonTypes';
 
 const AddTablet = (props: AddTabletProps) => {
   const { setActive } = props;

@@ -5,19 +5,22 @@ import { welcome } from '../../../../constants/routerLinks';
 import Firebase, { FirebaseContext } from '../../../../utils/fireBase';
 import InputBlock from '../../../input/input';
 import LinkButton from '../../../linkButton/linkButton';
+import { CheckIsCorrectProps } from './passwordResetTypes';
 
 const PasswordReset: React.FC = () => {
-  const passwordOne = useRef<HTMLInputElement>(null);
-  const passwordTwo = useRef<HTMLInputElement>(null);
+  const [passwordOne, setFirstPassword] = useState('');
+  const [passwordTwo, setSecondPassword] = useState('');
 
   const navigate = useNavigate();
 
   const [isCorrect, setCorrect] = useState(Boolean);
 
   const checkIsCorrect = (
-    password: string,
-    confirm: string,
-    setVisibly: React.Dispatch<React.SetStateAction<boolean>>,
+    {
+      password,
+      confirm,
+      setVisibly,
+    }:CheckIsCorrectProps,
   ) => {
     if (password === confirm && patterns.password.test(password)) {
       setVisibly(true);
@@ -47,21 +50,23 @@ const PasswordReset: React.FC = () => {
             className="input-field"
             onChange={() => {
               checkIsCorrect(
-                passwordOne.current!.value,
-                passwordTwo.current!.value,
-                setCorrect,
+                {
+                  password: passwordOne,
+                  confirm: passwordTwo,
+                  setVisibly: setCorrect,
+                },
               );
             }}
           >
             <InputBlock
               id="oldPassword"
-              parentRef={passwordOne}
+              setValue={setFirstPassword}
               label="New Password"
               type="password"
             />
             <InputBlock
               id="newPassword"
-              parentRef={passwordTwo}
+              setValue={setSecondPassword}
               label="Confirm Password"
               type="password"
             />
@@ -69,7 +74,7 @@ const PasswordReset: React.FC = () => {
           <LinkButton
             text="CHANGE PASSWORD"
             disabled={isCorrect}
-            onClick={() => onSubmit(passwordOne.current!.value, navigate, firebase)}
+            onClick={() => onSubmit(passwordOne, navigate, firebase)}
           />
         </>
       )}

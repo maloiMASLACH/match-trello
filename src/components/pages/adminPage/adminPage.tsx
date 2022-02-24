@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { User } from '../../../constants/interfaces';
-import Firebase, { FirebaseContext } from '../../../utils/fireBase';
+import { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
 import './adminPage.css';
-
-interface AdminPageBLockRenderProps {
-  firebase: Firebase;
-}
-interface UsersListProps {
-  users: User[] | null;
-}
+import { UsersListProps, AdminPageBLockRenderProps } from './adminPageTypes';
 
 const UsersList = (props: UsersListProps) => {
   const { users } = props;

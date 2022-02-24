@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { User } from '../../../constants/interfaces';
-import Firebase, { FirebaseContext } from '../../../utils/fireBase';
+import { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
 import DeckWithInfo from '../../deckWithInfo/deckWithInfo';
 import NewDeck from '../../newDeck/newDeck';
 import './appPage.css';
-
-interface AppPageProps {
-  path: string;
-}
-
-interface PageWithUserProps {
-  firebase: Firebase;
-  path: string;
-}
+import { PageWithUserProps, AppPageProps } from './appPageTypes';
 
 const PageWithUser = (props: PageWithUserProps) => {
   const { firebase, path } = props;

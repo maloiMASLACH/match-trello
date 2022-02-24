@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
-import { ColonType, DeckType, User } from '../../constants/interfaces';
+import { ColonType } from '../../constants/interfaces';
 import OpenedDeck from '../openedDeck/openedDeck';
 import './deckWithInfo.css';
-
-interface DeckWithInfoProps {
-  deckInfo: DeckType;
-  deckName: string;
-  userState: User;
-  setUserState: React.Dispatch<React.SetStateAction<User>>;
-}
+import { DeckWithInfoProps } from './deckWithInfoTypes';
 
 const DeckWithInfo = (props: DeckWithInfoProps) => {
   const [isOpen, setOpenDeck] = useState<boolean>(false);

@@ -1,13 +1,14 @@
-import React, { useRef, useState } from 'react';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import patterns from '../../../../constants/patterns';
 import { welcome } from '../../../../constants/routerLinks';
-import Firebase, { FirebaseContext } from '../../../../utils/fireBase';
+import { FirebaseContext } from '../../../../utils/fireBase';
 import InputBlock from '../../../input/input';
 import LinkButton from '../../../linkButton/linkButton';
+import { OnSubmitProps } from './passwordForgetTypes';
 
 const PasswordForget: React.FC = () => {
-  const inputMail = useRef<HTMLInputElement>(null);
+  const [inputMail, setInputMail] = useState('');
 
   const navigate = useNavigate();
 
@@ -22,11 +23,7 @@ const PasswordForget: React.FC = () => {
     } else setVisibly(false);
   };
 
-  const onSubmit = (
-    mail: string,
-    nav: NavigateFunction,
-    firebase: Firebase,
-  ) => {
+  const onSubmit = ({ mail, nav, firebase }: OnSubmitProps) => {
     firebase
       .doPasswordReset(mail)
       .then(() => {
@@ -44,12 +41,12 @@ const PasswordForget: React.FC = () => {
           <div
             className="input-field"
             onChange={() => {
-              checkIsCorrect(inputMail.current!.value, setCorrect);
+              checkIsCorrect(inputMail, setCorrect);
             }}
           >
             <InputBlock
               id="Email"
-              parentRef={inputMail}
+              setValue={setInputMail}
               label="E-Mail"
               type="email"
             />
@@ -57,7 +54,7 @@ const PasswordForget: React.FC = () => {
           <LinkButton
             text="RESET PASSWORD"
             disabled={isCorrect}
-            onClick={() => onSubmit(inputMail.current!.value, navigate, firebase)}
+            onClick={() => onSubmit({ mail: inputMail, nav: navigate, firebase })}
           />
         </>
       )}

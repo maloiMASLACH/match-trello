@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ColonType, DeckType, User } from '../../constants/interfaces';
+import { ColonType } from '../../constants/interfaces';
 import {
   onDragEnd,
   onDragLeave,
@@ -12,30 +12,7 @@ import sortCards from '../../utils/sortCards';
 import NewColon from '../newColon/newColon';
 import OpenedColon from '../openedColon/openedColon';
 import './openedDeck.css';
-
-interface OpenedDeckProps {
-  deckInfo: DeckType;
-  deckName: string;
-  setOpenDeck: React.Dispatch<React.SetStateAction<boolean>>;
-  userState: User;
-  setUserState: React.Dispatch<React.SetStateAction<User>>;
-}
-interface ColonProps {
-  colon: ColonType;
-  deckName: string;
-  userState: User;
-  setUserState: React.Dispatch<React.SetStateAction<User>>;
-  currentCard: ColonType | null;
-  setCurrentCard: React.Dispatch<React.SetStateAction<ColonType | null>>;
-  firebase: Firebase;
-}
-interface ChangeNameFieldProps {
-  userState: User;
-  setUserState: React.Dispatch<React.SetStateAction<User>>;
-  deckName: string;
-  setChanging: React.Dispatch<React.SetStateAction<boolean>>;
-  firebase: Firebase;
-}
+import { ColonProps, ChangeNameFieldProps, OpenedDeckProps } from './openedDeckTypes';
 
 const Colon = (props: ColonProps) => {
   const {
@@ -141,15 +118,19 @@ const OpenedDeck = (props: OpenedDeckProps) => {
   const {
     deckInfo, deckName, setOpenDeck, userState, setUserState,
   } = props;
+
   const [isChanging, setChanging] = useState<boolean>(false);
   const [currentColon, setCurrentColon] = useState<ColonType | null>(null);
+
   const deleteDeck = (
     firebase: Firebase,
     setCloseDeck: React.Dispatch<React.SetStateAction<boolean>>,
   ) => {
     const newDeck = userState;
     newDeck.decks[deckName] = null;
+
     setUserState(newDeck);
+
     firebase
       .user(userState.uid.slice(1))
       .set(userState)

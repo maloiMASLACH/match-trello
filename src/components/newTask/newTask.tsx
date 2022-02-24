@@ -1,24 +1,7 @@
 import React, { useState } from 'react';
-import { User } from '../../constants/interfaces';
 import Firebase, { FirebaseContext } from '../../utils/fireBase';
 import './newTask.css';
-
-interface NewTaskProps {
-  userState: User;
-  deckName: string;
-  colonName: string;
-  setUserState: React.Dispatch<React.SetStateAction<User>>;
-}
-interface AddTabletProps {
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
-}
-interface AddFormProps {
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
-  userState: User;
-  setUserState: React.Dispatch<React.SetStateAction<User>>;
-  deckName: string;
-  colonName: string;
-}
+import { AddTabletProps, AddFormProps, NewTaskProps } from './newTaskTypes';
 
 const AddTablet = (props: AddTabletProps) => {
   const { setActive } = props;

@@ -1,29 +1,26 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import './singUp.css';
-import { useNavigate } from 'react-router-dom';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 import InputBlock from '../../input/input';
 import LinkButton from '../../linkButton/linkButton';
 import Firebase, { FirebaseContext } from '../../../utils/fireBase';
 import patterns from '../../../constants/patterns';
 import { welcome } from '../../../constants/routerLinks';
+import { CheckIsCorrectProps } from './singUpTypes';
 
 const SingUpForm: React.FC = () => {
-  const inputMail = useRef<HTMLInputElement>(null);
-  const inputName = useRef<HTMLInputElement>(null);
-  const inputPassword = useRef<HTMLInputElement>(null);
-  const confirmPassword = useRef<HTMLInputElement>(null);
+  const [inputMail, setInputMail] = useState('');
+  const [inputName, setInputName] = useState('');
+  const [inputPassword, setInputPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigate = useNavigate();
 
   const [isCorrect, setCorrect] = useState(Boolean);
 
-  const checkIsCorrect = (
-    mail: string,
-    name: string,
-    password: string,
-    confirmPas: string,
-    setVisibly: React.Dispatch<React.SetStateAction<boolean>>,
-  ) => {
+  const checkIsCorrect = ({
+    mail, name, password, confirmPas, setVisibly,
+  }:CheckIsCorrectProps) => {
     if (
       mail
       && name
@@ -42,7 +39,7 @@ const SingUpForm: React.FC = () => {
     mail: string,
     pass: string,
     firebase: Firebase,
-    nav: any,
+    nav: NavigateFunction,
   ) => {
     firebase
       .doCreateUserWithEmailAndPassword(mail, pass)
@@ -83,34 +80,36 @@ const SingUpForm: React.FC = () => {
           <div
             className="input-field"
             onChange={() => checkIsCorrect(
-              inputMail.current!.value,
-              inputName.current!.value,
-              inputPassword.current!.value,
-              confirmPassword.current!.value,
-              setCorrect,
+              {
+                mail: inputMail,
+                name: inputName,
+                password: inputPassword,
+                confirmPas: confirmPassword,
+                setVisibly: setCorrect,
+              },
             )}
           >
             <InputBlock
               id="Login"
-              parentRef={inputName}
+              setValue={setInputName}
               label="User Name (Login)"
               type="text"
             />
             <InputBlock
               id="Email"
-              parentRef={inputMail}
+              setValue={setInputMail}
               label="Your E-mail"
               type="email"
             />
             <InputBlock
               id="Password"
-              parentRef={inputPassword}
+              setValue={setInputPassword}
               label="Password"
               type="password"
             />
             <InputBlock
               id="ConfirmPassword"
-              parentRef={confirmPassword}
+              setValue={setConfirmPassword}
               label="Conform Password"
               type="password"
             />
@@ -119,9 +118,9 @@ const SingUpForm: React.FC = () => {
             text="SING UP"
             disabled={isCorrect}
             onClick={() => onSubmit(
-              inputName.current!.value,
-              inputMail.current!.value,
-              inputPassword.current!.value,
+              inputName,
+              inputMail,
+              inputPassword,
               firebase,
               navigate,
             )}
