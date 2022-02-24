@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import './input.css';
-import { InputBlockProps } from './inputTypes';
+import './styles.css';
+import { InputBlockProps } from './types';
 
 const InputBlock = (props: InputBlockProps) => {
   const {
-    id, setValue, label, type,
+    id, value, setValue, label, type,
   } = props;
 
-  const [inputValue, setInputValue] = useState('');
   const [isInputVisible, setIsInputVisible] = useState(false);
 
   if (type === 'password') {
@@ -15,9 +14,8 @@ const InputBlock = (props: InputBlockProps) => {
       <>
         <input
           type={isInputVisible ? 'text' : 'password'}
-          value={inputValue}
+          value={value}
           onChange={(e) => {
-            setInputValue(e.target.value);
             setValue(e.target.value);
           }}
           id={id}
@@ -38,9 +36,8 @@ const InputBlock = (props: InputBlockProps) => {
     <>
       <input
         type={type}
-        value={inputValue}
+        value={value}
         onChange={(e) => {
-          setInputValue(e.target.value);
           setValue(e.target.value);
         }}
         id={id}

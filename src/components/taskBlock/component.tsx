@@ -8,8 +8,8 @@ import {
   onDropCard,
 } from '../../utils/dragEvents';
 import Firebase, { FirebaseContext } from '../../utils/fireBase';
-import './taskBlock.css';
-import { ChangeNameFieldProps, TaskProps } from './taskBlockTypes';
+import './styles.css';
+import { ChangeNameFieldProps, TaskProps } from './types';
 
 const ChangeNameField = (props: ChangeNameFieldProps) => {
   const {

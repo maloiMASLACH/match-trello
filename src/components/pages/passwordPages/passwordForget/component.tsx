@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import patterns from '../../../../constants/patterns';
 import { welcome } from '../../../../constants/routerLinks';
 import { FirebaseContext } from '../../../../utils/fireBase';
-import InputBlock from '../../../input/input';
-import LinkButton from '../../../linkButton/linkButton';
-import { OnSubmitProps } from './passwordForgetTypes';
+import InputBlock from '../../../input';
+import LinkButton from '../../../linkButton';
+import { OnSubmitProps } from './types';
 
 const PasswordForget: React.FC = () => {
   const [inputMail, setInputMail] = useState('');
@@ -46,6 +46,7 @@ const PasswordForget: React.FC = () => {
           >
             <InputBlock
               id="Email"
+              value={inputMail}
               setValue={setInputMail}
               label="E-Mail"
               type="email"

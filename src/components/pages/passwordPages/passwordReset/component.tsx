@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import patterns from '../../../../constants/patterns';
 import { welcome } from '../../../../constants/routerLinks';
 import Firebase, { FirebaseContext } from '../../../../utils/fireBase';
-import InputBlock from '../../../input/input';
-import LinkButton from '../../../linkButton/linkButton';
-import { CheckIsCorrectProps } from './passwordResetTypes';
+import InputBlock from '../../../input';
+import LinkButton from '../../../linkButton';
+import { CheckIsCorrectProps } from './types';
 
 const PasswordReset: React.FC = () => {
   const [passwordOne, setFirstPassword] = useState('');
@@ -60,12 +60,14 @@ const PasswordReset: React.FC = () => {
           >
             <InputBlock
               id="oldPassword"
+              value={passwordOne}
               setValue={setFirstPassword}
               label="New Password"
               type="password"
             />
             <InputBlock
               id="newPassword"
+              value={passwordTwo}
               setValue={setSecondPassword}
               label="Confirm Password"
               type="password"

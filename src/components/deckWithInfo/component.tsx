@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { ColonType } from '../../constants/interfaces';
-import OpenedDeck from '../openedDeck/openedDeck';
-import './deckWithInfo.css';
-import { DeckWithInfoProps } from './deckWithInfoTypes';
+import OpenedDeck from '../openedDeck/component';
+import './styles.css';
+import { DeckWithInfoProps } from './types';
 
 const DeckWithInfo = (props: DeckWithInfoProps) => {
   const [isOpen, setOpenDeck] = useState<boolean>(false);

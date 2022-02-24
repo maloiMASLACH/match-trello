@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Firebase, { FirebaseContext } from '../../utils/fireBase';
-import './newTask.css';
-import { AddTabletProps, AddFormProps, NewTaskProps } from './newTaskTypes';
+import './styles.css';
+import { AddTabletProps, AddFormProps, NewTaskProps } from './types';
 
 const AddTablet = (props: AddTabletProps) => {
   const { setActive } = props;

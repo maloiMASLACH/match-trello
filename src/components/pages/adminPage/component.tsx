@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { User } from '../../../constants/interfaces';
 import { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
-import './adminPage.css';
-import { UsersListProps, AdminPageBLockRenderProps } from './adminPageTypes';
+import './styles.css';
+import { UsersListProps, AdminPageBLockRenderProps } from './types';
 
 const UsersList = (props: UsersListProps) => {
   const { users } = props;

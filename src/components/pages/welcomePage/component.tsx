@@ -1,5 +1,5 @@
 import React from 'react';
-import './welcomePage.css';
+import './styles.css';
 
 const WelcomePage: React.FunctionComponent = () => (
   <div className="welcomeBlock">
