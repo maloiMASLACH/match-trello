@@ -1,0 +1,24 @@
+.addTaskBlock{
+    border: 5px solid rgba(255, 140, 0);
+    border-radius: 30px;
+    width: 80%;
+    background-color: rgba(255, 140, 0, 0.5);
+    display: flex;
+    align-items: center;
+}
+.addTaskBlock p{
+    margin: 10px auto;
+    color: white;
+    font-weight: 600;
+    font-size: x-large;
+
+}
+
+
+@media screen and (max-width: 768px) {
+    .addTaskBlock{
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+    }
+  }

@@ -3,9 +3,9 @@ import { NavigateFunction, useNavigate } from 'react-router-dom';
 import patterns from '../../../../constants/patterns';
 import { welcome } from '../../../../constants/routerLinks';
 import Firebase, { FirebaseContext } from '../../../../utils/fireBase';
-import InputBlock from '../../../input';
-import LinkButton from '../../../linkButton';
-import { CheckIsCorrectProps } from './types';
+import InputBlock from '../../../controls/input';
+import Button from '../../../controls/button';
+import { CheckIsCorrectProps } from '../../../../types/passwordReset';
 
 const PasswordReset: React.FC = () => {
   const [passwordOne, setFirstPassword] = useState('');
@@ -75,7 +75,7 @@ const PasswordReset: React.FC = () => {
               type="password"
             />
           </div>
-          <LinkButton
+          <Button
             text="CHANGE PASSWORD"
             disabled={isCorrect}
             onClick={() => onSubmit(passwordOne, navigate, firebase)}

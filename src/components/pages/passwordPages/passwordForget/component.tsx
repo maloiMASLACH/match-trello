@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import patterns from '../../../../constants/patterns';
 import { welcome } from '../../../../constants/routerLinks';
 import { FirebaseContext } from '../../../../utils/fireBase';
-import InputBlock from '../../../input';
-import LinkButton from '../../../linkButton';
-import { OnSubmitProps } from './types';
+import InputBlock from '../../../controls/input';
+import Button from '../../../controls/button';
+import { OnSubmitProps } from '../../../../types/passwordForget';
 
 const PasswordForget: React.FC = () => {
   const [inputMail, setInputMail] = useState('');
@@ -52,7 +52,7 @@ const PasswordForget: React.FC = () => {
               type="email"
             />
           </div>
-          <LinkButton
+          <Button
             text="RESET PASSWORD"
             disabled={isCorrect}
             onClick={() => onSubmit({ mail: inputMail, nav: navigate, firebase })}

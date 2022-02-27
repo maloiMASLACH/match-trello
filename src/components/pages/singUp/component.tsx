@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
-import InputBlock from '../../input';
-import LinkButton from '../../linkButton';
+import InputBlock from '../../controls/input';
+import LinkButton from '../../controls/button';
 import Firebase, { FirebaseContext } from '../../../utils/fireBase';
 import patterns from '../../../constants/patterns';
 import { welcome } from '../../../constants/routerLinks';

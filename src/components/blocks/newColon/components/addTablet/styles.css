@@ -1,0 +1,7 @@
+.addColonBlock img.addColonImg{
+    margin: 10px auto;
+    width: 40%;
+}
+.addColonBlock img.addColonImg:hover{
+    opacity: 0.7;
+}

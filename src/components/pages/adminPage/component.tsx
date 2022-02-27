@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { User } from '../../../constants/interfaces';
+import { User } from '../../../types/globalTypes';
 import { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
 import './styles.css';
-import { UsersListProps, AdminPageBLockRenderProps } from './types';
+import { UsersListProps, AdminPageBLockRenderProps } from '../../../types/adminPage';
 
 const UsersList = (props: UsersListProps) => {
   const { users } = props;
