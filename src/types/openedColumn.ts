@@ -1,18 +1,18 @@
-import { ColonType, User } from './globalTypes';
+import { ColumnType, User } from './globalTypes';
 import Firebase from '../utils/fireBase';
 
-export interface OpenedColonProps {
-  colon: ColonType;
-  deckName: string;
+export interface OpenedColumnProps {
+  column: ColumnType;
+  deskName: string;
   userState: User;
   setUserState: React.Dispatch<React.SetStateAction<User>>;
-  setOpenColon: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenColumn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export interface ChangeNameFieldProps {
   userState: User;
   setUserState: React.Dispatch<React.SetStateAction<User>>;
-  deckName: string;
+  deskName: string;
   setChanging: React.Dispatch<React.SetStateAction<boolean>>;
-  colonName: string;
+  columnName: string;
   firebase: Firebase;
 }

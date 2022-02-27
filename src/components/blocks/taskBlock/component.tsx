@@ -14,8 +14,8 @@ import ChangeNameField from './components/changeNameField';
 
 const Task = (props: TaskProps) => {
   const {
-    deckName,
-    colonName,
+    deskName,
+    columnName,
     taskInfo,
     userState,
     setUserState,
@@ -25,11 +25,11 @@ const Task = (props: TaskProps) => {
 
   const [checked, setChecked] = useState<boolean>(taskInfo.completed);
   const [isChanging, setChanging] = useState<boolean>(false);
-  const colonObj = colonName.split(' ').join('_');
+  const columnObj = columnName.split(' ').join('_');
 
   const setCompleted = (firebase: Firebase) => {
     const newState = userState;
-    newState.decks[deckName as keyof User].colons[colonObj].tasks[
+    newState.desks[deskName as keyof User].columns[columnObj].tasks[
       taskInfo.taskName
     ].completed = !checked;
 
@@ -40,9 +40,9 @@ const Task = (props: TaskProps) => {
   };
 
   const deleteTask = (firebase: Firebase) => {
-    const newDeck = userState;
-    newDeck.decks[deckName].colons[colonObj].tasks[taskInfo.taskName] = null;
-    setUserState(newDeck);
+    const newDesk = userState;
+    newDesk.desks[deskName].columns[columnObj].tasks[taskInfo.taskName] = null;
+    setUserState(newDesk);
 
     firebase.user(userState.uid.slice(1)).set(userState);
   };
@@ -61,8 +61,8 @@ const Task = (props: TaskProps) => {
           onDrop={() => onDropCard(
             taskInfo,
             currentCard,
-            deckName,
-            colonObj,
+            deskName,
+            columnObj,
             userState,
             firebase,
           )}
@@ -105,8 +105,8 @@ const Task = (props: TaskProps) => {
             <ChangeNameField
               userState={userState}
               setUserState={setUserState}
-              deckName={deckName}
-              colonName={colonName}
+              deskName={deskName}
+              columnName={columnName}
               taskName={taskInfo.taskName}
               setChanging={setChanging}
               firebase={firebase}

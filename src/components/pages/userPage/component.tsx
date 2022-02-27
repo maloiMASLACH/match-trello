@@ -10,15 +10,14 @@ import { UserPageBlockRenderProps, PageWithUserProps } from '../../../types/user
 
 const UserPageBlockRender = (props: UserPageBlockRenderProps) => {
   const { userInfo } = props;
-
   let taskCount = 0;
 
   try {
-    if (userInfo?.decks) {
-      Object.keys(userInfo.decks).forEach((deck) => {
-        Object.keys(userInfo.decks[deck].colons).forEach((colon) => {
+    if (userInfo?.desks) {
+      Object.keys(userInfo.desks).forEach((desk) => {
+        Object.keys(userInfo.desks[desk].columns).forEach((column) => {
           taskCount += Object.keys(
-            userInfo.decks[deck].colons[colon].tasks,
+            userInfo.desks[desk].columns[column].tasks,
           ).length;
         });
       });
@@ -39,7 +38,7 @@ const UserPageBlockRender = (props: UserPageBlockRenderProps) => {
             </div>
             <div>
               <p>Tables count</p>
-              <p>{Object.keys(userInfo.decks).length}</p>
+              <p>{Object.keys(userInfo.desks).length}</p>
             </div>
             <div>
               <p>Tasks Count</p>
@@ -48,7 +47,7 @@ const UserPageBlockRender = (props: UserPageBlockRenderProps) => {
           </div>
           <div className="linkToAppContainer">
             <NavLink className="linkToApp" to={userInfo.uid}>
-              Your decks
+              Your desks
             </NavLink>
           </div>
           <PasswordActionLink text="change password" link={passReset} />

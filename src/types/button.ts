@@ -2,6 +2,6 @@ import { HTMLAttributes } from 'react';
 
 export interface StartButtonProps extends HTMLAttributes<HTMLButtonElement> {
   text: string;
-  disabled: boolean;
+  disabled: boolean | '';
   onClick: () => void;
 }

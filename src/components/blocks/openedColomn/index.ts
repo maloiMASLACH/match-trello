@@ -1,3 +1,3 @@
-import OpenedDeck from './component';
+import OpenedColumn from './component';
 
-export default OpenedDeck;
+export default OpenedColumn;

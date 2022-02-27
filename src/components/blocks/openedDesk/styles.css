@@ -1,0 +1,84 @@
+.openedDeskBlock{    
+    border: 5px dashed darkorange;
+    position: absolute;
+    margin: 0;
+    background-color: #ffc57f;
+    width: 65%;
+    height: fit-content;
+    min-height: 45vw;
+    border-radius: 30px;
+}
+.openedDeskBlock h3 {
+    width: 100%;
+    text-align: center;
+    color: white;
+
+}
+.openedDeskBlockHead {
+    border-bottom: 8px dashed darkorange ;
+    display: flex;
+}
+.openedDeskBlockHead img{
+    width:5%;
+    height: 5%;
+}
+.openedDeskBlockHead img.deskDelete{
+    width: 5%;
+    height: 50%;
+    margin-right: 50px;
+}
+.colons{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+
+
+
+@media screen and (max-width: 1024px) {
+    .openedDeskBlockHead img{
+        width:7%;
+        height: 7%;
+    }
+    .openedDeskBlockHead img.deskDelete{
+        width: 7%;
+        height: 70%;
+        margin-right: 30px;
+    }
+ }
+ @media screen and (max-width: 768px) {
+    .openedDeskBlock{    
+        width: 80%;
+        height: fit-content;
+        min-height: 45vw;
+        border-radius: 30px;
+    }
+    .openedDeskBlockHead img{
+        width:10%;
+        height: 10%;
+    }
+    .openedDeskBlockHead img.deskDelete{
+        width: 10%;
+        height: 100%;
+        margin-right: 30px;
+    }
+ }
+ @media screen and (max-width: 425px) {
+    .openedDeskBlock h3 {
+        width: 50%;
+        margin-top: 40px;
+    }
+    .openedDeskBlockHead img{
+        width:15%;
+        height: 15%;
+    }
+    .openedDeskBlockHead img.deskDelete{
+        width: 15%;
+        height: 150%;
+        margin-right: 3px;
+    }
+    .colon{
+        width: 80%;
+    }
+ }

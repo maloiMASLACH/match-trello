@@ -15,33 +15,25 @@ const SingUpForm: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const [isCorrect, setCorrect] = useState(Boolean);
-
-  const checkIsCorrect = () => {
-    if (
-      inputMail
+  const checkIsCorrect = inputMail
       && inputName
       && inputPassword
       && inputPassword === confirmPassword
       && patterns.mail.test(inputMail)
       && patterns.name.test(inputName)
-      && patterns.password.test(inputPassword)
-    ) {
-      setCorrect(true);
-    } else setCorrect(false);
-  };
+      && patterns.password.test(inputPassword);
 
   const onSubmit = (firebase:Firebase) => {
     firebase
       .doCreateUserWithEmailAndPassword(inputMail, inputPassword)
       .then((newUser) => firebase.user(newUser.user!.uid).set({
-        inputName,
-        inputMail,
+        name: inputName,
+        mail: inputMail,
         uid: `/${newUser.user!.uid}`,
-        decks: {
-          First_Deck: {
-            colons: {
-              First_Colon: {
+        desks: {
+          First_DeSk: {
+            columns: {
+              First_Column: {
                 tasks: {
                   task: {
                     taskName: 'task',
@@ -51,7 +43,7 @@ const SingUpForm: React.FC = () => {
                   },
                 },
                 id: 1,
-                colonName: 'First Colon',
+                columnName: 'First Column',
               },
             },
             id: 1,
@@ -70,7 +62,6 @@ const SingUpForm: React.FC = () => {
         <>
           <div
             className="input-field"
-            onChange={() => checkIsCorrect()}
           >
             <InputBlock
               id="Login"
@@ -100,14 +91,16 @@ const SingUpForm: React.FC = () => {
               value={confirmPassword}
               onChange={(
                 e: React.ChangeEvent<HTMLInputElement>,
-              ) => setConfirmPassword(e.target.value)}
+              ) => {
+                setConfirmPassword(e.target.value);
+              }}
               label="Conform Password"
               type="password"
             />
           </div>
           <LinkButton
             text="SING UP"
-            disabled={isCorrect}
+            disabled={checkIsCorrect}
             onClick={() => onSubmit(firebase)}
           />
         </>

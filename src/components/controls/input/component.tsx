@@ -4,7 +4,7 @@ import { InputBlockProps } from '../../../types/input';
 
 const InputBlock = (props: InputBlockProps) => {
   const {
-    id, label, type, ...rest
+    id, value, label, type, ...rest
   } = props;
 
   const [isVisible, setIsVisible] = useState(false);
@@ -12,6 +12,7 @@ const InputBlock = (props: InputBlockProps) => {
   return (
     <>
       <input
+        value={value}
         {...rest}
         type={isVisible ? 'text' : type}
         id={id}

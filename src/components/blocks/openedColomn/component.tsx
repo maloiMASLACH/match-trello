@@ -5,27 +5,27 @@ import sortCards from '../../../utils/sortCards';
 import NewTask from '../newTask';
 import Task from '../taskBlock';
 import './styles.css';
-import { OpenedColonProps } from '../../../types/openedColumn';
+import { OpenedColumnProps } from '../../../types/openedColumn';
 import ChangeNameField from './components/changeNameField';
 
-const OpenedColon = (props: OpenedColonProps) => {
+const OpenedColumn = (props: OpenedColumnProps) => {
   const {
-    colon, deckName, userState, setUserState, setOpenColon,
+    column, deskName, userState, setUserState, setOpenColumn,
   } = props;
 
   const [isChanging, setChanging] = useState<boolean>(false);
   const [currentTask, setCurrentTask] = useState<TaskType | null>(null);
 
-  const deleteColon = (
+  const deleteColumn = (
     firebase: Firebase,
     setClose: React.Dispatch<React.SetStateAction<boolean>>,
   ) => {
-    const newDeck = userState;
-    const colonName = colon.colonName.split(' ').join('_');
+    const newDesk = userState;
+    const columnName = column.columnName.split(' ').join('_');
 
-    newDeck.decks[deckName].colons[colonName] = null;
+    newDesk.desks[deskName].columns[columnName] = null;
 
-    setUserState(newDeck);
+    setUserState(newDesk);
 
     firebase
       .user(userState.uid.slice(1))
@@ -41,13 +41,13 @@ const OpenedColon = (props: OpenedColonProps) => {
         {(firebase) => (
           <div className="openedColonBlockHead">
             <h3>
-              {!isChanging && colon.colonName }
+              {!isChanging && column.columnName }
               {isChanging && (
                 <ChangeNameField
                   userState={userState}
                   setUserState={setUserState}
-                  deckName={deckName}
-                  colonName={colon.colonName}
+                  deskName={deskName}
+                  columnName={column.columnName}
                   setChanging={setChanging}
                   firebase={firebase}
                 />
@@ -55,7 +55,7 @@ const OpenedColon = (props: OpenedColonProps) => {
             </h3>
             <img
               src="./redact.png"
-              className="deckDelete"
+              className="deskDelete"
               alt="x"
               onClick={() => {
                 setChanging(!isChanging);
@@ -63,17 +63,17 @@ const OpenedColon = (props: OpenedColonProps) => {
               aria-hidden="true"
             />
             <img
-              className="deckDelete"
+              className="deskDelete"
               alt="delete"
               src="./delete.png"
-              onClick={() => deleteColon(firebase, setOpenColon)}
+              onClick={() => deleteColumn(firebase, setOpenColumn)}
               aria-hidden="true"
             />
             <img
               src="./x.png"
               alt="x"
               onClick={() => {
-                setOpenColon(false);
+                setOpenColumn(false);
               }}
               aria-hidden="true"
             />
@@ -81,13 +81,13 @@ const OpenedColon = (props: OpenedColonProps) => {
         )}
       </FirebaseContext.Consumer>
       <div className="tasks">
-        {colon.tasks
-          ? Object.values(colon.tasks)
+        {column.tasks
+          ? Object.values(column.tasks)
             .sort(sortCards)
             .map((task: TaskType) => (
               <Task
-                deckName={deckName}
-                colonName={colon.colonName}
+                deskName={deskName}
+                columnName={column.columnName}
                 taskInfo={task}
                 userState={userState}
                 setUserState={setUserState}
@@ -97,8 +97,8 @@ const OpenedColon = (props: OpenedColonProps) => {
             ))
           : null}
         <NewTask
-          deckName={deckName}
-          colonName={colon.colonName}
+          deskName={deskName}
+          columnName={column.columnName}
           userState={userState}
           setUserState={setUserState}
         />
@@ -107,4 +107,4 @@ const OpenedColon = (props: OpenedColonProps) => {
   );
 };
 
-export default OpenedColon;
+export default OpenedColumn;

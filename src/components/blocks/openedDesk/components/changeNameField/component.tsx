@@ -1,26 +1,18 @@
 import React, { useState } from 'react';
-import { ChangeNameFieldProps } from '../../../../../types/openedColumn';
+import './styles.css';
+import { ChangeNameFieldProps } from '../../../../../types/openedDesk';
 
 const ChangeNameField = (props: ChangeNameFieldProps) => {
   const {
-    userState,
-    setUserState,
-    deskName,
-    columnName,
-    setChanging,
-    firebase,
+    userState, setUserState, deskName, setChanging, firebase,
   } = props;
 
   const renameDesk = (inputValue: string) => {
     const newDesk = userState;
+    const newDeskName = inputValue.split(' ').join('_');
+    newDesk.desks[newDeskName] = newDesk.desks[deskName];
 
-    const oldColumnName = columnName.split(' ').join('_');
-    const newColumnName = inputValue.split(' ').join('_');
-
-    newDesk.desks[deskName].columns[newColumnName] = newDesk.desks[deskName].columns[oldColumnName];
-    newDesk.desks[deskName].columns[newColumnName].columnName = inputValue;
-
-    newDesk.desks[deskName].columns[oldColumnName] = null;
+    newDesk.desks[deskName] = null;
 
     setUserState(newDesk);
 
@@ -31,14 +23,16 @@ const ChangeNameField = (props: ChangeNameFieldProps) => {
         setChanging(false);
       });
   };
+
   const [inputValue, setInputValue] = useState('');
+
   return (
     <>
       <input
         className="newDeskName"
         type="text"
         value={inputValue}
-        placeholder="New column name"
+        placeholder="New desk name"
         onChange={(e) => setInputValue(e.target.value)}
       />
       <button
@@ -51,4 +45,5 @@ const ChangeNameField = (props: ChangeNameFieldProps) => {
     </>
   );
 };
+
 export default ChangeNameField;

@@ -5,35 +5,35 @@ import Firebase, { FirebaseContext } from '../../../../../utils/fireBase';
 
 const AddForm = (props: AddFormProps) => {
   const {
-    setActive, userState, setUserState, deckName, colonName,
+    setActive, userState, setUserState, deskName, columnName,
   } = props;
 
   const [inputName, setInputName] = useState('');
   const [inputDate, setInputDate] = useState('');
 
   const addTask = (name: string, date: string, firebase: Firebase) => {
-    const newDeck = userState;
+    const newDesk = userState;
 
     const taskName = name.split(' ').join('');
-    const colonObj = colonName.split(' ').join('_');
+    const columnObj = columnName.split(' ').join('_');
 
     const newTask = {
       taskName,
       date,
       completed: false,
-      id: userState.decks[deckName].colons[colonObj].tasks
-        ? Object.keys(userState.decks[deckName].colons[colonObj].tasks).length
+      id: userState.desks[deskName].columns[columnObj].tasks
+        ? Object.keys(userState.desks[deskName].columns[columnObj].tasks).length
           + 1
         : 1,
     };
 
-    if (!userState.decks[deckName].colons[colonObj].tasks) {
-      newDeck.decks[deckName].colons[colonObj].tasks = {};
+    if (!userState.desks[deskName].columns[columnObj].tasks) {
+      newDesk.desks[deskName].columns[columnObj].tasks = {};
     }
 
-    newDeck.decks[deckName].colons[colonObj].tasks[taskName] = newTask;
+    newDesk.desks[deskName].columns[columnObj].tasks[taskName] = newTask;
 
-    setUserState(newDeck);
+    setUserState(newDesk);
 
     firebase
       .user(userState.uid.slice(1))

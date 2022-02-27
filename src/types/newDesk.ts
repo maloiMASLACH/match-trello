@@ -1,9 +1,7 @@
 import { User } from './globalTypes';
 
-export interface NewTaskProps {
+export interface NewDeskProps {
   userState: User;
-  deskName: string;
-  columnName: string;
   setUserState: React.Dispatch<React.SetStateAction<User>>;
 }
 export interface AddTabletProps {
@@ -13,6 +11,4 @@ export interface AddFormProps {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
   userState: User;
   setUserState: React.Dispatch<React.SetStateAction<User>>;
-  deskName: string;
-  columnName: string;
 }

@@ -4,18 +4,18 @@ export interface TaskType {
   date: string;
   id: number;
 }
-export interface ColonType {
+export interface ColumnType {
   tasks: TaskType[];
-  colonName: string;
+  columnName: string;
   id: number;
 }
-export interface DeckType {
-  colons: ColonType[];
+export interface DeskType {
+  columns: ColumnType[];
   id: number;
 }
 export interface User {
   mail: string;
   name: string;
   uid: string;
-  decks: any;
+  desks: any;
 }

@@ -5,25 +5,25 @@ const ChangeNameField = (props: ChangeNameFieldProps) => {
   const {
     userState,
     setUserState,
-    deckName,
-    colonName,
+    deskName,
+    columnName,
     taskName,
     setChanging,
     firebase,
   } = props;
 
-  const colonObj = colonName.split(' ').join('_');
+  const columnObj = columnName.split(' ').join('_');
 
-  const renameDeck = (name: string, date: string) => {
-    const newDeck = userState;
-    newDeck.decks[deckName]
-      .colons[colonObj].tasks[name] = newDeck.decks[deckName].colons[colonObj].tasks[taskName];
-    newDeck.decks[deckName].colons[colonObj].tasks[name].date = date;
-    newDeck.decks[deckName].colons[colonObj].tasks[name].taskName = name;
+  const renameDesk = (name: string, date: string) => {
+    const newDesk = userState;
+    newDesk.desks[deskName]
+      .columns[columnObj].tasks[name] = newDesk.desks[deskName].columns[columnObj].tasks[taskName];
+    newDesk.desks[deskName].columns[columnObj].tasks[name].date = date;
+    newDesk.desks[deskName].columns[columnObj].tasks[name].taskName = name;
 
-    newDeck.decks[deckName].colons[colonObj].tasks[taskName] = null;
+    newDesk.desks[deskName].columns[columnObj].tasks[taskName] = null;
 
-    setUserState(newDeck);
+    setUserState(newDesk);
 
     firebase
       .user(userState.uid.slice(1))
@@ -54,7 +54,7 @@ const ChangeNameField = (props: ChangeNameFieldProps) => {
       <button
         className="taskRedactSubmit"
         type="submit"
-        onClick={() => renameDeck(inputName, inputDate)}
+        onClick={() => renameDesk(inputName, inputDate)}
       >
         OK
       </button>

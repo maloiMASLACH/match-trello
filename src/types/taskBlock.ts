@@ -2,9 +2,9 @@ import { TaskType, User } from './globalTypes';
 import Firebase from '../utils/fireBase';
 
 export interface TaskProps {
-  colonName: string;
+  columnName: string;
   taskInfo: TaskType;
-  deckName: string;
+  deskName: string;
   userState: User;
   setUserState: React.Dispatch<React.SetStateAction<User>>;
   currentCard: TaskType | null;
@@ -13,9 +13,9 @@ export interface TaskProps {
 export interface ChangeNameFieldProps {
   userState: User;
   setUserState: React.Dispatch<React.SetStateAction<User>>;
-  deckName: string;
+  deskName: string;
   setChanging: React.Dispatch<React.SetStateAction<boolean>>;
-  colonName: string;
+  columnName: string;
   taskName: string;
   firebase: Firebase;
 }
