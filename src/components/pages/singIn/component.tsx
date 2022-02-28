@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import patterns from '../../../constants/patterns';
 import { passForget, userPage } from '../../../constants/routerLinks';
 import Firebase, { FirebaseContext } from '../../../utils/fireBase';
-import InputBlock from '../../input';
-import LinkButton from '../../linkButton';
-import PasswordActionLink from '../../passwordChangeLink/component';
+import InputBlock from '../../controls/input';
+import Button from '../../controls/button';
+import PasswordActionLink from '../../controls/passwordChangeLink/component';
 import './styles.css';
 
 const SingInForm: React.FC = () => {
@@ -67,7 +67,7 @@ const SingInForm: React.FC = () => {
               type="password"
             />
           </div>
-          <LinkButton
+          <Button
             text="SING IN"
             disabled={isCorrect}
             onClick={() => onSubmit(firebase)}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import SingInForm from './components/pages/singIn';
-import NavBar from './components/navbar';
+import NavBar from './components/blocks/navbar';
 import * as router from './constants/routerLinks';
 import UserPage from './components/pages/userPage';
 import Firebase from './utils/fireBase';

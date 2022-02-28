@@ -1,0 +1,15 @@
+
+.addTaskBlock img.addTaskImg{
+    margin: 10px auto;
+    width: 10%;
+}
+.addTaskBlock img.addTaskImg:hover{
+    opacity: 0.7;
+}
+
+@media screen and (max-width: 768px) {
+    .addTaskBlock img.addTaskImg{
+        margin: 0px auto;
+        width: 20%;
+    }
+  }

@@ -1,0 +1,19 @@
+
+input.newDeskName[type=text]:not(.browser-default){
+    border-bottom: darkorange solid 3px;
+    color: white;
+    font-size: xx-large;
+    width: 60%;
+}
+.newDeskName::placeholder{
+    font-size: xx-large;
+    color: rgba(245, 173, 86, 0.534) ;
+}
+.newDeskNameSubmit{
+    background-color: darkorange;
+    border: none;
+    width: 10%;
+    color: white;
+    font-weight: 400;
+    margin-left: 50px;
+}

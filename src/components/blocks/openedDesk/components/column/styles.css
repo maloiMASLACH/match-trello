@@ -1,0 +1,17 @@
+.colon{
+    font-size: x-large;
+    line-height: 10%;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    border: 3px darkorange dashed;
+    border-radius: 10px;
+}
+.colon:hover{
+    border: 3px darkorange solid;
+}
+@media screen and (max-width: 425px) {
+    .colon{
+        width: 80%;
+    }
+ }

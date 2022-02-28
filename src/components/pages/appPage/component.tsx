@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { User } from '../../../constants/interfaces';
+import { User } from '../../../types/globalTypes';
 import { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
-import DeckWithInfo from '../../deckWithInfo';
-import NewDeck from '../../newDeck';
+import DeskWithInfo from '../../blocks/deskWithInfo';
+import NewDesk from '../../blocks/newDesk';
 import './styles.css';
-import { PageWithUserProps, AppPageProps } from './types';
+import { PageWithUserProps, AppPageProps } from '../../../types/appPage';
 
 const PageWithUser = (props: PageWithUserProps) => {
   const { firebase, path } = props;
@@ -14,7 +14,7 @@ const PageWithUser = (props: PageWithUserProps) => {
     mail: '',
     name: '',
     uid: path,
-    decks: {},
+    desks: {},
   });
 
   useEffect(() => {
@@ -25,17 +25,17 @@ const PageWithUser = (props: PageWithUserProps) => {
 
   return (
     <div className="appPage">
-      {userState.decks
-        ? Object.keys(userState.decks).map((deckName) => (
-          <DeckWithInfo
-            deckInfo={userState.decks[deckName]}
-            deckName={deckName}
+      {userState.desks
+        ? Object.keys(userState.desks).map((deskName) => (
+          <DeskWithInfo
+            deskInfo={userState.desks[deskName]}
+            deskName={deskName}
             userState={userState}
             setUserState={setUserState}
           />
         ))
         : null}
-      <NewDeck userState={userState} setUserState={setUserState} />
+      <NewDesk userState={userState} setUserState={setUserState} />
     </div>
   );
 };
