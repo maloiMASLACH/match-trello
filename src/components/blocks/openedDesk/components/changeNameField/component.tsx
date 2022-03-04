@@ -1,31 +1,28 @@
 import React, { useContext, useState } from 'react';
 import './styles.css';
-import { ChangeNameFieldProps } from '../../../../../types/openedDesk';
 import { FirebaseContext } from '../../../../../utils/fireBase';
+import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
+import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
+import { HandleChanging } from '../../../../../types/toggle';
 
-const ChangeNameField = (props: ChangeNameFieldProps) => {
-  const {
-    userState, setUserState, deskName, setChanging,
-  } = props;
+const ChangeNameField = (props: HandleChanging) => {
+  const { handleChanging } = props;
 
   const firebase = useContext(FirebaseContext);
+  const userValue = useContext(UserValueContext);
+  const deskValue = useContext(DeskValueContext);
 
   const renameDesk = (inputValue: string) => {
-    const newDesk = userState;
-    const oldDeskName = deskName.split(' ').join('_');
-    const newDeskName = inputValue.split(' ').join('_');
-    newDesk.desks[newDeskName as any] = newDesk.desks[oldDeskName as any];
-    newDesk.desks[newDeskName as any]!.deskName = inputValue;
-    newDesk.desks[oldDeskName as any] = null;
+    const deskObjName = deskValue!.deskName.split(' ').join('');
+    const newObj = inputValue.split(' ').join('');
 
-    setUserState(newDesk);
+    firebase!.desk(userValue!.uid, deskObjName).set(null);
 
-    firebase
-      .user(userState.uid.slice(1))
-      .set(userState)
-      .then(() => {
-        setChanging(false);
-      });
+    deskValue!.deskName = inputValue;
+
+    firebase!.desk(userValue!.uid, newObj).set(deskValue);
+
+    handleChanging();
   };
 
   const [inputValue, setInputValue] = useState('');

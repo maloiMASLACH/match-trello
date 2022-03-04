@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import { UserType } from '../../../types/globalTypes';
 import { passReset } from '../../../constants/routerLinks';
-import { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
 import PasswordActionLink from '../../controls/passwordChangeLink';
 import './styles.css';
-import { UserPageBlockRenderProps, PageWithUserProps } from '../../../types/userPage';
+import UserValueContext from '../../../utils/valueContexts/userValueContext';
 
-const UserPageBlockRender = (props: UserPageBlockRenderProps) => {
-  const { userInfo } = props;
+const PageWithUser = () => {
+  const userValue = useContext(UserValueContext);
+
   let taskCount = 0;
 
   try {
-    if (userInfo?.desks) {
-      Object.values(userInfo.desks).forEach((desk) => {
+    if (userValue?.desks) {
+      Object.values(userValue.desks).forEach((desk) => {
         Object.values(desk!.columns).forEach((column) => {
           taskCount += Object.values(
             column!.tasks,
@@ -23,22 +22,22 @@ const UserPageBlockRender = (props: UserPageBlockRenderProps) => {
       });
     }
   } finally {
-    if (userInfo) {
+    if (userValue) {
       return (
         <div className="userPage">
-          <div className="userIcon">{userInfo.name}</div>
+          <div className="userIcon">{userValue.name}</div>
           <div className="commonInfo">
             <div>
               <p>Your E-mail address</p>
-              <p>{userInfo.mail}</p>
+              <p>{userValue.mail}</p>
             </div>
             <div>
               <p>User Name</p>
-              <p>{userInfo.name}</p>
+              <p>{userValue.name}</p>
             </div>
             <div>
               <p>Tables count</p>
-              <p>{Object.values(userInfo.desks).length}</p>
+              <p>{Object.values(userValue.desks).length}</p>
             </div>
             <div>
               <p>Tasks Count</p>
@@ -46,7 +45,7 @@ const UserPageBlockRender = (props: UserPageBlockRenderProps) => {
             </div>
           </div>
           <div className="linkToAppContainer">
-            <NavLink className="linkToApp" to={userInfo.uid}>
+            <NavLink className="linkToApp" to={userValue.uid}>
               Your desks
             </NavLink>
           </div>
@@ -58,20 +57,6 @@ const UserPageBlockRender = (props: UserPageBlockRenderProps) => {
   }
 };
 
-const PageWithUser = (props: PageWithUserProps) => {
-  const { user, firebase } = props;
-
-  const [userInfo, setUserInfo] = useState<UserType | null>(null);
-
-  useEffect(() => {
-    firebase.user(user.uid).on('value', (snapshot) => {
-      setUserInfo(snapshot.val());
-    });
-  }, []);
-
-  return <UserPageBlockRender userInfo={userInfo} />;
-};
-
 const PageNoUser = () => (
   <div className="userPage notAuthUser">
     <p>Sorry, but this page require an authorized user</p>
@@ -79,15 +64,12 @@ const PageNoUser = () => (
   </div>
 );
 
-const UserPage: React.FC = () => (
-  <AuthUserContext.Consumer>
-    {(value) => (value ? (
-      <FirebaseContext.Consumer>
-        {(firebase) => <PageWithUser user={value} firebase={firebase} />}
-      </FirebaseContext.Consumer>
-    ) : (
-      <PageNoUser />
-    ))}
-  </AuthUserContext.Consumer>
-);
+const UserPage: React.FC = () => {
+  const user = useContext(AuthUserContext);
+
+  if (user) {
+    return <PageWithUser />;
+  } return <PageNoUser />;
+};
+
 export default UserPage;

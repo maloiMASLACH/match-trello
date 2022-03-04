@@ -1,9 +1,9 @@
 import React from 'react';
-import { AddTabletProps } from '../../../../../types/newColumn';
+import { HandleActive } from '../../../../../types/toggle';
 import './styles.css';
 
-const AddTablet = (props: AddTabletProps) => {
-  const { setActive } = props;
+const AddTablet = (props: HandleActive) => {
+  const { handleActive } = props;
 
   return (
     <div className="addColonBlock">
@@ -12,7 +12,7 @@ const AddTablet = (props: AddTabletProps) => {
         src="./plus.png"
         alt="add"
         className="addColonImg"
-        onClick={() => setActive(true)}
+        onClick={() => handleActive()}
         aria-hidden="true"
       />
     </div>

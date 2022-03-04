@@ -79,7 +79,7 @@ const PasswordReset: React.FC = () => {
             text="CHANGE PASSWORD"
             type="submit"
             disabled={isCorrect}
-            onClick={() => onSubmit(passwordOne, navigate, firebase)}
+            onClick={() => onSubmit(passwordOne, navigate, firebase!)}
           />
         </>
       )}

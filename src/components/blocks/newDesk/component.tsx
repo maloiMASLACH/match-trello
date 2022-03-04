@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import './styles.css';
-import { NewDeskProps } from '../../../types/newDesk';
 import AddForm from './components/addForm';
 import AddTablet from './components/addTablet';
 
-const NewDesk = (props: NewDeskProps) => {
-  const { userState, setUserState } = props;
-
+const NewDesk = () => {
   const [isActive, setActive] = useState<boolean>(false);
 
   const handleActive = () => {
@@ -14,15 +11,9 @@ const NewDesk = (props: NewDeskProps) => {
   };
 
   if (isActive) {
-    return (
-      <AddForm
-        handleActive={handleActive}
-        userState={userState}
-        setUserState={setUserState}
-      />
-    );
+    return <AddForm handleActive={handleActive} />;
   }
-  return <AddTablet setActive={setActive} />;
+  return <AddTablet handleActive={handleActive} />;
 };
 
 export default NewDesk;

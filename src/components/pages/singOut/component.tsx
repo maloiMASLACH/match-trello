@@ -1,28 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { welcome } from '../../../constants/routerLinks';
-import Firebase, { FirebaseContext } from '../../../utils/fireBase';
+import { FirebaseContext } from '../../../utils/fireBase';
 import './styles.css';
 
 const SingOut = function () {
   const navigate = useNavigate();
 
-  const onClick = (firebase: Firebase, nav: NavigateFunction) => {
+  const firebase = useContext(FirebaseContext);
+
+  const onClick = (nav: NavigateFunction) => {
     nav(welcome);
-    firebase.doSignOut();
+    firebase!.doSignOut();
   };
   return (
-    <FirebaseContext.Consumer>
-      {(firebase) => (
-        <button
-          type="button"
-          onClick={() => onClick(firebase, navigate)}
-          className="singOut"
-        >
-          Sing Out
-        </button>
-      )}
-    </FirebaseContext.Consumer>
+    <button type="button" onClick={() => onClick(navigate)} className="singOut">
+      Sing Out
+    </button>
   );
 };
 export default SingOut;

@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 import './styles.css';
-import { NewTaskProps } from '../../../types/newTask';
 import AddForm from './components/addForm';
 import AddTablet from './components/addTablet';
 
-const NewTask = (props: NewTaskProps) => {
-  const {
-    userState, setUserState, deskName, columnName,
-  } = props;
-
+const NewTask = () => {
   const [isActive, setActive] = useState<boolean>(false);
 
   const handleActive = () => {
@@ -16,17 +11,9 @@ const NewTask = (props: NewTaskProps) => {
   };
 
   if (isActive) {
-    return (
-      <AddForm
-        handleActive={handleActive}
-        userState={userState}
-        setUserState={setUserState}
-        deskName={deskName}
-        columnName={columnName}
-      />
-    );
+    return <AddForm handleActive={handleActive} />;
   }
-  return <AddTablet setActive={setActive} />;
+  return <AddTablet handleActive={handleActive} />;
 };
 
 export default NewTask;
