@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './styles.css';
 import { ChangeNameFieldProps } from '../../../../../types/openedDesk';
+import { FirebaseContext } from '../../../../../utils/fireBase';
 
 const ChangeNameField = (props: ChangeNameFieldProps) => {
   const {
-    userState, setUserState, deskName, setChanging, firebase,
+    userState, setUserState, deskName, setChanging,
   } = props;
+
+  const firebase = useContext(FirebaseContext);
 
   const renameDesk = (inputValue: string) => {
     const newDesk = userState;
+    const oldDeskName = deskName.split(' ').join('_');
     const newDeskName = inputValue.split(' ').join('_');
-    newDesk.desks[newDeskName] = newDesk.desks[deskName];
-
-    newDesk.desks[deskName] = null;
+    newDesk.desks[newDeskName as any] = newDesk.desks[oldDeskName as any];
+    newDesk.desks[newDeskName as any]!.deskName = inputValue;
+    newDesk.desks[oldDeskName as any] = null;
 
     setUserState(newDesk);
 

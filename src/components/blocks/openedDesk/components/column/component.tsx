@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ColumnProps } from '../../../../../types/openedDesk';
 import {
-  onDragStart, onDragLeave, onDragEnd, onDragOver, onDropColumn,
+  onDragStart, onDragOver, onDropColumn,
 } from '../../../../../utils/dragEvents';
 import './styles.css';
 import OpenedColumn from '../../../openedColomn/component';
+import { FirebaseContext } from '../../../../../utils/fireBase';
 
 const Column = (props: ColumnProps) => {
   const {
@@ -14,8 +15,9 @@ const Column = (props: ColumnProps) => {
     setUserState,
     currentCard,
     setCurrentCard,
-    firebase,
   } = props;
+
+  const firebase = useContext(FirebaseContext);
 
   const [isOpenColumn, setOpenColumn] = useState<boolean>(false);
 
@@ -31,8 +33,6 @@ const Column = (props: ColumnProps) => {
         onDragStart={() => {
           onDragStart(column, setCurrentCard);
         }}
-        onDragLeave={(e) => onDragLeave(e)}
-        onDragEnd={(e) => onDragEnd(e)}
         onDragOver={(e) => onDragOver(e)}
         onDrop={() => onDropColumn(column, currentCard, deskName, userState, firebase)}
         draggable

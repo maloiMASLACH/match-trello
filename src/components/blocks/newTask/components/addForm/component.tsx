@@ -5,7 +5,7 @@ import Firebase, { FirebaseContext } from '../../../../../utils/fireBase';
 
 const AddForm = (props: AddFormProps) => {
   const {
-    setActive, userState, setUserState, deskName, columnName,
+    handleActive, userState, setUserState, deskName, columnName,
   } = props;
 
   const [inputName, setInputName] = useState('');
@@ -16,22 +16,23 @@ const AddForm = (props: AddFormProps) => {
 
     const taskName = name.split(' ').join('');
     const columnObj = columnName.split(' ').join('_');
+    const deskNameObj = deskName.split(' ').join('_');
 
     const newTask = {
       taskName,
       date,
       completed: false,
-      id: userState.desks[deskName].columns[columnObj].tasks
-        ? Object.keys(userState.desks[deskName].columns[columnObj].tasks).length
+      id: userState.desks[deskNameObj as any]!.columns[columnObj as any]!.tasks
+        ? Object.keys(userState.desks[deskNameObj as any]!.columns[columnObj as any]!.tasks).length
           + 1
         : 1,
     };
 
-    if (!userState.desks[deskName].columns[columnObj].tasks) {
-      newDesk.desks[deskName].columns[columnObj].tasks = {};
+    if (!userState.desks[deskNameObj as any]!.columns[columnObj as any]!.tasks) {
+      newDesk.desks[deskNameObj as any]!.columns[columnObj as any]!.tasks! = [];
     }
 
-    newDesk.desks[deskName].columns[columnObj].tasks[taskName] = newTask;
+    newDesk.desks[deskNameObj as any]!.columns[columnObj as any]!.tasks[taskName as any] = newTask;
 
     setUserState(newDesk);
 
@@ -39,7 +40,7 @@ const AddForm = (props: AddFormProps) => {
       .user(userState.uid.slice(1))
       .set(userState)
       .then(() => {
-        setActive(false);
+        handleActive();
       });
   };
 
@@ -71,7 +72,7 @@ const AddForm = (props: AddFormProps) => {
             src="./x.png"
             alt="add"
             className="addTaskImgClose"
-            onClick={() => setActive(false)}
+            onClick={() => handleActive()}
             aria-hidden="true"
           />
         </div>

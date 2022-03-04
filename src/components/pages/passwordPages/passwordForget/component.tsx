@@ -55,6 +55,7 @@ const PasswordForget: React.FC = () => {
           <Button
             text="RESET PASSWORD"
             disabled={isCorrect}
+            type="submit"
             onClick={() => onSubmit({ mail: inputMail, nav: navigate, firebase })}
           />
         </>

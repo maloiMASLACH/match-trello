@@ -1,36 +1,32 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { AddFormProps } from '../../../../../types/newColumn';
 import './styles.css';
-import Firebase, { FirebaseContext } from '../../../../../utils/fireBase';
+import { FirebaseContext } from '../../../../../utils/fireBase';
 
 const AddForm = (props: AddFormProps) => {
   const {
-    setActive, userState, setUserState, deskName,
+    handleActive, userState, setUserState, deskName,
   } = props;
+
+  const firebase = useContext(FirebaseContext);
 
   const [inputValue, setInputValue] = useState('');
 
-  const addColumn = (name: string, firebase: Firebase) => {
+  const addColumn = (name: string) => {
     const newDesk = userState;
     const columnName = name.split(' ').join('_');
+    const deskNameObj = deskName.split(' ').join('_');
     const newColumn = {
-      tasks: {
-        task: {
-          taskName: 'task',
-          date: 'tomorrow',
-          completed: false,
-          id: 1,
-        },
-      },
-      id: userState.desks[deskName].columns
-        ? Object.keys(userState.desks[deskName].columns).length + 1
+      tasks: [],
+      id: userState.desks[deskNameObj as any]!.columns
+        ? Object.keys(userState.desks[deskNameObj as any]!.columns).length + 1
         : 1,
       columnName: name,
     };
-    if (!newDesk.desks[deskName].columns) {
-      newDesk.desks[deskName].columns = {};
+    if (!newDesk.desks[deskNameObj as any]!.columns) {
+      newDesk.desks[deskNameObj as any]!.columns = [];
     }
-    newDesk.desks[deskName].columns[columnName] = newColumn;
+    newDesk.desks[deskNameObj as any]!.columns[columnName as any]! = newColumn;
 
     setUserState(newDesk);
 
@@ -38,38 +34,34 @@ const AddForm = (props: AddFormProps) => {
       .user(userState.uid.slice(1))
       .set(userState)
       .then(() => {
-        setActive(false);
+        handleActive();
       });
   };
 
   return (
-    <FirebaseContext.Consumer>
-      {(firebase) => (
-        <div className="addColonBlock">
-          <img
-            src="./x.png"
-            alt="add"
-            className="addColonImgClose"
-            onClick={() => setActive(false)}
-            aria-hidden="true"
-          />
-          <input
-            type="text"
-            value={inputValue}
-            placeholder="Colon name"
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-          <button
-            type="submit"
-            onClick={() => {
-              addColumn(inputValue, firebase);
-            }}
-          >
-            confirm
-          </button>
-        </div>
-      )}
-    </FirebaseContext.Consumer>
+    <div className="addColonBlock">
+      <img
+        src="./x.png"
+        alt="add"
+        className="addColonImgClose"
+        onClick={() => handleActive()}
+        aria-hidden="true"
+      />
+      <input
+        type="text"
+        value={inputValue}
+        placeholder="Colon name"
+        onChange={(e) => setInputValue(e.target.value)}
+      />
+      <button
+        type="submit"
+        onClick={() => {
+          addColumn(inputValue);
+        }}
+      >
+        confirm
+      </button>
+    </div>
   );
 };
 

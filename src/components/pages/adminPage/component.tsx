@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { User } from '../../../types/globalTypes';
+import { UserType } from '../../../types/globalTypes';
 import { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
 import './styles.css';
@@ -32,7 +32,7 @@ const UsersList = (props: UsersListProps) => {
 const AdminPageBLockRender = (props: AdminPageBLockRenderProps) => {
   const { firebase } = props;
 
-  const [users, setUsers] = useState<User[] | null>(null);
+  const [users, setUsers] = useState<UserType[] | null>(null);
 
   useEffect(() => {
     firebase.users().on('value', (snapshot) => {

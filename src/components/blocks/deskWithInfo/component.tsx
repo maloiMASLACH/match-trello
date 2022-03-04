@@ -14,9 +14,9 @@ const DeskWithInfo = (props: DeskWithInfoProps) => {
   let taskCount = 0;
 
   if (deskInfo.columns) {
-    Object.values(deskInfo.columns).forEach((column: ColumnType) => {
-      if (column.tasks) {
-        taskCount += Object.keys(column.tasks).length;
+    Object.values(deskInfo.columns).forEach((column: ColumnType | null) => {
+      if (column!.tasks) {
+        taskCount += Object.keys(column!.tasks).length;
       }
     });
   }

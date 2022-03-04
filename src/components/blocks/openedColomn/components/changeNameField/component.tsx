@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ChangeNameFieldProps } from '../../../../../types/openedColumn';
+import { FirebaseContext } from '../../../../../utils/fireBase';
 
 const ChangeNameField = (props: ChangeNameFieldProps) => {
   const {
@@ -8,19 +9,26 @@ const ChangeNameField = (props: ChangeNameFieldProps) => {
     deskName,
     columnName,
     setChanging,
-    firebase,
   } = props;
 
-  const renameDesk = (inputValue: string) => {
+  const firebase = useContext(FirebaseContext);
+
+  const renameColumn = (inputValue: string) => {
     const newDesk = userState;
 
     const oldColumnName = columnName.split(' ').join('_');
     const newColumnName = inputValue.split(' ').join('_');
+    const deskNameObj = deskName.split(' ').join('_');
 
-    newDesk.desks[deskName].columns[newColumnName] = newDesk.desks[deskName].columns[oldColumnName];
-    newDesk.desks[deskName].columns[newColumnName].columnName = inputValue;
+    newDesk.desks[deskNameObj as any]!
+      .columns[newColumnName as any] = newDesk.desks[deskNameObj as any]!
+        .columns[oldColumnName as any];
 
-    newDesk.desks[deskName].columns[oldColumnName] = null;
+    newDesk.desks[deskNameObj as any]!.columns[
+      newColumnName as any
+    ]!.columnName = inputValue;
+
+    newDesk.desks[deskNameObj as any]!.columns[oldColumnName as any] = null;
 
     setUserState(newDesk);
 
@@ -44,7 +52,7 @@ const ChangeNameField = (props: ChangeNameFieldProps) => {
       <button
         className="newDeskNameSubmit"
         type="submit"
-        onClick={() => renameDesk(inputValue)}
+        onClick={() => renameColumn(inputValue)}
       >
         OK
       </button>

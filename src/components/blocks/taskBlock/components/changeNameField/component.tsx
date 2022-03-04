@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ChangeNameFieldProps } from '../../../../../types/taskBlock';
+import { FirebaseContext } from '../../../../../utils/fireBase';
 
 const ChangeNameField = (props: ChangeNameFieldProps) => {
   const {
@@ -9,19 +10,32 @@ const ChangeNameField = (props: ChangeNameFieldProps) => {
     columnName,
     taskName,
     setChanging,
-    firebase,
   } = props;
 
+  const firebase = useContext(FirebaseContext);
+
   const columnObj = columnName.split(' ').join('_');
+  const deskNameObj = deskName.split(' ').join('_');
 
-  const renameDesk = (name: string, date: string) => {
+  const renameTask = (name: string, date: string) => {
     const newDesk = userState;
-    newDesk.desks[deskName]
-      .columns[columnObj].tasks[name] = newDesk.desks[deskName].columns[columnObj].tasks[taskName];
-    newDesk.desks[deskName].columns[columnObj].tasks[name].date = date;
-    newDesk.desks[deskName].columns[columnObj].tasks[name].taskName = name;
+    newDesk.desks[deskNameObj as any]!.columns[columnObj as any]!.tasks[
+      name as any
+    ] = newDesk.desks[deskNameObj as any]!.columns[columnObj as any]!.tasks[
+      taskName as any
+    ];
 
-    newDesk.desks[deskName].columns[columnObj].tasks[taskName] = null;
+    newDesk.desks[deskNameObj as any]!.columns[columnObj as any]!.tasks[
+      name as any
+    ]!.date = date;
+
+    newDesk.desks[deskNameObj as any]!.columns[columnObj as any]!.tasks[
+      name as any
+    ]!.taskName = name;
+
+    newDesk.desks[deskNameObj as any]!.columns[columnObj as any]!.tasks[
+      taskName as any
+    ] = null;
 
     setUserState(newDesk);
 
@@ -54,7 +68,7 @@ const ChangeNameField = (props: ChangeNameFieldProps) => {
       <button
         className="taskRedactSubmit"
         type="submit"
-        onClick={() => renameDesk(inputName, inputDate)}
+        onClick={() => renameTask(inputName, inputDate)}
       >
         OK
       </button>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { User } from '../../../types/globalTypes';
+import { UserType } from '../../../types/globalTypes';
 import { passReset } from '../../../constants/routerLinks';
 import { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
@@ -14,10 +14,10 @@ const UserPageBlockRender = (props: UserPageBlockRenderProps) => {
 
   try {
     if (userInfo?.desks) {
-      Object.keys(userInfo.desks).forEach((desk) => {
-        Object.keys(userInfo.desks[desk].columns).forEach((column) => {
-          taskCount += Object.keys(
-            userInfo.desks[desk].columns[column].tasks,
+      Object.values(userInfo.desks).forEach((desk) => {
+        Object.values(desk!.columns).forEach((column) => {
+          taskCount += Object.values(
+            column!.tasks,
           ).length;
         });
       });
@@ -38,7 +38,7 @@ const UserPageBlockRender = (props: UserPageBlockRenderProps) => {
             </div>
             <div>
               <p>Tables count</p>
-              <p>{Object.keys(userInfo.desks).length}</p>
+              <p>{Object.values(userInfo.desks).length}</p>
             </div>
             <div>
               <p>Tasks Count</p>
@@ -61,7 +61,7 @@ const UserPageBlockRender = (props: UserPageBlockRenderProps) => {
 const PageWithUser = (props: PageWithUserProps) => {
   const { user, firebase } = props;
 
-  const [userInfo, setUserInfo] = useState<User | null>(null);
+  const [userInfo, setUserInfo] = useState<UserType | null>(null);
 
   useEffect(() => {
     firebase.user(user.uid).on('value', (snapshot) => {

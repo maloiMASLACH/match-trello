@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 import React from 'react';
 import clsx from 'clsx';
 import './styles.css';
@@ -12,8 +13,8 @@ const Button = (props: StartButtonProps) => {
   return (
     <button
       {...rest}
-      disabled={!disabled}
-      type="submit"
+      type={rest.type}
+      disabled={disabled}
       className={clsx('linkButton', className)}
     >
       {text}

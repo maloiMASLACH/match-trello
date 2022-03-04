@@ -11,10 +11,14 @@ const NewTask = (props: NewTaskProps) => {
 
   const [isActive, setActive] = useState<boolean>(false);
 
+  const handleActive = () => {
+    setActive((prevState) => !prevState);
+  };
+
   if (isActive) {
     return (
       <AddForm
-        setActive={setActive}
+        handleActive={handleActive}
         userState={userState}
         setUserState={setUserState}
         deskName={deskName}

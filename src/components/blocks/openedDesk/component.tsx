@@ -1,13 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ColumnType } from '../../../types/globalTypes';
-import {
-  onDragEnd,
-  onDragLeave,
-  onDragOver,
-  onDragStart,
-  onDropColumn,
-} from '../../../utils/dragEvents';
-import Firebase, { FirebaseContext } from '../../../utils/fireBase';
+import { FirebaseContext } from '../../../utils/fireBase';
 import sortCards from '../../../utils/sortCards';
 import NewColumn from '../newColumn';
 import './styles.css';
@@ -20,15 +13,16 @@ const OpenedDesk = (props: OpenedDeskProps) => {
     deskInfo, deskName, setOpenDesk, userState, setUserState,
   } = props;
 
+  const firebase = useContext(FirebaseContext);
+
   const [isChanging, setChanging] = useState<boolean>(false);
   const [currentColumn, setCurrentColumn] = useState<ColumnType | null>(null);
+  const deskNameObj = deskName.split(' ').join('_');
 
-  const deleteDesk = (
-    firebase: Firebase,
-    setCloseDesk: React.Dispatch<React.SetStateAction<boolean>>,
-  ) => {
+  const deleteDesk = () => {
     const newDesk = userState;
-    newDesk.desks[deskName] = null;
+
+    newDesk.desks[deskNameObj as any] = null;
 
     setUserState(newDesk);
 
@@ -36,78 +30,70 @@ const OpenedDesk = (props: OpenedDeskProps) => {
       .user(userState.uid.slice(1))
       .set(userState)
       .then(() => {
-        setCloseDesk(false);
+        setOpenDesk(false);
       });
   };
 
   return (
     <div className="openedDeskBlock">
-      <FirebaseContext.Consumer>
-        {(firebase) => (
-          <>
-            <div className="openedDeskBlockHead">
-              <h3>
-                {!isChanging && deskName}
-                {isChanging && (
-                  <ChangeNameField
-                    userState={userState}
-                    setUserState={setUserState}
-                    deskName={deskName}
-                    setChanging={setChanging}
-                    firebase={firebase}
-                  />
-                )}
-              </h3>
-              <img
-                className="deskDelete"
-                src="./redact.png"
-                alt="redact"
-                onClick={() => {
-                  setChanging(!isChanging);
-                }}
-                aria-hidden="true"
-              />
-              <img
-                className="deskDelete"
-                alt="delete"
-                src="./delete.png"
-                onClick={() => deleteDesk(firebase, setOpenDesk)}
-                aria-hidden="true"
-              />
-              <img
-                src="./x.png"
-                alt="x"
-                onClick={() => {
-                  setOpenDesk(false);
-                }}
-                aria-hidden="true"
-              />
-            </div>
-            <div className="colons">
-              {deskInfo.columns
-                ? Object.values(deskInfo.columns)
-                  .sort(sortCards)
-                  .map((column: ColumnType) => (
-                    <Column
-                      column={column}
-                      deskName={deskName}
-                      userState={userState}
-                      setUserState={setUserState}
-                      currentCard={currentColumn}
-                      setCurrentCard={setCurrentColumn}
-                      firebase={firebase}
-                    />
-                  ))
-                : null}
-              <NewColumn
+      <div className="openedDeskBlockHead">
+        <h3>
+          {!isChanging && deskName}
+          {isChanging && (
+          <ChangeNameField
+            userState={userState}
+            setUserState={setUserState}
+            deskName={deskName}
+            setChanging={setChanging}
+          />
+          )}
+        </h3>
+        <img
+          className="deskDelete"
+          src="./redact.png"
+          alt="redact"
+          onClick={() => {
+            setChanging(!isChanging);
+          }}
+          aria-hidden="true"
+        />
+        <img
+          className="deskDelete"
+          alt="delete"
+          src="./delete.png"
+          onClick={() => deleteDesk()}
+          aria-hidden="true"
+        />
+        <img
+          src="./x.png"
+          alt="x"
+          onClick={() => {
+            setOpenDesk(false);
+          }}
+          aria-hidden="true"
+        />
+      </div>
+      <div className="colons">
+        {deskInfo.columns
+          ? Object.values(deskInfo.columns)
+            .sort(sortCards)
+            .map((column: ColumnType | null) => (
+              <Column
+                column={column!}
                 deskName={deskName}
                 userState={userState}
                 setUserState={setUserState}
+                currentCard={currentColumn}
+                setCurrentCard={setCurrentColumn}
               />
-            </div>
-          </>
-        )}
-      </FirebaseContext.Consumer>
+            ))
+          : null}
+        <NewColumn
+          deskName={deskName}
+          userState={userState}
+          setUserState={setUserState}
+        />
+      </div>
     </div>
   );
 };
