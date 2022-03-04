@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { NewColumnProps } from '../../../types/newColumn';
 import AddForm from './components/addForm';
 import './styles.css';
 import AddTablet from './components/addTablet';
 
-const NewColumn = (props: NewColumnProps) => {
-  const { userState, setUserState, deskName } = props;
-
+const NewColumn = () => {
   const [isActive, setActive] = useState<boolean>(false);
 
   const handleActive = () => {
@@ -14,16 +11,9 @@ const NewColumn = (props: NewColumnProps) => {
   };
 
   if (isActive) {
-    return (
-      <AddForm
-        handleActive={handleActive}
-        userState={userState}
-        setUserState={setUserState}
-        deskName={deskName}
-      />
-    );
+    return <AddForm handleActive={handleActive} />;
   }
-  return <AddTablet setActive={setActive} />;
+  return <AddTablet handleActive={handleActive} />;
 };
 
 export default NewColumn;

@@ -4,49 +4,39 @@ import { FirebaseContext } from '../../../utils/fireBase';
 import sortCards from '../../../utils/sortCards';
 import NewColumn from '../newColumn';
 import './styles.css';
-import { OpenedDeskProps } from '../../../types/openedDesk';
 import ChangeNameField from './components/changeNameField';
 import Column from './components/column';
+import UserValueContext from '../../../utils/valueContexts/userValueContext';
+import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
+import ColumnValueContext from '../../../utils/valueContexts/columnValueContext';
+import { HandleActive } from '../../../types/toggle';
 
-const OpenedDesk = (props: OpenedDeskProps) => {
-  const {
-    deskInfo, deskName, setOpenDesk, userState, setUserState,
-  } = props;
+const OpenedDesk = (props: HandleActive) => {
+  const { handleActive } = props;
 
   const firebase = useContext(FirebaseContext);
+  const userValue = useContext(UserValueContext);
+  const deskInfo = useContext(DeskValueContext);
 
   const [isChanging, setChanging] = useState<boolean>(false);
   const [currentColumn, setCurrentColumn] = useState<ColumnType | null>(null);
-  const deskNameObj = deskName.split(' ').join('_');
+
+  const deskObjName = deskInfo!.deskName.split(' ').join('');
+
+  const handleChanging = () => {
+    setChanging((prevState) => !prevState);
+  };
 
   const deleteDesk = () => {
-    const newDesk = userState;
-
-    newDesk.desks[deskNameObj as any] = null;
-
-    setUserState(newDesk);
-
-    firebase
-      .user(userState.uid.slice(1))
-      .set(userState)
-      .then(() => {
-        setOpenDesk(false);
-      });
+    firebase!.desk(userValue!.uid, deskObjName).set(null);
   };
 
   return (
     <div className="openedDeskBlock">
       <div className="openedDeskBlockHead">
         <h3>
-          {!isChanging && deskName}
-          {isChanging && (
-          <ChangeNameField
-            userState={userState}
-            setUserState={setUserState}
-            deskName={deskName}
-            setChanging={setChanging}
-          />
-          )}
+          {!isChanging && deskInfo!.deskName}
+          {isChanging && <ChangeNameField handleChanging={handleChanging} />}
         </h3>
         <img
           className="deskDelete"
@@ -68,31 +58,25 @@ const OpenedDesk = (props: OpenedDeskProps) => {
           src="./x.png"
           alt="x"
           onClick={() => {
-            setOpenDesk(false);
+            handleActive();
           }}
           aria-hidden="true"
         />
       </div>
       <div className="colons">
-        {deskInfo.columns
-          ? Object.values(deskInfo.columns)
+        {deskInfo!.columns
+          ? Object.values(deskInfo!.columns)
             .sort(sortCards)
             .map((column: ColumnType | null) => (
-              <Column
-                column={column!}
-                deskName={deskName}
-                userState={userState}
-                setUserState={setUserState}
-                currentCard={currentColumn}
-                setCurrentCard={setCurrentColumn}
-              />
+              <ColumnValueContext.Provider value={column}>
+                <Column
+                  currentCard={currentColumn}
+                  setCurrentCard={setCurrentColumn}
+                />
+              </ColumnValueContext.Provider>
             ))
           : null}
-        <NewColumn
-          deskName={deskName}
-          userState={userState}
-          setUserState={setUserState}
-        />
+        <NewColumn />
       </div>
     </div>
   );

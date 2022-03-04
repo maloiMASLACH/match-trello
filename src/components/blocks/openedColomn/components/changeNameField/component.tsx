@@ -1,43 +1,30 @@
 import React, { useContext, useState } from 'react';
-import { ChangeNameFieldProps } from '../../../../../types/openedColumn';
+import { HandleChanging } from '../../../../../types/toggle';
 import { FirebaseContext } from '../../../../../utils/fireBase';
+import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
+import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
+import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
 
-const ChangeNameField = (props: ChangeNameFieldProps) => {
-  const {
-    userState,
-    setUserState,
-    deskName,
-    columnName,
-    setChanging,
-  } = props;
+const ChangeNameField = (props: HandleChanging) => {
+  const { handleChanging } = props;
 
   const firebase = useContext(FirebaseContext);
+  const userValue = useContext(UserValueContext);
+  const deskValue = useContext(DeskValueContext);
+  const columnValue = useContext(ColumnValueContext);
 
   const renameColumn = (inputValue: string) => {
-    const newDesk = userState;
+    const deskObjName = deskValue!.deskName.split(' ').join('');
+    const columnObjName = columnValue!.columnName.split(' ').join('');
+    const newObj = inputValue.split(' ').join('');
 
-    const oldColumnName = columnName.split(' ').join('_');
-    const newColumnName = inputValue.split(' ').join('_');
-    const deskNameObj = deskName.split(' ').join('_');
+    firebase!.column(userValue!.uid, deskObjName, columnObjName).set(null);
 
-    newDesk.desks[deskNameObj as any]!
-      .columns[newColumnName as any] = newDesk.desks[deskNameObj as any]!
-        .columns[oldColumnName as any];
+    columnValue!.columnName = inputValue;
 
-    newDesk.desks[deskNameObj as any]!.columns[
-      newColumnName as any
-    ]!.columnName = inputValue;
+    firebase!.column(userValue!.uid, deskObjName, newObj).set(columnValue);
 
-    newDesk.desks[deskNameObj as any]!.columns[oldColumnName as any] = null;
-
-    setUserState(newDesk);
-
-    firebase
-      .user(userState.uid.slice(1))
-      .set(userState)
-      .then(() => {
-        setChanging(false);
-      });
+    handleChanging();
   };
   const [inputValue, setInputValue] = useState('');
   return (

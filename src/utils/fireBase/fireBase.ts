@@ -41,6 +41,41 @@ class Firebase {
   user = (uid: string) => this.db.ref(`users/${uid}`);
 
   users = () => this.db.ref('users');
+
+  desk = (uid:string, deskObjName:string) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}`);
+
+  column = (
+    uid:string,
+    deskObjName:string,
+    columnObjName:string,
+  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}/columns/${columnObjName}`);
+
+  columnId = (
+    uid:string,
+    deskObjName:string,
+    columnObjName:string,
+  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}/columns/${columnObjName}/id`);
+
+  task = (
+    uid:string,
+    deskObjName:string,
+    columnObjName:string,
+    taskObjName:string,
+  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}/columns/${columnObjName}/tasks/${taskObjName}`);
+
+  taskCompleted = (
+    uid:string,
+    deskObjName:string,
+    columnObjName:string,
+    taskObjName:string,
+  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}/columns/${columnObjName}/tasks/${taskObjName}/completed`);
+
+  taskId = (
+    uid:string,
+    deskObjName:string,
+    columnObjName:string,
+    taskObjName:string,
+  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}/columns/${columnObjName}/tasks/${taskObjName}/id`);
 }
 
 export default Firebase;

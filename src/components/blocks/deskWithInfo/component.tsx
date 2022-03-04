@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ColumnType } from '../../../types/globalTypes';
+import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
 import OpenedDesk from '../openedDesk';
 import './styles.css';
-import { DeskWithInfoProps } from '../../../types/deskWithInfo';
 
-const DeskWithInfo = (props: DeskWithInfoProps) => {
+const DeskWithInfo = () => {
   const [isOpen, setOpenDesk] = useState<boolean>(false);
 
-  const {
-    deskInfo, deskName, userState, setUserState,
-  } = props;
+  const deskInfo = useContext(DeskValueContext);
+
+  const handleActive = () => {
+    setOpenDesk((prevState) => !prevState);
+  };
 
   let taskCount = 0;
 
-  if (deskInfo.columns) {
-    Object.values(deskInfo.columns).forEach((column: ColumnType | null) => {
+  if (deskInfo!.columns) {
+    Object.values(deskInfo!.columns).forEach((column: ColumnType | null) => {
       if (column!.tasks) {
         taskCount += Object.keys(column!.tasks).length;
       }
@@ -26,27 +28,19 @@ const DeskWithInfo = (props: DeskWithInfoProps) => {
       <div
         className="infoBlock"
         onClick={() => {
-          setOpenDesk(true);
+          handleActive();
         }}
         aria-hidden="true"
       >
-        <h3>{deskName}</h3>
+        <h3>{deskInfo!.deskName}</h3>
         <p>
-          {`${deskInfo.columns ? Object.keys(deskInfo.columns).length : 0} columns`}
+          {`${
+            deskInfo!.columns ? Object.keys(deskInfo!.columns).length : 0
+          } columns`}
         </p>
-        <p>
-          {`${taskCount} tasks`}
-        </p>
+        <p>{`${taskCount} tasks`}</p>
       </div>
-      {isOpen && (
-        <OpenedDesk
-          deskInfo={deskInfo}
-          deskName={deskName}
-          setOpenDesk={setOpenDesk}
-          userState={userState}
-          setUserState={setUserState}
-        />
-      ) }
+      {isOpen && <OpenedDesk handleActive={handleActive} />}
     </>
   );
 };

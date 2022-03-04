@@ -1,54 +1,44 @@
 import React, { useContext, useState } from 'react';
 import { TaskType } from '../../../types/globalTypes';
-import Firebase, { FirebaseContext } from '../../../utils/fireBase';
+import { FirebaseContext } from '../../../utils/fireBase';
 import sortCards from '../../../utils/sortCards';
 import NewTask from '../newTask';
 import Task from '../taskBlock';
 import './styles.css';
-import { OpenedColumnProps } from '../../../types/openedColumn';
 import ChangeNameField from './components/changeNameField';
+import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
+import UserValueContext from '../../../utils/valueContexts/userValueContext';
+import ColumnValueContext from '../../../utils/valueContexts/columnValueContext';
+import TaskValueContext from '../../../utils/valueContexts/taskValueContext';
+import { HandleOpened } from '../../../types/toggle';
 
-const OpenedColumn = (props: OpenedColumnProps) => {
-  const {
-    column, deskName, userState, setUserState, setOpenColumn,
-  } = props;
+const OpenedColumn = (props: HandleOpened) => {
+  const { handleOpened } = props;
 
   const firebase = useContext(FirebaseContext);
+  const userValue = useContext(UserValueContext);
+  const deskValue = useContext(DeskValueContext);
+  const columnValue = useContext(ColumnValueContext);
 
   const [isChanging, setChanging] = useState<boolean>(false);
   const [currentTask, setCurrentTask] = useState<TaskType | null>(null);
 
   const deleteColumn = () => {
-    const newDesk = userState;
-    const columnName = column.columnName.split(' ').join('_');
-    const deskNameObj = deskName.split(' ').join('_');
+    const deskObjName = deskValue?.deskName.split(' ').join('');
+    const columnObjName = columnValue?.columnName.split(' ').join('');
+    firebase!.column(userValue!.uid, deskObjName!, columnObjName!).set(null);
+  };
 
-    newDesk.desks[deskNameObj as any]!.columns[columnName as any] = null;
-
-    setUserState(newDesk);
-
-    firebase
-      .user(userState.uid.slice(1))
-      .set(userState)
-      .then(() => {
-        setOpenColumn(false);
-      });
+  const handleChanging = () => {
+    setChanging((prevState) => !prevState);
   };
 
   return (
     <div className="openedColonBlock">
       <div className="openedColonBlockHead">
         <h3>
-          {!isChanging && column.columnName }
-          {isChanging && (
-          <ChangeNameField
-            userState={userState}
-            setUserState={setUserState}
-            deskName={deskName}
-            columnName={column.columnName}
-            setChanging={setChanging}
-          />
-          )}
+          {!isChanging && columnValue!.columnName}
+          {isChanging && <ChangeNameField handleChanging={handleChanging} />}
         </h3>
         <img
           src="./redact.png"
@@ -70,33 +60,25 @@ const OpenedColumn = (props: OpenedColumnProps) => {
           src="./x.png"
           alt="x"
           onClick={() => {
-            setOpenColumn(false);
+            handleOpened();
           }}
           aria-hidden="true"
         />
       </div>
       <div className="tasks">
-        {column.tasks
-          ? Object.values(column.tasks)
+        {columnValue!.tasks
+          ? Object.values(columnValue!.tasks)
             .sort(sortCards)
             .map((task: TaskType | null) => (
-              <Task
-                deskName={deskName}
-                columnName={column.columnName}
-                taskInfo={task!}
-                userState={userState}
-                setUserState={setUserState}
-                currentCard={currentTask}
-                setCurrentCard={setCurrentTask}
-              />
+              <TaskValueContext.Provider value={task}>
+                <Task
+                  currentCard={currentTask}
+                  setCurrentCard={setCurrentTask}
+                />
+              </TaskValueContext.Provider>
             ))
           : null}
-        <NewTask
-          deskName={deskName}
-          columnName={column.columnName}
-          userState={userState}
-          setUserState={setUserState}
-        />
+        <NewTask />
       </div>
     </div>
   );

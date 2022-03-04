@@ -1,113 +1,99 @@
 import React, { useContext, useState } from 'react';
-import {
-  onDragOver,
-  onDragStart,
-  onDropCard,
-} from '../../../utils/dragEvents';
-import Firebase, { FirebaseContext } from '../../../utils/fireBase';
+import { onDragOver, onDragStart, onDropCard } from '../../../utils/dragEvents';
+import { FirebaseContext } from '../../../utils/fireBase';
 import './styles.css';
 import { TaskProps } from '../../../types/taskBlock';
 import ChangeNameField from './components/changeNameField';
+import TaskValueContext from '../../../utils/valueContexts/taskValueContext';
+import UserValueContext from '../../../utils/valueContexts/userValueContext';
+import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
+import ColumnValueContext from '../../../utils/valueContexts/columnValueContext';
 
 const Task = (props: TaskProps) => {
-  const {
-    deskName,
-    columnName,
-    taskInfo,
-    userState,
-    setUserState,
-    currentCard,
-    setCurrentCard,
-  } = props;
+  const { currentCard, setCurrentCard } = props;
 
   const firebase = useContext(FirebaseContext);
+  const userValue = useContext(UserValueContext);
+  const deskValue = useContext(DeskValueContext);
+  const columnValue = useContext(ColumnValueContext);
+  const taskValue = useContext(TaskValueContext);
 
-  const [checked, setChecked] = useState<boolean>(taskInfo.completed);
+  const deskObjName = deskValue!.deskName.split(' ').join('');
+  const columnObjName = columnValue!.columnName.split(' ').join('');
+  const taskObjName = taskValue!.taskName.split(' ').join('');
+
+  const [checked, setChecked] = useState<boolean>(taskValue!.completed);
   const [isChanging, setChanging] = useState<boolean>(false);
-  const columnObj = columnName.split(' ').join('_');
+
+  const handleChanging = () => {
+    setChanging((prevState) => !prevState);
+  };
 
   const setCompleted = () => {
-    const newState = userState;
-    newState.desks[deskName as any]!.columns[columnObj as any]!.tasks[
-      taskInfo.taskName as any
-    ]!.completed = !checked;
+    firebase!
+      .taskCompleted(userValue!.uid, deskObjName, columnObjName, taskObjName)
+      .set(!checked);
 
-    setUserState(newState);
     setChecked(!checked);
-
-    firebase.user(userState.uid.slice(1)).set(userState);
   };
 
   const deleteTask = () => {
-    const newDesk = userState;
-    newDesk.desks[deskName as any]!
-      .columns[columnObj as any]!
-      .tasks[taskInfo.taskName as any] = null;
-    setUserState(newDesk);
-
-    firebase.user(userState.uid.slice(1)).set(userState);
+    firebase!
+      .task(userValue!.uid, deskObjName, columnObjName, taskObjName)
+      .set(null);
   };
 
   return (
     <div
       className="task"
       onDragStart={() => {
-        onDragStart(taskInfo, setCurrentCard);
+        onDragStart(taskValue, setCurrentCard);
       }}
       onDragOver={(e) => onDragOver(e)}
       onDrop={() => onDropCard(
-        taskInfo,
-        currentCard,
-        deskName,
-        columnObj,
-        userState,
-        firebase,
+        taskValue!,
+        currentCard!,
+        userValue!.uid,
+        deskObjName,
+        columnObjName,
+        firebase!,
       )}
       draggable
     >
       {!isChanging && (
-      <>
-        <p>{taskInfo.taskName}</p>
-        <img
-          src="./redact.png"
-          className="taskRedact"
-          alt="x"
-          onClick={() => {
-            setChanging(!isChanging);
-          }}
-          aria-hidden="true"
-        />
-        <img
-          className="taskDelete"
-          alt="delete"
-          src="./delete.png"
-          onClick={() => deleteTask()}
-          aria-hidden="true"
-        />
-        <input
-          className="taskCheckBox"
-          type="checkbox"
-          checked={checked}
-          id={taskInfo.taskName}
-          onChange={() => setCompleted()}
-        />
-        <label htmlFor={taskInfo.taskName}>
-          <input type="checkbox" id="rule" />
-          <div id="tick_mark" />
-        </label>
-        <p>{taskInfo.date}</p>
-      </>
+        <>
+          <p>{taskValue!.taskName}</p>
+          <img
+            src="./redact.png"
+            className="taskRedact"
+            alt="x"
+            onClick={() => {
+              setChanging(!isChanging);
+            }}
+            aria-hidden="true"
+          />
+          <img
+            className="taskDelete"
+            alt="delete"
+            src="./delete.png"
+            onClick={() => deleteTask()}
+            aria-hidden="true"
+          />
+          <input
+            className="taskCheckBox"
+            type="checkbox"
+            checked={checked}
+            id={taskValue!.taskName}
+            onChange={() => setCompleted()}
+          />
+          <label htmlFor={taskValue!.taskName}>
+            <input type="checkbox" id="rule" />
+            <div id="tick_mark" />
+          </label>
+          <p>{taskValue!.date}</p>
+        </>
       )}
-      {isChanging ? (
-        <ChangeNameField
-          userState={userState}
-          setUserState={setUserState}
-          deskName={deskName}
-          columnName={columnName}
-          taskName={taskInfo.taskName}
-          setChanging={setChanging}
-        />
-      ) : null}
+      {isChanging ? <ChangeNameField handleChanging={handleChanging} /> : null}
     </div>
   );
 };

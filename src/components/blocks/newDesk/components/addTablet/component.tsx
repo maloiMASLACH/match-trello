@@ -1,9 +1,10 @@
 import React from 'react';
-import { AddTabletProps } from '../../../../../types/newDesk';
+import { HandleActive } from '../../../../../types/toggle';
 import './styles.css';
 
-const AddTablet = (props: AddTabletProps) => {
-  const { setActive } = props;
+const AddTablet = (props: HandleActive) => {
+  const { handleActive } = props;
+
   return (
     <div className="addBlock">
       <p>Create new desk</p>
@@ -11,7 +12,7 @@ const AddTablet = (props: AddTabletProps) => {
         src="./plus.png"
         alt="add"
         className="addDeskImg"
-        onClick={() => setActive(true)}
+        onClick={() => handleActive()}
         aria-hidden="true"
       />
     </div>

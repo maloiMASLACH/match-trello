@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { UserType } from '../../../types/globalTypes';
 import { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
 import './styles.css';
-import { UsersListProps, AdminPageBLockRenderProps } from '../../../types/adminPage';
+
+import { UsersListProps } from '../../../types/adminPage';
 
 const UsersList = (props: UsersListProps) => {
   const { users } = props;
@@ -29,13 +30,13 @@ const UsersList = (props: UsersListProps) => {
   return null;
 };
 
-const AdminPageBLockRender = (props: AdminPageBLockRenderProps) => {
-  const { firebase } = props;
+const PageWithAccess = () => {
+  const firebase = useContext(FirebaseContext);
 
   const [users, setUsers] = useState<UserType[] | null>(null);
 
   useEffect(() => {
-    firebase.users().on('value', (snapshot) => {
+    firebase!.users().on('value', (snapshot: any) => {
       setUsers(Object.values(snapshot.val()));
     });
   }, []);
@@ -49,11 +50,6 @@ const AdminPageBLockRender = (props: AdminPageBLockRenderProps) => {
   );
 };
 
-const PageWithAccess = () => (
-  <FirebaseContext.Consumer>
-    {(firebase) => <AdminPageBLockRender firebase={firebase} />}
-  </FirebaseContext.Consumer>
-);
 const PageNoAccess = () => (
   <div className="userPage notAuthUser">
     <p>Sorry, but this page require an administration rules</p>
@@ -61,17 +57,13 @@ const PageNoAccess = () => (
   </div>
 );
 
-const AdminPage: React.FC = () => (
-  <AuthUserContext.Consumer>
-    {(value) => {
-      if (value) {
-        if (value.email === 'admin@gmail.com') {
-          return <PageWithAccess />;
-        }
-        return <PageNoAccess />;
-      }
-      return <PageNoAccess />;
-    }}
-  </AuthUserContext.Consumer>
-);
+const AdminPage: React.FC = () => {
+  const user = useContext(AuthUserContext);
+
+  if (user && user.email === 'admin@gmail.com') {
+    return <PageWithAccess />;
+  }
+  return <PageNoAccess />;
+};
+
 export default AdminPage;

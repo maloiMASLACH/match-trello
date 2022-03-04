@@ -1,39 +1,38 @@
 import React, { useContext, useState } from 'react';
-import { AddFormProps } from '../../../../../types/newDesk';
 import './styles.css';
 import { FirebaseContext } from '../../../../../utils/fireBase';
-import { DeskType } from '../../../../../types/globalTypes';
+import { FirstColumn } from '../../../../../constants/voidObjects';
+import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
+import sortCards from '../../../../../utils/sortCards';
+import { HandleActive } from '../../../../../types/toggle';
 
-const AddForm = (props: AddFormProps) => {
-  const { handleActive, userState, setUserState } = props;
+const AddForm = (props: HandleActive) => {
+  const { handleActive } = props;
+
+  const userValue = useContext(UserValueContext);
 
   const firebase = useContext(FirebaseContext);
 
   const [inputValue, setInputValue] = useState('');
 
   const addDesk = (name: string) => {
-    const newState = userState;
-    const deskName = name.split(' ').join('_');
-    const newDesk: DeskType = {
-      columns: [],
-      id: userState.desks ? Object.keys(userState.desks).length + 1 : 1,
-      deskName: name,
-    };
-
-    if (!newState.desks) {
-      newState.desks = [];
+    let lastId = 0;
+    if (userValue?.desks) {
+      lastId = Object.values(userValue?.desks).sort(sortCards).slice(-1)[0]
+        ?.id!;
     }
 
-    newState.desks[deskName as any] = newDesk;
+    const deskObjName = name.split(' ').join('');
 
-    setUserState(newState);
+    firebase!.desk(userValue!.uid, deskObjName).update({
+      columns: {
+        FirstColumn,
+      },
+      id: lastId ? lastId + 1 : 1,
+      deskName: name,
+    });
 
-    firebase
-      .user(userState.uid.slice(1))
-      .set(userState)
-      .then(() => {
-        handleActive();
-      });
+    handleActive();
   };
 
   return (
@@ -53,6 +52,7 @@ const AddForm = (props: AddFormProps) => {
       />
       <button
         type="submit"
+        disabled={!inputValue}
         onClick={() => {
           addDesk(inputValue);
         }}
@@ -64,18 +64,3 @@ const AddForm = (props: AddFormProps) => {
 };
 
 export default AddForm;
-
-// {
-//   First_Column: {
-//     tasks: {
-//       task: {
-//         taskName: 'task',
-//         date: 'tomorrow',
-//         completed: false,
-//         id: 1,
-//       },
-//     },
-//     id: 1,
-//     columnName: 'First Column',
-//   },
-// };

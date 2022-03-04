@@ -1,5 +1,8 @@
 import React from 'react';
+import Firebase from './fireBase';
 
-const FirebaseContext = React.createContext<any | null>(null);
+const firebaseType = new Firebase();
+
+const FirebaseContext = React.createContext<typeof firebaseType | null>(null);
 
 export default FirebaseContext;

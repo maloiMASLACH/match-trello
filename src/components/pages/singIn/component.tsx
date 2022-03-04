@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import patterns from '../../../constants/patterns';
 import { passForget, userPage } from '../../../constants/routerLinks';
-import Firebase, { FirebaseContext } from '../../../utils/fireBase';
+import { FirebaseContext } from '../../../utils/fireBase';
 import InputBlock from '../../controls/input';
 import Button from '../../controls/button';
 import PasswordActionLink from '../../controls/passwordChangeLink/component';
@@ -30,7 +30,7 @@ const SingInForm: React.FC = () => {
   };
 
   const onSubmit = () => {
-    firebase
+    firebase!
       .doSignInWithEmailAndPassword(inputMail, inputPassword)
       .then(() => {
         navigate(userPage);

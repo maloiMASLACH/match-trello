@@ -1,41 +1,38 @@
 import React, { useContext, useState } from 'react';
-import { AddFormProps } from '../../../../../types/newColumn';
 import './styles.css';
 import { FirebaseContext } from '../../../../../utils/fireBase';
+import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
+import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
+import sortCards from '../../../../../utils/sortCards';
+import { task } from '../../../../../constants/voidObjects';
+import { HandleActive } from '../../../../../types/toggle';
 
-const AddForm = (props: AddFormProps) => {
-  const {
-    handleActive, userState, setUserState, deskName,
-  } = props;
+const AddForm = (props: HandleActive) => {
+  const { handleActive } = props;
 
   const firebase = useContext(FirebaseContext);
+  const userValue = useContext(UserValueContext);
+  const deskValue = useContext(DeskValueContext);
 
   const [inputValue, setInputValue] = useState('');
 
   const addColumn = (name: string) => {
-    const newDesk = userState;
-    const columnName = name.split(' ').join('_');
-    const deskNameObj = deskName.split(' ').join('_');
-    const newColumn = {
-      tasks: [],
-      id: userState.desks[deskNameObj as any]!.columns
-        ? Object.keys(userState.desks[deskNameObj as any]!.columns).length + 1
-        : 1,
-      columnName: name,
-    };
-    if (!newDesk.desks[deskNameObj as any]!.columns) {
-      newDesk.desks[deskNameObj as any]!.columns = [];
+    let lastId = 0;
+    if (deskValue?.columns) {
+      lastId = Object.values(deskValue?.columns).sort(sortCards).slice(-1)[0]
+        ?.id!;
     }
-    newDesk.desks[deskNameObj as any]!.columns[columnName as any]! = newColumn;
 
-    setUserState(newDesk);
+    const deskObjName = deskValue?.deskName.split(' ').join('');
+    const columnObjName = name.split(' ').join('');
 
-    firebase
-      .user(userState.uid.slice(1))
-      .set(userState)
-      .then(() => {
-        handleActive();
-      });
+    firebase!.column(userValue!.uid, deskObjName!, columnObjName).update({
+      tasks: { task },
+      id: lastId + 1,
+      columnName: name,
+    });
+
+    handleActive();
   };
 
   return (
@@ -55,6 +52,7 @@ const AddForm = (props: AddFormProps) => {
       />
       <button
         type="submit"
+        disabled={!inputValue}
         onClick={() => {
           addColumn(inputValue);
         }}
