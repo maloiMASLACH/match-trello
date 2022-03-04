@@ -5,17 +5,19 @@ export interface TaskType {
   id: number;
 }
 export interface ColumnType {
-  tasks: TaskType[];
+  tasks: TaskType[] | null[];
   columnName: string;
   id: number;
 }
-export interface DeskType {
-  columns: ColumnType[];
+export interface DeskType{
+  columns: ColumnType[] | null[];
   id: number;
+  deskName: string;
 }
-export interface User {
+
+export interface UserType {
   mail: string;
   name: string;
   uid: string;
-  desks: any;
+  desks: DeskType[] | null[];
 }

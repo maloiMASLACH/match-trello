@@ -1,11 +1,11 @@
-import { User } from './globalTypes';
+import { UserType } from './globalTypes';
 import Firebase from '../utils/fireBase';
 
 export interface PageWithUserProps {
-  user: User;
+  user: UserType;
   firebase: Firebase;
 }
 
 export interface UserPageBlockRenderProps {
-  userInfo: User | null;
+  userInfo: UserType | null;
 }

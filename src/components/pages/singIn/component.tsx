@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import patterns from '../../../constants/patterns';
 import { passForget, userPage } from '../../../constants/routerLinks';
@@ -11,6 +11,8 @@ import './styles.css';
 const SingInForm: React.FC = () => {
   const [inputMail, setInputMail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
+
+  const firebase = useContext(FirebaseContext);
 
   const navigate = useNavigate();
 
@@ -27,7 +29,7 @@ const SingInForm: React.FC = () => {
     } else setCorrect(false);
   };
 
-  const onSubmit = (firebase:Firebase) => {
+  const onSubmit = () => {
     firebase
       .doSignInWithEmailAndPassword(inputMail, inputPassword)
       .then(() => {
@@ -43,39 +45,36 @@ const SingInForm: React.FC = () => {
   });
 
   return (
-    <FirebaseContext.Consumer>
-      {(firebase) => (
-        <>
-          <div
-            className="input-field"
-            onChange={() => {
-              checkIsCorrect();
-            }}
-          >
-            <InputBlock
-              id="Email"
-              value={inputMail}
-              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
-              label="E-Mail"
-              type="email"
-            />
-            <InputBlock
-              id="Password"
-              value={inputPassword}
-              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setInputPassword(e.target.value)}
-              label="Password"
-              type="password"
-            />
-          </div>
-          <Button
-            text="SING IN"
-            disabled={isCorrect}
-            onClick={() => onSubmit(firebase)}
-          />
-          <PasswordActionLink text="forget password?" link={passForget} />
-        </>
-      )}
-    </FirebaseContext.Consumer>
+    <>
+      <div
+        className="input-field"
+        onChange={() => {
+          checkIsCorrect();
+        }}
+      >
+        <InputBlock
+          id="Email"
+          value={inputMail}
+          onChange={(e:React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
+          label="E-Mail"
+          type="email"
+        />
+        <InputBlock
+          id="Password"
+          value={inputPassword}
+          onChange={(e:React.ChangeEvent<HTMLInputElement>) => setInputPassword(e.target.value)}
+          label="Password"
+          type="password"
+        />
+      </div>
+      <Button
+        text="SING IN"
+        disabled={!isCorrect}
+        type="submit"
+        onClick={() => onSubmit()}
+      />
+      <PasswordActionLink text="forget password?" link={passForget} />
+    </>
   );
 };
 export default SingInForm;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { User } from '../../types/globalTypes';
+import { UserType } from '../../types/globalTypes';
 import Firebase from '../fireBase';
 
 const userType = new Firebase().auth.currentUser;
@@ -13,10 +13,10 @@ const FetchInfo = (
 
   if (authUser?.email === 'admin@gmail.com') {
     firebase.users().once('value', (snapshot) => {
-      const allUsers: User[] = Object.values(snapshot.val());
+      const allUsers: UserType[] = Object.values(snapshot.val());
       const usersUid: string[] = [];
 
-      allUsers.map((userInfo: User) => usersUid.push(userInfo.uid));
+      allUsers.map((userInfo: UserType) => usersUid.push(userInfo.uid));
 
       setUsers(usersUid);
     });

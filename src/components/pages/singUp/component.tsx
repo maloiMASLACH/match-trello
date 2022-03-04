@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './styles.css';
 import { useNavigate } from 'react-router-dom';
 import InputBlock from '../../controls/input';
-import LinkButton from '../../controls/button';
+import Button from '../../controls/button';
 import Firebase, { FirebaseContext } from '../../../utils/fireBase';
 import patterns from '../../../constants/patterns';
 import { welcome } from '../../../constants/routerLinks';
@@ -31,7 +31,7 @@ const SingUpForm: React.FC = () => {
         mail: inputMail,
         uid: `/${newUser.user!.uid}`,
         desks: {
-          First_DeSk: {
+          First_Desk: {
             columns: {
               First_Column: {
                 tasks: {
@@ -47,6 +47,7 @@ const SingUpForm: React.FC = () => {
               },
             },
             id: 1,
+            deskName: 'First Desk',
           },
         },
       }))
@@ -98,9 +99,10 @@ const SingUpForm: React.FC = () => {
               type="password"
             />
           </div>
-          <LinkButton
+          <Button
             text="SING UP"
-            disabled={checkIsCorrect}
+            disabled={!checkIsCorrect}
+            type="submit"
             onClick={() => onSubmit(firebase)}
           />
         </>
