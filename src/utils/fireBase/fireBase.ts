@@ -50,6 +50,12 @@ class Firebase {
     columnObjName:string,
   ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}/columns/${columnObjName}`);
 
+  columnId = (
+    uid:string,
+    deskObjName:string,
+    columnObjName:string,
+  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}/columns/${columnObjName}/id`);
+
   task = (
     uid:string,
     deskObjName:string,
@@ -63,6 +69,13 @@ class Firebase {
     columnObjName:string,
     taskObjName:string,
   ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}/columns/${columnObjName}/tasks/${taskObjName}/completed`);
+
+  taskId = (
+    uid:string,
+    deskObjName:string,
+    columnObjName:string,
+    taskObjName:string,
+  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}/columns/${columnObjName}/tasks/${taskObjName}/id`);
 }
 
 export default Firebase;

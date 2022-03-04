@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { UserType } from '../../types/globalTypes';
-import Firebase, { FirebaseContext } from '../fireBase';
+import Firebase from '../fireBase';
 
 const userType = new Firebase().auth.currentUser;
 

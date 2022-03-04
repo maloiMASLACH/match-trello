@@ -8,10 +8,16 @@ import {
 import './styles.css';
 import OpenedColumn from '../../../openedColomn/component';
 import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
+import { FirebaseContext } from '../../../../../utils/fireBase';
+import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
+import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
 
 const Column = (props: ColumnProps) => {
   const { currentCard, setCurrentCard } = props;
 
+  const firebase = useContext(FirebaseContext);
+  const userValue = useContext(UserValueContext);
+  const deskValue = useContext(DeskValueContext);
   const columnValue = useContext(ColumnValueContext);
 
   const [isOpenColumn, setOpenColumn] = useState<boolean>(false);
@@ -33,7 +39,11 @@ const Column = (props: ColumnProps) => {
           onDragStart(columnValue, setCurrentCard);
         }}
         onDragOver={(e) => onDragOver(e)}
-        onDrop={() => onDropColumn(columnValue, currentCard)}
+        onDrop={() => {
+          const uid = userValue?.uid;
+          const deskObjName = deskValue?.deskName.split(' ').join('');
+          onDropColumn(columnValue!, currentCard!, uid!, deskObjName!, firebase!);
+        }}
         draggable
         className="colon"
         onClick={() => {

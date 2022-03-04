@@ -26,7 +26,6 @@ const App = () => {
 
   useEffect(() => {
     FetchURLInfo(setUser, setUsers, setUserValue, firebase!);
-    console.log(user, userValue);
   }, []);
 
   return (

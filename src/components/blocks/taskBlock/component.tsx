@@ -50,7 +50,14 @@ const Task = (props: TaskProps) => {
         onDragStart(taskValue, setCurrentCard);
       }}
       onDragOver={(e) => onDragOver(e)}
-      onDrop={() => onDropCard(taskValue, currentCard)}
+      onDrop={() => onDropCard(
+        taskValue!,
+        currentCard!,
+        userValue!.uid,
+        deskObjName,
+        columnObjName,
+        firebase!,
+      )}
       draggable
     >
       {!isChanging && (

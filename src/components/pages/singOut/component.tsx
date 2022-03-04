@@ -4,7 +4,7 @@ import { welcome } from '../../../constants/routerLinks';
 import { FirebaseContext } from '../../../utils/fireBase';
 import './styles.css';
 
-const SingOut = function () {
+const SingOut = () => {
   const navigate = useNavigate();
 
   const firebase = useContext(FirebaseContext);

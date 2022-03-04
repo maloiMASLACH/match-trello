@@ -3,7 +3,7 @@ import './styles.css';
 import { useNavigate } from 'react-router-dom';
 import InputBlock from '../../controls/input';
 import Button from '../../controls/button';
-import Firebase, { FirebaseContext } from '../../../utils/fireBase';
+import { FirebaseContext } from '../../../utils/fireBase';
 import patterns from '../../../constants/patterns';
 import { FirstDesk } from '../../../constants/voidObjects';
 import { welcome } from '../../../constants/routerLinks';
