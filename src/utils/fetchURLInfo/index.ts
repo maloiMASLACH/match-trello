@@ -5,9 +5,9 @@ import Firebase from '../fireBase';
 const userType = new Firebase().auth.currentUser;
 
 const FetchURLInfo = (
-  setUser: React.Dispatch<React.SetStateAction<typeof userType | null>>,
-  setUsers: React.Dispatch<React.SetStateAction<string[]>>,
-  setUserValue: React.Dispatch<React.SetStateAction<UserType | null>>,
+  setUser: (el:typeof userType | null) => void,
+  setUsers:(el:string[]) => void,
+  setUserValue: (el:UserType | null) => void,
   firebase: Firebase,
 ) => {
   firebase!.auth.onAuthStateChanged((authUser) => {

@@ -25,7 +25,12 @@ const App = () => {
   const firebase = useContext(FirebaseContext);
 
   useEffect(() => {
-    FetchURLInfo(setUser, setUsers, setUserValue, firebase!);
+    FetchURLInfo(
+      (userObj) => setUser(userObj),
+      (usersArr) => setUsers(usersArr),
+      (userValueObj) => setUserValue(userValueObj),
+      firebase!,
+    );
   }, []);
 
   return (
