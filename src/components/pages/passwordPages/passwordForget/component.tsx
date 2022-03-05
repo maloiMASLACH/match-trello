@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import patterns from '../../../../constants/patterns';
 import { welcome } from '../../../../constants/routerLinks';
@@ -14,17 +14,22 @@ const PasswordForget: React.FC = () => {
 
   const [isCorrect, setCorrect] = useState(Boolean);
 
-  const checkIsCorrect = (
-    mail: string,
-    setVisibly: React.Dispatch<React.SetStateAction<boolean>>,
-  ) => {
-    if (mail && patterns.mail.test(mail)) {
-      setVisibly(true);
-    } else setVisibly(false);
+  const firebase = useContext(FirebaseContext);
+
+  const handleChecked = () => {
+    setCorrect((prevState) => !prevState);
   };
 
-  const onSubmit = ({ mail, nav, firebase }: OnSubmitProps) => {
-    firebase
+  const checkIsCorrect = (
+    mail: string,
+  ) => {
+    if (mail && patterns.mail.test(mail)) {
+      handleChecked();
+    } else handleChecked();
+  };
+
+  const onSubmit = ({ mail, nav }: OnSubmitProps) => {
+    firebase!
       .doPasswordReset(mail)
       .then(() => {
         nav(welcome);
@@ -35,32 +40,28 @@ const PasswordForget: React.FC = () => {
   };
 
   return (
-    <FirebaseContext.Consumer>
-      {(firebase) => (
-        <>
-          <div
-            className="input-field"
-            onChange={() => {
-              checkIsCorrect(inputMail, setCorrect);
-            }}
-          >
-            <InputBlock
-              id="Email"
-              value={inputMail}
-              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
-              label="E-Mail"
-              type="email"
-            />
-          </div>
-          <Button
-            text="RESET PASSWORD"
-            disabled={isCorrect}
-            type="submit"
-            onClick={() => onSubmit({ mail: inputMail, nav: navigate, firebase: firebase! })}
-          />
-        </>
-      )}
-    </FirebaseContext.Consumer>
+    <>
+      <div
+        className="input-field"
+        onChange={() => {
+          checkIsCorrect(inputMail);
+        }}
+      >
+        <InputBlock
+          id="Email"
+          value={inputMail}
+          onChange={(e:React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
+          label="E-Mail"
+          type="email"
+        />
+      </div>
+      <Button
+        text="RESET PASSWORD"
+        disabled={isCorrect}
+        type="submit"
+        onClick={() => onSubmit({ mail: inputMail, nav: navigate })}
+      />
+    </>
   );
 };
 export default PasswordForget;

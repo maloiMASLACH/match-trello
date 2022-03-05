@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { onDragOver, onDragStart, onDropCard } from '../../../utils/dragEvents';
+import { onDragOver, onDropCard } from '../../../utils/dragEvents';
 import { FirebaseContext } from '../../../utils/fireBase';
 import './styles.css';
 import { TaskProps } from '../../../types/taskBlock';
@@ -47,7 +47,7 @@ const Task = (props: TaskProps) => {
     <div
       className="task"
       onDragStart={() => {
-        onDragStart(taskValue, setCurrentCard);
+        setCurrentCard(taskValue!);
       }}
       onDragOver={(e) => onDragOver(e)}
       onDrop={() => onDropCard(

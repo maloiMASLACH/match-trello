@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { ColumnProps } from '../../../../../types/openedDesk';
 import {
-  onDragStart,
   onDragOver,
   onDropColumn,
 } from '../../../../../utils/dragEvents';
@@ -36,7 +35,7 @@ const Column = (props: ColumnProps) => {
     <>
       <div
         onDragStart={() => {
-          onDragStart(columnValue, setCurrentCard);
+          setCurrentCard(columnValue!);
         }}
         onDragOver={(e) => onDragOver(e)}
         onDrop={() => {

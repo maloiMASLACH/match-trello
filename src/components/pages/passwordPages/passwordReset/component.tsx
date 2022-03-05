@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import patterns from '../../../../constants/patterns';
 import { welcome } from '../../../../constants/routerLinks';
@@ -13,26 +13,30 @@ const PasswordReset: React.FC = () => {
 
   const navigate = useNavigate();
 
+  const firebase = useContext(FirebaseContext);
+
   const [isCorrect, setCorrect] = useState(Boolean);
+
+  const handleChecked = () => {
+    setCorrect((prevState) => !prevState);
+  };
 
   const checkIsCorrect = (
     {
       password,
       confirm,
-      setVisibly,
     }:CheckIsCorrectProps,
   ) => {
     if (password === confirm && patterns.password.test(password)) {
-      setVisibly(true);
-    } else setVisibly(false);
+      handleChecked();
+    } else handleChecked();
   };
 
   const onSubmit = (
     password: string,
     nav: NavigateFunction,
-    firebase: Firebase,
   ) => {
-    firebase
+    firebase!
       .doPasswordUpdate(password)
       .then(() => {
         nav(welcome);
@@ -43,47 +47,42 @@ const PasswordReset: React.FC = () => {
   };
 
   return (
-    <FirebaseContext.Consumer>
-      {(firebase) => (
-        <>
-          <div
-            className="input-field"
-            onChange={() => {
-              checkIsCorrect(
-                {
-                  password: passwordOne,
-                  confirm: passwordTwo,
-                  setVisibly: setCorrect,
-                },
-              );
-            }}
-          >
-            <InputBlock
-              id="oldPassword"
-              value={passwordOne}
-              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setFirstPassword(e.target.value)}
-              label="New Password"
-              type="password"
-            />
-            <InputBlock
-              id="newPassword"
-              value={passwordTwo}
-              onChange={(
-                e:React.ChangeEvent<HTMLInputElement>,
-              ) => setSecondPassword(e.target.value)}
-              label="Confirm Password"
-              type="password"
-            />
-          </div>
-          <Button
-            text="CHANGE PASSWORD"
-            type="submit"
-            disabled={isCorrect}
-            onClick={() => onSubmit(passwordOne, navigate, firebase!)}
-          />
-        </>
-      )}
-    </FirebaseContext.Consumer>
+    <>
+      <div
+        className="input-field"
+        onChange={() => {
+          checkIsCorrect(
+            {
+              password: passwordOne,
+              confirm: passwordTwo,
+            },
+          );
+        }}
+      >
+        <InputBlock
+          id="oldPassword"
+          value={passwordOne}
+          onChange={(e:React.ChangeEvent<HTMLInputElement>) => setFirstPassword(e.target.value)}
+          label="New Password"
+          type="password"
+        />
+        <InputBlock
+          id="newPassword"
+          value={passwordTwo}
+          onChange={(
+            e:React.ChangeEvent<HTMLInputElement>,
+          ) => setSecondPassword(e.target.value)}
+          label="Confirm Password"
+          type="password"
+        />
+      </div>
+      <Button
+        text="CHANGE PASSWORD"
+        type="submit"
+        disabled={isCorrect}
+        onClick={() => onSubmit(passwordOne, navigate)}
+      />
+    </>
   );
 };
 export default PasswordReset;

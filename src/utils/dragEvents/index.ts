@@ -1,14 +1,6 @@
-import { DropColumnProps, DropTaskProps } from '../../types/dragAndDrop';
 import { ColumnType, TaskType } from '../../types/globalTypes';
 import Firebase from '../fireBase';
 
-export const onDragStart = (
-  card: any,
-  setCurrentCard: React.Dispatch<React.SetStateAction<any>>,
-) => {
-  setCurrentCard(card);
-  return null;
-};
 export const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
   e.preventDefault();
   return null;
