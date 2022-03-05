@@ -71,7 +71,7 @@ const OpenedDesk = (props: HandleActive) => {
               <ColumnValueContext.Provider value={column}>
                 <Column
                   currentCard={currentColumn}
-                  setCurrentCard={setCurrentColumn}
+                  setCurrentCard={(newColumn) => setCurrentColumn(newColumn)}
                 />
               </ColumnValueContext.Provider>
             ))

@@ -73,7 +73,7 @@ const OpenedColumn = (props: HandleOpened) => {
               <TaskValueContext.Provider value={task}>
                 <Task
                   currentCard={currentTask}
-                  setCurrentCard={setCurrentTask}
+                  setCurrentCard={(newTask) => setCurrentTask(newTask)}
                 />
               </TaskValueContext.Provider>
             ))
