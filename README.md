@@ -37,7 +37,7 @@
             name: "....."
             uid: /O8EHA5j....
         }
-# 4. Deploy https://admiring-poincare-da02b3.netlify.app/
+# 4. Deploy https://naughty-sammet-b3126e.netlify.app/
         !!! To sing in like admin:
                 e-mail: admin@gmail.com
                 pass: 1234567890
