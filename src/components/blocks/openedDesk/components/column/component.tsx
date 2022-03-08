@@ -8,15 +8,13 @@ import './styles.css';
 import OpenedColumn from '../../../openedColomn/component';
 import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
 import { FirebaseContext } from '../../../../../utils/fireBase';
-import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
-import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
 
 const Column = (props: ColumnProps) => {
-  const { currentCard, setCurrentCard } = props;
+  const {
+    uid, deskObjName, currentColumn, setCurrentColumn,
+  } = props;
 
   const firebase = useContext(FirebaseContext);
-  const userValue = useContext(UserValueContext);
-  const deskValue = useContext(DeskValueContext);
   const columnValue = useContext(ColumnValueContext);
 
   const [isOpenColumn, setOpenColumn] = useState<boolean>(false);
@@ -25,39 +23,37 @@ const Column = (props: ColumnProps) => {
     setOpenColumn((prevState) => !prevState);
   };
 
-  let taskLength = 0;
-
-  if (columnValue!.tasks) {
-    taskLength = Object.keys(columnValue!.tasks).length;
-  }
+  const taskLength = Object.keys(columnValue?.tasks || []).length;
 
   return (
     <>
       <div
         onDragStart={() => {
-          setCurrentCard(columnValue!);
+          setCurrentColumn(columnValue);
         }}
         onDragOver={(e) => onDragOver(e)}
         onDrop={() => {
-          const uid = userValue?.uid;
-          const deskObjName = deskValue?.deskName.split(' ').join('');
-          onDropColumn(columnValue!, currentCard!, uid!, deskObjName!, firebase!);
+          onDropColumn({
+            columnValue, currentColumn, uid, deskObjName, firebase,
+          });
         }}
         draggable
         className="colon"
-        onClick={() => {
-          handleOpened();
-        }}
+        onClick={handleOpened}
         aria-hidden="true"
       >
         <h4>{columnValue!.columnName}</h4>
         <p>
-          {taskLength}
-          {' '}
-          task(s)
+          {`${taskLength} task(s)`}
         </p>
       </div>
-      {isOpenColumn && <OpenedColumn handleOpened={handleOpened} />}
+      {isOpenColumn && (
+      <OpenedColumn
+        uid={uid}
+        deskObjName={deskObjName}
+        handleOpened={handleOpened}
+      />
+      )}
     </>
   );
 };

@@ -33,10 +33,10 @@ const UsersList = (props: UsersListProps) => {
 const PageWithAccess = () => {
   const firebase = useContext(FirebaseContext);
 
-  const [users, setUsers] = useState<UserType[] | null>(null);
+  const [users, setUsers] = useState<UserType[]>([]);
 
   useEffect(() => {
-    firebase!.users().on('value', (snapshot: any) => {
+    firebase.users().on('value', (snapshot) => {
       setUsers(Object.values(snapshot.val()));
     });
   }, []);

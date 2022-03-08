@@ -10,8 +10,9 @@ import DeskWithInfo from '../../blocks/deskWithInfo';
 import NewDesk from '../../blocks/newDesk';
 import './styles.css';
 
-const PageWithUser = (props:AppPageProps) => {
+const PageWithUser = (props: AppPageProps) => {
   const { path } = props;
+
   const firebase = useContext(FirebaseContext);
 
   const [userValue, setUserValue] = useState<UserType>({
@@ -22,7 +23,7 @@ const PageWithUser = (props:AppPageProps) => {
   });
 
   useEffect(() => {
-    firebase!.user(path).on('value', (snapshot) => {
+    firebase.user(path).on('value', (snapshot) => {
       setUserValue(snapshot.val());
     });
   }, []);
@@ -30,12 +31,14 @@ const PageWithUser = (props:AppPageProps) => {
   return (
     <UserValueContext.Provider value={userValue}>
       <div className="appPage">
-        {userValue!.desks
-          ? Object.values(userValue!.desks).sort(sortCards).map((desk) => (
-            <DeskValueContext.Provider value={desk}>
-              <DeskWithInfo />
-            </DeskValueContext.Provider>
-          ))
+        {userValue.desks
+          ? Object.values(userValue.desks)
+            .sort(sortCards)
+            .map((desk) => (
+              <DeskValueContext.Provider key={desk.id} value={desk}>
+                <DeskWithInfo />
+              </DeskValueContext.Provider>
+            ))
           : null}
         <NewDesk />
       </div>
@@ -52,10 +55,9 @@ const PageNoUser = () => (
 
 const AppPage: React.FC<AppPageProps> = (props) => {
   const { path } = props;
+
   const user = useContext(AuthUserContext);
 
-  if (user) {
-    return <PageWithUser path={path} />;
-  } return <PageNoUser />;
+  return user ? <PageWithUser path={path} /> : <PageNoUser />;
 };
 export default AppPage;

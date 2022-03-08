@@ -2,35 +2,30 @@ import React, { useContext, useState } from 'react';
 import './styles.css';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import sortCards from '../../../../../utils/sortCards';
-import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
-import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
 import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
-import { HandleActive } from '../../../../../types/toggle';
+import { NewTaskAddProps } from '../../../../../types/newTask';
 
-const AddForm = (props: HandleActive) => {
-  const { handleActive } = props;
+const AddForm = (props: NewTaskAddProps) => {
+  const { uid, deskObjName, handleActive } = props;
+
+  const firebase = useContext(FirebaseContext);
+  const columnValue = useContext(ColumnValueContext);
 
   const [inputName, setInputName] = useState('');
   const [inputDate, setInputDate] = useState('');
 
-  const firebase = useContext(FirebaseContext);
-  const userValue = useContext(UserValueContext);
-  const deskValue = useContext(DeskValueContext);
-  const columnValue = useContext(ColumnValueContext);
-
   const addTask = (name: string, date: string) => {
     let lastId = 0;
-    if (columnValue?.tasks) {
-      lastId = Object.values(columnValue?.tasks).sort(sortCards).slice(-1)[0]
-        ?.id!;
+
+    if (columnValue.tasks) {
+      lastId = Object.values(columnValue.tasks).sort(sortCards).slice(-1)[0].id;
     }
 
-    const deskObjName = deskValue?.deskName.split(' ').join('');
-    const columnObjName = columnValue?.columnName.split(' ').join('');
-    const taskObjName = name?.split(' ').join('');
+    const columnObjName = columnValue.columnName.split(' ').join('');
+    const taskObjName = name.split(' ').join('');
 
-    firebase!
-      .task(userValue!.uid, deskObjName!, columnObjName!, taskObjName)
+    firebase
+      .task(uid, deskObjName, columnObjName, taskObjName)
       .update({
         taskName: name,
         date,

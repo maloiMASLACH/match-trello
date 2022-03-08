@@ -9,14 +9,14 @@ import { FirstDesk } from '../../../constants/voidObjects';
 import { welcome } from '../../../constants/routerLinks';
 
 const SingUpForm: React.FC = () => {
+  const firebase = useContext(FirebaseContext);
+
   const [inputMail, setInputMail] = useState('');
   const [inputName, setInputName] = useState('');
   const [inputPassword, setInputPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigate = useNavigate();
-
-  const firebase = useContext(FirebaseContext);
 
   const checkIsCorrect = inputMail
     && inputName
@@ -27,9 +27,9 @@ const SingUpForm: React.FC = () => {
     && patterns.password.test(inputPassword);
 
   const onSubmit = () => {
-    firebase!
+    firebase
       .doCreateUserWithEmailAndPassword(inputMail, inputPassword)
-      .then((newUser) => firebase!.user(newUser.user!.uid).set({
+      .then((newUser) => firebase.user(newUser.user!.uid).set({
         name: inputName,
         mail: inputMail,
         uid: `/${newUser.user!.uid}`,
@@ -83,7 +83,7 @@ const SingUpForm: React.FC = () => {
         text="SING UP"
         disabled={!checkIsCorrect}
         type="submit"
-        onClick={() => onSubmit()}
+        onClick={onSubmit}
       />
     </>
   );

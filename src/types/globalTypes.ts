@@ -5,12 +5,12 @@ export interface TaskType {
   id: number;
 }
 export interface ColumnType {
-  tasks: TaskType[] | null[];
+  tasks: TaskType[];
   columnName: string;
   id: number;
 }
 export interface DeskType{
-  columns: ColumnType[] | null[];
+  columns: ColumnType[];
   id: number;
   deskName: string;
 }
@@ -19,5 +19,5 @@ export interface UserType {
   mail: string;
   name: string;
   uid: string;
-  desks: DeskType[] | null[];
+  desks: DeskType[];
 }

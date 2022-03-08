@@ -1,6 +1,15 @@
 import { TaskType } from './globalTypes';
 
 export interface TaskProps {
-  currentCard: TaskType | null;
+  uid:string;
+  columnObjName:string;
+  deskObjName:string;
+  currentCard: TaskType;
   setCurrentCard: (el:TaskType) => void;
+}
+export interface ChangeTaskProps {
+  uid:string;
+  columnObjName:string;
+  deskObjName:string;
+  handleChanging: () => void;
 }

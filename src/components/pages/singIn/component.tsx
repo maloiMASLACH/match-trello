@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import patterns from '../../../constants/patterns';
 import { passForget, userPage } from '../../../constants/routerLinks';
@@ -9,28 +9,20 @@ import PasswordActionLink from '../../controls/passwordChangeLink/component';
 import './styles.css';
 
 const SingInForm: React.FC = () => {
+  const firebase = useContext(FirebaseContext);
+
   const [inputMail, setInputMail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
 
-  const firebase = useContext(FirebaseContext);
-
   const navigate = useNavigate();
 
-  const [isCorrect, setCorrect] = useState(Boolean);
-
-  const checkIsCorrect = () => {
-    if (
-      inputMail
+  const isCorrect = inputMail
       && inputPassword
       && patterns.mail.test(inputMail)
-      && patterns.password.test(inputPassword)
-    ) {
-      setCorrect(true);
-    } else setCorrect(false);
-  };
+      && patterns.password.test(inputPassword);
 
   const onSubmit = () => {
-    firebase!
+    firebase
       .doSignInWithEmailAndPassword(inputMail, inputPassword)
       .then(() => {
         navigate(userPage);
@@ -40,17 +32,10 @@ const SingInForm: React.FC = () => {
       });
   };
 
-  useEffect(() => {
-    checkIsCorrect();
-  });
-
   return (
     <>
       <div
         className="input-field"
-        onChange={() => {
-          checkIsCorrect();
-        }}
       >
         <InputBlock
           id="Email"
@@ -71,7 +56,7 @@ const SingInForm: React.FC = () => {
         text="SING IN"
         disabled={!isCorrect}
         type="submit"
-        onClick={() => onSubmit()}
+        onClick={onSubmit}
       />
       <PasswordActionLink text="forget password?" link={passForget} />
     </>

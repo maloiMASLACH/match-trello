@@ -1,6 +1,8 @@
 import { ColumnType } from './globalTypes';
 
 export interface ColumnProps {
-  currentCard: ColumnType | null;
-  setCurrentCard: (el:ColumnType) => void;
+  uid:string
+  deskObjName:string;
+  currentColumn: ColumnType;
+  setCurrentColumn: (el:ColumnType) => void;
 }

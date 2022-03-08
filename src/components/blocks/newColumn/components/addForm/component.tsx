@@ -5,28 +5,27 @@ import UserValueContext from '../../../../../utils/valueContexts/userValueContex
 import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
 import sortCards from '../../../../../utils/sortCards';
 import { task } from '../../../../../constants/voidObjects';
-import { HandleActive } from '../../../../../types/toggle';
+import { NewColumnAddProps } from '../../../../../types/newColumn';
 
-const AddForm = (props: HandleActive) => {
-  const { handleActive } = props;
+const AddForm = (props: NewColumnAddProps) => {
+  const { uid, handleActive } = props;
 
   const firebase = useContext(FirebaseContext);
-  const userValue = useContext(UserValueContext);
   const deskValue = useContext(DeskValueContext);
 
   const [inputValue, setInputValue] = useState('');
 
   const addColumn = (name: string) => {
     let lastId = 0;
-    if (deskValue?.columns) {
-      lastId = Object.values(deskValue?.columns).sort(sortCards).slice(-1)[0]
-        ?.id!;
+
+    if (deskValue.columns) {
+      lastId = Object.values(deskValue.columns).sort(sortCards).slice(-1)[0].id;
     }
 
-    const deskObjName = deskValue?.deskName.split(' ').join('');
+    const deskObjName = deskValue.deskName.split(' ').join('');
     const columnObjName = name.split(' ').join('');
 
-    firebase!.column(userValue!.uid, deskObjName!, columnObjName).update({
+    firebase.column(uid, deskObjName, columnObjName).update({
       tasks: { task },
       id: lastId + 1,
       columnName: name,
@@ -41,7 +40,7 @@ const AddForm = (props: HandleActive) => {
         src="./x.png"
         alt="add"
         className="addColonImgClose"
-        onClick={() => handleActive()}
+        onClick={handleActive}
         aria-hidden="true"
       />
       <input

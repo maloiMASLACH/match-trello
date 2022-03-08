@@ -2,20 +2,19 @@ import React, { useContext, useState } from 'react';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import patterns from '../../../../constants/patterns';
 import { welcome } from '../../../../constants/routerLinks';
-import Firebase, { FirebaseContext } from '../../../../utils/fireBase';
+import { FirebaseContext } from '../../../../utils/fireBase';
 import InputBlock from '../../../controls/input';
 import Button from '../../../controls/button';
 import { CheckIsCorrectProps } from '../../../../types/passwordReset';
 
 const PasswordReset: React.FC = () => {
-  const [passwordOne, setFirstPassword] = useState('');
-  const [passwordTwo, setSecondPassword] = useState('');
-
-  const navigate = useNavigate();
-
   const firebase = useContext(FirebaseContext);
 
+  const [passwordOne, setFirstPassword] = useState('');
+  const [passwordTwo, setSecondPassword] = useState('');
   const [isCorrect, setCorrect] = useState(Boolean);
+
+  const navigate = useNavigate();
 
   const handleChecked = () => {
     setCorrect((prevState) => !prevState);
@@ -36,7 +35,7 @@ const PasswordReset: React.FC = () => {
     password: string,
     nav: NavigateFunction,
   ) => {
-    firebase!
+    firebase
       .doPasswordUpdate(password)
       .then(() => {
         nav(welcome);

@@ -5,13 +5,13 @@ import { FirebaseContext } from '../../../utils/fireBase';
 import './styles.css';
 
 const SingOut = () => {
-  const navigate = useNavigate();
-
   const firebase = useContext(FirebaseContext);
+
+  const navigate = useNavigate();
 
   const onClick = (nav: NavigateFunction) => {
     nav(welcome);
-    firebase!.doSignOut();
+    firebase.doSignOut();
   };
   return (
     <button type="button" onClick={() => onClick(navigate)} className="singOut">

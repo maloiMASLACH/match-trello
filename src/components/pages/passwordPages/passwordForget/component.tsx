@@ -8,13 +8,12 @@ import Button from '../../../controls/button';
 import { OnSubmitProps } from '../../../../types/passwordForget';
 
 const PasswordForget: React.FC = () => {
+  const firebase = useContext(FirebaseContext);
+
   const [inputMail, setInputMail] = useState('');
-
-  const navigate = useNavigate();
-
   const [isCorrect, setCorrect] = useState(Boolean);
 
-  const firebase = useContext(FirebaseContext);
+  const navigate = useNavigate();
 
   const handleChecked = () => {
     setCorrect((prevState) => !prevState);
@@ -29,7 +28,7 @@ const PasswordForget: React.FC = () => {
   };
 
   const onSubmit = ({ mail, nav }: OnSubmitProps) => {
-    firebase!
+    firebase
       .doPasswordReset(mail)
       .then(() => {
         nav(welcome);
