@@ -13,14 +13,14 @@ const ChangeNameField = (props: HandleChanging) => {
   const deskValue = useContext(DeskValueContext);
 
   const renameDesk = (inputValue: string) => {
-    const deskObjName = deskValue!.deskName.split(' ').join('');
+    const deskObjName = deskValue.deskName.split(' ').join('');
     const newObj = inputValue.split(' ').join('');
 
-    firebase!.desk(userValue!.uid, deskObjName).set(null);
+    firebase.desk(userValue.uid, deskObjName).set(null);
 
-    deskValue!.deskName = inputValue;
+    deskValue.deskName = inputValue;
 
-    firebase!.desk(userValue!.uid, newObj).set(deskValue);
+    firebase.desk(userValue.uid, newObj).set(deskValue);
 
     handleChanging();
   };

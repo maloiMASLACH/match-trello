@@ -10,21 +10,19 @@ const AddForm = (props: HandleActive) => {
   const { handleActive } = props;
 
   const userValue = useContext(UserValueContext);
-
   const firebase = useContext(FirebaseContext);
 
   const [inputValue, setInputValue] = useState('');
 
   const addDesk = (name: string) => {
     let lastId = 0;
-    if (userValue?.desks) {
-      lastId = Object.values(userValue?.desks).sort(sortCards).slice(-1)[0]
-        ?.id!;
+    if (userValue.desks) {
+      lastId = Object.values(userValue.desks).sort(sortCards).slice(-1)[0].id;
     }
 
     const deskObjName = name.split(' ').join('');
 
-    firebase!.desk(userValue!.uid, deskObjName).update({
+    firebase.desk(userValue.uid, deskObjName).update({
       columns: {
         FirstColumn,
       },
@@ -41,7 +39,7 @@ const AddForm = (props: HandleActive) => {
         src="./x.png"
         alt="add"
         className="addDeskImgClose"
-        onClick={() => handleActive()}
+        onClick={handleActive}
         aria-hidden="true"
       />
       <input

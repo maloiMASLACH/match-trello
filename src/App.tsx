@@ -19,9 +19,11 @@ import UserValueContext from './utils/valueContexts/userValueContext';
 
 const App = () => {
   const userType = new Firebase().auth.currentUser;
-  const [user, setUser] = useState<typeof userType | null>(null);
+  const [user, setUser] = useState<typeof userType>(null);
   const [usersLinks, setUsers] = useState<string[]>([]);
-  const [userValue, setUserValue] = useState<UserType | null>(null);
+  const [userValue, setUserValue] = useState<UserType>({
+    desks: [], mail: '', name: '', uid: '',
+  });
   const firebase = useContext(FirebaseContext);
 
   useEffect(() => {
@@ -29,7 +31,7 @@ const App = () => {
       (userObj) => setUser(userObj),
       (usersArr) => setUsers(usersArr),
       (userValueObj) => setUserValue(userValueObj),
-      firebase!,
+      firebase,
     );
   }, []);
 
@@ -44,7 +46,7 @@ const App = () => {
               <Route element={<SingInForm />} path={router.singIn} />
               <Route element={<SingUpForm />} path={router.singUp} />
               {usersLinks.map((path) => (
-                <Route path={path} element={<AppPage path={path} />} />
+                <Route path={path} key={path} element={<AppPage path={path} />} />
               ))}
               <Route element={<UserPage />} path={router.userPage} />
               <Route element={<PasswordForget />} path={router.passForget} />

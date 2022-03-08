@@ -1,35 +1,29 @@
 import React, { useContext, useState } from 'react';
-import { HandleChanging } from '../../../../../types/toggle';
+import { ChangeTaskProps } from '../../../../../types/taskBlock';
 import { FirebaseContext } from '../../../../../utils/fireBase';
-import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
-import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
 import TaskValueContext from '../../../../../utils/valueContexts/taskValueContext';
-import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
 
-const ChangeNameField = (props: HandleChanging) => {
-  const { handleChanging } = props;
+const ChangeNameField = (props: ChangeTaskProps) => {
+  const {
+    uid, columnObjName, deskObjName, handleChanging,
+  } = props;
 
   const firebase = useContext(FirebaseContext);
-  const userValue = useContext(UserValueContext);
-  const deskValue = useContext(DeskValueContext);
-  const columnValue = useContext(ColumnValueContext);
   const taskValue = useContext(TaskValueContext);
 
   const renameTask = (name: string, date: string) => {
-    const columnObjName = columnValue?.columnName.split(' ').join('');
-    const deskObjName = deskValue?.deskName.split(' ').join('');
-    const taskObjName = taskValue!.taskName.split(' ').join('');
+    const taskObjName = taskValue.taskName.split(' ').join('');
     const newObj = name.split(' ').join('');
 
-    firebase!
-      .task(userValue!.uid, deskObjName!, columnObjName!, taskObjName)
+    firebase
+      .task(uid, deskObjName, columnObjName, taskObjName)
       .set(null);
 
-    taskValue!.taskName = name;
-    taskValue!.date = date;
+    taskValue.taskName = name;
+    taskValue.date = date;
 
-    firebase!
-      .task(userValue!.uid, deskObjName!, columnObjName!, newObj)
+    firebase
+      .task(uid, deskObjName, columnObjName, newObj)
       .set(taskValue);
 
     handleChanging();

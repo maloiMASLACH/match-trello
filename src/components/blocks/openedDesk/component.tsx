@@ -19,31 +19,30 @@ const OpenedDesk = (props: HandleActive) => {
   const deskInfo = useContext(DeskValueContext);
 
   const [isChanging, setChanging] = useState<boolean>(false);
-  const [currentColumn, setCurrentColumn] = useState<ColumnType | null>(null);
+  const [currentColumn, setCurrentColumn] = useState<ColumnType>({ tasks: [], columnName: '', id: 0 });
 
-  const deskObjName = deskInfo!.deskName.split(' ').join('');
+  const deskObjName = deskInfo.deskName.split(' ').join('');
 
   const handleChanging = () => {
     setChanging((prevState) => !prevState);
   };
 
   const deleteDesk = () => {
-    firebase!.desk(userValue!.uid, deskObjName).set(null);
+    firebase.desk(userValue.uid, deskObjName).set(null);
   };
 
   return (
     <div className="openedDeskBlock">
       <div className="openedDeskBlockHead">
         <h3>
-          {!isChanging && deskInfo!.deskName}
-          {isChanging && <ChangeNameField handleChanging={handleChanging} />}
+          {!isChanging ? deskInfo.deskName : <ChangeNameField handleChanging={handleChanging} />}
         </h3>
         <img
           className="deskDelete"
           src="./redact.png"
           alt="redact"
           onClick={() => {
-            setChanging(!isChanging);
+            handleChanging();
           }}
           aria-hidden="true"
         />
@@ -51,32 +50,34 @@ const OpenedDesk = (props: HandleActive) => {
           className="deskDelete"
           alt="delete"
           src="./delete.png"
-          onClick={() => deleteDesk()}
+          onClick={deleteDesk}
           aria-hidden="true"
         />
         <img
           src="./x.png"
           alt="x"
-          onClick={() => {
-            handleActive();
-          }}
+          onClick={handleActive}
           aria-hidden="true"
         />
       </div>
       <div className="colons">
-        {deskInfo!.columns
-          ? Object.values(deskInfo!.columns)
+        {deskInfo.columns
+          ? Object.values(deskInfo.columns)
             .sort(sortCards)
-            .map((column: ColumnType | null) => (
-              <ColumnValueContext.Provider value={column}>
+            .map((column: ColumnType) => (
+              <ColumnValueContext.Provider key={column.id} value={column}>
                 <Column
-                  currentCard={currentColumn}
-                  setCurrentCard={(newColumn) => setCurrentColumn(newColumn)}
+                  uid={userValue.uid}
+                  deskObjName={deskObjName}
+                  currentColumn={currentColumn}
+                  setCurrentColumn={(newColumn) => setCurrentColumn(newColumn)}
                 />
               </ColumnValueContext.Provider>
             ))
           : null}
-        <NewColumn />
+        <NewColumn
+          uid={userValue.uid}
+        />
       </div>
     </div>
   );

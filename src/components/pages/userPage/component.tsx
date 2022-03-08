@@ -12,11 +12,11 @@ const PageWithUser = () => {
   let taskCount = 0;
 
   try {
-    if (userValue?.desks) {
+    if (userValue.desks) {
       Object.values(userValue.desks).forEach((desk) => {
-        Object.values(desk!.columns).forEach((column) => {
+        Object.values(desk.columns).forEach((column) => {
           taskCount += Object.values(
-            column!.tasks,
+            column.tasks,
           ).length;
         });
       });
