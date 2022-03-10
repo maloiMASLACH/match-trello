@@ -1,8 +1,8 @@
 export interface NewColumnProps {
-  uid:string;
+  uid: string;
 }
 
 export interface NewColumnAddProps {
-  uid:string;
+  uid: string;
   handleActive: () => void;
 }

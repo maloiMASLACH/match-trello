@@ -18,7 +18,10 @@ const OpenedColumn = (props: OpenedColumnProps) => {
 
   const [isChanging, setChanging] = useState<boolean>(false);
   const [currentTask, setCurrentTask] = useState<TaskType>({
-    taskName: '', date: '', id: 0, completed: false,
+    taskName: '',
+    date: '',
+    id: 0,
+    completed: false,
   });
 
   const columnObjName = columnValue.columnName.split(' ').join('');
@@ -37,15 +40,15 @@ const OpenedColumn = (props: OpenedColumnProps) => {
         <h3>
           {!isChanging && columnValue.columnName}
           {isChanging && (
-          <ChangeNameField
-            uid={uid}
-            deskObjName={deskObjName}
-            handleChanging={handleChanging}
-          />
+            <ChangeNameField
+              uid={uid}
+              deskObjName={deskObjName}
+              handleChanging={handleChanging}
+            />
           )}
         </h3>
         <img
-          src="./redact.png"
+          src="./../redact.png"
           className="deskDelete"
           alt="x"
           onClick={handleChanging}
@@ -54,12 +57,12 @@ const OpenedColumn = (props: OpenedColumnProps) => {
         <img
           className="deskDelete"
           alt="delete"
-          src="./delete.png"
+          src="./../delete.png"
           onClick={deleteColumn}
           aria-hidden="true"
         />
         <img
-          src="./x.png"
+          src="./../x.png"
           alt="x"
           onClick={handleOpened}
           aria-hidden="true"
@@ -81,10 +84,7 @@ const OpenedColumn = (props: OpenedColumnProps) => {
               </TaskValueContext.Provider>
             ))
           : null}
-        <NewTask
-          uid={uid}
-          deskObjName={deskObjName}
-        />
+        <NewTask uid={uid} deskObjName={deskObjName} />
       </div>
     </div>
   );

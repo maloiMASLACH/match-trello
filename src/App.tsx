@@ -14,20 +14,15 @@ import PasswordReset from './components/pages/passwordPages/passwordReset';
 import WelcomePage from './components/pages/welcomePage';
 import AdminPage from './components/pages/adminPage';
 import FetchURLInfo from './utils/fetchURLInfo';
+import { AuthUserType } from './types/globalTypes';
 
 const App = () => {
   const firebase = useContext(FirebaseContext);
-  const userType = firebase.auth.currentUser;
 
-  const [user, setUser] = useState<typeof userType>(null);
-  const [usersLinks, setUsers] = useState<string[]>([]);
+  const [user, setUser] = useState<AuthUserType>({ isAdmin: false, uid: '' });
 
   useEffect(() => {
-    FetchURLInfo(
-      (userObj) => setUser(userObj),
-      (usersArr) => setUsers(usersArr),
-      firebase,
-    );
+    FetchURLInfo((userObj) => setUser(userObj), firebase);
   }, []);
 
   return (
@@ -39,9 +34,7 @@ const App = () => {
             <Route element={<WelcomePage />} path={router.welcome} />
             <Route element={<SingInForm />} path={router.singIn} />
             <Route element={<SingUpForm />} path={router.singUp} />
-            {usersLinks.map((path) => (
-              <Route path={path} key={path} element={<AppPage />} />
-            ))}
+            <Route element={<AppPage />} path={`${router.app}/:uid`} />
             <Route element={<UserPage />} path={router.userPage} />
             <Route element={<PasswordForget />} path={router.passForget} />
             <Route element={<PasswordReset />} path={router.passReset} />

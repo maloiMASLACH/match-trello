@@ -36,7 +36,7 @@ const AddForm = (props: NewColumnAddProps) => {
   return (
     <div className="addColonBlock">
       <img
-        src="./x.png"
+        src="./../x.png"
         alt="add"
         className="addColonImgClose"
         onClick={handleActive}

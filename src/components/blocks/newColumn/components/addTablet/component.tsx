@@ -9,7 +9,7 @@ const AddTablet = (props: HandleActive) => {
     <div className="addColonBlock">
       <p>Create new column</p>
       <img
-        src="./plus.png"
+        src="./../plus.png"
         alt="add"
         className="addColonImg"
         onClick={handleActive}

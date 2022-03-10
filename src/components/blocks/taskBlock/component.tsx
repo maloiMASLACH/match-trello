@@ -32,9 +32,7 @@ const Task = (props: TaskProps) => {
   };
 
   const deleteTask = () => {
-    firebase
-      .task(uid, deskObjName, columnObjName, taskObjName)
-      .set(null);
+    firebase.task(uid, deskObjName, columnObjName, taskObjName).set(null);
   };
 
   return (
@@ -44,23 +42,21 @@ const Task = (props: TaskProps) => {
         setCurrentCard(taskValue);
       }}
       onDragOver={(e) => onDragOver(e)}
-      onDrop={() => onDropCard(
-        {
-          taskValue,
-          currentCard,
-          uid,
-          deskObjName,
-          columnObjName,
-          firebase,
-        },
-      )}
+      onDrop={() => onDropCard({
+        taskValue,
+        currentCard,
+        uid,
+        deskObjName,
+        columnObjName,
+        firebase,
+      })}
       draggable
     >
       {!isChanging && (
         <>
           <p>{taskValue.taskName}</p>
           <img
-            src="./redact.png"
+            src="./../redact.png"
             className="taskRedact"
             alt="x"
             onClick={handleChanging}
@@ -69,7 +65,7 @@ const Task = (props: TaskProps) => {
           <img
             className="taskDelete"
             alt="delete"
-            src="./delete.png"
+            src="./../delete.png"
             onClick={deleteTask}
             aria-hidden="true"
           />

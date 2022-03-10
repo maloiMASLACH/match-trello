@@ -5,12 +5,12 @@ export interface TaskType {
   id: number;
 }
 export interface ColumnType {
-  tasks: TaskType[];
+  tasks: { [key: number]: TaskType };
   columnName: string;
   id: number;
 }
-export interface DeskType{
-  columns: ColumnType[];
+export interface DeskType {
+  columns: { [key: number]: ColumnType };
   id: number;
   deskName: string;
 }
@@ -19,5 +19,10 @@ export interface UserType {
   mail: string;
   name: string;
   uid: string;
-  desks: DeskType[];
+  desks: { [key: number]: DeskType };
+}
+
+export interface AuthUserType {
+  isAdmin: boolean;
+  uid: string;
 }

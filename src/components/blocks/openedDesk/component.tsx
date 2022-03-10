@@ -19,7 +19,11 @@ const OpenedDesk = (props: HandleActive) => {
   const deskInfo = useContext(DeskValueContext);
 
   const [isChanging, setChanging] = useState<boolean>(false);
-  const [currentColumn, setCurrentColumn] = useState<ColumnType>({ tasks: [], columnName: '', id: 0 });
+  const [currentColumn, setCurrentColumn] = useState<ColumnType>({
+    tasks: [],
+    columnName: '',
+    id: 0,
+  });
 
   const deskObjName = deskInfo.deskName.split(' ').join('');
 
@@ -35,11 +39,15 @@ const OpenedDesk = (props: HandleActive) => {
     <div className="openedDeskBlock">
       <div className="openedDeskBlockHead">
         <h3>
-          {!isChanging ? deskInfo.deskName : <ChangeNameField handleChanging={handleChanging} />}
+          {!isChanging ? (
+            deskInfo.deskName
+          ) : (
+            <ChangeNameField handleChanging={handleChanging} />
+          )}
         </h3>
         <img
           className="deskDelete"
-          src="./redact.png"
+          src="./../redact.png"
           alt="redact"
           onClick={() => {
             handleChanging();
@@ -49,12 +57,12 @@ const OpenedDesk = (props: HandleActive) => {
         <img
           className="deskDelete"
           alt="delete"
-          src="./delete.png"
+          src="./../delete.png"
           onClick={deleteDesk}
           aria-hidden="true"
         />
         <img
-          src="./x.png"
+          src="./../x.png"
           alt="x"
           onClick={handleActive}
           aria-hidden="true"
@@ -75,9 +83,7 @@ const OpenedDesk = (props: HandleActive) => {
               </ColumnValueContext.Provider>
             ))
           : null}
-        <NewColumn
-          uid={userValue.uid}
-        />
+        <NewColumn uid={userValue.uid} />
       </div>
     </div>
   );

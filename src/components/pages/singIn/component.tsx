@@ -17,9 +17,9 @@ const SingInForm: React.FC = () => {
   const navigate = useNavigate();
 
   const isCorrect = inputMail
-      && inputPassword
-      && patterns.mail.test(inputMail)
-      && patterns.password.test(inputPassword);
+    && inputPassword
+    && patterns.mail.test(inputMail)
+    && patterns.password.test(inputPassword);
 
   const onSubmit = () => {
     firebase
@@ -35,20 +35,18 @@ const SingInForm: React.FC = () => {
 
   return (
     <>
-      <div
-        className="input-field"
-      >
+      <div className="input-field">
         <InputBlock
           id="Email"
           value={inputMail}
-          onChange={(e:React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
           label="E-Mail"
           type="email"
         />
         <InputBlock
           id="Password"
           value={inputPassword}
-          onChange={(e:React.ChangeEvent<HTMLInputElement>) => setInputPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputPassword(e.target.value)}
           label="Password"
           type="password"
         />

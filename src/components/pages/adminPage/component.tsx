@@ -6,6 +6,7 @@ import AuthUserContext from '../../../utils/sessionHandler';
 import './styles.css';
 
 import { UsersListProps } from '../../../types/adminPage';
+import { app } from '../../../constants/routerLinks';
 
 const UsersList = (props: UsersListProps) => {
   const { users } = props;
@@ -16,7 +17,7 @@ const UsersList = (props: UsersListProps) => {
         <p className="adminPageTitle">Users</p>
         <div>
           {users.map((user) => (
-            <NavLink key={user.uid} to={user.uid}>
+            <NavLink key={user.uid} to={`${app}${user.uid}`}>
               <ul>
                 <li>{user.mail}</li>
                 <li>{user.name}</li>
@@ -60,7 +61,7 @@ const PageNoAccess = () => (
 const AdminPage: React.FC = () => {
   const user = useContext(AuthUserContext);
 
-  if (user && user.email === 'admin@gmail.com') {
+  if (user && user.isAdmin) {
     return <PageWithAccess />;
   }
   return <PageNoAccess />;

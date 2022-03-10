@@ -11,21 +11,16 @@ const InputBlock = (props: InputBlockProps) => {
 
   return (
     <>
-      <input
-        value={value}
-        {...rest}
-        type={isVisible ? 'text' : type}
-        id={id}
-      />
-      {(type === 'password') && (
+      <input value={value} {...rest} type={isVisible ? 'text' : type} id={id} />
+      {type === 'password' && (
         <i
           className="fa fa-eye"
           aria-hidden="true"
           onClick={() => setIsVisible(!isVisible)}
         />
-      ) }
+      )}
       <label htmlFor={id} className="active singInputText">
-        { label }
+        {label}
         <input type="radio" />
       </label>
     </>

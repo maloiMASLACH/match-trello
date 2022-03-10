@@ -4,8 +4,9 @@ import AddForm from './components/addForm';
 import AddTablet from './components/addTablet';
 import { NewTaskProps } from '../../../types/newTask';
 
-const NewTask = (props:NewTaskProps) => {
+const NewTask = (props: NewTaskProps) => {
   const { uid, deskObjName } = props;
+
   const [isActive, setActive] = useState<boolean>(false);
 
   const handleActive = () => {

@@ -10,9 +10,14 @@
         User token : {}
         User token : {}
         User token : {
+            mail: ".....@gmail.com"
+            name: "....."
+            uid: /O8EHA5j....
             decks: {
                 deck1 :{}
                 deck2 :{
+                    id: 2,
+                    deskName,
                     colons: {
                         colon1: {}
                         colon2: {
@@ -30,12 +35,8 @@
                             }
                         }
                     }
-                    id: 2
                 }
             }
-            mail: ".....@gmail.com"
-            name: "....."
-            uid: /O8EHA5j....
         }
 # 4. Deploy https://admiring-poincare-da02b3.netlify.app/
         !!! To sing in like admin:
@@ -46,35 +47,27 @@
         -mode_modules
         -public  /public assets\
         -src 
-            * __tests__
             * components
-                ` JSX component
-                ` ...
-                ` JSX component
-                    - name.tsx
-                    - name.css
-                ` pages
-                    - page
-                        ^ pageName.tsx
-                        ^ pageName.css
+                ` blocks
+                    - componentName
                     - ...
-                    - page
+                    - componentName
+                        ^ component.tsx
+                        ^ index.tsx
+                        ^ styles.css
+                ` controls
+                ` pages
             * constants
-                ` interfaces.tsx
-                ` patterns.tsx
-                ` routerLinks.tsx
+                ` patterns.ts
+                ` routerLinks.ts
+                ` voidObjects.ts
+            * types
+                ` componentType.ts
+                ` ...
+                ` componentType.ts
             * utils
-                ` dragEvents
-                    - index.tsx
-                ` fetchURIInfo
-                    - index.tsx
-                ` fireBase
-                    - index.tsx
-                    - context.tsx
-                    - fireBase.tsx
-                ` sessionHandler
-                    - index.tsx
-                ` sortCards
-                    - index.tsx
+                ` ...
+            * App.tsx
+            * index.tsx
 
                 
