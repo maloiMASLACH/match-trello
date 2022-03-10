@@ -23,7 +23,7 @@ const Column = (props: ColumnProps) => {
     setOpenColumn((prevState) => !prevState);
   };
 
-  const taskLength = Object.keys(columnValue?.tasks || []).length;
+  const taskLength = Object.values(columnValue?.tasks || []).length;
 
   return (
     <>

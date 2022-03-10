@@ -41,7 +41,8 @@ const PasswordReset: React.FC = () => {
         nav(welcome);
       })
       .catch(() => {
-        alert('Incorrect data');
+        setFirstPassword('Incorrect data');
+        setSecondPassword('');
       });
   };
 

@@ -9,12 +9,12 @@ const DeskWithInfo = () => {
 
   const [isOpen, setOpenDesk] = useState<boolean>(false);
 
-  let taskCount = 0;
-  const columnCount = Object.keys(deskInfo.columns || []).length;
-
   const handleActive = () => {
     setOpenDesk((prevState) => !prevState);
   };
+
+  let taskCount = 0;
+  const columnCount = Object.keys(deskInfo.columns || []).length;
 
   if (deskInfo.columns) {
     Object.values(deskInfo.columns).forEach((column: ColumnType) => {
@@ -26,11 +26,7 @@ const DeskWithInfo = () => {
 
   return (
     <>
-      <div
-        className="infoBlock"
-        onClick={handleActive}
-        aria-hidden="true"
-      >
+      <div className="infoBlock" onClick={handleActive} aria-hidden="true">
         <h3>{deskInfo.deskName}</h3>
         <p>{`${columnCount} columns`}</p>
         <p>{`${taskCount} tasks`}</p>

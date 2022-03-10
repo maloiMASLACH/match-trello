@@ -7,15 +7,10 @@ const userType = new Firebase().auth.currentUser;
 const FetchURLInfo = (
   setUser: (el:typeof userType) => void,
   setUsers:(el:string[]) => void,
-  setUserValue: (el:UserType) => void,
   firebase: Firebase,
 ) => {
   firebase.auth.onAuthStateChanged((authUser) => {
     setUser(authUser);
-
-    firebase.user(authUser!.uid).on('value', (snapshot) => {
-      setUserValue(snapshot.val());
-    });
 
     if (authUser?.email === 'admin@gmail.com') {
       firebase.users().once('value', (snapshot) => {

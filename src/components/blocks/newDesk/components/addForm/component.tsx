@@ -23,9 +23,7 @@ const AddForm = (props: HandleActive) => {
     const deskObjName = name.split(' ').join('');
 
     firebase.desk(userValue.uid, deskObjName).update({
-      columns: {
-        FirstColumn,
-      },
+      columns: { FirstColumn },
       id: lastId ? lastId + 1 : 1,
       deskName: name,
     });

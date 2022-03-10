@@ -28,7 +28,8 @@ const SingInForm: React.FC = () => {
         navigate(userPage);
       })
       .catch(() => {
-        alert('Incorrect data');
+        setInputMail('Incorrect data');
+        setInputPassword('');
       });
   };
 
