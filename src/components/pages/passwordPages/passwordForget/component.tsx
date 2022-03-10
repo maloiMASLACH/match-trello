@@ -19,9 +19,7 @@ const PasswordForget: React.FC = () => {
     setCorrect((prevState) => !prevState);
   };
 
-  const checkIsCorrect = (
-    mail: string,
-  ) => {
+  const checkIsCorrect = (mail: string) => {
     if (mail && patterns.mail.test(mail)) {
       handleChecked();
     } else handleChecked();
@@ -49,7 +47,7 @@ const PasswordForget: React.FC = () => {
         <InputBlock
           id="Email"
           value={inputMail}
-          onChange={(e:React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
           label="E-Mail"
           type="email"
         />

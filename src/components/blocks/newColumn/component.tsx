@@ -4,8 +4,9 @@ import './styles.css';
 import AddTablet from './components/addTablet';
 import { NewColumnProps } from '../../../types/newColumn';
 
-const NewColumn = (props:NewColumnProps) => {
+const NewColumn = (props: NewColumnProps) => {
   const { uid } = props;
+
   const [isActive, setActive] = useState<boolean>(false);
 
   const handleActive = () => {

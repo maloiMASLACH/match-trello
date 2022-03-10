@@ -1,18 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { passReset } from '../../../constants/routerLinks';
+import { app, passReset } from '../../../constants/routerLinks';
 import AuthUserContext from '../../../utils/sessionHandler';
 import PasswordActionLink from '../../controls/passwordChangeLink';
 import './styles.css';
 import { FirebaseContext } from '../../../utils/fireBase';
 import { UserType } from '../../../types/globalTypes';
 
-const PageWithUser = (props:{ uid:string }) => {
+const PageWithUser = (props: { uid: string }) => {
   const { uid } = props;
+
   const firebase = useContext(FirebaseContext);
 
   const [userValue, setUserValue] = useState<UserType>({
-    desks: [], mail: '', uid: '', name: '',
+    desks: [],
+    mail: '',
+    uid: '',
+    name: '',
   });
 
   let taskCount = 0;
@@ -47,9 +51,7 @@ const PageWithUser = (props:{ uid:string }) => {
             </div>
             <div>
               <p>Tables count</p>
-              <p>
-                {userValue.desks ? Object.keys(userValue.desks).length : 0}
-              </p>
+              <p>{userValue.desks ? Object.keys(userValue.desks).length : 0}</p>
             </div>
             <div>
               <p>Tasks Count</p>
@@ -57,7 +59,7 @@ const PageWithUser = (props:{ uid:string }) => {
             </div>
           </div>
           <div className="linkToAppContainer">
-            <NavLink className="linkToApp" to={userValue.uid}>
+            <NavLink className="linkToApp" to={`${app}${userValue.uid}`}>
               Your desks
             </NavLink>
           </div>
@@ -79,8 +81,8 @@ const PageNoUser = () => (
 const UserPage: React.FC = () => {
   const user = useContext(AuthUserContext);
 
-  if (user) {
-    return <PageWithUser uid={user?.uid} />;
+  if (user && user.uid) {
+    return <PageWithUser uid={user.uid} />;
   }
   return <PageNoUser />;
 };

@@ -4,5 +4,5 @@ export interface StartButtonProps extends HTMLAttributes<HTMLButtonElement> {
   text: string;
   disabled: boolean;
   onClick: () => void;
-  type:'button' | 'submit' | 'reset' | undefined;
+  type: 'button' | 'submit' | 'reset' | undefined;
 }

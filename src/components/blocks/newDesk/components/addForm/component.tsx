@@ -34,7 +34,7 @@ const AddForm = (props: HandleActive) => {
   return (
     <div className="addBlock">
       <img
-        src="./x.png"
+        src="./../x.png"
         alt="add"
         className="addDeskImgClose"
         onClick={handleActive}

@@ -27,7 +27,7 @@ const NavBar = () => {
                 <li>
                   <NavLink to={userPage}>User</NavLink>
                 </li>
-                {user.email === 'admin@gmail.com' && (
+                {user.isAdmin && (
                   <li>
                     <NavLink to={admin}>Admin</NavLink>
                   </li>

@@ -9,7 +9,7 @@ const AddTablet = (props: HandleActive) => {
     <div className="addBlock">
       <p>Create new desk</p>
       <img
-        src="./plus.png"
+        src="./../plus.png"
         alt="add"
         className="addDeskImg"
         onClick={handleActive}

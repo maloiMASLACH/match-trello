@@ -15,16 +15,12 @@ const ChangeNameField = (props: ChangeTaskProps) => {
     const taskObjName = taskValue.taskName.split(' ').join('');
     const newObj = name.split(' ').join('');
 
-    firebase
-      .task(uid, deskObjName, columnObjName, taskObjName)
-      .set(null);
+    firebase.task(uid, deskObjName, columnObjName, taskObjName).set(null);
 
     taskValue.taskName = name;
     taskValue.date = date;
 
-    firebase
-      .task(uid, deskObjName, columnObjName, newObj)
-      .set(taskValue);
+    firebase.task(uid, deskObjName, columnObjName, newObj).set(taskValue);
 
     handleChanging();
   };

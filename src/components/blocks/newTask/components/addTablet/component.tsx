@@ -9,7 +9,7 @@ const AddTablet = (props: HandleActive) => {
     <div className="addTaskBlock">
       <p>Add task</p>
       <img
-        src="./plus.png"
+        src="./../plus.png"
         alt="add"
         className="addTaskImg"
         onClick={() => handleActive()}

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { AppPageProps } from '../../../types/appPage';
 import { UserType } from '../../../types/globalTypes';
 import { FirebaseContext } from '../../../utils/fireBase';
@@ -19,7 +20,7 @@ const PageWithUser = (props: AppPageProps) => {
     mail: '',
     name: '',
     uid: '',
-    desks: [],
+    desks: {},
   });
 
   useEffect(() => {
@@ -56,6 +57,8 @@ const PageNoUser = () => (
 const AppPage: React.FC = () => {
   const user = useContext(AuthUserContext);
 
-  return user ? <PageWithUser path={user.uid} /> : <PageNoUser />;
+  const { uid } = useParams();
+
+  return user && uid ? <PageWithUser path={uid} /> : <PageNoUser />;
 };
 export default AppPage;

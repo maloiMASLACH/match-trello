@@ -24,14 +24,12 @@ const AddForm = (props: NewTaskAddProps) => {
     const columnObjName = columnValue.columnName.split(' ').join('');
     const taskObjName = name.split(' ').join('');
 
-    firebase
-      .task(uid, deskObjName, columnObjName, taskObjName)
-      .update({
-        taskName: name,
-        date,
-        completed: false,
-        id: lastId + 1,
-      });
+    firebase.task(uid, deskObjName, columnObjName, taskObjName).update({
+      taskName: name,
+      date,
+      completed: false,
+      id: lastId + 1,
+    });
 
     handleActive();
   };
@@ -60,7 +58,7 @@ const AddForm = (props: NewTaskAddProps) => {
         confirm
       </button>
       <img
-        src="./x.png"
+        src="./../x.png"
         alt="add"
         className="addTaskImgClose"
         onClick={() => handleActive()}

@@ -64,9 +64,7 @@ const SingUpForm: React.FC = () => {
         <InputBlock
           id="Password"
           value={inputPassword}
-          onChange={(
-            e: React.ChangeEvent<HTMLInputElement>,
-          ) => setInputPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputPassword(e.target.value)}
           label="Password"
           type="password"
         />

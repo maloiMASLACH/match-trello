@@ -20,21 +20,13 @@ const PasswordReset: React.FC = () => {
     setCorrect((prevState) => !prevState);
   };
 
-  const checkIsCorrect = (
-    {
-      password,
-      confirm,
-    }:CheckIsCorrectProps,
-  ) => {
+  const checkIsCorrect = ({ password, confirm }: CheckIsCorrectProps) => {
     if (password === confirm && patterns.password.test(password)) {
       handleChecked();
     } else handleChecked();
   };
 
-  const onSubmit = (
-    password: string,
-    nav: NavigateFunction,
-  ) => {
+  const onSubmit = (password: string, nav: NavigateFunction) => {
     firebase
       .doPasswordUpdate(password)
       .then(() => {
@@ -51,27 +43,23 @@ const PasswordReset: React.FC = () => {
       <div
         className="input-field"
         onChange={() => {
-          checkIsCorrect(
-            {
-              password: passwordOne,
-              confirm: passwordTwo,
-            },
-          );
+          checkIsCorrect({
+            password: passwordOne,
+            confirm: passwordTwo,
+          });
         }}
       >
         <InputBlock
           id="oldPassword"
           value={passwordOne}
-          onChange={(e:React.ChangeEvent<HTMLInputElement>) => setFirstPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirstPassword(e.target.value)}
           label="New Password"
           type="password"
         />
         <InputBlock
           id="newPassword"
           value={passwordTwo}
-          onChange={(
-            e:React.ChangeEvent<HTMLInputElement>,
-          ) => setSecondPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSecondPassword(e.target.value)}
           label="Confirm Password"
           type="password"
         />

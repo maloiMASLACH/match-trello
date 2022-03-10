@@ -1,8 +1,9 @@
 import React from 'react';
-import Firebase from '../fireBase';
+import { AuthUserType } from '../../types/globalTypes';
 
-const userType = new Firebase().auth.currentUser;
-
-const AuthUserContext = React.createContext<typeof userType>(null);
+const AuthUserContext = React.createContext<AuthUserType>({
+  isAdmin: false,
+  uid: '',
+});
 
 export default AuthUserContext;
