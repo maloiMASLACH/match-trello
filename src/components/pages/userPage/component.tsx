@@ -1,23 +1,33 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { passReset } from '../../../constants/routerLinks';
 import AuthUserContext from '../../../utils/sessionHandler';
 import PasswordActionLink from '../../controls/passwordChangeLink';
 import './styles.css';
-import UserValueContext from '../../../utils/valueContexts/userValueContext';
+import { FirebaseContext } from '../../../utils/fireBase';
+import { UserType } from '../../../types/globalTypes';
 
-const PageWithUser = () => {
-  const userValue = useContext(UserValueContext);
+const PageWithUser = (props:{ uid:string }) => {
+  const { uid } = props;
+  const firebase = useContext(FirebaseContext);
+
+  const [userValue, setUserValue] = useState<UserType>({
+    desks: [], mail: '', uid: '', name: '',
+  });
 
   let taskCount = 0;
+
+  useEffect(() => {
+    firebase.user(uid).on('value', (snapshot) => {
+      setUserValue(snapshot.val());
+    });
+  }, []);
 
   try {
     if (userValue.desks) {
       Object.values(userValue.desks).forEach((desk) => {
         Object.values(desk.columns).forEach((column) => {
-          taskCount += Object.values(
-            column.tasks,
-          ).length;
+          taskCount += Object.keys(column.tasks).length;
         });
       });
     }
@@ -37,7 +47,9 @@ const PageWithUser = () => {
             </div>
             <div>
               <p>Tables count</p>
-              <p>{Object.values(userValue.desks).length}</p>
+              <p>
+                {userValue.desks ? Object.keys(userValue.desks).length : 0}
+              </p>
             </div>
             <div>
               <p>Tasks Count</p>
@@ -68,8 +80,9 @@ const UserPage: React.FC = () => {
   const user = useContext(AuthUserContext);
 
   if (user) {
-    return <PageWithUser />;
-  } return <PageNoUser />;
+    return <PageWithUser uid={user?.uid} />;
+  }
+  return <PageNoUser />;
 };
 
 export default UserPage;

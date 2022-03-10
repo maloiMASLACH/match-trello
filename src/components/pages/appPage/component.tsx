@@ -53,11 +53,9 @@ const PageNoUser = () => (
   </div>
 );
 
-const AppPage: React.FC<AppPageProps> = (props) => {
-  const { path } = props;
-
+const AppPage: React.FC = () => {
   const user = useContext(AuthUserContext);
 
-  return user ? <PageWithUser path={path} /> : <PageNoUser />;
+  return user ? <PageWithUser path={user.uid} /> : <PageNoUser />;
 };
 export default AppPage;

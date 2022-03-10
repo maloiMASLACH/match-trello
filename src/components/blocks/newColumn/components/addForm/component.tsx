@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import './styles.css';
 import { FirebaseContext } from '../../../../../utils/fireBase';
-import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
 import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
 import sortCards from '../../../../../utils/sortCards';
 import { task } from '../../../../../constants/voidObjects';

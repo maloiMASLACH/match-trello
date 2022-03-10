@@ -16,7 +16,7 @@ const UsersList = (props: UsersListProps) => {
         <p className="adminPageTitle">Users</p>
         <div>
           {users.map((user) => (
-            <NavLink to={user.uid}>
+            <NavLink key={user.uid} to={user.uid}>
               <ul>
                 <li>{user.mail}</li>
                 <li>{user.name}</li>

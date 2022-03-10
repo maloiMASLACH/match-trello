@@ -6,8 +6,6 @@ import NewTask from '../newTask';
 import Task from '../taskBlock';
 import './styles.css';
 import ChangeNameField from './components/changeNameField';
-import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
-import UserValueContext from '../../../utils/valueContexts/userValueContext';
 import ColumnValueContext from '../../../utils/valueContexts/columnValueContext';
 import TaskValueContext from '../../../utils/valueContexts/taskValueContext';
 import { OpenedColumnProps } from '../../../types/openedColumn';

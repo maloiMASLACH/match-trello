@@ -34,7 +34,7 @@ const PasswordForget: React.FC = () => {
         nav(welcome);
       })
       .catch(() => {
-        alert('Incorrect data');
+        setInputMail('Incorrect data');
       });
   };
 

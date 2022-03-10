@@ -33,13 +33,14 @@ const SingUpForm: React.FC = () => {
         name: inputName,
         mail: inputMail,
         uid: `/${newUser.user!.uid}`,
-        desks: {
-          FirstDesk,
-        },
+        desks: { FirstDesk },
       }))
       .then(() => navigate(welcome))
       .catch(() => {
-        alert('Incorrect data');
+        setInputMail('Incorrect data');
+        setInputName('Incorrect data');
+        setInputPassword('');
+        setConfirmPassword('');
       });
   };
 

@@ -6,17 +6,13 @@ export const task = {
 };
 
 export const FirstColumn = {
-  tasks: {
-    task,
-  },
+  tasks: { task },
   id: 1,
   columnName: 'First Column',
 };
 
 export const FirstDesk = {
-  columns: {
-    FirstColumn,
-  },
+  columns: { FirstColumn },
   id: 1,
   deskName: 'First Desk',
 };
