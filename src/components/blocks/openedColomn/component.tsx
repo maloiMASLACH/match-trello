@@ -26,6 +26,8 @@ const OpenedColumn = (props: OpenedColumnProps) => {
 
   const columnObjName = columnValue.columnName.split(' ').join('');
 
+  const sortedColumns = Object.values(columnValue.tasks).sort(sortCards);
+
   const deleteColumn = () => {
     firebase.column(uid, deskObjName, columnObjName).set(null);
   };
@@ -69,21 +71,18 @@ const OpenedColumn = (props: OpenedColumnProps) => {
         />
       </div>
       <div className="tasks">
-        {columnValue.tasks
-          ? Object.values(columnValue.tasks)
-            .sort(sortCards)
-            .map((task: TaskType) => (
-              <TaskValueContext.Provider key={task.id} value={task}>
-                <Task
-                  uid={uid}
-                  deskObjName={deskObjName}
-                  columnObjName={columnObjName}
-                  currentCard={currentTask}
-                  setCurrentCard={(newTask) => setCurrentTask(newTask)}
-                />
-              </TaskValueContext.Provider>
-            ))
-          : null}
+        {(sortedColumns || [])
+          .map((task: TaskType) => (
+            <TaskValueContext.Provider key={task.id} value={task}>
+              <Task
+                uid={uid}
+                deskObjName={deskObjName}
+                columnObjName={columnObjName}
+                currentCard={currentTask}
+                setCurrentCard={setCurrentTask}
+              />
+            </TaskValueContext.Provider>
+          ))}
         <NewTask uid={uid} deskObjName={deskObjName} />
       </div>
     </div>

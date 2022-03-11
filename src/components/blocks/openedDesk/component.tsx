@@ -27,6 +27,8 @@ const OpenedDesk = (props: HandleActive) => {
 
   const deskObjName = deskInfo.deskName.split(' ').join('');
 
+  const sortedColumns = Object.values(deskInfo.columns).sort(sortCards);
+
   const handleChanging = () => {
     setChanging((prevState) => !prevState);
   };
@@ -69,20 +71,17 @@ const OpenedDesk = (props: HandleActive) => {
         />
       </div>
       <div className="colons">
-        {deskInfo.columns
-          ? Object.values(deskInfo.columns)
-            .sort(sortCards)
-            .map((column: ColumnType) => (
-              <ColumnValueContext.Provider key={column.id} value={column}>
-                <Column
-                  uid={userValue.uid}
-                  deskObjName={deskObjName}
-                  currentColumn={currentColumn}
-                  setCurrentColumn={(newColumn) => setCurrentColumn(newColumn)}
-                />
-              </ColumnValueContext.Provider>
-            ))
-          : null}
+        { (sortedColumns || [])
+          .map((column: ColumnType) => (
+            <ColumnValueContext.Provider key={column.id} value={column}>
+              <Column
+                uid={userValue.uid}
+                deskObjName={deskObjName}
+                currentColumn={currentColumn}
+                setCurrentColumn={setCurrentColumn}
+              />
+            </ColumnValueContext.Provider>
+          ))}
         <NewColumn uid={userValue.uid} />
       </div>
     </div>

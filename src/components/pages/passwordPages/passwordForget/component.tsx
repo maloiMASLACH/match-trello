@@ -5,34 +5,27 @@ import { welcome } from '../../../../constants/routerLinks';
 import { FirebaseContext } from '../../../../utils/fireBase';
 import InputBlock from '../../../controls/input';
 import Button from '../../../controls/button';
-import { OnSubmitProps } from '../../../../types/passwordForget';
+import ErrorBLock from '../../../blocks/errorBlock';
 
 const PasswordForget: React.FC = () => {
+  const navigate = useNavigate();
+
   const firebase = useContext(FirebaseContext);
 
   const [inputMail, setInputMail] = useState('');
-  const [isCorrect, setCorrect] = useState(Boolean);
+  const [error, setError] = useState('');
 
-  const navigate = useNavigate();
+  const isCorrect = inputMail
+    && patterns.mail.test(inputMail);
 
-  const handleChecked = () => {
-    setCorrect((prevState) => !prevState);
-  };
-
-  const checkIsCorrect = (mail: string) => {
-    if (mail && patterns.mail.test(mail)) {
-      handleChecked();
-    } else handleChecked();
-  };
-
-  const onSubmit = ({ mail, nav }: OnSubmitProps) => {
+  const onSubmit = () => {
     firebase
-      .doPasswordReset(mail)
+      .doPasswordReset(inputMail)
       .then(() => {
-        nav(welcome);
+        navigate(welcome);
       })
       .catch(() => {
-        setInputMail('Incorrect data');
+        setError('Incorrect data');
       });
   };
 
@@ -40,9 +33,6 @@ const PasswordForget: React.FC = () => {
     <>
       <div
         className="input-field"
-        onChange={() => {
-          checkIsCorrect(inputMail);
-        }}
       >
         <InputBlock
           id="Email"
@@ -52,13 +42,15 @@ const PasswordForget: React.FC = () => {
           type="email"
         />
       </div>
+      {error ? <ErrorBLock errorText={error} /> : null}
       <Button
-        text="RESET PASSWORD"
-        disabled={isCorrect}
+        text="reset password"
+        disabled={!isCorrect}
         type="submit"
-        onClick={() => onSubmit({ mail: inputMail, nav: navigate })}
+        onClick={onSubmit}
       />
     </>
   );
 };
+
 export default PasswordForget;

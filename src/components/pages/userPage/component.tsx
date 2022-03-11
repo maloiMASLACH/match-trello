@@ -7,8 +7,8 @@ import './styles.css';
 import { FirebaseContext } from '../../../utils/fireBase';
 import { UserType } from '../../../types/globalTypes';
 
-const PageWithUser = (props: { uid: string }) => {
-  const { uid } = props;
+const PageWithUser = (props: { userID: string }) => {
+  const { userID } = props;
 
   const firebase = useContext(FirebaseContext);
 
@@ -22,53 +22,48 @@ const PageWithUser = (props: { uid: string }) => {
   let taskCount = 0;
 
   useEffect(() => {
-    firebase.user(uid).on('value', (snapshot) => {
+    firebase.user(userID).on('value', (snapshot) => {
       setUserValue(snapshot.val());
     });
   }, []);
 
-  try {
-    if (userValue.desks) {
-      Object.values(userValue.desks).forEach((desk) => {
-        Object.values(desk.columns).forEach((column) => {
-          taskCount += Object.keys(column.tasks).length;
-        });
+  if (userValue.desks) {
+    Object.values(userValue.desks).forEach((desk) => {
+      Object.values(desk.columns).forEach((column) => {
+        taskCount += Object.keys(column.tasks).length;
       });
-    }
-  } finally {
-    if (userValue) {
-      return (
-        <div className="userPage">
-          <div className="userIcon">{userValue.name}</div>
-          <div className="commonInfo">
-            <div>
-              <p>Your E-mail address</p>
-              <p>{userValue.mail}</p>
-            </div>
-            <div>
-              <p>User Name</p>
-              <p>{userValue.name}</p>
-            </div>
-            <div>
-              <p>Tables count</p>
-              <p>{userValue.desks ? Object.keys(userValue.desks).length : 0}</p>
-            </div>
-            <div>
-              <p>Tasks Count</p>
-              <p>{taskCount}</p>
-            </div>
-          </div>
-          <div className="linkToAppContainer">
-            <NavLink className="linkToApp" to={`${app}${userValue.uid}`}>
-              Your desks
-            </NavLink>
-          </div>
-          <PasswordActionLink text="change password" link={passReset} />
-        </div>
-      );
-    }
-    return <div />;
+    });
   }
+
+  return (
+    <div className="userPage">
+      <div className="userIcon">{userValue.name}</div>
+      <div className="commonInfo">
+        <div>
+          <p>Your E-mail address</p>
+          <p>{userValue.mail}</p>
+        </div>
+        <div>
+          <p>User Name</p>
+          <p>{userValue.name}</p>
+        </div>
+        <div>
+          <p>Tables count</p>
+          <p>{userValue.desks ? Object.keys(userValue.desks).length : 0}</p>
+        </div>
+        <div>
+          <p>Tasks Count</p>
+          <p>{taskCount}</p>
+        </div>
+      </div>
+      <div className="linkToAppContainer">
+        <NavLink className="linkToApp" to={`${app}${userValue.uid}`}>
+          Your desks
+        </NavLink>
+      </div>
+      <PasswordActionLink text="change password" link={passReset} />
+    </div>
+  );
 };
 
 const PageNoUser = () => (
@@ -81,10 +76,7 @@ const PageNoUser = () => (
 const UserPage: React.FC = () => {
   const user = useContext(AuthUserContext);
 
-  if (user && user.uid) {
-    return <PageWithUser uid={user.uid} />;
-  }
-  return <PageNoUser />;
+  return user.uid ? <PageWithUser userID={user.uid} /> : <PageNoUser />;
 };
 
 export default UserPage;

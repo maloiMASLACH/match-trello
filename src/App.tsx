@@ -24,11 +24,12 @@ const App = () => {
   useEffect(() => {
     FetchURLInfo((userObj) => setUser(userObj), firebase);
   }, []);
+  console.log(user);
 
   return (
     <BrowserRouter>
       <AuthUserContext.Provider value={user}>
-        <NavBar isAuthorized={!!user} isAdmin={user.isAdmin} />
+        <NavBar isAuthorized={!!user.uid} isAdmin={user.isAdmin} />
         <div className="container">
           <Routes>
             <Route element={<WelcomePage />} path={router.welcome} />

@@ -7,14 +7,16 @@ import InputBlock from '../../controls/input';
 import Button from '../../controls/button';
 import PasswordActionLink from '../../controls/passwordChangeLink/component';
 import './styles.css';
+import ErrorBLock from '../../blocks/errorBlock';
 
 const SingInForm: React.FC = () => {
+  const navigate = useNavigate();
+
   const firebase = useContext(FirebaseContext);
 
   const [inputMail, setInputMail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
-
-  const navigate = useNavigate();
+  const [error, setError] = useState('');
 
   const isCorrect = inputMail
     && inputPassword
@@ -28,8 +30,7 @@ const SingInForm: React.FC = () => {
         navigate(userPage);
       })
       .catch(() => {
-        setInputMail('Incorrect data');
-        setInputPassword('');
+        setError('Incorrect data');
       });
   };
 
@@ -51,6 +52,7 @@ const SingInForm: React.FC = () => {
           type="password"
         />
       </div>
+      {error ? <ErrorBLock errorText={error} /> : null}
       <Button
         text="SING IN"
         disabled={!isCorrect}
@@ -61,4 +63,5 @@ const SingInForm: React.FC = () => {
     </>
   );
 };
+
 export default SingInForm;

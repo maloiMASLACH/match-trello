@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css';
 
-const WelcomePage: React.FunctionComponent = () => (
+const WelcomePage: React.FC = () => (
   <div className="welcomeBlock">
     <h1>Welcome</h1>
     <p>

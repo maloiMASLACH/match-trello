@@ -1,0 +1,8 @@
+.errorBlock{
+    background-color: darkorange;
+    font-size: x-large;
+    color:  white;
+    margin: 0 auto;
+    text-align: center;
+    width: 30%;
+}

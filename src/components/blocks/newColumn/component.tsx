@@ -13,10 +13,11 @@ const NewColumn = (props: NewColumnProps) => {
     setActive((prevState) => !prevState);
   };
 
-  if (isActive) {
-    return <AddForm uid={uid} handleActive={handleActive} />;
-  }
-  return <AddTablet handleActive={handleActive} />;
+  return isActive ? (
+    <AddForm uid={uid} handleActive={handleActive} />
+  ) : (
+    <AddTablet handleActive={handleActive} />
+  );
 };
 
 export default NewColumn;

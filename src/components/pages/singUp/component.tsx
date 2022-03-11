@@ -7,16 +7,18 @@ import { FirebaseContext } from '../../../utils/fireBase';
 import patterns from '../../../constants/patterns';
 import { FirstDesk } from '../../../constants/voidObjects';
 import { welcome } from '../../../constants/routerLinks';
+import ErrorBLock from '../../blocks/errorBlock';
 
 const SingUpForm: React.FC = () => {
+  const navigate = useNavigate();
+
   const firebase = useContext(FirebaseContext);
 
   const [inputMail, setInputMail] = useState('');
   const [inputName, setInputName] = useState('');
   const [inputPassword, setInputPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
-  const navigate = useNavigate();
+  const [error, setError] = useState('');
 
   const checkIsCorrect = inputMail
     && inputName
@@ -37,10 +39,7 @@ const SingUpForm: React.FC = () => {
       }))
       .then(() => navigate(welcome))
       .catch(() => {
-        setInputMail('Incorrect data');
-        setInputName('Incorrect data');
-        setInputPassword('');
-        setConfirmPassword('');
+        setError('Incorrect data');
       });
   };
 
@@ -78,6 +77,7 @@ const SingUpForm: React.FC = () => {
           type="password"
         />
       </div>
+      {error ? <ErrorBLock errorText={error} /> : null}
       <Button
         text="SING UP"
         disabled={!checkIsCorrect}

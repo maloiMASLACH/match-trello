@@ -61,10 +61,7 @@ const PageNoAccess = () => (
 const AdminPage: React.FC = () => {
   const user = useContext(AuthUserContext);
 
-  if (user && user.isAdmin) {
-    return <PageWithAccess />;
-  }
-  return <PageNoAccess />;
+  return user.uid ? <PageWithAccess /> : <PageNoAccess />;
 };
 
 export default AdminPage;

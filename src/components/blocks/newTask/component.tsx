@@ -13,16 +13,11 @@ const NewTask = (props: NewTaskProps) => {
     setActive((prevState) => !prevState);
   };
 
-  if (isActive) {
-    return (
-      <AddForm
-        uid={uid}
-        deskObjName={deskObjName}
-        handleActive={handleActive}
-      />
-    );
-  }
-  return <AddTablet handleActive={handleActive} />;
+  return isActive ? (
+    <AddForm uid={uid} deskObjName={deskObjName} handleActive={handleActive} />
+  ) : (
+    <AddTablet handleActive={handleActive} />
+  );
 };
 
 export default NewTask;

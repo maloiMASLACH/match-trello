@@ -1,40 +1,34 @@
 import React, { useContext, useState } from 'react';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import patterns from '../../../../constants/patterns';
 import { welcome } from '../../../../constants/routerLinks';
 import { FirebaseContext } from '../../../../utils/fireBase';
 import InputBlock from '../../../controls/input';
 import Button from '../../../controls/button';
-import { CheckIsCorrectProps } from '../../../../types/passwordReset';
+import ErrorBLock from '../../../blocks/errorBlock';
 
 const PasswordReset: React.FC = () => {
+  const navigate = useNavigate();
+
   const firebase = useContext(FirebaseContext);
 
   const [passwordOne, setFirstPassword] = useState('');
   const [passwordTwo, setSecondPassword] = useState('');
-  const [isCorrect, setCorrect] = useState(Boolean);
+  const [error, setError] = useState('');
 
-  const navigate = useNavigate();
+  const isCorrect = passwordOne
+    && passwordTwo
+    && patterns.password.test(passwordOne)
+    && patterns.password.test(passwordTwo);
 
-  const handleChecked = () => {
-    setCorrect((prevState) => !prevState);
-  };
-
-  const checkIsCorrect = ({ password, confirm }: CheckIsCorrectProps) => {
-    if (password === confirm && patterns.password.test(password)) {
-      handleChecked();
-    } else handleChecked();
-  };
-
-  const onSubmit = (password: string, nav: NavigateFunction) => {
+  const onSubmit = () => {
     firebase
-      .doPasswordUpdate(password)
+      .doPasswordUpdate(passwordTwo)
       .then(() => {
-        nav(welcome);
+        navigate(welcome);
       })
       .catch(() => {
-        setFirstPassword('Incorrect data');
-        setSecondPassword('');
+        setError('Incorrect data');
       });
   };
 
@@ -42,12 +36,6 @@ const PasswordReset: React.FC = () => {
     <>
       <div
         className="input-field"
-        onChange={() => {
-          checkIsCorrect({
-            password: passwordOne,
-            confirm: passwordTwo,
-          });
-        }}
       >
         <InputBlock
           id="oldPassword"
@@ -64,13 +52,15 @@ const PasswordReset: React.FC = () => {
           type="password"
         />
       </div>
+      {error ? <ErrorBLock errorText={error} /> : null}
       <Button
-        text="CHANGE PASSWORD"
+        text="change password"
         type="submit"
-        disabled={isCorrect}
-        onClick={() => onSubmit(passwordOne, navigate)}
+        disabled={!isCorrect}
+        onClick={onSubmit}
       />
     </>
   );
 };
+
 export default PasswordReset;

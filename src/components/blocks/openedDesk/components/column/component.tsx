@@ -16,11 +16,11 @@ const Column = (props: ColumnProps) => {
 
   const [isOpenColumn, setOpenColumn] = useState<boolean>(false);
 
+  const taskLength = Object.values(columnValue?.tasks || []).length;
+
   const handleOpened = () => {
     setOpenColumn((prevState) => !prevState);
   };
-
-  const taskLength = Object.values(columnValue?.tasks || []).length;
 
   return (
     <>
