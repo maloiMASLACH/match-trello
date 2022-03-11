@@ -8,11 +8,11 @@ import {
   userPage,
   admin,
 } from '../../../constants/routerLinks';
-import AuthUserContext from '../../../utils/sessionHandler';
 import SingOut from '../../pages/singOut';
+import { NavBarProps } from '../../../types/navBar';
 
-const NavBar = () => {
-  const user = useContext(AuthUserContext);
+const NavBar = (props:NavBarProps) => {
+  const { isAuthorized, isAdmin } = props;
 
   return (
     <div>
@@ -22,12 +22,12 @@ const NavBar = () => {
             Mach Trello
           </NavLink>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
-            {user ? (
+            {isAuthorized ? (
               <>
                 <li>
                   <NavLink to={userPage}>User</NavLink>
                 </li>
-                {user.isAdmin && (
+                {isAdmin && (
                   <li>
                     <NavLink to={admin}>Admin</NavLink>
                   </li>

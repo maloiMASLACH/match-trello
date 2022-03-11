@@ -28,7 +28,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <AuthUserContext.Provider value={user}>
-        <NavBar />
+        <NavBar isAuthorized={!!user} isAdmin={user.isAdmin} />
         <div className="container">
           <Routes>
             <Route element={<WelcomePage />} path={router.welcome} />
