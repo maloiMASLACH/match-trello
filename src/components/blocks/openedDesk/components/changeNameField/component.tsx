@@ -12,7 +12,9 @@ const ChangeNameField = (props: HandleChanging) => {
   const userValue = useContext(UserValueContext);
   const deskValue = useContext(DeskValueContext);
 
-  const renameDesk = (inputValue: string) => {
+  const [inputValue, setInputValue] = useState('');
+
+  const renameDesk = () => {
     const deskObjName = deskValue.deskName.split(' ').join('');
     const newObj = inputValue.split(' ').join('');
 
@@ -24,8 +26,6 @@ const ChangeNameField = (props: HandleChanging) => {
 
     handleChanging();
   };
-
-  const [inputValue, setInputValue] = useState('');
 
   return (
     <>
@@ -39,7 +39,7 @@ const ChangeNameField = (props: HandleChanging) => {
       <button
         className="newDeskNameSubmit"
         type="submit"
-        onClick={() => renameDesk(inputValue)}
+        onClick={renameDesk}
       >
         OK
       </button>

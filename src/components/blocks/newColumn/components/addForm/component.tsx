@@ -14,20 +14,22 @@ const AddForm = (props: NewColumnAddProps) => {
 
   const [inputValue, setInputValue] = useState('');
 
-  const addColumn = (name: string) => {
+  const addColumn = () => {
     let lastId = 0;
 
     if (deskValue.columns) {
-      lastId = Object.values(deskValue.columns).sort(sortCards).slice(-1)[0].id;
+      const sortedColumns = Object.values(deskValue.columns).sort(sortCards);
+
+      lastId = sortedColumns[sortedColumns.length - 1].id;
     }
 
     const deskObjName = deskValue.deskName.split(' ').join('');
-    const columnObjName = name.split(' ').join('');
+    const columnObjName = inputValue.split(' ').join('');
 
     firebase.column(uid, deskObjName, columnObjName).update({
       tasks: { task },
       id: lastId + 1,
-      columnName: name,
+      columnName: inputValue,
     });
 
     handleActive();
@@ -51,9 +53,7 @@ const AddForm = (props: NewColumnAddProps) => {
       <button
         type="submit"
         disabled={!inputValue}
-        onClick={() => {
-          addColumn(inputValue);
-        }}
+        onClick={addColumn}
       >
         confirm
       </button>

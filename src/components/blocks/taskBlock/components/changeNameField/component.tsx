@@ -11,21 +11,22 @@ const ChangeNameField = (props: ChangeTaskProps) => {
   const firebase = useContext(FirebaseContext);
   const taskValue = useContext(TaskValueContext);
 
-  const renameTask = (name: string, date: string) => {
+  const [inputName, setInputName] = useState('');
+  const [inputDate, setInputDate] = useState('');
+
+  const renameTask = () => {
     const taskObjName = taskValue.taskName.split(' ').join('');
-    const newObj = name.split(' ').join('');
+    const newObj = inputName.split(' ').join('');
 
     firebase.task(uid, deskObjName, columnObjName, taskObjName).set(null);
 
-    taskValue.taskName = name;
-    taskValue.date = date;
+    taskValue.taskName = inputName;
+    taskValue.date = inputDate;
 
     firebase.task(uid, deskObjName, columnObjName, newObj).set(taskValue);
 
     handleChanging();
   };
-  const [inputName, setInputName] = useState('');
-  const [inputDate, setInputDate] = useState('');
 
   return (
     <>
@@ -46,7 +47,7 @@ const ChangeNameField = (props: ChangeTaskProps) => {
       <button
         className="taskRedactSubmit"
         type="submit"
-        onClick={() => renameTask(inputName, inputDate)}
+        onClick={renameTask}
       >
         OK
       </button>

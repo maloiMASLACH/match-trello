@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { ColumnType } from '../../../types/globalTypes';
 import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
 import OpenedDesk from '../openedDesk';
 import './styles.css';
@@ -13,16 +12,10 @@ const DeskWithInfo = () => {
     setOpenDesk((prevState) => !prevState);
   };
 
-  let taskCount = 0;
-  const columnCount = Object.keys(deskInfo.columns || []).length;
+  const taskCount = Object.values(deskInfo.columns)
+    .reduce((acc, curr) => acc + Object.keys(curr.tasks).length, 0);
 
-  if (deskInfo.columns) {
-    Object.values(deskInfo.columns).forEach((column: ColumnType) => {
-      if (column.tasks) {
-        taskCount += Object.keys(column.tasks).length;
-      }
-    });
-  }
+  const columnCount = Object.keys(deskInfo.columns || []).length;
 
   return (
     <>

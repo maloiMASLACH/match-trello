@@ -9,6 +9,7 @@
     border: none;
     padding: 10px 0;
     border-radius: 20px;
+    text-transform: uppercase;
 }
 .linkButton:active{
     background-color: darkorange;

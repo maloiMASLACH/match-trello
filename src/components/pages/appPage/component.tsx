@@ -22,6 +22,8 @@ const PageWithUser = (props: AppPageProps) => {
     desks: {},
   });
 
+  const sortedDesks = Object.values(userValue.desks).sort(sortCards);
+
   useEffect(() => {
     firebase.user(userID).on('value', (snapshot) => {
       setUserValue(snapshot.val());
@@ -31,15 +33,12 @@ const PageWithUser = (props: AppPageProps) => {
   return (
     <UserValueContext.Provider value={userValue}>
       <div className="appPage">
-        {userValue.desks
-          ? Object.values(userValue.desks)
-            .sort(sortCards)
-            .map((desk) => (
-              <DeskValueContext.Provider key={desk.id} value={desk}>
-                <DeskWithInfo />
-              </DeskValueContext.Provider>
-            ))
-          : null}
+        {(sortedDesks || [])
+          .map((desk) => (
+            <DeskValueContext.Provider key={desk.id} value={desk}>
+              <DeskWithInfo />
+            </DeskValueContext.Provider>
+          ))}
         <NewDesk />
       </div>
     </UserValueContext.Provider>

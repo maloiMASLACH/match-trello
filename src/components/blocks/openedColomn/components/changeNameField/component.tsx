@@ -9,7 +9,9 @@ const ChangeNameField = (props: ChangeColumnProps) => {
   const firebase = useContext(FirebaseContext);
   const columnValue = useContext(ColumnValueContext);
 
-  const renameColumn = (inputValue: string) => {
+  const [inputValue, setInputValue] = useState('');
+
+  const renameColumn = () => {
     const columnObjName = columnValue.columnName.split(' ').join('');
     const newObj = inputValue.split(' ').join('');
 
@@ -21,7 +23,7 @@ const ChangeNameField = (props: ChangeColumnProps) => {
 
     handleChanging();
   };
-  const [inputValue, setInputValue] = useState('');
+
   return (
     <>
       <input
@@ -34,11 +36,12 @@ const ChangeNameField = (props: ChangeColumnProps) => {
       <button
         className="newDeskNameSubmit"
         type="submit"
-        onClick={() => renameColumn(inputValue)}
+        onClick={renameColumn}
       >
         OK
       </button>
     </>
   );
 };
+
 export default ChangeNameField;

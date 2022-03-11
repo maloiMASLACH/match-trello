@@ -14,18 +14,21 @@ const AddForm = (props: HandleActive) => {
 
   const [inputValue, setInputValue] = useState('');
 
-  const addDesk = (name: string) => {
+  const addDesk = () => {
     let lastId = 0;
+
     if (userValue.desks) {
-      lastId = Object.values(userValue.desks).sort(sortCards).slice(-1)[0].id;
+      const sortedDesks = Object.values(userValue.desks).sort(sortCards);
+
+      lastId = sortedDesks[sortedDesks.length - 1].id;
     }
 
-    const deskObjName = name.split(' ').join('');
+    const deskObjName = inputValue.split(' ').join('');
 
     firebase.desk(userValue.uid, deskObjName).update({
       columns: { FirstColumn },
-      id: lastId ? lastId + 1 : 1,
-      deskName: name,
+      id: lastId + 1,
+      deskName: inputValue,
     });
 
     handleActive();
@@ -49,9 +52,7 @@ const AddForm = (props: HandleActive) => {
       <button
         type="submit"
         disabled={!inputValue}
-        onClick={() => {
-          addDesk(inputValue);
-        }}
+        onClick={addDesk}
       >
         confirm
       </button>

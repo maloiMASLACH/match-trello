@@ -14,19 +14,21 @@ const AddForm = (props: NewTaskAddProps) => {
   const [inputName, setInputName] = useState('');
   const [inputDate, setInputDate] = useState('');
 
-  const addTask = (name: string, date: string) => {
+  const addTask = () => {
     let lastId = 0;
 
     if (columnValue.tasks) {
-      lastId = Object.values(columnValue.tasks).sort(sortCards).slice(-1)[0].id;
+      const sortedTasks = Object.values(columnValue.tasks).sort(sortCards);
+
+      lastId = sortedTasks[sortedTasks.length - 1].id;
     }
 
     const columnObjName = columnValue.columnName.split(' ').join('');
-    const taskObjName = name.split(' ').join('');
+    const taskObjName = inputName.split(' ').join('');
 
     firebase.task(uid, deskObjName, columnObjName, taskObjName).update({
-      taskName: name,
-      date,
+      taskName: inputName,
+      inputDate,
       completed: false,
       id: lastId + 1,
     });
@@ -51,9 +53,7 @@ const AddForm = (props: NewTaskAddProps) => {
       <button
         type="submit"
         disabled={!inputName || !inputDate}
-        onClick={() => {
-          addTask(inputName, inputDate);
-        }}
+        onClick={addTask}
       >
         confirm
       </button>
