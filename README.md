@@ -38,7 +38,7 @@
                 }
             }
         }
-# 4. Deploy https://admiring-poincare-da02b3.netlify.app/
+# 4. Deploy https://elastic-payne-4b0c5d.netlify.app/
         !!! To sing in like admin:
                 e-mail: admin@gmail.com
                 pass: 1234567890
