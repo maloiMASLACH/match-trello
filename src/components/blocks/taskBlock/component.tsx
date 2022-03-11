@@ -41,7 +41,7 @@ const Task = (props: TaskProps) => {
       onDragStart={() => {
         setCurrentCard(taskValue);
       }}
-      onDragOver={(e) => onDragOver(e)}
+      onDragOver={onDragOver}
       onDrop={() => onDropCard({
         taskValue,
         currentCard,

@@ -11,24 +11,21 @@ import { app } from '../../../constants/routerLinks';
 const UsersList = (props: UsersListProps) => {
   const { users } = props;
 
-  if (users) {
-    return (
-      <>
-        <p className="adminPageTitle">Users</p>
-        <div>
-          {users.map((user) => (
-            <NavLink key={user.uid} to={`${app}${user.uid}`}>
-              <ul>
-                <li>{user.mail}</li>
-                <li>{user.name}</li>
-              </ul>
-            </NavLink>
-          ))}
-        </div>
-      </>
-    );
-  }
-  return null;
+  return (
+    <>
+      <p className="adminPageTitle">Users</p>
+      <div>
+        {users.map((user) => (
+          <NavLink key={user.uid} to={`${app}${user.uid}`}>
+            <ul>
+              <li>{user.mail}</li>
+              <li>{user.name}</li>
+            </ul>
+          </NavLink>
+        ))}
+      </div>
+    </>
+  );
 };
 
 const PageWithAccess = () => {
@@ -45,7 +42,7 @@ const PageWithAccess = () => {
   return (
     <div className="adminPage">
       <div className="usersList">
-        <UsersList users={users} />
+        {users.length && <UsersList users={users} />}
       </div>
     </div>
   );
@@ -59,9 +56,9 @@ const PageNoAccess = () => (
 );
 
 const AdminPage: React.FC = () => {
-  const user = useContext(AuthUserContext);
+  const { uid } = useContext(AuthUserContext);
 
-  return user.uid ? <PageWithAccess /> : <PageNoAccess />;
+  return uid ? <PageWithAccess /> : <PageNoAccess />;
 };
 
 export default AdminPage;

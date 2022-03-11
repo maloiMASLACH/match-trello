@@ -12,10 +12,11 @@ const AddTablet = (props: HandleActive) => {
         src="./../plus.png"
         alt="add"
         className="addTaskImg"
-        onClick={() => handleActive()}
+        onClick={handleActive}
         aria-hidden="true"
       />
     </div>
   );
 };
+
 export default AddTablet;
