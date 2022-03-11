@@ -27,7 +27,7 @@ const OpenedDesk = (props: HandleActive) => {
 
   const deskObjName = deskInfo.deskName.split(' ').join('');
 
-  const sortedColumns = Object.values(deskInfo.columns).sort(sortCards);
+  const sortedColumns = Object.values(deskInfo.columns).sort(sortCards) || [];
 
   const handleChanging = () => {
     setChanging((prevState) => !prevState);
@@ -71,7 +71,7 @@ const OpenedDesk = (props: HandleActive) => {
         />
       </div>
       <div className="colons">
-        { (sortedColumns || [])
+        { sortedColumns
           .map((column: ColumnType) => (
             <ColumnValueContext.Provider key={column.id} value={column}>
               <Column

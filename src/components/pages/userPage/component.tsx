@@ -74,9 +74,9 @@ const PageNoUser = () => (
 );
 
 const UserPage: React.FC = () => {
-  const user = useContext(AuthUserContext);
+  const { uid } = useContext(AuthUserContext);
 
-  return user.uid ? <PageWithUser userID={user.uid} /> : <PageNoUser />;
+  return uid ? <PageWithUser userID={uid} /> : <PageNoUser />;
 };
 
 export default UserPage;
