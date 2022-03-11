@@ -1,3 +1,3 @@
 export interface AppPageProps {
-  path: string;
+  userID: string;
 }

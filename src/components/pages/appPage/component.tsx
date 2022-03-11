@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { AppPageProps } from '../../../types/appPage';
 import { UserType } from '../../../types/globalTypes';
 import { FirebaseContext } from '../../../utils/fireBase';
-import AuthUserContext from '../../../utils/sessionHandler';
 import sortCards from '../../../utils/sortCards';
 import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
 import UserValueContext from '../../../utils/valueContexts/userValueContext';
@@ -12,7 +11,7 @@ import NewDesk from '../../blocks/newDesk';
 import './styles.css';
 
 const PageWithUser = (props: AppPageProps) => {
-  const { path } = props;
+  const { userID } = props;
 
   const firebase = useContext(FirebaseContext);
 
@@ -24,7 +23,7 @@ const PageWithUser = (props: AppPageProps) => {
   });
 
   useEffect(() => {
-    firebase.user(path).on('value', (snapshot) => {
+    firebase.user(userID).on('value', (snapshot) => {
       setUserValue(snapshot.val());
     });
   }, []);
@@ -55,10 +54,8 @@ const PageNoUser = () => (
 );
 
 const AppPage: React.FC = () => {
-  const user = useContext(AuthUserContext);
-
   const { uid } = useParams();
 
-  return user && uid ? <PageWithUser path={uid} /> : <PageNoUser />;
+  return uid ? <PageWithUser userID={uid} /> : <PageNoUser />;
 };
 export default AppPage;
