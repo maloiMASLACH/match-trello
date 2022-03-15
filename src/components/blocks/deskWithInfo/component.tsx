@@ -12,10 +12,13 @@ const DeskWithInfo = () => {
     setOpenDesk((prevState) => !prevState);
   };
 
-  const taskCount = Object.values(deskInfo.columns)
-    .reduce((acc, curr) => acc + Object.keys(curr.tasks).length, 0);
-
+  let taskCount = 0;
   const columnCount = Object.keys(deskInfo.columns || []).length;
+
+  if (deskInfo.columns) {
+    taskCount = Object.values(deskInfo.columns)
+      .reduce((acc, curr) => acc + Object.keys(curr.tasks || []).length, 0);
+  }
 
   return (
     <>

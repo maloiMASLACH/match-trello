@@ -26,7 +26,7 @@ const OpenedColumn = (props: OpenedColumnProps) => {
 
   const columnObjName = columnValue.columnName.split(' ').join('');
 
-  const sortedColumns = Object.values(columnValue.tasks).sort(sortCards) || [];
+  const sortedColumns = Object.values(columnValue.tasks || []).sort(sortCards);
 
   const deleteColumn = () => {
     firebase.column(uid, deskObjName, columnObjName).set(null);
