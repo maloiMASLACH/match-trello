@@ -29,9 +29,11 @@ const PageWithUser = (props: { userID: string }) => {
 
   if (userValue.desks) {
     Object.values(userValue.desks).forEach((desk) => {
-      Object.values(desk.columns).forEach((column) => {
-        taskCount += Object.keys(column.tasks || []).length;
-      });
+      if (desk.columns) {
+        Object.values(desk.columns).forEach((column) => {
+          taskCount += Object.keys(column.tasks || []).length;
+        });
+      }
     });
   }
 
