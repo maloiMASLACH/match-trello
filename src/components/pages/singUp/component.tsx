@@ -6,7 +6,7 @@ import Button from '../../controls/button';
 import { FirebaseContext } from '../../../utils/fireBase';
 import patterns from '../../../constants/patterns';
 import { FirstDesk } from '../../../constants/voidObjects';
-import { welcome } from '../../../constants/routerLinks';
+import { userPage } from '../../../constants/routerLinks';
 import ErrorBLock from '../../blocks/errorBlock';
 
 const SingUpForm: React.FC = () => {
@@ -37,7 +37,7 @@ const SingUpForm: React.FC = () => {
         uid: `/${newUser.user!.uid}`,
         desks: { FirstDesk },
       }))
-      .then(() => navigate(welcome))
+      .then(() => navigate(userPage))
       .catch(() => {
         setError('Incorrect data');
       });

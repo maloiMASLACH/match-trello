@@ -22,7 +22,7 @@ const PageWithUser = (props: AppPageProps) => {
     desks: {},
   });
 
-  const sortedDesks = Object.values(userValue.desks).sort(sortCards) || [];
+  const sortedDesks = Object.values(userValue.desks || []).sort(sortCards);
 
   useEffect(() => {
     firebase.user(userID).on('value', (snapshot) => {

@@ -27,7 +27,7 @@ const OpenedDesk = (props: HandleActive) => {
 
   const deskObjName = deskInfo.deskName.split(' ').join('');
 
-  const sortedColumns = Object.values(deskInfo.columns).sort(sortCards) || [];
+  const sortedColumns = Object.values(deskInfo.columns || []).sort(sortCards);
 
   const handleChanging = () => {
     setChanging((prevState) => !prevState);
