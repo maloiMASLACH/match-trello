@@ -7,6 +7,7 @@ const FetchURLInfo = (
 ) => {
   firebase.auth.onAuthStateChanged((authUser) => {
     setUser({
+      isVerified: authUser?.emailVerified || false,
       isAdmin: authUser?.uid === 'XyjS1TO9qCYcnRtuy5Oc4Aij1RU2',
       uid: authUser?.uid || '',
     });

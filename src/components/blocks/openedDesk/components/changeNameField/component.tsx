@@ -3,16 +3,17 @@ import './styles.css';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
 import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
-import { HandleChanging } from '../../../../../types/toggle';
+import patterns from '../../../../../constants/patterns';
+import { ChangeDeskNameProps } from '../../../../../types/changeInput';
 
-const ChangeNameField = (props: HandleChanging) => {
+const ChangeNameField = (props: ChangeDeskNameProps) => {
   const { handleChanging } = props;
 
   const firebase = useContext(FirebaseContext);
   const userValue = useContext(UserValueContext);
   const deskValue = useContext(DeskValueContext);
 
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(deskValue.deskName || '');
 
   const renameDesk = () => {
     const deskObjName = deskValue.deskName.split(' ').join('');
@@ -39,6 +40,7 @@ const ChangeNameField = (props: HandleChanging) => {
       <button
         className="newDeskNameSubmit"
         type="submit"
+        disabled={!(patterns.blockName.test(inputValue))}
         onClick={renameDesk}
       >
         OK

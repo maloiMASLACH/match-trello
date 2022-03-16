@@ -7,9 +7,9 @@ const PasswordActionLink = (props: ChangeLinkProps) => {
   const { text, link } = props;
 
   return (
-    <div className="passwordProblem">
-      <NavLink to={link}>{text}</NavLink>
-    </div>
+    <NavLink className="passwordProblem" to={link}>
+      {text}
+    </NavLink>
   );
 };
 export default PasswordActionLink;

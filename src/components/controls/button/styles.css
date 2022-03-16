@@ -1,7 +1,8 @@
 .linkButton{
-    margin: 0;
-    width: 100%;
-    text-align: center;
+    display: flex;
+    margin: 0 auto;
+    width: 80%;
+    justify-content: center;
     background-color: darkorange;
     margin-top: 4vh;
     color: #ffff;
@@ -16,5 +17,8 @@
 }
 .linkButton:disabled{
     opacity: 0.2;
+}
+.linkButton:not(:disabled){
+    cursor: pointer;
 }
 

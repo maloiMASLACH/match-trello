@@ -24,8 +24,8 @@ const PasswordForget: React.FC = () => {
       .then(() => {
         navigate(welcome);
       })
-      .catch(() => {
-        setError('Incorrect data');
+      .catch((e) => {
+        setError(e.message);
       });
   };
 

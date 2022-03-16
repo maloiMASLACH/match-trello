@@ -11,7 +11,7 @@ const InputBlock = (props: InputBlockProps) => {
 
   return (
     <>
-      <input value={value} {...rest} type={isVisible ? 'text' : type} id={id} />
+      <input value={value} {...rest} type={isVisible ? 'text' : type} placeholder={rest.placeholder} id={id} />
       {type === 'password' && (
         <i
           className="fa fa-eye"

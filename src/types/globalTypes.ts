@@ -23,6 +23,7 @@ export interface UserType {
 }
 
 export interface AuthUserType {
+  isVerified: boolean;
   isAdmin: boolean;
   uid: string;
 }

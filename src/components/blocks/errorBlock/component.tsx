@@ -7,7 +7,7 @@ const ErrorBLock = (props: ErrorBLockProps) => {
 
   return (
     <div className="errorBlock">
-      <p>{errorText}</p>
+      <p>{errorText.split('.')[0]}</p>
     </div>
   );
 };

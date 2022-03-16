@@ -37,9 +37,10 @@ const SingUpForm: React.FC = () => {
         uid: `/${newUser.user!.uid}`,
         desks: { FirstDesk },
       }))
+      .then(() => firebase.doSendEmailVerification)
       .then(() => navigate(userPage))
-      .catch(() => {
-        setError('Incorrect data');
+      .catch((e) => {
+        setError(e.message);
       });
   };
 
@@ -52,6 +53,7 @@ const SingUpForm: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputName(e.target.value)}
           label="User Name (Login)"
           type="text"
+          placeholder="Use 6-15 letters"
         />
         <InputBlock
           id="Email"
@@ -66,6 +68,7 @@ const SingUpForm: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputPassword(e.target.value)}
           label="Password"
           type="password"
+          placeholder="Use 6-15 letters or numbers"
         />
         <InputBlock
           id="ConfirmPassword"
@@ -75,6 +78,7 @@ const SingUpForm: React.FC = () => {
           }}
           label="Conform Password"
           type="password"
+          placeholder="Use 6-15 letters or numbers"
         />
       </div>
       {error ? <ErrorBLock errorText={error} /> : null}

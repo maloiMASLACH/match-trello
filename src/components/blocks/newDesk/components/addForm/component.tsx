@@ -5,6 +5,7 @@ import { FirstColumn } from '../../../../../constants/voidObjects';
 import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
 import sortCards from '../../../../../utils/sortCards';
 import { HandleActive } from '../../../../../types/toggle';
+import patterns from '../../../../../constants/patterns';
 
 const AddForm = (props: HandleActive) => {
   const { handleActive } = props;
@@ -51,7 +52,7 @@ const AddForm = (props: HandleActive) => {
       />
       <button
         type="submit"
-        disabled={!inputValue}
+        disabled={!(patterns.blockName.test(inputValue))}
         onClick={addDesk}
       >
         confirm

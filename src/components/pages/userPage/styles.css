@@ -27,20 +27,17 @@
     font-size: x-large;
     justify-content: space-between;
 }
-.userPage .linkToAppContainer{
-    text-align: center;
+.userPage a.linkToApp{
+    display: flex;
+    justify-content: center;
     background-color: #ff8c00;
     margin: 0 auto;
     margin-top: 2vh;
     padding:  10px 0;
     width: 50%;
     border-radius: 30px;
-}
-.userPage a.linkToApp{
     color: white;
     font-size: xx-large;
-
-
 }
 .userPage.notAuthUser{
     margin-top: 10vh;

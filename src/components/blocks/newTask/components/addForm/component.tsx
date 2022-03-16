@@ -4,6 +4,7 @@ import { FirebaseContext } from '../../../../../utils/fireBase';
 import sortCards from '../../../../../utils/sortCards';
 import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
 import { NewTaskAddProps } from '../../../../../types/newTask';
+import patterns from '../../../../../constants/patterns';
 
 const AddForm = (props: NewTaskAddProps) => {
   const { uid, deskObjName, handleActive } = props;
@@ -52,7 +53,7 @@ const AddForm = (props: NewTaskAddProps) => {
       />
       <button
         type="submit"
-        disabled={!inputName || !inputDate}
+        disabled={!(patterns.blockName.test(inputName)) || !(patterns.blockName.test(inputDate))}
         onClick={addTask}
       >
         confirm
@@ -61,7 +62,7 @@ const AddForm = (props: NewTaskAddProps) => {
         src="./../x.png"
         alt="add"
         className="addTaskImgClose"
-        onClick={() => handleActive()}
+        onClick={handleActive}
         aria-hidden="true"
       />
     </div>

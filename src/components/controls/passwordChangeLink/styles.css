@@ -1,16 +1,15 @@
 .container .passwordProblem{
+    display: flex;
     margin: 0 auto;
     width: 30%;
-    text-align: center;
+    justify-content: center;
     background-color: rgb(255, 198, 145);
     border: 1px solid darkorange;
     margin-top: 6vh;
     border-radius: 10px;
     padding: 5px;
+    font-size: large;
+    color: white;
+    text-transform: uppercase;
 
-}
-.container .passwordProblem a{
- font-size: large;
- color: white;
- text-transform: uppercase;
 }

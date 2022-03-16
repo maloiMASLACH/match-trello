@@ -1,15 +1,18 @@
 import React, { useContext, useState } from 'react';
-import { ChangeColumnProps } from '../../../../../types/openedColumn';
+import patterns from '../../../../../constants/patterns';
+import { ChangeColumnProps } from '../../../../../types/changeInput';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
 
 const ChangeNameField = (props: ChangeColumnProps) => {
-  const { uid, deskObjName, handleChanging } = props;
+  const {
+    uid, deskObjName, handleChanging,
+  } = props;
 
   const firebase = useContext(FirebaseContext);
   const columnValue = useContext(ColumnValueContext);
 
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(columnValue.columnName || '');
 
   const renameColumn = () => {
     const columnObjName = columnValue.columnName.split(' ').join('');
@@ -35,6 +38,7 @@ const ChangeNameField = (props: ChangeColumnProps) => {
       />
       <button
         className="newDeskNameSubmit"
+        disabled={!(patterns.blockName.test(inputValue))}
         type="submit"
         onClick={renameColumn}
       >

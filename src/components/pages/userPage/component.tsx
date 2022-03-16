@@ -7,8 +7,8 @@ import './styles.css';
 import { FirebaseContext } from '../../../utils/fireBase';
 import { UserType } from '../../../types/globalTypes';
 
-const PageWithUser = (props: { userID: string }) => {
-  const { userID } = props;
+const PageWithUser = (props: { isVerified:boolean, userID: string }) => {
+  const { isVerified, userID } = props;
 
   const firebase = useContext(FirebaseContext);
 
@@ -46,6 +46,10 @@ const PageWithUser = (props: { userID: string }) => {
           <p>{userValue.mail}</p>
         </div>
         <div>
+          <p>Verified user</p>
+          <p>{isVerified ? 'Yes' : 'No'}</p>
+        </div>
+        <div>
           <p>User Name</p>
           <p>{userValue.name}</p>
         </div>
@@ -58,11 +62,9 @@ const PageWithUser = (props: { userID: string }) => {
           <p>{taskCount}</p>
         </div>
       </div>
-      <div className="linkToAppContainer">
-        <NavLink className="linkToApp" to={`${app}${userValue.uid}`}>
-          Your desks
-        </NavLink>
-      </div>
+      <NavLink className="linkToApp" to={`${app}${userValue.uid}`}>
+        Your desks
+      </NavLink>
       <PasswordActionLink text="change password" link={passReset} />
     </div>
   );
@@ -76,9 +78,9 @@ const PageNoUser = () => (
 );
 
 const UserPage: React.FC = () => {
-  const { uid } = useContext(AuthUserContext);
+  const { uid, isVerified } = useContext(AuthUserContext);
 
-  return uid ? <PageWithUser userID={uid} /> : <PageNoUser />;
+  return uid ? <PageWithUser isVerified={isVerified} userID={uid} /> : <PageNoUser />;
 };
 
 export default UserPage;

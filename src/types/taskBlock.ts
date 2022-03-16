@@ -7,9 +7,3 @@ export interface TaskProps {
   currentCard: TaskType;
   setCurrentCard: (el: TaskType) => void;
 }
-export interface ChangeTaskProps {
-  uid: string;
-  columnObjName: string;
-  deskObjName: string;
-  handleChanging: () => void;
-}
