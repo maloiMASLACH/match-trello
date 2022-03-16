@@ -37,6 +37,7 @@ const SingUpForm: React.FC = () => {
         uid: `/${newUser.user!.uid}`,
         desks: { FirstDesk },
       }))
+      .then(() => firebase.doSendEmailVerification)
       .then(() => navigate(userPage))
       .catch((e) => {
         setError(e.message);

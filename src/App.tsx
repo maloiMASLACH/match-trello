@@ -19,7 +19,7 @@ import { AuthUserType } from './types/globalTypes';
 const App = () => {
   const firebase = useContext(FirebaseContext);
 
-  const [user, setUser] = useState<AuthUserType>({ isAdmin: false, uid: '' });
+  const [user, setUser] = useState<AuthUserType>({ isVerified: false, isAdmin: false, uid: '' });
 
   useEffect(() => {
     FetchURLInfo((userObj) => setUser(userObj), firebase);
