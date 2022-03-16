@@ -27,8 +27,8 @@ const PasswordReset: React.FC = () => {
       .then(() => {
         navigate(welcome);
       })
-      .catch(() => {
-        setError('Incorrect data');
+      .catch((e) => {
+        setError(e.message);
       });
   };
 
@@ -43,6 +43,7 @@ const PasswordReset: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirstPassword(e.target.value)}
           label="New Password"
           type="password"
+          placeholder="Use 6-15 letters or numbers"
         />
         <InputBlock
           id="newPassword"

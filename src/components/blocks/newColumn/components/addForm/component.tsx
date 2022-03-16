@@ -5,6 +5,7 @@ import DeskValueContext from '../../../../../utils/valueContexts/deskValueContex
 import sortCards from '../../../../../utils/sortCards';
 import { task } from '../../../../../constants/voidObjects';
 import { NewColumnAddProps } from '../../../../../types/newColumn';
+import patterns from '../../../../../constants/patterns';
 
 const AddForm = (props: NewColumnAddProps) => {
   const { uid, handleActive } = props;
@@ -52,7 +53,7 @@ const AddForm = (props: NewColumnAddProps) => {
       />
       <button
         type="submit"
-        disabled={!inputValue}
+        disabled={!(patterns.blockName.test(inputValue))}
         onClick={addColumn}
       >
         confirm

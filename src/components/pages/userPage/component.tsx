@@ -58,11 +58,9 @@ const PageWithUser = (props: { userID: string }) => {
           <p>{taskCount}</p>
         </div>
       </div>
-      <div className="linkToAppContainer">
-        <NavLink className="linkToApp" to={`${app}${userValue.uid}`}>
-          Your desks
-        </NavLink>
-      </div>
+      <NavLink className="linkToApp" to={`${app}${userValue.uid}`}>
+        Your desks
+      </NavLink>
       <PasswordActionLink text="change password" link={passReset} />
     </div>
   );

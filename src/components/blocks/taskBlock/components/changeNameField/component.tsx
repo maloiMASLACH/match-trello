@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { ChangeTaskProps } from '../../../../../types/taskBlock';
+import patterns from '../../../../../constants/patterns';
+import { ChangeTaskProps } from '../../../../../types/changeInput';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import TaskValueContext from '../../../../../utils/valueContexts/taskValueContext';
 
-const ChangeNameField = (props: ChangeTaskProps) => {
+const ChangeTaskField = (props: ChangeTaskProps) => {
   const {
     uid, columnObjName, deskObjName, handleChanging,
   } = props;
@@ -11,8 +12,8 @@ const ChangeNameField = (props: ChangeTaskProps) => {
   const firebase = useContext(FirebaseContext);
   const taskValue = useContext(TaskValueContext);
 
-  const [inputName, setInputName] = useState('');
-  const [inputDate, setInputDate] = useState('');
+  const [inputName, setInputName] = useState(taskValue.taskName || '');
+  const [inputDate, setInputDate] = useState(taskValue.date || '');
 
   const renameTask = () => {
     const taskObjName = taskValue.taskName.split(' ').join('');
@@ -48,6 +49,7 @@ const ChangeNameField = (props: ChangeTaskProps) => {
         className="taskRedactSubmit"
         type="submit"
         onClick={renameTask}
+        disabled={!(patterns.blockName.test(inputName)) || !(patterns.blockName.test(inputDate))}
       >
         OK
       </button>
@@ -55,4 +57,4 @@ const ChangeNameField = (props: ChangeTaskProps) => {
   );
 };
 
-export default ChangeNameField;
+export default ChangeTaskField;

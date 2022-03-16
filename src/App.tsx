@@ -24,7 +24,6 @@ const App = () => {
   useEffect(() => {
     FetchURLInfo((userObj) => setUser(userObj), firebase);
   }, []);
-  console.log(user);
 
   return (
     <BrowserRouter>

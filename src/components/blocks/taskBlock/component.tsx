@@ -3,7 +3,7 @@ import { onDragOver, onDropCard } from '../../../utils/dragEvents';
 import { FirebaseContext } from '../../../utils/fireBase';
 import './styles.css';
 import { TaskProps } from '../../../types/taskBlock';
-import ChangeNameField from './components/changeNameField';
+import ChangeTaskField from './components/changeNameField';
 import TaskValueContext from '../../../utils/valueContexts/taskValueContext';
 
 const Task = (props: TaskProps) => {
@@ -84,7 +84,7 @@ const Task = (props: TaskProps) => {
         </>
       )}
       {isChanging ? (
-        <ChangeNameField
+        <ChangeTaskField
           uid={uid}
           deskObjName={deskObjName}
           columnObjName={columnObjName}

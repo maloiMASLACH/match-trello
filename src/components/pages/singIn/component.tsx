@@ -29,8 +29,8 @@ const SingInForm: React.FC = () => {
       .then(() => {
         navigate(userPage);
       })
-      .catch(() => {
-        setError('Incorrect data');
+      .catch((e) => {
+        setError(e.message);
       });
   };
 
@@ -50,6 +50,7 @@ const SingInForm: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputPassword(e.target.value)}
           label="Password"
           type="password"
+          placeholder="Use 6-15 letters or numbers"
         />
       </div>
       {error ? <ErrorBLock errorText={error} /> : null}

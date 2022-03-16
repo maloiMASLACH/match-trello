@@ -1,6 +1,7 @@
 .input-field{
+    margin: 0 auto;
     margin-top: 30vh;
-    width: 100%;
+    width: 80%;
 }
 .input-field .singInputText{
     position: relative;
@@ -36,6 +37,7 @@ input[type=email]:not(.browser-default):focus:not([readonly])+i{
     color: darkorange;
 }
 .input-field > i {
+    cursor: pointer;
     color:#000000; 
     position: absolute;
     right: 5%;
