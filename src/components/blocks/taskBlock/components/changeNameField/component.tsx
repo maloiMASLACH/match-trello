@@ -47,6 +47,7 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
       />
       <button
         className="taskRedactSubmit"
+        title="Use 1-10 letters or numbers without special symbols"
         type="submit"
         onClick={renameTask}
         disabled={!(patterns.blockName.test(inputName)) || !(patterns.blockName.test(inputDate))}

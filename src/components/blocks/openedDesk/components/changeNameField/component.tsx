@@ -39,6 +39,7 @@ const ChangeNameField = (props: ChangeDeskNameProps) => {
       />
       <button
         className="newDeskNameSubmit"
+        title="Use 1-10 letters or numbers without special symbols"
         type="submit"
         disabled={!(patterns.blockName.test(inputValue))}
         onClick={renameDesk}
