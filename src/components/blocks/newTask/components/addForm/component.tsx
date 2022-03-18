@@ -29,7 +29,7 @@ const AddForm = (props: NewTaskAddProps) => {
 
     firebase.task(uid, deskObjName, columnObjName, taskObjName).update({
       taskName: inputName,
-      inputDate,
+      date: inputDate,
       completed: false,
       id: lastId + 1,
     });
@@ -52,6 +52,7 @@ const AddForm = (props: NewTaskAddProps) => {
         onChange={(e) => setInputDate(e.target.value)}
       />
       <button
+        title="Use 1-10 letters or numbers without special symbols"
         type="submit"
         disabled={!(patterns.blockName.test(inputName)) || !(patterns.blockName.test(inputDate))}
         onClick={addTask}

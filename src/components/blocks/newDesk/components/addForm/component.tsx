@@ -52,6 +52,7 @@ const AddForm = (props: HandleActive) => {
       />
       <button
         type="submit"
+        title="Use 1-10 letters or numbers without special symbols"
         disabled={!(patterns.blockName.test(inputValue))}
         onClick={addDesk}
       >

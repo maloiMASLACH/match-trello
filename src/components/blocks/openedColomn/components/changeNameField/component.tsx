@@ -38,6 +38,7 @@ const ChangeNameField = (props: ChangeColumnProps) => {
       />
       <button
         className="newDeskNameSubmit"
+        title="Use 1-10 letters or numbers without special symbols"
         disabled={!(patterns.blockName.test(inputValue))}
         type="submit"
         onClick={renameColumn}
