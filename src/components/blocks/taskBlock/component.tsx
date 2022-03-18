@@ -14,7 +14,6 @@ const Task = (props: TaskProps) => {
   const firebase = useContext(FirebaseContext);
   const taskValue = useContext(TaskValueContext);
 
-  const [checked, setChecked] = useState<boolean>(taskValue.completed);
   const [isChanging, setChanging] = useState<boolean>(false);
 
   const taskObjName = taskValue.taskName.split(' ').join('');
@@ -26,9 +25,7 @@ const Task = (props: TaskProps) => {
   const setCompleted = () => {
     firebase
       .taskCompleted(uid, deskObjName, columnObjName, taskObjName)
-      .set(!checked);
-
-    setChecked(!checked);
+      .set(!taskValue.completed);
   };
 
   const deleteTask = () => {
@@ -72,11 +69,11 @@ const Task = (props: TaskProps) => {
           <input
             className="taskCheckBox"
             type="checkbox"
-            checked={checked}
+            checked={taskValue.completed}
             id={taskValue.taskName}
             onChange={setCompleted}
           />
-          <label htmlFor={taskValue!.taskName}>
+          <label htmlFor={taskValue.taskName}>
             <input type="checkbox" id="rule" />
             <div id="tick_mark" />
           </label>

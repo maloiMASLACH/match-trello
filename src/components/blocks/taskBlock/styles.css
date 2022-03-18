@@ -1,13 +1,20 @@
+.task img{
+  cursor: pointer;
+}
+.task img:hover{
+  opacity: 0.7;
+}
+
 .taskDelete{
   position: absolute;
   width: 50px;
-  margin-top: -24px;
+  margin-top: -34px;
   margin-left: 25%;
 }
 .taskRedact{
   position: absolute;
   width: 50px;
-  margin-top: -24px;
+  margin-top: -34px;
   margin-left: 10%;
 }
 input.newTaskName[type=text]:not(.browser-default){
@@ -23,13 +30,131 @@ input.newTaskName[type=text]:not(.browser-default){
 .taskRedactSubmit{
   background-color: darkorange;
   border: none;
-  width: 10%;
+  min-width: 10%;
   color: white;
   font-weight: 400;
   margin-left: 0px;
 }
 
+.appPage div.task {
+  display: flex;
+  width: 45%;
+  font-size: x-large;
+  line-height: 10%;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  border: 3px darkorange dashed;
+  border-radius: 10px;
+  justify-content: space-between;
+}
+
+.task label {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+  margin-left: 17.5%;
+  margin-top: -13px;
+  background-color: #d16500;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  box-shadow: 0 7px 10px #ffbeb8;
+  cursor: pointer;
+  transition: 0.2s ease transform, 0.2s ease background-color,
+    0.2s ease box-shadow;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.task label:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+  background-color: #fff;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  box-shadow: inset 0 7px 10px #ffbeb8;
+  transition: 0.2s ease width, 0.2s ease height;
+}
+
+.task label:hover:before {
+  width: 35px;
+  height: 35px;
+  box-shadow: inset 0 7px 10px #ff9d96;
+}
+
+.task label:active {
+  transform: translateY(-50%) scale(0.9);
+}
+
+#tick_mark {
+  position: absolute;
+  top: 1px;
+  right: 0;
+  left: -5px;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+  margin-left: 14px;
+  transform: rotateZ(-40deg);
+}
+
+#tick_mark:before,
+#tick_mark:after {
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  border-radius: 2px;
+  opacity: 0;
+  transition: 0.2s ease transform, 0.2s ease opacity;
+}
+
+#tick_mark:before {
+  left: 0;
+  bottom: 0;
+  width: 7px;
+  height: 25px;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.23);
+  transform: translateY(-68px);
+}
+
+#tick_mark:after {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 7px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.23);
+  transform: translateX(78px);
+}
+
+.taskCheckBox[type="checkbox"]:checked + label {
+  background-color: #07d410;
+  box-shadow: 0 7px 10px #92ff97;
+}
+
+.taskCheckBox[type="checkbox"]:checked + label:before {
+  width: 0;
+  height: 0;
+}
+
+.taskCheckBox[type="checkbox"]:checked + label #tick_mark:before,
+.taskCheckBox[type="checkbox"]:checked + label #tick_mark:after {
+  transform: translate(0);
+  opacity: 1;
+}
 @media screen and (max-width: 1440px) {
+  .appPage div.task {
+    width: 80%;
+  }
+  .task label {
+    margin-left: 27.5%;
+  }
   .taskDelete{
     margin-left: 35%;
   }
@@ -38,6 +163,37 @@ input.newTaskName[type=text]:not(.browser-default){
   }
 }
 @media screen and (max-width: 1024px) {
+  .task label {
+    margin-top: -10px;
+    width: 30px;
+  height: 30px;
+  }
+  .task label:before {
+    width: 15px;
+    height: 15px;
+  }
+  
+  .task label:hover:before {
+    width: 20px;
+    height: 20px;
+  }
+  #tick_mark {
+
+    top: -13px;
+    left: -13px;
+    width: 30px;
+  }
+  #tick_mark:before {
+    width: 3px;
+    height: 15px;
+  }
+  
+  #tick_mark:after {
+    width: 60%;
+    height: 5px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.23);
+    transform: translateX(78px);
+  }
   .taskDelete{
     width: 30px;
   }
@@ -45,9 +201,13 @@ input.newTaskName[type=text]:not(.browser-default){
     width: 30px;
   }
 }
-
-
 @media screen and (max-width: 425px) {
+  .appPage div.task {
+    width: 90%;
+  }
+  .task label {
+    margin-left: 20.5%;
+  }
   .taskDelete{
     margin-left: 35%;
   }

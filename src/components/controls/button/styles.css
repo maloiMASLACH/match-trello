@@ -15,10 +15,5 @@
 .linkButton:active{
     background-color: darkorange;
 }
-.linkButton:disabled{
-    opacity: 0.2;
-}
-.linkButton:not(:disabled){
-    cursor: pointer;
-}
+
 

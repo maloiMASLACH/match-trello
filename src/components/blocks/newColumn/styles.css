@@ -53,9 +53,7 @@
     height: 50px;
     width: 70%;
 }
-.addColonBlock button:hover {
-    opacity: 0.7;
-}
+
 @media screen and (max-width: 1440px) {
     .addColonBlock{
         width: 30%;
