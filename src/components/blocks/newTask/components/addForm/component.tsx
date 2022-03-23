@@ -14,6 +14,8 @@ const AddForm = (props: NewTaskAddProps) => {
 
   const [inputName, setInputName] = useState('');
   const [inputDate, setInputDate] = useState('');
+  const [touchedName, setTouchedName] = useState(false);
+  const [touchedDate, setTouchedDate] = useState(false);
 
   const errorName = validateBlockName(inputName);
   const errorDate = validateBlockName(inputDate);
@@ -44,21 +46,23 @@ const AddForm = (props: NewTaskAddProps) => {
     <div className="addTaskBlock">
       <div className="inputBlock">
         <input
+          onFocus={() => setTouchedName(true)}
           type="text"
           value={inputName}
           placeholder="Task name"
           onChange={(e) => setInputName(e.target.value)}
         />
-        <p>{errorName}</p>
+        <p>{touchedName && errorName}</p>
       </div>
       <div className="inputBlock">
         <input
+          onFocus={() => setTouchedDate(true)}
           type="text"
           value={inputDate}
           placeholder="Task date"
           onChange={(e) => setInputDate(e.target.value)}
         />
-        <p>{errorDate}</p>
+        <p>{touchedDate && errorDate}</p>
       </div>
 
       <button

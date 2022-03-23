@@ -14,6 +14,7 @@ const AddForm = (props: HandleActive) => {
   const firebase = useContext(FirebaseContext);
 
   const [inputValue, setInputValue] = useState('');
+  const [touched, setTouched] = useState(false);
 
   const errorMessage = validateBlockName(inputValue);
 
@@ -47,12 +48,15 @@ const AddForm = (props: HandleActive) => {
         aria-hidden="true"
       />
       <input
+        onFocus={() => {
+          setTouched(true);
+        }}
         type="text"
         value={inputValue}
         placeholder="Desk name"
         onChange={(e) => setInputValue(e.target.value)}
       />
-      <p>{errorMessage}</p>
+      <p>{touched && errorMessage}</p>
       <button
         type="submit"
         title="Use 1-10 letters or numbers without special symbols"
