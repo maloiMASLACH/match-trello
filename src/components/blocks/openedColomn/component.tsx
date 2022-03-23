@@ -39,36 +39,35 @@ const OpenedColumn = (props: OpenedColumnProps) => {
   return (
     <div className="openedColonBlock">
       <div className="openedColonBlockHead">
-        <h3>
-          {!isChanging && columnValue.columnName}
-          {isChanging && (
-            <ChangeNameField
-              uid={uid}
-              deskObjName={deskObjName}
-              handleChanging={handleChanging}
-            />
-          )}
-        </h3>
-        <img
-          src="./../redact.png"
-          className="deskDelete"
-          alt="x"
-          onClick={handleChanging}
-          aria-hidden="true"
-        />
-        <img
-          className="deskDelete"
-          alt="delete"
-          src="./../delete.png"
-          onClick={deleteColumn}
-          aria-hidden="true"
-        />
-        <img
-          src="./../x.png"
-          alt="x"
-          onClick={handleOpened}
-          aria-hidden="true"
-        />
+        {isChanging ? (
+          <ChangeNameField
+            uid={uid}
+            deskObjName={deskObjName}
+            handleChanging={handleChanging}
+          />
+        ) : (<h3>{columnValue.columnName}</h3>)}
+        <div className="toolImg">
+          <img
+            src="./../redact.png"
+            className="deskDelete"
+            alt="x"
+            onClick={handleChanging}
+            aria-hidden="true"
+          />
+          <img
+            className="deskDelete"
+            alt="delete"
+            src="./../delete.png"
+            onClick={deleteColumn}
+            aria-hidden="true"
+          />
+          <img
+            src="./../x.png"
+            alt="x"
+            onClick={handleOpened}
+            aria-hidden="true"
+          />
+        </div>
       </div>
       <div className="tasks">
         {sortedColumns

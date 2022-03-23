@@ -3,7 +3,7 @@ import './styles.css';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
 import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
-import patterns from '../../../../../constants/patterns';
+import patterns, { checkBlockNameInputs } from '../../../../../utils/patterns';
 import { ChangeDeskNameProps } from '../../../../../types/changeInput';
 
 const ChangeNameField = (props: ChangeDeskNameProps) => {
@@ -14,6 +14,8 @@ const ChangeNameField = (props: ChangeDeskNameProps) => {
   const deskValue = useContext(DeskValueContext);
 
   const [inputValue, setInputValue] = useState(deskValue.deskName || '');
+
+  const errorMessage = checkBlockNameInputs(inputValue);
 
   const renameDesk = () => {
     const deskObjName = deskValue.deskName.split(' ').join('');
@@ -29,7 +31,7 @@ const ChangeNameField = (props: ChangeDeskNameProps) => {
   };
 
   return (
-    <>
+    <div className="changeDeskNameInputBlock">
       <input
         className="newDeskName"
         type="text"
@@ -37,6 +39,7 @@ const ChangeNameField = (props: ChangeDeskNameProps) => {
         placeholder="New desk name"
         onChange={(e) => setInputValue(e.target.value)}
       />
+      <p className="changeNameError">{errorMessage}</p>
       <button
         className="newDeskNameSubmit"
         title="Use 1-10 letters or numbers without special symbols"
@@ -46,7 +49,7 @@ const ChangeNameField = (props: ChangeDeskNameProps) => {
       >
         OK
       </button>
-    </>
+    </div>
   );
 };
 

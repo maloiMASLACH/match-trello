@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import patterns from '../../../../constants/patterns';
+import patterns, { checkPasswordInputs } from '../../../../utils/patterns';
 import { welcome } from '../../../../constants/routerLinks';
 import { FirebaseContext } from '../../../../utils/fireBase';
 import InputBlock from '../../../controls/input';
@@ -19,7 +19,18 @@ const PasswordReset: React.FC = () => {
   const isCorrect = passwordOne
     && passwordTwo
     && patterns.password.test(passwordOne)
-    && patterns.password.test(passwordTwo);
+    && patterns.password.test(passwordTwo)
+    && passwordOne === passwordTwo;
+
+  let passwordsDontSameMessage = '';
+
+  if (
+    patterns.password.test(passwordOne)
+    && patterns.password.test(passwordTwo)
+    && passwordOne !== passwordTwo
+  ) {
+    passwordsDontSameMessage = 'Confirm password should match first password';
+  } else passwordsDontSameMessage = '';
 
   const onSubmit = () => {
     firebase
@@ -44,6 +55,7 @@ const PasswordReset: React.FC = () => {
           label="New Password"
           type="password"
           placeholder="Use 6-15 letters or numbers"
+          checkCorrectFunction={checkPasswordInputs}
         />
         <InputBlock
           id="newPassword"
@@ -51,7 +63,9 @@ const PasswordReset: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSecondPassword(e.target.value)}
           label="Confirm Password"
           type="password"
+          checkCorrectFunction={checkPasswordInputs}
         />
+        <p className="passwordsDontSameMessage">{passwordsDontSameMessage}</p>
       </div>
       {error ? <ErrorBLock errorText={error} /> : null}
       <Button

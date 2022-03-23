@@ -7,11 +7,21 @@
 .addTaskBlock img.addTaskImgClose:hover{
     opacity: 0.7;
 }
+
+.addTaskBlock div.inputBlock{
+    margin: 0 5px;
+    padding: 0;
+    width: 40%;
+}
+.addTaskBlock div.inputBlock p{
+    font-size: small;
+    margin: -5px 0px 5px 5px
+}
 .addTaskBlock input[type=text]:not(.browser-default){
     margin: 16px auto;
     color: white;
     font-size: x-large;
-    width: 30%;
+    width: 100%;
     border-bottom: 2px solid darkorange;
 }
 .addTaskBlock input[type=text]:not(.browser-default)::placeholder{
@@ -41,5 +51,10 @@
     .addTaskBlock img.addTaskImgClose{
         margin: 15px 0;
         width: 10%;
+    }
+    .addTaskBlock div.inputBlock{
+        margin: 0 5px;
+        padding: 0;
+        width: 80%;
     }
   }

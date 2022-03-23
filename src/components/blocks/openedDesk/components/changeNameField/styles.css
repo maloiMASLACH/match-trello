@@ -3,7 +3,12 @@ input.newDeskName[type=text]:not(.browser-default){
     border-bottom: darkorange solid 3px;
     color: white;
     font-size: xx-large;
-    width: 60%;
+    width: 40%;
+}
+.appPage div.changeDeskNameInputBlock{
+    margin: 0 auto;
+    display: flex;
+    width: 70%;
 }
 .newDeskName::placeholder{
     font-size: xx-large;
@@ -12,8 +17,34 @@ input.newDeskName[type=text]:not(.browser-default){
 .newDeskNameSubmit{
     background-color: darkorange;
     border: none;
-    width: 10%;
+    width: 8vw;
     color: white;
     font-weight: 400;
-    margin-left: 50px;
+    margin-right: 50px;
 }
+.changeNameError{
+    margin: 0;
+    margin-left: 5px;
+    color: white;
+    font-size: large;
+}
+
+@media screen and (max-width: 1024px) {
+    .changeNameError{
+        font-size: small;
+    }
+    .newDeskNameSubmit{
+        margin-right: 30px;
+    }
+ }
+ @media screen and (max-width: 768px) {
+    .appPage div.changeDeskNameInputBlock {
+        width: 100%;
+    }
+    input.newDeskName[type=text]:not(.browser-default){
+        border-bottom: darkorange solid 3px;
+        color: white;
+        font-size: xx-large;
+        width: 60%;
+    }
+ }

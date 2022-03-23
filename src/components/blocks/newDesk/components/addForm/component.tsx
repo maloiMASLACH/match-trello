@@ -5,7 +5,7 @@ import { FirstColumn } from '../../../../../constants/voidObjects';
 import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
 import sortCards from '../../../../../utils/sortCards';
 import { HandleActive } from '../../../../../types/toggle';
-import patterns from '../../../../../constants/patterns';
+import patterns, { checkBlockNameInputs } from '../../../../../utils/patterns';
 
 const AddForm = (props: HandleActive) => {
   const { handleActive } = props;
@@ -14,6 +14,8 @@ const AddForm = (props: HandleActive) => {
   const firebase = useContext(FirebaseContext);
 
   const [inputValue, setInputValue] = useState('');
+
+  const errorMessage = checkBlockNameInputs(inputValue);
 
   const addDesk = () => {
     let lastId = 0;
@@ -50,6 +52,7 @@ const AddForm = (props: HandleActive) => {
         placeholder="Desk name"
         onChange={(e) => setInputValue(e.target.value)}
       />
+      <p>{errorMessage}</p>
       <button
         type="submit"
         title="Use 1-10 letters or numbers without special symbols"
