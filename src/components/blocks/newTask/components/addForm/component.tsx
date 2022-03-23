@@ -4,7 +4,7 @@ import { FirebaseContext } from '../../../../../utils/fireBase';
 import sortCards from '../../../../../utils/sortCards';
 import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
 import { NewTaskAddProps } from '../../../../../types/newTask';
-import patterns, { checkBlockNameInputs } from '../../../../../utils/patterns';
+import patterns, { validateBlockName } from '../../../../../utils/patterns';
 
 const AddForm = (props: NewTaskAddProps) => {
   const { uid, deskObjName, handleActive } = props;
@@ -15,8 +15,8 @@ const AddForm = (props: NewTaskAddProps) => {
   const [inputName, setInputName] = useState('');
   const [inputDate, setInputDate] = useState('');
 
-  const errorName = checkBlockNameInputs(inputName);
-  const errorDate = checkBlockNameInputs(inputDate);
+  const errorName = validateBlockName(inputName);
+  const errorDate = validateBlockName(inputDate);
 
   const addTask = () => {
     let lastId = 0;

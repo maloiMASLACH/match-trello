@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import InputBlock from '../../controls/input';
 import Button from '../../controls/button';
 import { FirebaseContext } from '../../../utils/fireBase';
-import patterns, { checkEmailInputs, checkPasswordInputs, checkUserNamedInputs } from '../../../utils/patterns';
+import patterns, { validateEmail, validatePassword, validateUserName } from '../../../utils/patterns';
 import { FirstDesk } from '../../../constants/voidObjects';
 import { userPage } from '../../../constants/routerLinks';
 import ErrorBLock from '../../blocks/errorBlock';
@@ -64,7 +64,7 @@ const SingUpForm: React.FC = () => {
           label="User Name (Login)"
           type="text"
           placeholder="Length 4-15. Don`t use special symbols."
-          validation={checkUserNamedInputs}
+          validation={validateUserName}
         />
         <InputBlock
           id="Email"
@@ -72,7 +72,7 @@ const SingUpForm: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
           label="Your E-mail"
           type="email"
-          validation={checkEmailInputs}
+          validation={validateEmail}
         />
         <InputBlock
           id="Password"
@@ -81,7 +81,7 @@ const SingUpForm: React.FC = () => {
           label="Password"
           type="password"
           placeholder="Use 6-15 letters or numbers."
-          validation={checkPasswordInputs}
+          validation={validatePassword}
         />
         <InputBlock
           id="ConfirmPassword"
@@ -92,7 +92,7 @@ const SingUpForm: React.FC = () => {
           label="Conform Password"
           type="password"
           placeholder="Use 6-15 letters or numbers."
-          validation={checkPasswordInputs}
+          validation={validatePassword}
         />
         <p className="passwordsDontSameMessage">{passwordsDontSameMessage}</p>
       </div>

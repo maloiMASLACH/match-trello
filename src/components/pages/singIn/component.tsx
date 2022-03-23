@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import patterns, { checkEmailInputs, checkPasswordInputs } from '../../../utils/patterns';
+import patterns, { validateEmail, validatePassword } from '../../../utils/patterns';
 import { passForget, userPage } from '../../../constants/routerLinks';
 import { FirebaseContext } from '../../../utils/fireBase';
 import InputBlock from '../../controls/input';
@@ -43,7 +43,7 @@ const SingInForm: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
           label="E-Mail"
           type="email"
-          validation={checkEmailInputs}
+          validation={validateEmail}
         />
         <InputBlock
           id="Password"
@@ -52,7 +52,7 @@ const SingInForm: React.FC = () => {
           label="Password"
           type="password"
           placeholder="Use 6-15 letters or numbers"
-          validation={checkPasswordInputs}
+          validation={validatePassword}
         />
       </div>
       {error ? <ErrorBLock errorText={error} /> : null}

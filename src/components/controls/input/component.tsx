@@ -8,12 +8,13 @@ const InputBlock = (props: InputBlockProps) => {
   } = props;
 
   const [isVisible, setIsVisible] = useState(false);
+  const [touched, setTouched] = useState(false);
 
   const errorMessage = validation(value);
 
   return (
     <>
-      <input value={value} {...rest} type={isVisible ? 'text' : type} placeholder={rest.placeholder} id={id} />
+      <input value={value} {...rest} type={isVisible ? 'text' : type} placeholder={rest.placeholder} id={id} onBlur={() => setTouched(true)} />
       {type === 'password' && (
         <i
           className="fa fa-eye"
@@ -21,7 +22,7 @@ const InputBlock = (props: InputBlockProps) => {
           onClick={() => setIsVisible(!isVisible)}
         />
       )}
-      <p>{errorMessage}</p>
+      <p>{touched && errorMessage}</p>
       <label htmlFor={id} className="active singInputText">
         {label}
         <input type="radio" />

@@ -5,7 +5,7 @@ const patterns = {
   blockName: /^(?!\s*$)[-'"№, 0-9а-яА-Яa-zA-Z]{1,15}$/,
 };
 
-export const checkPasswordInputs = (value: string) => {
+export const validatePassword = (value: string) => {
   if (!patterns.password.test(value)) {
     if (value.length < 6 || value.length > 15) {
       return 'Use 6-15 symbols';
@@ -15,14 +15,14 @@ export const checkPasswordInputs = (value: string) => {
   return '';
 };
 
-export const checkEmailInputs = (value: string) => {
+export const validateEmail = (value: string) => {
   if (!patterns.mail.test(value)) {
     return 'Use correct e-mail';
   }
   return '';
 };
 
-export const checkUserNamedInputs = (value: string) => {
+export const validateUserName = (value: string) => {
   if (!patterns.name.test(value)) {
     if (value.length < 4 || value.length > 15) {
       return 'Use 4-15 symbols';
@@ -32,7 +32,7 @@ export const checkUserNamedInputs = (value: string) => {
   return '';
 };
 
-export const checkBlockNameInputs = (value: string) => {
+export const validateBlockName = (value: string) => {
   if (!patterns.blockName.test(value)) {
     if (value.length < 1 || value.length > 15) {
       return 'Use 1-15 symbols';

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import patterns, { checkBlockNameInputs } from '../../../../../utils/patterns';
+import patterns, { validateBlockName } from '../../../../../utils/patterns';
 import { ChangeTaskProps } from '../../../../../types/changeInput';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import TaskValueContext from '../../../../../utils/valueContexts/taskValueContext';
@@ -16,8 +16,8 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
   const [inputName, setInputName] = useState(taskValue.taskName || '');
   const [inputDate, setInputDate] = useState(taskValue.date || '');
 
-  const errorName = checkBlockNameInputs(inputName);
-  const errorDate = checkBlockNameInputs(inputDate);
+  const errorName = validateBlockName(inputName);
+  const errorDate = validateBlockName(inputDate);
 
   const renameTask = () => {
     const taskObjName = taskValue.taskName.split(' ').join('');

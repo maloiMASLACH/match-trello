@@ -29,8 +29,9 @@ const Column = (props: ColumnProps) => {
           setCurrentColumn(columnValue);
         }}
         onDragOver={onDragOver}
-        onDrop={() => {
+        onDrop={(e) => {
           onDropColumn({
+            e,
             columnValue,
             currentColumn,
             uid,

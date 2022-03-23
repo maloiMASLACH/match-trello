@@ -5,7 +5,7 @@ import { FirstColumn } from '../../../../../constants/voidObjects';
 import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
 import sortCards from '../../../../../utils/sortCards';
 import { HandleActive } from '../../../../../types/toggle';
-import patterns, { checkBlockNameInputs } from '../../../../../utils/patterns';
+import patterns, { validateBlockName } from '../../../../../utils/patterns';
 
 const AddForm = (props: HandleActive) => {
   const { handleActive } = props;
@@ -15,7 +15,7 @@ const AddForm = (props: HandleActive) => {
 
   const [inputValue, setInputValue] = useState('');
 
-  const errorMessage = checkBlockNameInputs(inputValue);
+  const errorMessage = validateBlockName(inputValue);
 
   const addDesk = () => {
     let lastId = 0;

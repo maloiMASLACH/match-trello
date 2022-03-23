@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import patterns, { checkBlockNameInputs } from '../../../../../utils/patterns';
+import patterns, { validateBlockName } from '../../../../../utils/patterns';
 import { ChangeColumnProps } from '../../../../../types/changeInput';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
@@ -14,7 +14,7 @@ const ChangeNameField = (props: ChangeColumnProps) => {
 
   const [inputValue, setInputValue] = useState(columnValue.columnName || '');
 
-  const errorMessage = checkBlockNameInputs(inputValue);
+  const errorMessage = validateBlockName(inputValue);
 
   const renameColumn = () => {
     const columnObjName = columnValue.columnName.split(' ').join('');
