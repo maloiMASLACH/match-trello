@@ -40,7 +40,7 @@ const PasswordForget: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
           label="E-Mail"
           type="email"
-          checkCorrectFunction={checkEmailInputs}
+          validation={checkEmailInputs}
         />
       </div>
       {error ? <ErrorBLock errorText={error} /> : null}

@@ -64,7 +64,7 @@ const SingUpForm: React.FC = () => {
           label="User Name (Login)"
           type="text"
           placeholder="Length 4-15. Don`t use special symbols."
-          checkCorrectFunction={checkUserNamedInputs}
+          validation={checkUserNamedInputs}
         />
         <InputBlock
           id="Email"
@@ -72,7 +72,7 @@ const SingUpForm: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
           label="Your E-mail"
           type="email"
-          checkCorrectFunction={checkEmailInputs}
+          validation={checkEmailInputs}
         />
         <InputBlock
           id="Password"
@@ -81,7 +81,7 @@ const SingUpForm: React.FC = () => {
           label="Password"
           type="password"
           placeholder="Use 6-15 letters or numbers."
-          checkCorrectFunction={checkPasswordInputs}
+          validation={checkPasswordInputs}
         />
         <InputBlock
           id="ConfirmPassword"
@@ -92,7 +92,7 @@ const SingUpForm: React.FC = () => {
           label="Conform Password"
           type="password"
           placeholder="Use 6-15 letters or numbers."
-          checkCorrectFunction={checkPasswordInputs}
+          validation={checkPasswordInputs}
         />
         <p className="passwordsDontSameMessage">{passwordsDontSameMessage}</p>
       </div>
