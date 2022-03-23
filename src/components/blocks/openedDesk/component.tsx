@@ -40,35 +40,37 @@ const OpenedDesk = (props: HandleActive) => {
   return (
     <div className="openedDeskBlock">
       <div className="openedDeskBlockHead">
-        <h3>
-          {!isChanging ? (
-            deskInfo.deskName
-          ) : (
-            <ChangeNameField handleChanging={handleChanging} />
-          )}
-        </h3>
-        <img
-          className="deskDelete"
-          src="./../redact.png"
-          alt="redact"
-          onClick={() => {
-            handleChanging();
-          }}
-          aria-hidden="true"
-        />
-        <img
-          className="deskDelete"
-          alt="delete"
-          src="./../delete.png"
-          onClick={deleteDesk}
-          aria-hidden="true"
-        />
-        <img
-          src="./../x.png"
-          alt="x"
-          onClick={handleActive}
-          aria-hidden="true"
-        />
+        {!isChanging ? (
+          <h3>
+            {deskInfo.deskName}
+          </h3>
+        ) : (
+          <ChangeNameField handleChanging={handleChanging} />
+        )}
+        <div className="toolImg">
+          <img
+            className="deskDelete"
+            src="./../redact.png"
+            alt="redact"
+            onClick={() => {
+              handleChanging();
+            }}
+            aria-hidden="true"
+          />
+          <img
+            className="deskDelete"
+            alt="delete"
+            src="./../delete.png"
+            onClick={deleteDesk}
+            aria-hidden="true"
+          />
+          <img
+            src="./../x.png"
+            alt="x"
+            onClick={handleActive}
+            aria-hidden="true"
+          />
+        </div>
       </div>
       <div className="colons">
         { sortedColumns

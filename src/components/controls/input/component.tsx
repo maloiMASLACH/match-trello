@@ -4,10 +4,12 @@ import { InputBlockProps } from '../../../types/input';
 
 const InputBlock = (props: InputBlockProps) => {
   const {
-    id, value, label, type, ...rest
+    id, value, label, type, checkCorrectFunction, ...rest
   } = props;
 
   const [isVisible, setIsVisible] = useState(false);
+
+  const errorMessage = checkCorrectFunction(value);
 
   return (
     <>
@@ -19,6 +21,7 @@ const InputBlock = (props: InputBlockProps) => {
           onClick={() => setIsVisible(!isVisible)}
         />
       )}
+      <p>{errorMessage}</p>
       <label htmlFor={id} className="active singInputText">
         {label}
         <input type="radio" />

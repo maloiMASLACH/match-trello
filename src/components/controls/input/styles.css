@@ -3,6 +3,16 @@
     margin-top: 30vh;
     width: 80%;
 }
+.input-field p{
+margin: 0;
+margin-top: -6px;
+margin-bottom: 5px;
+background-color: darkorange;
+padding-left: 10px;
+}
+.input-field p.passwordsDontSameMessage{
+    margin: 0; 
+}
 .input-field .singInputText{
     position: relative;
 }

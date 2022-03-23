@@ -39,7 +39,8 @@ const Task = (props: TaskProps) => {
         setCurrentCard(taskValue);
       }}
       onDragOver={onDragOver}
-      onDrop={() => onDropCard({
+      onDrop={(e) => onDropCard({
+        e,
         taskValue,
         currentCard,
         uid,
@@ -47,9 +48,9 @@ const Task = (props: TaskProps) => {
         columnObjName,
         firebase,
       })}
-      draggable
+      draggable={!isChanging}
     >
-      {!isChanging && (
+      {!isChanging ? (
         <>
           <p>{taskValue.taskName}</p>
           <img
@@ -79,15 +80,14 @@ const Task = (props: TaskProps) => {
           </label>
           <p>{taskValue.date}</p>
         </>
-      )}
-      {isChanging ? (
+      ) : (
         <ChangeTaskField
           uid={uid}
           deskObjName={deskObjName}
           columnObjName={columnObjName}
           handleChanging={handleChanging}
         />
-      ) : null}
+      )}
     </div>
   );
 };

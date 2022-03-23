@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import InputBlock from '../../controls/input';
 import Button from '../../controls/button';
 import { FirebaseContext } from '../../../utils/fireBase';
-import patterns from '../../../constants/patterns';
+import patterns, { checkEmailInputs, checkPasswordInputs, checkUserNamedInputs } from '../../../utils/patterns';
 import { FirstDesk } from '../../../constants/voidObjects';
 import { userPage } from '../../../constants/routerLinks';
 import ErrorBLock from '../../blocks/errorBlock';
@@ -27,6 +27,16 @@ const SingUpForm: React.FC = () => {
     && patterns.mail.test(inputMail)
     && patterns.name.test(inputName)
     && patterns.password.test(inputPassword);
+
+  let passwordsDontSameMessage = '';
+
+  if (
+    patterns.password.test(inputPassword)
+    && patterns.password.test(confirmPassword)
+    && inputPassword !== confirmPassword
+  ) {
+    passwordsDontSameMessage = 'Confirm password should match first password';
+  } else passwordsDontSameMessage = '';
 
   const onSubmit = () => {
     firebase
@@ -54,6 +64,7 @@ const SingUpForm: React.FC = () => {
           label="User Name (Login)"
           type="text"
           placeholder="Length 4-15. Don`t use special symbols."
+          checkCorrectFunction={checkUserNamedInputs}
         />
         <InputBlock
           id="Email"
@@ -61,6 +72,7 @@ const SingUpForm: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
           label="Your E-mail"
           type="email"
+          checkCorrectFunction={checkEmailInputs}
         />
         <InputBlock
           id="Password"
@@ -69,6 +81,7 @@ const SingUpForm: React.FC = () => {
           label="Password"
           type="password"
           placeholder="Use 6-15 letters or numbers."
+          checkCorrectFunction={checkPasswordInputs}
         />
         <InputBlock
           id="ConfirmPassword"
@@ -79,7 +92,9 @@ const SingUpForm: React.FC = () => {
           label="Conform Password"
           type="password"
           placeholder="Use 6-15 letters or numbers."
+          checkCorrectFunction={checkPasswordInputs}
         />
+        <p className="passwordsDontSameMessage">{passwordsDontSameMessage}</p>
       </div>
       {error ? <ErrorBLock errorText={error} /> : null}
       <Button

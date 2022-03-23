@@ -4,7 +4,7 @@ import { FirebaseContext } from '../../../../../utils/fireBase';
 import sortCards from '../../../../../utils/sortCards';
 import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
 import { NewTaskAddProps } from '../../../../../types/newTask';
-import patterns from '../../../../../constants/patterns';
+import patterns, { checkBlockNameInputs } from '../../../../../utils/patterns';
 
 const AddForm = (props: NewTaskAddProps) => {
   const { uid, deskObjName, handleActive } = props;
@@ -14,6 +14,9 @@ const AddForm = (props: NewTaskAddProps) => {
 
   const [inputName, setInputName] = useState('');
   const [inputDate, setInputDate] = useState('');
+
+  const errorName = checkBlockNameInputs(inputName);
+  const errorDate = checkBlockNameInputs(inputDate);
 
   const addTask = () => {
     let lastId = 0;
@@ -39,18 +42,25 @@ const AddForm = (props: NewTaskAddProps) => {
 
   return (
     <div className="addTaskBlock">
-      <input
-        type="text"
-        value={inputName}
-        placeholder="Task name"
-        onChange={(e) => setInputName(e.target.value)}
-      />
-      <input
-        type="text"
-        value={inputDate}
-        placeholder="Task date"
-        onChange={(e) => setInputDate(e.target.value)}
-      />
+      <div className="inputBlock">
+        <input
+          type="text"
+          value={inputName}
+          placeholder="Task name"
+          onChange={(e) => setInputName(e.target.value)}
+        />
+        <p>{errorName}</p>
+      </div>
+      <div className="inputBlock">
+        <input
+          type="text"
+          value={inputDate}
+          placeholder="Task date"
+          onChange={(e) => setInputDate(e.target.value)}
+        />
+        <p>{errorDate}</p>
+      </div>
+
       <button
         title="Use 1-10 letters or numbers without special symbols"
         type="submit"

@@ -5,7 +5,7 @@ import DeskValueContext from '../../../../../utils/valueContexts/deskValueContex
 import sortCards from '../../../../../utils/sortCards';
 import { task } from '../../../../../constants/voidObjects';
 import { NewColumnAddProps } from '../../../../../types/newColumn';
-import patterns from '../../../../../constants/patterns';
+import patterns, { checkBlockNameInputs } from '../../../../../utils/patterns';
 
 const AddForm = (props: NewColumnAddProps) => {
   const { uid, handleActive } = props;
@@ -14,6 +14,8 @@ const AddForm = (props: NewColumnAddProps) => {
   const deskValue = useContext(DeskValueContext);
 
   const [inputValue, setInputValue] = useState('');
+
+  const errorMessage = checkBlockNameInputs(inputValue);
 
   const addColumn = () => {
     let lastId = 0;
@@ -51,6 +53,7 @@ const AddForm = (props: NewColumnAddProps) => {
         placeholder="Colon name"
         onChange={(e) => setInputValue(e.target.value)}
       />
+      <p>{errorMessage}</p>
       <button
         type="submit"
         title="Use 1-10 letters or numbers without special symbols"

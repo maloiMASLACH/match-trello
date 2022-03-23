@@ -5,4 +5,5 @@ export interface InputBlockProps extends HTMLAttributes<HTMLElement> {
   value: string;
   label: string;
   type: string;
+  checkCorrectFunction: (value:string) => string;
 }

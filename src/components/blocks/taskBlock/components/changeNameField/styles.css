@@ -1,0 +1,19 @@
+.changeTaskBlock{
+  display: flex;
+}
+.appPage div.changeTaskInputBlock{
+  width: 35%;
+  height: 50px;
+  margin: 0 10px;
+  display: inline-block;
+}
+.appPage div.changeTaskInputBlock p {
+  width: 100%;
+  margin: 10px auto;
+  font-size: small;
+}
+@media screen and (max-width: 680px) {
+  .changeTaskBlock {
+    display: inline-block;
+}
+}

@@ -10,6 +10,7 @@ interface OnDropColumnProps {
 }
 
 interface OnDropCardProps {
+  e: React.DragEvent<HTMLDivElement>;
   taskValue: TaskType;
   currentCard: TaskType;
   uid: string;
@@ -35,15 +36,24 @@ export const onDropColumn = (props: OnDropColumnProps) => {
 
 export const onDropCard = (props: OnDropCardProps) => {
   const {
-    taskValue, currentCard, uid, deskObjName, columnObjName, firebase,
+    e,
+    taskValue,
+    currentCard,
+    uid,
+    deskObjName,
+    columnObjName,
+    firebase,
   } = props;
-  const firstTaskObjName = taskValue.taskName.split(' ').join('');
-  const secondTaskObjName = currentCard.taskName.split(' ').join('');
 
-  firebase
-    .taskId(uid, deskObjName, columnObjName, firstTaskObjName)
-    .set(currentCard.id);
-  firebase
-    .taskId(uid, deskObjName, columnObjName, secondTaskObjName)
-    .set(taskValue.id);
+  if (e.currentTarget.getAttribute('draggable') === 'true') {
+    const firstTaskObjName = taskValue.taskName.split(' ').join('');
+    const secondTaskObjName = currentCard.taskName.split(' ').join('');
+
+    firebase
+      .taskId(uid, deskObjName, columnObjName, firstTaskObjName)
+      .set(currentCard.id);
+    firebase
+      .taskId(uid, deskObjName, columnObjName, secondTaskObjName)
+      .set(taskValue.id);
+  }
 };
