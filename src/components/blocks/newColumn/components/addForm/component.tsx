@@ -14,6 +14,7 @@ const AddForm = (props: NewColumnAddProps) => {
   const deskValue = useContext(DeskValueContext);
 
   const [inputValue, setInputValue] = useState('');
+  const [touched, setTouched] = useState(false);
 
   const errorMessage = validateBlockName(inputValue);
 
@@ -48,12 +49,13 @@ const AddForm = (props: NewColumnAddProps) => {
         aria-hidden="true"
       />
       <input
+        onFocus={() => setTouched(true)}
         type="text"
         value={inputValue}
         placeholder="Colon name"
         onChange={(e) => setInputValue(e.target.value)}
       />
-      <p>{errorMessage}</p>
+      <p>{touched && errorMessage}</p>
       <button
         type="submit"
         title="Use 1-10 letters or numbers without special symbols"
