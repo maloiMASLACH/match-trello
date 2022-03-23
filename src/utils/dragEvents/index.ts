@@ -2,6 +2,7 @@ import { ColumnType, TaskType } from '../../types/globalTypes';
 import Firebase from '../fireBase';
 
 interface OnDropColumnProps {
+  e: React.DragEvent<HTMLDivElement>;
   columnValue: ColumnType;
   currentColumn: ColumnType;
   uid: string;
@@ -25,13 +26,16 @@ export const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
 };
 export const onDropColumn = (props: OnDropColumnProps) => {
   const {
-    columnValue, currentColumn, uid, deskObjName, firebase,
+    e, columnValue, currentColumn, uid, deskObjName, firebase,
   } = props;
-  const firstColumnObjName = columnValue.columnName.split(' ').join('');
-  const secondColumnObjName = currentColumn.columnName.split(' ').join('');
 
-  firebase.columnId(uid, deskObjName, firstColumnObjName).set(currentColumn.id);
-  firebase.columnId(uid, deskObjName, secondColumnObjName).set(columnValue.id);
+  if (e.currentTarget.getAttribute('draggable') === 'true' && currentColumn.columnName) {
+    const firstColumnObjName = columnValue.columnName.split(' ').join('');
+    const secondColumnObjName = currentColumn.columnName.split(' ').join('');
+
+    firebase.columnId(uid, deskObjName, firstColumnObjName).set(currentColumn.id);
+    firebase.columnId(uid, deskObjName, secondColumnObjName).set(columnValue.id);
+  }
 };
 
 export const onDropCard = (props: OnDropCardProps) => {
@@ -45,7 +49,7 @@ export const onDropCard = (props: OnDropCardProps) => {
     firebase,
   } = props;
 
-  if (e.currentTarget.getAttribute('draggable') === 'true') {
+  if (e.currentTarget.getAttribute('draggable') === 'true' && currentCard.taskName) {
     const firstTaskObjName = taskValue.taskName.split(' ').join('');
     const secondTaskObjName = currentCard.taskName.split(' ').join('');
 

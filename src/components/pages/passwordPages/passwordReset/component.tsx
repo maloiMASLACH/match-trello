@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import patterns, { checkPasswordInputs } from '../../../../utils/patterns';
+import patterns, { validatePassword } from '../../../../utils/patterns';
 import { welcome } from '../../../../constants/routerLinks';
 import { FirebaseContext } from '../../../../utils/fireBase';
 import InputBlock from '../../../controls/input';
@@ -55,7 +55,7 @@ const PasswordReset: React.FC = () => {
           label="New Password"
           type="password"
           placeholder="Use 6-15 letters or numbers"
-          validation={checkPasswordInputs}
+          validation={validatePassword}
         />
         <InputBlock
           id="newPassword"
@@ -63,7 +63,7 @@ const PasswordReset: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSecondPassword(e.target.value)}
           label="Confirm Password"
           type="password"
-          validation={checkPasswordInputs}
+          validation={validatePassword}
         />
         <p className="passwordsDontSameMessage">{passwordsDontSameMessage}</p>
       </div>

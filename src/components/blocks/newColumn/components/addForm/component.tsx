@@ -5,7 +5,7 @@ import DeskValueContext from '../../../../../utils/valueContexts/deskValueContex
 import sortCards from '../../../../../utils/sortCards';
 import { task } from '../../../../../constants/voidObjects';
 import { NewColumnAddProps } from '../../../../../types/newColumn';
-import patterns, { checkBlockNameInputs } from '../../../../../utils/patterns';
+import patterns, { validateBlockName } from '../../../../../utils/patterns';
 
 const AddForm = (props: NewColumnAddProps) => {
   const { uid, handleActive } = props;
@@ -15,7 +15,7 @@ const AddForm = (props: NewColumnAddProps) => {
 
   const [inputValue, setInputValue] = useState('');
 
-  const errorMessage = checkBlockNameInputs(inputValue);
+  const errorMessage = validateBlockName(inputValue);
 
   const addColumn = () => {
     let lastId = 0;

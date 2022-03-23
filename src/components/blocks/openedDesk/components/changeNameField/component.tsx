@@ -3,7 +3,7 @@ import './styles.css';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
 import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
-import patterns, { checkBlockNameInputs } from '../../../../../utils/patterns';
+import patterns, { validateBlockName } from '../../../../../utils/patterns';
 import { ChangeDeskNameProps } from '../../../../../types/changeInput';
 
 const ChangeNameField = (props: ChangeDeskNameProps) => {
@@ -15,7 +15,7 @@ const ChangeNameField = (props: ChangeDeskNameProps) => {
 
   const [inputValue, setInputValue] = useState(deskValue.deskName || '');
 
-  const errorMessage = checkBlockNameInputs(inputValue);
+  const errorMessage = validateBlockName(inputValue);
 
   const renameDesk = () => {
     const deskObjName = deskValue.deskName.split(' ').join('');
