@@ -55,7 +55,7 @@ const PasswordReset: React.FC = () => {
           label="New Password"
           type="password"
           placeholder="Use 6-15 letters or numbers"
-          checkCorrectFunction={checkPasswordInputs}
+          validation={checkPasswordInputs}
         />
         <InputBlock
           id="newPassword"
@@ -63,7 +63,7 @@ const PasswordReset: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSecondPassword(e.target.value)}
           label="Confirm Password"
           type="password"
-          checkCorrectFunction={checkPasswordInputs}
+          validation={checkPasswordInputs}
         />
         <p className="passwordsDontSameMessage">{passwordsDontSameMessage}</p>
       </div>

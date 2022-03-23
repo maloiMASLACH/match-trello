@@ -4,12 +4,12 @@ import { InputBlockProps } from '../../../types/input';
 
 const InputBlock = (props: InputBlockProps) => {
   const {
-    id, value, label, type, checkCorrectFunction, ...rest
+    id, value, label, type, validation, ...rest
   } = props;
 
   const [isVisible, setIsVisible] = useState(false);
 
-  const errorMessage = checkCorrectFunction(value);
+  const errorMessage = validation(value);
 
   return (
     <>

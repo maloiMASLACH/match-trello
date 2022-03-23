@@ -43,7 +43,7 @@ const SingInForm: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
           label="E-Mail"
           type="email"
-          checkCorrectFunction={checkEmailInputs}
+          validation={checkEmailInputs}
         />
         <InputBlock
           id="Password"
@@ -52,7 +52,7 @@ const SingInForm: React.FC = () => {
           label="Password"
           type="password"
           placeholder="Use 6-15 letters or numbers"
-          checkCorrectFunction={checkPasswordInputs}
+          validation={checkPasswordInputs}
         />
       </div>
       {error ? <ErrorBLock errorText={error} /> : null}
