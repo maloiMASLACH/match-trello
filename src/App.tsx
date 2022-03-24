@@ -20,8 +20,10 @@ import ErrorPage from './components/pages/errorPage';
 const App = () => {
   const firebase = useContext(FirebaseContext);
 
-  const [user, setUser] = useState<AuthUserType>({ isVerified: false, isAdmin: false, uid: '' });
-
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || '');
+  const [user, setUser] = useState<AuthUserType>({
+    isVerified: false, isAdmin: false, uid: '',
+  });
   useEffect(() => {
     FetchURLInfo((userObj) => setUser(userObj), firebase);
   }, []);
@@ -29,19 +31,28 @@ const App = () => {
   return (
     <BrowserRouter>
       <AuthUserContext.Provider value={user}>
-        <NavBar isAuthorized={!!user.uid} isAdmin={user.isAdmin} />
-        <div className="container">
-          <Routes>
-            <Route element={<WelcomePage />} path={router.welcome} />
-            <Route element={<ErrorPage />} path="*" />
-            <Route element={<SingInForm />} path={router.singIn} />
-            <Route element={<SingUpForm />} path={router.singUp} />
-            <Route element={<AppPage />} path={`${router.app}/:uid`} />
-            <Route element={<UserPage />} path={router.userPage} />
-            <Route element={<PasswordForget />} path={router.passForget} />
-            <Route element={<PasswordReset />} path={router.passReset} />
-            <Route element={<AdminPage />} path={router.admin} />
-          </Routes>
+        <div className={`page ${theme}`}>
+          <NavBar isAuthorized={!!user.uid} isAdmin={user.isAdmin} />
+          <div className="container">
+            <Routes>
+              <Route element={<WelcomePage />} path={router.welcome} />
+              <Route element={<ErrorPage />} path="*" />
+              <Route element={<SingInForm />} path={router.singIn} />
+              <Route element={<SingUpForm />} path={router.singUp} />
+              <Route element={<AppPage />} path={`${router.app}/:uid`} />
+              <Route
+                element={(
+                  <UserPage
+                    setTheme={(newTheme: string) => setTheme(newTheme)}
+                  />
+)}
+                path={router.userPage}
+              />
+              <Route element={<PasswordForget />} path={router.passForget} />
+              <Route element={<PasswordReset />} path={router.passReset} />
+              <Route element={<AdminPage />} path={router.admin} />
+            </Routes>
+          </div>
         </div>
       </AuthUserContext.Provider>
     </BrowserRouter>

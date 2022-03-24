@@ -7,3 +7,13 @@ button:not(:disabled){
 button:not(:disabled):hover {
     opacity: 0.7;
 }
+.page{
+    height: 100%;
+    min-height: 100vh;
+}
+.page.darkPage{
+    background-color: rgb(25, 25, 25);
+}
+.page.bluePage{
+    background-color: rgb(255, 255, 255);
+}

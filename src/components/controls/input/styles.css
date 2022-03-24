@@ -10,6 +10,16 @@ margin-bottom: 5px;
 background-color: darkorange;
 padding-left: 10px;
 }
+.darkPage .input-field p{
+    background-color: darkgray;
+}
+.bluePage .input-field p{
+    color: white;
+    background-color: teal;
+}
+.darkPage .input-field input {
+    color:  white;
+}
 .input-field p.passwordsDontSameMessage{
     margin: 0; 
 }
@@ -46,6 +56,64 @@ input[type=password]:not(.browser-default):focus:not([readonly])+i{
 input[type=email]:not(.browser-default):focus:not([readonly])+i{
     color: darkorange;
 }
+.darkPage input[type=text]:not(.browser-default):focus:not([readonly]){
+    color: white;
+    border-bottom: 1px solid lightgray;
+     box-shadow: 0 1px 0 0 lightgray;
+}
+.darkPage input[type=password]:not(.browser-default):focus:not([readonly]){
+    color: white;
+    border-bottom: 1px solid lightgray;
+     box-shadow: 0 1px 0 0 lightgray;
+}
+.darkPage input[type=email]:not(.browser-default):focus:not([readonly]){
+    color: white;
+    border-bottom: 1px solid lightgray;
+     box-shadow: 0 1px 0 0 lightgray;
+}
+.darkPage input[type=text]:not(.browser-default):focus:not([readonly])+label{
+    color: lightgray;
+}
+.darkPage input[type=password]:not(.browser-default):focus:not([readonly])+label{
+    color: lightgray;
+}
+.darkPage input[type=email]:not(.browser-default):focus:not([readonly])+label{
+    color: lightgray;
+}
+.darkPage input[type=text]:not(.browser-default):focus:not([readonly])+i{
+    color: lightgray;
+}
+.darkPage input[type=password]:not(.browser-default):focus:not([readonly])+i{
+    color: lightgray;
+}
+.darkPage input[type=email]:not(.browser-default):focus:not([readonly])+i{
+    color: lightgray;
+}
+
+.bluePage input[type=text]:not(.browser-default):focus:not([readonly]){
+    color: rgb(0, 0, 0);
+    border-bottom: 1px solid lightgray;
+     box-shadow: 0 1px 0 0 lightgray;
+}
+.bluePage input[type=password]:not(.browser-default):focus:not([readonly]){
+    color: rgb(0, 0, 0);
+    border-bottom: 1px solid lightgray;
+     box-shadow: 0 1px 0 0 lightgray;
+}
+.bluePage input[type=email]:not(.browser-default):focus:not([readonly]){
+    color: rgb(0, 0, 0);
+    border-bottom: 1px solid lightgray;
+     box-shadow: 0 1px 0 0 lightgray;
+}
+.bluePage input[type=text]:not(.browser-default):focus:not([readonly])+i{
+    color: teal;
+}
+.bluePage input[type=password]:not(.browser-default):focus:not([readonly])+i{
+    color: teal;
+}
+.bluePage input[type=email]:not(.browser-default):focus:not([readonly])+i{
+    color: teal;
+}
 .input-field > i {
     cursor: pointer;
     color:#000000; 
@@ -53,6 +121,9 @@ input[type=email]:not(.browser-default):focus:not([readonly])+i{
     right: 5%;
     margin-top: 0px;
     transition:.3s;
+}
+.darkPage .input-field > i {
+    color:lightgray; 
 }
 .fa{
     font: normal normal normal 20px/2 FontAwesome;

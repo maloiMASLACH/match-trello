@@ -13,3 +13,13 @@
     text-transform: uppercase;
 
 }
+.darkPage .container .passwordProblem{
+    background-color: lightgray;
+    border: 1px solid rgb(0, 0, 0);
+    color: black;
+}
+.bluePage .container .passwordProblem{
+    background-color: rgba(0, 128, 128, 0.404);
+    border: 1px solid teal;
+    color: rgb(255, 255, 255);
+}

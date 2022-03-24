@@ -14,12 +14,12 @@ const InputBlock = (props: InputBlockProps) => {
 
   return (
     <>
-      <input value={value} {...rest} type={isVisible ? 'text' : type} placeholder={rest.placeholder} id={id} onFocus={() => setTouched(true)} />
+      <input value={value} {...rest} type={isVisible ? 'text' : type} placeholder={rest.placeholder} id={id} onBlur={() => setTouched(true)} />
       {type === 'password' && (
         <i
           className="fa fa-eye"
           aria-hidden="true"
-          onBlur={() => setIsVisible(!isVisible)}
+          onClick={() => setIsVisible(!isVisible)}
         />
       )}
       <p>{touched && errorMessage}</p>

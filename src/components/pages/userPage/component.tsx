@@ -6,9 +6,11 @@ import PasswordActionLink from '../../controls/passwordChangeLink';
 import './styles.css';
 import { FirebaseContext } from '../../../utils/fireBase';
 import { UserType } from '../../../types/globalTypes';
+import { PageWithUserProps } from '../../../types/userPage';
+import * as themes from '../../../constants/themes';
 
-const PageWithUser = (props: { isVerified:boolean, userID: string }) => {
-  const { isVerified, userID } = props;
+const PageWithUser = (props: PageWithUserProps) => {
+  const { isVerified, userID, setTheme } = props;
 
   const firebase = useContext(FirebaseContext);
 
@@ -61,6 +63,21 @@ const PageWithUser = (props: { isVerified:boolean, userID: string }) => {
           <p>Tasks Count</p>
           <p>{taskCount}</p>
         </div>
+        <div>
+          <p>Color theme</p>
+          <select
+            id="theme"
+            onChange={(e) => {
+              localStorage.setItem('theme', e.target.value);
+              setTheme(e.target.value);
+            }}
+          >
+            <option value={localStorage.getItem('theme') || ''}> </option>
+            <option value={themes.orange}>Orange</option>
+            <option value={themes.blue}>Blue</option>
+            <option value={themes.dark}>Dark</option>
+          </select>
+        </div>
       </div>
       <NavLink className="linkToApp" to={`${app}${userValue.uid}`}>
         Your desks
@@ -77,10 +94,16 @@ const PageNoUser = () => (
   </div>
 );
 
-const UserPage: React.FC = () => {
+const UserPage: React.FC<{ setTheme:(el:string) => void }> = ({ setTheme }) => {
   const { uid, isVerified } = useContext(AuthUserContext);
 
-  return uid ? <PageWithUser isVerified={isVerified} userID={uid} /> : <PageNoUser />;
+  return uid ? (
+    <PageWithUser
+      isVerified={isVerified}
+      userID={uid}
+      setTheme={setTheme}
+    />
+  ) : <PageNoUser />;
 };
 
 export default UserPage;

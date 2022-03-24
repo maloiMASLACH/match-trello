@@ -6,6 +6,21 @@
     display: flex;
     align-items: center;
 }
+.darkPage .addTaskBlock{
+    border: 5px solid #80c6fc;
+    background-color: black;
+}
+.bluePage .addTaskBlock{
+    border: 5px solid #fdfdfd;
+    background-color: #64a7c5;
+}
+.darkPage .addTaskBlock img{
+    filter: brightness(0.5) invert(0.8);
+}
+
+.bluePage .addTaskBlock img{
+    filter: brightness(0) invert(1);
+}
 .addTaskBlock p{
     margin: 10px auto;
     color: white;

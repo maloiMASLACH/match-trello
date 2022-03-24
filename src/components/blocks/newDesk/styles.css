@@ -8,6 +8,14 @@
     flex-direction: column;
     justify-content: space-around;
 }
+.darkPage .addBlock{
+    border: 5px solid #0072ff;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.bluePage .addBlock{
+    border: 5px solid #0072ff;
+    background-color: rgba(14, 79, 163, 0.5);
+}
 .addBlock p{
     text-align: center;
     margin: 10px auto;
@@ -16,6 +24,12 @@
     font-weight: 600;
     font-size: x-large;
 
+}
+.darkPage .addBlock img.addDeskImg{
+    filter: invert(1);
+}
+.bluePage .addBlock img.addDeskImg{
+    filter: invert(1);
 }
  @media screen and (max-width: 1440px) {
     .addBlock img.addDeskImg{
