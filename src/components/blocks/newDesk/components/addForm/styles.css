@@ -4,6 +4,12 @@
     margin-left: 80%;
     width: 15%;
 }
+.darkPage .addBlock img.addDeskImgClose{
+ filter: invert(1);
+}
+.bluePage .addBlock img.addDeskImgClose{
+    filter: brightness(0) invert(1);
+}
 .addBlock img.addDeskImgClose:hover{
     opacity: 0.7;
 }
@@ -13,6 +19,14 @@
     font-size: x-large;
     width: 90%;
     border-bottom: 2px solid darkorange;
+}
+.darkPage .addBlock input[type=text]:not(.browser-default){
+    color: white;
+    border-bottom: 2px solid rgb(255, 255, 255);
+}
+.bluePage .addBlock input[type=text]:not(.browser-default){
+    color: white;
+    border-bottom: 2px solid rgb(255, 255, 255);
 }
 .addBlock input[type=text]:not(.browser-default)::placeholder{
     color: rgba(255, 255, 255, 0.7);
@@ -28,6 +42,13 @@
     background-color: darkorange;
     height: 50px;
     width: 70%;
+}
+
+.darkPage .addBlock button {
+    background-color: #0072ff;
+}
+.bluePage .addBlock button {
+    background-color: #0072ff;
 }
 
  

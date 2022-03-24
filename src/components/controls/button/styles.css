@@ -12,8 +12,12 @@
     border-radius: 20px;
     text-transform: uppercase;
 }
-.linkButton:active{
-    background-color: darkorange;
+.darkPage .linkButton{
+    background-color: white;
+    color: black;
+}
+.bluePage .linkButton{
+    background-color: teal;
 }
 
 

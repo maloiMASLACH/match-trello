@@ -13,3 +13,19 @@
                   17px 17px 0px #c11ab3;
     font-size: 1000%;
 }
+.darkPage .errorPage h1{
+    color: rgb(255, 255, 255);
+    text-shadow: 5px 5px 0px #cccccc, 
+                  8px 8px 0px #9c9c9c, 
+                  11px 11px 0px #646464, 
+                  14px 14px 0px #313131, 
+                  17px 17px 0px #0c0c0c;
+}
+.bluePage .errorPage h1{
+    color: rgb(2, 111, 148);
+    text-shadow: 5px 5px 0px #3177c7, 
+                  8px 8px 0px #b9d4fd, 
+                  11px 11px 0px #b4f0f8, 
+                  14px 14px 0px #ffffff, 
+                  17px 17px 0px #ffffff;
+}

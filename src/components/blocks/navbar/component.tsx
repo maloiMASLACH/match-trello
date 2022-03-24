@@ -16,7 +16,7 @@ const NavBar = (props:NavBarProps) => {
 
   return (
     <nav>
-      <div className="nav-wrapper  yellow darken-4 paddings1">
+      <div className="nav-wrapper paddings1">
         <NavLink to={welcome} className="brand-logo">
           Mach Trello
         </NavLink>

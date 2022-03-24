@@ -10,6 +10,18 @@
 .colon:hover{
     border: 3px darkorange solid;
 }
+.darkPage .colon{
+    border: 3px rgb(250, 250, 250) dashed;
+}
+.darkPage .colon:hover{
+    border: 3px rgb(255, 255, 255) solid;
+}
+.bluePage .colon{
+    border: 3px #004141 dashed;
+}
+.bluePage .colon:hover{
+    border: 3px #004141 solid;
+}
 @media screen and (max-width: 425px) {
     .colon{
         width: 80%;

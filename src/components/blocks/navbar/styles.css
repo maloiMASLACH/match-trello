@@ -1,6 +1,15 @@
 .paddings1{
     padding: 0 10%;
 }
+nav div {
+    background-color: darkorange;
+}
+.darkPage nav div{
+    background-color: black;
+}
+.bluePage nav div{
+    background-color: rgb(2, 111, 148);
+}
 
 @media only screen and (max-width: 992px)
 {
