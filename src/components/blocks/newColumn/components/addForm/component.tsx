@@ -49,7 +49,7 @@ const AddForm = (props: NewColumnAddProps) => {
         aria-hidden="true"
       />
       <input
-        onFocus={() => setTouched(true)}
+        onBlur={() => setTouched(true)}
         type="text"
         value={inputValue}
         placeholder="Colon name"

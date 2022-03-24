@@ -48,7 +48,7 @@ const AddForm = (props: HandleActive) => {
         aria-hidden="true"
       />
       <input
-        onFocus={() => {
+        onBlur={() => {
           setTouched(true);
         }}
         type="text"

@@ -19,7 +19,7 @@ const InputBlock = (props: InputBlockProps) => {
         <i
           className="fa fa-eye"
           aria-hidden="true"
-          onClick={() => setIsVisible(!isVisible)}
+          onBlur={() => setIsVisible(!isVisible)}
         />
       )}
       <p>{touched && errorMessage}</p>
