@@ -15,6 +15,7 @@ import WelcomePage from './components/pages/welcomePage';
 import AdminPage from './components/pages/adminPage';
 import FetchURLInfo from './utils/fetchURLInfo';
 import { AuthUserType } from './types/globalTypes';
+import ErrorPage from './components/pages/errorPage';
 
 const App = () => {
   const firebase = useContext(FirebaseContext);
@@ -32,6 +33,7 @@ const App = () => {
         <div className="container">
           <Routes>
             <Route element={<WelcomePage />} path={router.welcome} />
+            <Route element={<ErrorPage />} path="*" />
             <Route element={<SingInForm />} path={router.singIn} />
             <Route element={<SingUpForm />} path={router.singUp} />
             <Route element={<AppPage />} path={`${router.app}/:uid`} />
