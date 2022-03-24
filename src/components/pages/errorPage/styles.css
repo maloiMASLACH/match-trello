@@ -1,0 +1,15 @@
+.errorPage{
+    margin: 0 auto;
+    margin-top: 20vh;
+    text-align: center;
+}
+.errorPage h1{
+    margin-bottom: 10vh;
+    color: rgb(245,127,23);
+    text-shadow: 5px 5px 0px #eb452b, 
+                  8px 8px 0px #efa032, 
+                  11px 11px 0px #60b546, 
+                  14px 14px 0px #2b92be, 
+                  17px 17px 0px #c11ab3;
+    font-size: 1000%;
+}

@@ -73,7 +73,7 @@ const PageWithUser = (props: { isVerified:boolean, userID: string }) => {
 const PageNoUser = () => (
   <div className="userPage notAuthUser">
     <p>Sorry, but this page require an authorized user</p>
-    <img src="./errorRobot.png" alt="error" />
+    <img src="./../errorRobot.png" alt="error" />
   </div>
 );
 

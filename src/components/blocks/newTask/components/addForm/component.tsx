@@ -46,7 +46,7 @@ const AddForm = (props: NewTaskAddProps) => {
     <div className="addTaskBlock">
       <div className="inputBlock">
         <input
-          onFocus={() => setTouchedName(true)}
+          onBlur={() => setTouchedName(true)}
           type="text"
           value={inputName}
           placeholder="Task name"
