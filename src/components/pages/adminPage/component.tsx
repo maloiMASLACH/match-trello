@@ -51,7 +51,7 @@ const PageWithAccess = () => {
 const PageNoAccess = () => (
   <div className="userPage notAuthUser">
     <p>Sorry, but this page require an administration rules</p>
-    <img src="./errorRobot.png" alt="error" />
+    <img src="./../errorRobot.png" alt="error" />
   </div>
 );
 

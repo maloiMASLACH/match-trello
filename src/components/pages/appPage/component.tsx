@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { AppPageProps } from '../../../types/appPage';
 import { UserType } from '../../../types/globalTypes';
 import { FirebaseContext } from '../../../utils/fireBase';
+import AuthUserContext from '../../../utils/sessionHandler';
 import sortCards from '../../../utils/sortCards';
 import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
 import UserValueContext from '../../../utils/valueContexts/userValueContext';
@@ -33,12 +34,11 @@ const PageWithUser = (props: AppPageProps) => {
   return (
     <UserValueContext.Provider value={userValue}>
       <div className="appPage">
-        {sortedDesks
-          .map((desk) => (
-            <DeskValueContext.Provider key={desk.id} value={desk}>
-              <DeskWithInfo />
-            </DeskValueContext.Provider>
-          ))}
+        {sortedDesks.map((desk) => (
+          <DeskValueContext.Provider key={desk.id} value={desk}>
+            <DeskWithInfo />
+          </DeskValueContext.Provider>
+        ))}
         <NewDesk />
       </div>
     </UserValueContext.Provider>
@@ -48,13 +48,19 @@ const PageWithUser = (props: AppPageProps) => {
 const PageNoUser = () => (
   <div className="userPage notAuthUser">
     <p>Sorry, but this page require an authorized user</p>
-    <img src="./errorRobot.png" alt="error" />
+    <img src="./../errorRobot.png" alt="error" />
   </div>
 );
 
 const AppPage: React.FC = () => {
   const { uid } = useParams();
 
-  return uid ? <PageWithUser userID={uid} /> : <PageNoUser />;
+  const authUser = useContext(AuthUserContext);
+
+  return uid && (uid === authUser.uid || authUser.isAdmin) ? (
+    <PageWithUser userID={uid} />
+  ) : (
+    <PageNoUser />
+  );
 };
 export default AppPage;
