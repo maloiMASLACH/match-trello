@@ -72,10 +72,9 @@ const PageWithUser = (props: PageWithUserProps) => {
               setTheme(e.target.value);
             }}
           >
-            <option value={localStorage.getItem('theme') || ''}> </option>
-            <option value={themes.orange}>Orange</option>
-            <option value={themes.blue}>Blue</option>
-            <option value={themes.dark}>Dark</option>
+            <option selected={localStorage.getItem('theme') === themes.orange} value={themes.orange}>Orange</option>
+            <option selected={localStorage.getItem('theme') === themes.blue} value={themes.blue}>Blue</option>
+            <option selected={localStorage.getItem('theme') === themes.dark} value={themes.dark}>Dark</option>
           </select>
         </div>
       </div>
