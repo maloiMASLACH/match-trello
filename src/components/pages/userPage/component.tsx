@@ -23,6 +23,8 @@ const PageWithUser = (props: PageWithUserProps) => {
 
   let taskCount = 0;
 
+  const selected = localStorage.getItem('theme');
+
   useEffect(() => {
     firebase.user(userID).on('value', (snapshot) => {
       setUserValue(snapshot.val());
@@ -72,9 +74,9 @@ const PageWithUser = (props: PageWithUserProps) => {
               setTheme(e.target.value);
             }}
           >
-            <option selected={localStorage.getItem('theme') === themes.orange} value={themes.orange}>Orange</option>
-            <option selected={localStorage.getItem('theme') === themes.blue} value={themes.blue}>Blue</option>
-            <option selected={localStorage.getItem('theme') === themes.dark} value={themes.dark}>Dark</option>
+            <option selected={selected === themes.orange} value={themes.orange}>Orange</option>
+            <option selected={selected === themes.blue} value={themes.blue}>Blue</option>
+            <option selected={selected === themes.dark} value={themes.dark}>Dark</option>
           </select>
         </div>
       </div>
