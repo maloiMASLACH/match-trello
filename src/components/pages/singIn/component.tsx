@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import patterns, { validateEmail, validatePassword } from '../../../utils/patterns';
-import routes from '../../../constants/routerLinks';
+import Routes from '../../../constants/routerLinks';
 import { FirebaseContext } from '../../../utils/fireBase';
 import InputBlock from '../../controls/input';
 import Button from '../../controls/button';
@@ -27,7 +27,7 @@ const SingInForm: React.FC = () => {
     firebase
       .doSignInWithEmailAndPassword(inputMail, inputPassword)
       .then(() => {
-        navigate(routes.userPage);
+        navigate(Routes.userPage);
       })
       .catch((e) => {
         setError(e.message);
@@ -62,7 +62,7 @@ const SingInForm: React.FC = () => {
         type="submit"
         onClick={onSubmit}
       />
-      <PasswordActionLink text="forget password?" link={routes.passForget} />
+      <PasswordActionLink text="forget password?" link={Routes.passForget} />
     </>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import routes from '../../../constants/routerLinks';
+import Routes from '../../../constants/routerLinks';
 import AuthUserContext from '../../../utils/sessionHandler';
 import PasswordActionLink from '../../controls/passwordChangeLink';
 import './styles.css';
@@ -72,10 +72,10 @@ const PageWithUser = (props: PageWithUserProps) => {
           <Select id="theme" values={themes} onChange={handleTheme} selected={selected} />
         </div>
       </div>
-      <NavLink className="linkToApp" to={`${routes.app}${userValue.uid}`}>
+      <NavLink className="linkToApp" to={`${Routes.app}${userValue.uid}`}>
         Your desks
       </NavLink>
-      <PasswordActionLink text="change password" link={routes.passReset} />
+      <PasswordActionLink text="change password" link={Routes.passReset} />
     </div>
   );
 };
