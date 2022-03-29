@@ -1,5 +1,8 @@
 export interface PageWithUserProps {
   isVerified:boolean,
   userID: string,
-  setTheme: (el:string)=>void
+  handleTheme: (el:string)=>void
+}
+export interface UserPageProps {
+  handleTheme: (el:string)=>void
 }

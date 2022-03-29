@@ -17,16 +17,25 @@ import FetchURLInfo from './utils/fetchURLInfo';
 import { AuthUserType } from './types/globalTypes';
 import ErrorPage from './components/pages/errorPage';
 import localStorageKeys from './constants/localStorageKeys';
+import themes from './constants/themes';
 
 const App = () => {
   const firebase = useContext(FirebaseContext);
 
-  const [theme, setTheme] = useState(localStorage.getItem(localStorageKeys.theme) || '');
+  const [theme, setTheme] = useState(
+    localStorage.getItem(localStorageKeys.theme) || themes[0],
+  );
   const [user, setUser] = useState<AuthUserType>({
     isVerified: false,
     isAdmin: false,
     uid: '',
   });
+
+  const handleTheme = (value: string) => {
+    localStorage.setItem(localStorageKeys.theme, value);
+
+    setTheme(value);
+  };
 
   useEffect(() => {
     FetchURLInfo(setUser, firebase);
@@ -35,7 +44,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <AuthUserContext.Provider value={user}>
-        <div className={`page ${theme}`}>
+        <div className={`page ${theme}Page`}>
           <NavBar isAuthorized={!!user.uid} isAdmin={user.isAdmin} />
           <div className="container">
             <Routes>
@@ -45,7 +54,7 @@ const App = () => {
               <Route element={<SingUpForm />} path={routes.singUp} />
               <Route element={<AppPage />} path={`${routes.app}/:uid`} />
               <Route
-                element={<UserPage setTheme={setTheme} />}
+                element={<UserPage handleTheme={handleTheme} />}
                 path={routes.userPage}
               />
               <Route element={<PasswordForget />} path={routes.passForget} />

@@ -6,12 +6,13 @@ import PasswordActionLink from '../../controls/passwordChangeLink';
 import './styles.css';
 import { FirebaseContext } from '../../../utils/fireBase';
 import { UserType } from '../../../types/globalTypes';
-import { PageWithUserProps } from '../../../types/userPage';
+import { PageWithUserProps, UserPageProps } from '../../../types/userPage';
 import themes from '../../../constants/themes';
 import localStorageKeys from '../../../constants/localStorageKeys';
+import Select from '../../controls/select';
 
 const PageWithUser = (props: PageWithUserProps) => {
-  const { isVerified, userID, setTheme } = props;
+  const { isVerified, userID, handleTheme } = props;
 
   const firebase = useContext(FirebaseContext);
 
@@ -24,7 +25,7 @@ const PageWithUser = (props: PageWithUserProps) => {
 
   let taskCount = 0;
 
-  const selected = localStorage.getItem(localStorageKeys.theme);
+  const selected = localStorage.getItem(localStorageKeys.theme) || themes[0];
 
   useEffect(() => {
     firebase.user(userID).on('value', (snapshot) => {
@@ -68,23 +69,7 @@ const PageWithUser = (props: PageWithUserProps) => {
         </div>
         <div>
           <p>Color theme</p>
-          <select
-            id="theme"
-            onChange={(e) => {
-              localStorage.setItem(localStorageKeys.theme, e.target.value);
-              setTheme(e.target.value);
-            }}
-          >
-            {Object.values(themes).map((theme) => (
-              <option
-                key={theme.optionValue}
-                selected={selected === theme.optionValue}
-                value={theme.optionValue}
-              >
-                {theme.themeName}
-              </option>
-            ))}
-          </select>
+          <Select id="theme" values={themes} onChange={handleTheme} selected={selected} />
         </div>
       </div>
       <NavLink className="linkToApp" to={`${routes.app}${userValue.uid}`}>
@@ -102,13 +87,13 @@ const PageNoUser = () => (
   </div>
 );
 
-const UserPage: React.FC<{ setTheme: (el: string) => void }> = ({
-  setTheme,
-}) => {
+const UserPage = (props:UserPageProps) => {
+  const { handleTheme } = props;
+
   const { uid, isVerified } = useContext(AuthUserContext);
 
   return uid ? (
-    <PageWithUser isVerified={isVerified} userID={uid} setTheme={setTheme} />
+    <PageWithUser isVerified={isVerified} userID={uid} handleTheme={handleTheme} />
   ) : (
     <PageNoUser />
   );

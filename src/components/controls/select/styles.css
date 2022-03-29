@@ -1,0 +1,6 @@
+.userPage .commonInfo div select{
+    width: 150px;
+    display: block;
+    text-transform: capitalize;
+
+}
