@@ -12,6 +12,10 @@ const InputBlock = (props: InputBlockProps) => {
 
   const errorMessage = validation(value);
 
+  const handleChanging = () => {
+    setIsVisible((prevState) => !prevState);
+  };
+
   return (
     <>
       <input value={value} {...rest} type={isVisible ? 'text' : type} placeholder={rest.placeholder} id={id} onBlur={() => setTouched(true)} />
@@ -19,7 +23,7 @@ const InputBlock = (props: InputBlockProps) => {
         <i
           className="fa fa-eye"
           aria-hidden="true"
-          onClick={() => setIsVisible(!isVisible)}
+          onClick={handleChanging}
         />
       )}
       <p>{touched && errorMessage}</p>

@@ -4,9 +4,8 @@ import { UserType } from '../../../types/globalTypes';
 import { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
 import './styles.css';
-
 import { UsersListProps } from '../../../types/adminPage';
-import { app } from '../../../constants/routerLinks';
+import routes from '../../../constants/routerLinks';
 
 const UsersList = (props: UsersListProps) => {
   const { users } = props;
@@ -16,7 +15,7 @@ const UsersList = (props: UsersListProps) => {
       <p className="adminPageTitle">Users</p>
       <div>
         {users.map((user) => (
-          <NavLink key={user.uid} to={`${app}${user.uid}`}>
+          <NavLink key={user.uid} to={`${routes.app}${user.uid}`}>
             <ul>
               <li>{user.mail}</li>
               <li>{user.name}</li>

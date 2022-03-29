@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { app, passReset } from '../../../constants/routerLinks';
+import routes from '../../../constants/routerLinks';
 import AuthUserContext from '../../../utils/sessionHandler';
 import PasswordActionLink from '../../controls/passwordChangeLink';
 import './styles.css';
 import { FirebaseContext } from '../../../utils/fireBase';
 import { UserType } from '../../../types/globalTypes';
 import { PageWithUserProps } from '../../../types/userPage';
-import * as themes from '../../../constants/themes';
+import themes from '../../../constants/themes';
 
 const PageWithUser = (props: PageWithUserProps) => {
   const { isVerified, userID, setTheme } = props;
@@ -74,16 +74,22 @@ const PageWithUser = (props: PageWithUserProps) => {
               setTheme(e.target.value);
             }}
           >
-            <option selected={selected === themes.orange} value={themes.orange}>Orange</option>
-            <option selected={selected === themes.blue} value={themes.blue}>Blue</option>
-            <option selected={selected === themes.dark} value={themes.dark}>Dark</option>
+            {Object.values(themes).map((theme) => (
+              <option
+                key={theme.optionValue}
+                selected={selected === theme.optionValue}
+                value={theme.optionValue}
+              >
+                {theme.themeName}
+              </option>
+            ))}
           </select>
         </div>
       </div>
-      <NavLink className="linkToApp" to={`${app}${userValue.uid}`}>
+      <NavLink className="linkToApp" to={`${routes.app}${userValue.uid}`}>
         Your desks
       </NavLink>
-      <PasswordActionLink text="change password" link={passReset} />
+      <PasswordActionLink text="change password" link={routes.passReset} />
     </div>
   );
 };
@@ -95,16 +101,16 @@ const PageNoUser = () => (
   </div>
 );
 
-const UserPage: React.FC<{ setTheme:(el:string) => void }> = ({ setTheme }) => {
+const UserPage: React.FC<{ setTheme: (el: string) => void }> = ({
+  setTheme,
+}) => {
   const { uid, isVerified } = useContext(AuthUserContext);
 
   return uid ? (
-    <PageWithUser
-      isVerified={isVerified}
-      userID={uid}
-      setTheme={setTheme}
-    />
-  ) : <PageNoUser />;
+    <PageWithUser isVerified={isVerified} userID={uid} setTheme={setTheme} />
+  ) : (
+    <PageNoUser />
+  );
 };
 
 export default UserPage;
