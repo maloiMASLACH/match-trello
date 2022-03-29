@@ -1,5 +1,5 @@
-const localStorageKeys = Object.freeze({
-  theme: 'theme',
-});
+enum LocalStorageKeys {
+  theme = 'theme',
+}
 
-export default localStorageKeys;
+export default LocalStorageKeys;
