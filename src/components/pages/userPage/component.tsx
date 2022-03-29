@@ -8,6 +8,7 @@ import { FirebaseContext } from '../../../utils/fireBase';
 import { UserType } from '../../../types/globalTypes';
 import { PageWithUserProps } from '../../../types/userPage';
 import themes from '../../../constants/themes';
+import localStorageKeys from '../../../constants/localStorageKeys';
 
 const PageWithUser = (props: PageWithUserProps) => {
   const { isVerified, userID, setTheme } = props;
@@ -23,7 +24,7 @@ const PageWithUser = (props: PageWithUserProps) => {
 
   let taskCount = 0;
 
-  const selected = localStorage.getItem('theme');
+  const selected = localStorage.getItem(localStorageKeys.theme);
 
   useEffect(() => {
     firebase.user(userID).on('value', (snapshot) => {
@@ -70,7 +71,7 @@ const PageWithUser = (props: PageWithUserProps) => {
           <select
             id="theme"
             onChange={(e) => {
-              localStorage.setItem('theme', e.target.value);
+              localStorage.setItem(localStorageKeys.theme, e.target.value);
               setTheme(e.target.value);
             }}
           >

@@ -16,11 +16,12 @@ import AdminPage from './components/pages/adminPage';
 import FetchURLInfo from './utils/fetchURLInfo';
 import { AuthUserType } from './types/globalTypes';
 import ErrorPage from './components/pages/errorPage';
+import localStorageKeys from './constants/localStorageKeys';
 
 const App = () => {
   const firebase = useContext(FirebaseContext);
 
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || '');
+  const [theme, setTheme] = useState(localStorage.getItem(localStorageKeys.theme) || '');
   const [user, setUser] = useState<AuthUserType>({
     isVerified: false,
     isAdmin: false,
