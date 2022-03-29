@@ -52,9 +52,7 @@ const OpenedDesk = (props: HandleActive) => {
             className="deskDelete"
             src="./../redact.png"
             alt="redact"
-            onClick={() => {
-              handleChanging();
-            }}
+            onClick={handleChanging}
             aria-hidden="true"
           />
           <img

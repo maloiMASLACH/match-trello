@@ -1,16 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { app, passReset } from '../../../constants/routerLinks';
+import routes from '../../../constants/routerLinks';
 import AuthUserContext from '../../../utils/sessionHandler';
 import PasswordActionLink from '../../controls/passwordChangeLink';
 import './styles.css';
 import { FirebaseContext } from '../../../utils/fireBase';
 import { UserType } from '../../../types/globalTypes';
-import { PageWithUserProps } from '../../../types/userPage';
-import * as themes from '../../../constants/themes';
+import { PageWithUserProps, UserPageProps } from '../../../types/userPage';
+import themes from '../../../constants/themes';
+import localStorageKeys from '../../../constants/localStorageKeys';
+import Select from '../../controls/select';
 
 const PageWithUser = (props: PageWithUserProps) => {
-  const { isVerified, userID, setTheme } = props;
+  const { isVerified, userID, handleTheme } = props;
 
   const firebase = useContext(FirebaseContext);
 
@@ -23,7 +25,7 @@ const PageWithUser = (props: PageWithUserProps) => {
 
   let taskCount = 0;
 
-  const selected = localStorage.getItem('theme');
+  const selected = localStorage.getItem(localStorageKeys.theme) || themes[0];
 
   useEffect(() => {
     firebase.user(userID).on('value', (snapshot) => {
@@ -67,23 +69,13 @@ const PageWithUser = (props: PageWithUserProps) => {
         </div>
         <div>
           <p>Color theme</p>
-          <select
-            id="theme"
-            onChange={(e) => {
-              localStorage.setItem('theme', e.target.value);
-              setTheme(e.target.value);
-            }}
-          >
-            <option selected={selected === themes.orange} value={themes.orange}>Orange</option>
-            <option selected={selected === themes.blue} value={themes.blue}>Blue</option>
-            <option selected={selected === themes.dark} value={themes.dark}>Dark</option>
-          </select>
+          <Select id="theme" values={themes} onChange={handleTheme} selected={selected} />
         </div>
       </div>
-      <NavLink className="linkToApp" to={`${app}${userValue.uid}`}>
+      <NavLink className="linkToApp" to={`${routes.app}${userValue.uid}`}>
         Your desks
       </NavLink>
-      <PasswordActionLink text="change password" link={passReset} />
+      <PasswordActionLink text="change password" link={routes.passReset} />
     </div>
   );
 };
@@ -95,16 +87,16 @@ const PageNoUser = () => (
   </div>
 );
 
-const UserPage: React.FC<{ setTheme:(el:string) => void }> = ({ setTheme }) => {
+const UserPage = (props:UserPageProps) => {
+  const { handleTheme } = props;
+
   const { uid, isVerified } = useContext(AuthUserContext);
 
   return uid ? (
-    <PageWithUser
-      isVerified={isVerified}
-      userID={uid}
-      setTheme={setTheme}
-    />
-  ) : <PageNoUser />;
+    <PageWithUser isVerified={isVerified} userID={uid} handleTheme={handleTheme} />
+  ) : (
+    <PageNoUser />
+  );
 };
 
 export default UserPage;

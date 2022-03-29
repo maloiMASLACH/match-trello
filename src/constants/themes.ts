@@ -1,3 +1,3 @@
-export const orange = '';
-export const dark = 'darkPage';
-export const blue = 'bluePage';
+const Themes = ['orange', 'dark', 'blue'];
+
+export default Themes;

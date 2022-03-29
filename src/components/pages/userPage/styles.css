@@ -37,11 +37,6 @@
 .darkPage .userPage .commonInfo div{
     color: rgb(255, 255, 255);
 }
-.userPage .commonInfo div select{
-    width: 150px;
-    display: block;
-
-}
 
 .userPage a.linkToApp{
     display: flex;
