@@ -16,14 +16,14 @@ import AdminPage from './components/pages/adminPage';
 import FetchURLInfo from './utils/fetchURLInfo';
 import { AuthUserType } from './types/globalTypes';
 import ErrorPage from './components/pages/errorPage';
-import localStorageKeys from './constants/localStorageKeys';
+import LocalStorageKeys from './constants/localStorageKeys';
 import themes from './constants/themes';
 
 const App = () => {
   const firebase = useContext(FirebaseContext);
 
   const [theme, setTheme] = useState(
-    localStorage.getItem(localStorageKeys.theme) || themes[0],
+    localStorage.getItem(LocalStorageKeys.theme) || themes[0],
   );
   const [user, setUser] = useState<AuthUserType>({
     isVerified: false,
@@ -32,7 +32,7 @@ const App = () => {
   });
 
   const handleTheme = (value: string) => {
-    localStorage.setItem(localStorageKeys.theme, value);
+    localStorage.setItem(LocalStorageKeys.theme, value);
 
     setTheme(value);
   };
