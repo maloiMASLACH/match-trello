@@ -10,18 +10,12 @@
     width: fit-content;
     text-align: center;
     text-transform: capitalize;
-    background-color: rgba(255, 140, 0, 0.7);
+    background-color: var(--global-title-bg-color);
     border-radius: 10px;
     font-size: 10vh;
     color: white;
     line-height: 8vh;
     padding: 30px;
-}
-.darkPage .userPage .userIcon{
-    background-color: rgba(0, 0, 0, 0.7);
-}
-.bluePage .userPage .userIcon{
-    background-color: #026f94;
 }
 .userPage .commonInfo{
     width: 80%;
@@ -30,18 +24,15 @@
 .userPage .commonInfo div{
     height: 70px;
     display: flex;
-    color: black;
+    color: var(--global-text-color);
     font-size: x-large;
     justify-content: space-between;
-}
-.darkPage .userPage .commonInfo div{
-    color: rgb(255, 255, 255);
 }
 
 .userPage a.linkToApp{
     display: flex;
     justify-content: center;
-    background-color: #ff8c00;
+    background-color: var(--global-active-color);
     margin: 0 auto;
     margin-top: 2vh;
     padding:  10px 0;
@@ -50,27 +41,15 @@
     color: white;
     font-size: xx-large;
 }
-.darkPage .userPage a.linkToApp{
-    background-color: #ffffff;
-    color:  black;
-}
-.bluePage .userPage a.linkToApp{
-    background-color: #026f94;
-}
 .userPage.notAuthUser{
     margin-top: 10vh;
-    color: darkorange;
+    color: var(--global-text-color);
     font-size: xx-large;
     font-weight: 900;
     display:block;
     text-align: center;
 }
-.darkPage .userPage.notAuthUser{
-    color: rgb(255, 255, 255);
-}
-.bluePage .userPage.notAuthUser{
-    color: #026f94;
-}
+
 @media screen and (max-width: 768px) {
     .userPage .userIcon{
         width: 70%;

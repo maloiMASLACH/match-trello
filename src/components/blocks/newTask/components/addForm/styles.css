@@ -22,17 +22,7 @@
     color: white;
     font-size: x-large;
     width: 100%;
-    border-bottom: 2px solid darkorange;
-}
-.darkPage .addTaskBlock input[type=text]:not(.browser-default){
-    border-bottom: 2px solid rgb(211, 211, 211);
-}
-.bluePage .addTaskBlock input[type=text]:not(.browser-default){
-    border-bottom: 2px solid rgb(211, 211, 211);
-}
-.bluePage .addTaskBlock input[type=text]:not(.browser-default):focus:not([readonly]) {
-    border-bottom: #80c6fc solid 3px;
-    color: #fcfafa;
+    border-bottom: 2px solid var(--global-border-color);
 }
 .addTaskBlock input[type=text]:not(.browser-default)::placeholder{
     color: rgba(255, 255, 255, 0.7);
@@ -45,16 +35,9 @@
     font-size: large;
     font-weight: 800;
     letter-spacing: 1px;
-    background-color: darkorange;
+    background-color: var(--global-active-color);
     height: 50px;
     width: 150px;
-}
-.darkPage .addTaskBlock button {
-    background-color: #80c6fc;
-}
-.bluePage .addTaskBlock button {
-    background-color: #ffffff;
-    color: #024b83;
 }
 
 @media screen and (max-width: 768px) {
@@ -63,7 +46,6 @@
         color: white;
         font-size: x-large;
         width: 90%;
-        border-bottom: 2px solid darkorange;
     }
     .addTaskBlock img.addTaskImgClose{
         margin: 15px 0;

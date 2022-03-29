@@ -1,20 +1,12 @@
 .addBlock{
-    border: 5px solid rgba(255, 140, 0);
+    border: 5px solid var(--global-border-color);
     border-radius: 30px;
     width: 20vw;
     height: 20vw;
-    background-color: rgba(255, 140, 0, 0.5);
+    background-color: var(--global-block-bg-color);
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-}
-.darkPage .addBlock{
-    border: 5px solid #0072ff;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-.bluePage .addBlock{
-    border: 5px solid #0072ff;
-    background-color: rgba(14, 79, 163, 0.5);
 }
 .addBlock p{
     text-align: center;
@@ -25,11 +17,8 @@
     font-size: x-large;
 
 }
-.darkPage .addBlock img.addDeskImg{
-    filter: invert(1);
-}
-.bluePage .addBlock img.addDeskImg{
-    filter: invert(1);
+.addBlock img.addDeskImg{
+    filter: var(--global-img-filter);
 }
  @media screen and (max-width: 1440px) {
     .addBlock img.addDeskImg{

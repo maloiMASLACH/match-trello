@@ -1,26 +1,15 @@
 .addTaskBlock{
-    border: 5px solid rgba(255, 140, 0);
+    border: 5px solid var(--global-border-color);
     border-radius: 30px;
     width: 80%;
-    background-color: rgba(255, 140, 0, 0.5);
+    background-color: var(--global-block-bg-color);
     display: flex;
     align-items: center;
 }
-.darkPage .addTaskBlock{
-    border: 5px solid #80c6fc;
-    background-color: black;
-}
-.bluePage .addTaskBlock{
-    border: 5px solid #fdfdfd;
-    background-color: #64a7c5;
-}
-.darkPage .addTaskBlock img{
-    filter: brightness(0.5) invert(0.8);
+.addTaskBlock img{
+    filter: var(--global-img-filter);
 }
 
-.bluePage .addTaskBlock img{
-    filter: brightness(0) invert(1);
-}
 .addTaskBlock p{
     margin: 10px auto;
     color: white;
@@ -28,7 +17,6 @@
     font-size: x-large;
 
 }
-
 
 @media screen and (max-width: 768px) {
     .addTaskBlock{

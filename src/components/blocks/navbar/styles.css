@@ -2,15 +2,8 @@
     padding: 0 10%;
 }
 nav div {
-    background-color: darkorange;
+    background-color: var(--navbar-color);
 }
-.darkPage nav div{
-    background-color: black;
-}
-.bluePage nav div{
-    background-color: rgb(2, 111, 148);
-}
-
 @media only screen and (max-width: 992px)
 {
     .hide-on-med-and-down {
