@@ -3,7 +3,7 @@
     margin: 0 auto;
     width: 80%;
     justify-content: center;
-    background-color: darkorange;
+    background-color: var(--global-active-color);
     margin-top: 4vh;
     color: #ffff;
     font-size: x-large;
@@ -11,13 +11,6 @@
     padding: 10px 0;
     border-radius: 20px;
     text-transform: uppercase;
-}
-.darkPage .linkButton{
-    background-color: white;
-    color: black;
-}
-.bluePage .linkButton{
-    background-color: teal;
 }
 
 

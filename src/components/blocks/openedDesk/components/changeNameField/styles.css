@@ -1,21 +1,9 @@
 
 input.newDeskName[type=text]:not(.browser-default){
-    border-bottom: darkorange solid 3px;
-    color: white;
+    border-bottom: var(--global-border-color) solid 3px;
+    color: var(--global-input-text-color);
     font-size: xx-large;
     width: 40%;
-}
-.darkPage input.newDeskName[type=text]:not(.browser-default){
-    border-bottom: #80c6fc solid 3px;
-    color: #80c6fc;
-}
-.bluePage input.newDeskName[type=text]:not(.browser-default){
-    border-bottom: #80c6fc solid 3px;
-    color: #fcfafa;
-}
-.bluePage input[type=text]:not(.browser-default):focus:not([readonly]).newDeskName {
-    border-bottom: #80c6fc solid 3px;
-    color: #fcfafa;
 }
 .appPage div.changeDeskNameInputBlock{
     margin: 0 auto;
@@ -25,16 +13,10 @@ input.newDeskName[type=text]:not(.browser-default){
 }
 .newDeskName::placeholder{
     font-size: xx-large;
-    color: rgba(245, 173, 86, 0.534) ;
-}
-.darkPage .newDeskName::placeholder{
-    color: #80c6fc70;
-}
-.bluePage .newDeskName::placeholder{
-    color: #aad6f770;
+    color: var(--global-placeholder);
 }
 .newDeskNameSubmit{
-    background-color: darkorange;
+    background-color: var(--global-active-color);
     border: none;
     width: 8vw;
     height: 80%;
@@ -43,22 +25,11 @@ input.newDeskName[type=text]:not(.browser-default){
     font-weight: 400;
     margin-right: 50px;
 }
-.darkPage .newDeskNameSubmit{
-    background-color: #80c6fc;
-}
-.bluePage .newDeskNameSubmit{
-    background-color: white;
-    color: teal;
-}
 .changeNameError{
     margin: 0;
     margin-left: 5px;
-    color: white;
+    color: #fff;
     font-size: large;
-}
-.darkPage .changeNameError{
-    color: #80c6fc;;
-
 }
 
 @media screen and (max-width: 1024px) {

@@ -5,19 +5,14 @@
 }
 .adminPage .usersList p.adminPageTitle{
     margin-left: 50px;
-    background-color: darkorange;
+    background-color:  var(--navbar-color);
     font-size: xx-large;
     width: fit-content;
     padding: 10px;
     border-radius: 5px;
     color: white;
 }
-.darkPage .adminPage .usersList p.adminPageTitle{
-    background-color: rgb(0, 0, 0);
-}
-.bluePage .adminPage .usersList p.adminPageTitle{
-    background-color: #026f94;
-}
+
 .adminPage .usersList div{
     display: flex;
     flex-wrap: wrap;
@@ -26,24 +21,14 @@
     color:white;
     margin: 15px 50px;
     padding: 20px;
-    background-color: darkorange;
+    background-color: var(--global-input-text-color);
     transition: 0.3s;
 }
-.darkPage .adminPage .usersList div ul{
-    background-color: rgb(0, 0, 0);
-}
-.bluePage .adminPage .usersList div ul{
-    background-color: #026f94;
-}
+
 .adminPage .usersList div ul:hover{
-    background-color: rgb(209, 138, 50);
+    opacity: 0.7;
 }
-.darkPage .adminPage .usersList div ul:hover{
-    background-color: rgb(119, 117, 117);
-}
-.bluePage .adminPage .usersList div ul:hover{
-    background-color: rgb(119, 156, 165);
-}
+
 .adminPage .usersList div ul li{
     color:white;
     margin: 10px auto;

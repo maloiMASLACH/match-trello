@@ -1,6 +1,6 @@
 .errorBlock{
     padding: 0px 10px;
-    background-color: darkorange;
+    background-color: var(--navbar-color);
     font-size: x-large;
     color:  white;
     margin: 0 auto;

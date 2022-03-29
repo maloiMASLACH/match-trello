@@ -1,19 +1,61 @@
-button:disabled{
-    opacity: 0.2;
+:root {
+  --global-bg-color: #fff;
+  --global-title-bg-color: rgba(255, 140, 0, 0.7);
+  --global-border-color: darkorange;
+  --global-block-bg-color: rgb(255, 197, 127);
+  --navbar-color: darkorange;
+  --global-active-color: rgba(255, 140, 0, 0.5);
+  --global-img-filter: brightness(1) invert(0);
+  --global-input-text-color: darkorange;
+  --global-placeholder: rgba(255, 140, 0, 0.5);
+  --global-text-color: black;
+  --welcome-title-color: rgb(245, 127, 23);
+  --welcome-title-shadow: 5px 5px 0px #eb452b, 8px 8px 0px #efa032,
+    11px 11px 0px #60b546, 14px 14px 0px #2b92be, 17px 17px 0px #c11ab3;
 }
-button:not(:disabled){
-    cursor: pointer;
+.page[data-theme="dark"] {
+  --global-bg-color: rgb(25, 25, 25);
+  --global-title-bg-color: #000;
+  --global-border-color: rgb(255, 255, 255);
+  --global-block-bg-color: rgb(25, 25, 25);
+  --navbar-color: rgb(25, 25, 25);
+  --global-active-color: #4183b6;
+  --global-img-filter: brightness(0.5) invert(0.8);
+  --global-input-text-color: #80c6fc;
+  --global-placeholder: #80c6fc70;
+  --global-text-color: #fff;
+  --welcome-title-color: rgb(255, 255, 255);
+  --welcome-title-shadow: 5px 5px 0px #cccccc, 8px 8px 0px #9c9c9c,
+    11px 11px 0px #646464, 14px 14px 0px #313131, 17px 17px 0px #0c0c0c;
+}
+.page[data-theme="blue"] {
+  --global-bg-color: #fff;
+  --global-title-bg-color: #026f94;
+  --global-border-color: rgb(1, 46, 77);
+  --global-block-bg-color: #026f94;
+  --navbar-color: #026f94;
+  --global-active-color: rgb(41, 157, 192);
+  --global-img-filter: brightness(0) invert(1);
+  --global-input-text-color: #026f94;
+  --global-placeholder: #aad6f770;
+  --global-text-color: rgb(1, 46, 77);
+  --welcome-title-color: rgb(2, 111, 148);
+  --welcome-title-shadow: 5px 5px 0px #3177c7, 8px 8px 0px #b9d4fd,
+    11px 11px 0px #b4f0f8, 14px 14px 0px #ffffff, 17px 17px 0px #ffffff;
+}
+button:disabled {
+  opacity: 0.2;
+}
+button:not(:disabled) {
+  cursor: pointer;
 }
 button:not(:disabled):hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
-.page{
-    height: 100%;
-    min-height: 100vh;
+.page {
+  height: 100%;
+  min-height: 100vh;
 }
-.page.darkPage{
-    background-color: rgb(25, 25, 25);
-}
-.page.bluePage{
-    background-color: rgb(255, 255, 255);
+.page {
+  background-color: var(--global-bg-color);
 }

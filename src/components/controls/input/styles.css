@@ -7,18 +7,8 @@
 margin: 0;
 margin-top: -6px;
 margin-bottom: 5px;
-background-color: darkorange;
+background-color: var(--global-active-color);
 padding-left: 10px;
-}
-.darkPage .input-field p{
-    background-color: darkgray;
-}
-.bluePage .input-field p{
-    color: white;
-    background-color: teal;
-}
-.darkPage .input-field input {
-    color:  white;
 }
 .input-field p.passwordsDontSameMessage{
     margin: 0; 
@@ -26,84 +16,44 @@ padding-left: 10px;
 .input-field .singInputText{
     position: relative;
 }
+input[type=text]:not(.browser-default){
+    color: var(--global-input-text-color);
+}
+input[type=email]:not(.browser-default){
+    color: var(--global-input-text-color);
+}
+input[type=password]:not(.browser-default){
+    color: var(--global-input-text-color);
+}
 input[type=text]:not(.browser-default):focus:not([readonly]){
-    border-bottom: 1px solid darkorange;
-     box-shadow: 0 1px 0 0 darkorange;
+    border-bottom: 1px solid var(--global-border-color);
+     box-shadow: 0 1px 0 0 var(--global-border-color);
 }
 input[type=password]:not(.browser-default):focus:not([readonly]){
-    border-bottom: 1px solid darkorange;
-     box-shadow: 0 1px 0 0 darkorange;
+    border-bottom: 1px solid var(--global-border-color);
+     box-shadow: 0 1px 0 0 var(--global-border-color);
 }
 input[type=email]:not(.browser-default):focus:not([readonly]){
-    border-bottom: 1px solid darkorange;
-     box-shadow: 0 1px 0 0 darkorange;
+    border-bottom: 1px solid var(--global-border-color);
+     box-shadow: 0 1px 0 0 var(--global-border-color);
 }
 input[type=text]:not(.browser-default):focus:not([readonly])+label{
-    color: darkorange;
+    color: var(--global-input-text-color);
 }
 input[type=password]:not(.browser-default):focus:not([readonly])+label{
-    color: darkorange;
+    color: var(--global-input-text-color);
 }
 input[type=email]:not(.browser-default):focus:not([readonly])+label{
-    color: darkorange;
+    color: var(--global-input-text-color);
 }
 input[type=text]:not(.browser-default):focus:not([readonly])+i{
-    color: darkorange;
+    color: var(--global-input-text-color);
 }
 input[type=password]:not(.browser-default):focus:not([readonly])+i{
-    color: darkorange;
+    color: var(--global-input-text-color);
 }
 input[type=email]:not(.browser-default):focus:not([readonly])+i{
-    color: darkorange;
-}
-.darkPage input[type=text]:not(.browser-default):focus:not([readonly]){
-    color: white;
-    border-bottom: 1px solid lightgray;
-     box-shadow: 0 1px 0 0 lightgray;
-}
-.darkPage input[type=password]:not(.browser-default):focus:not([readonly]){
-    color: white;
-    border-bottom: 1px solid lightgray;
-     box-shadow: 0 1px 0 0 lightgray;
-}
-.darkPage input[type=email]:not(.browser-default):focus:not([readonly]){
-    color: white;
-    border-bottom: 1px solid lightgray;
-     box-shadow: 0 1px 0 0 lightgray;
-}
-.darkPage input[type=text]:not(.browser-default):focus:not([readonly])+label{
-    color: lightgray;
-}
-.darkPage input[type=password]:not(.browser-default):focus:not([readonly])+label{
-    color: lightgray;
-}
-.darkPage input[type=email]:not(.browser-default):focus:not([readonly])+label{
-    color: lightgray;
-}
-.darkPage input[type=text]:not(.browser-default):focus:not([readonly])+i{
-    color: lightgray;
-}
-.darkPage input[type=password]:not(.browser-default):focus:not([readonly])+i{
-    color: lightgray;
-}
-.darkPage input[type=email]:not(.browser-default):focus:not([readonly])+i{
-    color: lightgray;
-}
-
-.bluePage input[type=text]:not(.browser-default):focus:not([readonly]){
-    color: rgb(0, 0, 0);
-    border-bottom: 1px solid lightgray;
-     box-shadow: 0 1px 0 0 lightgray;
-}
-.bluePage input[type=password]:not(.browser-default):focus:not([readonly]){
-    color: rgb(0, 0, 0);
-    border-bottom: 1px solid lightgray;
-     box-shadow: 0 1px 0 0 lightgray;
-}
-.bluePage input[type=email]:not(.browser-default):focus:not([readonly]){
-    color: rgb(0, 0, 0);
-    border-bottom: 1px solid lightgray;
-     box-shadow: 0 1px 0 0 lightgray;
+    color: var(--global-input-text-color);
 }
 .bluePage input[type=text]:not(.browser-default):focus:not([readonly])+i{
     color: teal;

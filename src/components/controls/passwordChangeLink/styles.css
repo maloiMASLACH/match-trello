@@ -3,23 +3,12 @@
     margin: 0 auto;
     width: 30%;
     justify-content: center;
-    background-color: rgb(255, 198, 145);
-    border: 1px solid darkorange;
+    background-color: var(--global-block-bg-color);
+    border: 1px solid var(--global-border-color);
     margin-top: 6vh;
     border-radius: 10px;
     padding: 5px;
     font-size: large;
     color: white;
     text-transform: uppercase;
-
-}
-.darkPage .container .passwordProblem{
-    background-color: lightgray;
-    border: 1px solid rgb(0, 0, 0);
-    color: black;
-}
-.bluePage .container .passwordProblem{
-    background-color: rgba(0, 128, 128, 0.404);
-    border: 1px solid teal;
-    color: rgb(255, 255, 255);
 }

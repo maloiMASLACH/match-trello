@@ -43,8 +43,8 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <AuthUserContext.Provider value={user}>
-        <div className={`page ${theme}Page`}>
+      <AuthUserContext.Provider value={user} data-theme={theme}>
+        <div className="page" data-theme={theme}>
           <NavBar isAuthorized={!!user.uid} isAdmin={user.isAdmin} />
           <div className="container">
             <Routes>

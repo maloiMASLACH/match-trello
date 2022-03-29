@@ -10,67 +10,33 @@
   width: 50px;
   margin-top: -34px;
   margin-left: 25%;
+  filter: var(--global-img-filter);
 }
 .taskRedact{
   position: absolute;
   width: 50px;
   margin-top: -34px;
   margin-left: 10%;
+  filter: var(--global-img-filter);
 }
-.darkPage .taskDelete{
-  filter: brightness(0.5) invert(0.8);
-}
-.darkPage .taskRedact{
-  filter: brightness(0.5) invert(0.8);
-}
-.bluePage .taskDelete{
-  filter: brightness(0) invert(1);
-}
-.bluePage .taskRedact{
-  filter: brightness(0) invert(1);
-}
+
 input.newTaskName[type=text]:not(.browser-default){
-  border-bottom: darkorange solid 3px;
+  border-bottom: var(--global-border-color) solid 3px;
   color: white;
   font-size: xx-large;
   width: 100%;
 }
-.darkPage input.newTaskName[type=text]:not(.browser-default){
-  border-bottom: rgb(255, 255, 255) solid 3px;
-  color: white;
-}
-.bluePage input.newTaskName[type=text]:not(.browser-default){
-  border-bottom: rgb(255, 255, 255) solid 3px;
-  color: white;
-}
-.bluePage input[type=text]:not(.browser-default):focus:not([readonly]).newTaskName {
-  border-bottom: #80c6fc solid 3px;
-  color: #fcfafa;
-}
 .newTaskName::placeholder{
   font-size: xx-large;
-  color: rgba(245, 173, 86, 0.534) ;
-}
-.darkPage .newTaskName::placeholder{
-  color: rgba(129, 129, 129, 0.534) ;
-}
-.darkPage .newTaskName::placeholder{
-  color: rgba(161, 236, 255, 0.349) ;
+  color: var(--global-placeholder) ;
 }
 .taskRedactSubmit{
-  background-color: darkorange;
+  background-color: var(--global-active-color);
   border: none;
   min-width: 10%;
   color: white;
   font-weight: 400;
   margin-left: 0px;
-}
-.darkPage .taskRedactSubmit{
-  background-color: #80c6fc;
-}
-.bluePage .taskRedactSubmit{
-  background-color: #ffffff;
-  color:rgb(0, 65, 65)
 }
 
 .appPage div.task {
@@ -81,17 +47,10 @@ input.newTaskName[type=text]:not(.browser-default){
   color: white;
   padding: 5px 10px;
   text-align: center;
-  border: 3px darkorange dashed;
+  border: 3px var(--global-border-color) dashed;
   border-radius: 10px;
   justify-content: space-between;
 }
-.darkPage .appPage div.task {
-  border: 3px rgb(247, 247, 247) dashed;
-}
-.bluePage .appPage div.task {
-  border: 3px rgb(0, 65, 65) dashed;
-}
-
 .task label {
   position: absolute;
   width: 50px;
@@ -99,7 +58,7 @@ input.newTaskName[type=text]:not(.browser-default){
   margin: 0 auto;
   margin-left: 17.5%;
   margin-top: -13px;
-  background-color: #d16500;
+  background-color: var(--global-active-color);
   transform: translateY(-50%);
   border-radius: 50%;
   box-shadow: 0 7px 10px #ffbeb8;
@@ -109,12 +68,7 @@ input.newTaskName[type=text]:not(.browser-default){
   overflow: hidden;
   z-index: 1;
 }
-.darkPage .task label {
-  background-color: #00928b;
-}
-.bluePage .task label {
-  background-color: #023634bb;
-}
+
 
 
 .task label:before {
@@ -186,10 +140,6 @@ input.newTaskName[type=text]:not(.browser-default){
 .taskCheckBox[type="checkbox"]:checked + label {
   background-color: #07d410;
   box-shadow: 0 7px 10px #92ff97;
-}
-.darkPage .taskCheckBox[type="checkbox"]:checked + label {
-  background-color: #07a4d4;
-  box-shadow: 0 7px 10px #1198a1;
 }
 
 .taskCheckBox[type="checkbox"]:checked + label:before {
