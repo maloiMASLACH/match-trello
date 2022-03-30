@@ -1,12 +1,12 @@
-enum Routes {
-  welcome = '/',
-  singIn = '/singin',
-  singUp = '/singup',
-  app = '/app',
-  userPage = '/userPage',
-  passForget = '/passwordForget',
-  passReset = '/passwordReset',
-  admin = '/admin',
+enum RouterLinks {
+  Welcome = '/',
+  SingIn = '/singin',
+  SingUp = '/singup',
+  App = '/app',
+  UserPage = '/userPage',
+  PassForget = '/passwordForget',
+  PassReset = '/passwordReset',
+  Admin = '/admin',
 }
 
-export default Routes;
+export default RouterLinks;

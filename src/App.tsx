@@ -3,7 +3,7 @@ import './App.css';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import SingInForm from './components/pages/singIn';
 import NavBar from './components/blocks/navbar';
-import routes from './constants/routerLinks';
+import RouterLinks from './constants/routerLinks';
 import UserPage from './components/pages/userPage';
 import { FirebaseContext } from './utils/fireBase';
 import AuthUserContext from './utils/sessionHandler';
@@ -23,7 +23,7 @@ const App = () => {
   const firebase = useContext(FirebaseContext);
 
   const [theme, setTheme] = useState(
-    localStorage.getItem(LocalStorageKeys.theme) || themes[0],
+    localStorage.getItem(LocalStorageKeys.Theme) || themes[0],
   );
   const [user, setUser] = useState<AuthUserType>({
     isVerified: false,
@@ -32,7 +32,7 @@ const App = () => {
   });
 
   const handleTheme = (value: string) => {
-    localStorage.setItem(LocalStorageKeys.theme, value);
+    localStorage.setItem(LocalStorageKeys.Theme, value);
 
     setTheme(value);
   };
@@ -43,23 +43,23 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <AuthUserContext.Provider value={user} data-theme={theme}>
+      <AuthUserContext.Provider value={user}>
         <div className="page" data-theme={theme}>
           <NavBar isAuthorized={!!user.uid} isAdmin={user.isAdmin} />
           <div className="container">
             <Routes>
-              <Route element={<WelcomePage />} path={routes.welcome} />
+              <Route element={<WelcomePage />} path={RouterLinks.Welcome} />
               <Route element={<ErrorPage />} path="*" />
-              <Route element={<SingInForm />} path={routes.singIn} />
-              <Route element={<SingUpForm />} path={routes.singUp} />
-              <Route element={<AppPage />} path={`${routes.app}/:uid`} />
+              <Route element={<SingInForm />} path={RouterLinks.SingIn} />
+              <Route element={<SingUpForm />} path={RouterLinks.SingUp} />
+              <Route element={<AppPage />} path={`${RouterLinks.App}/:uid`} />
               <Route
                 element={<UserPage handleTheme={handleTheme} />}
-                path={routes.userPage}
+                path={RouterLinks.UserPage}
               />
-              <Route element={<PasswordForget />} path={routes.passForget} />
-              <Route element={<PasswordReset />} path={routes.passReset} />
-              <Route element={<AdminPage />} path={routes.admin} />
+              <Route element={<PasswordForget />} path={RouterLinks.PassForget} />
+              <Route element={<PasswordReset />} path={RouterLinks.PassReset} />
+              <Route element={<AdminPage />} path={RouterLinks.Admin} />
             </Routes>
           </div>
         </div>

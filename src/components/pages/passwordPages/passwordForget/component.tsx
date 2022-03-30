@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import patterns, { validateEmail } from '../../../../utils/patterns';
-import Routes from '../../../../constants/routerLinks';
+import RouterLinks from '../../../../constants/routerLinks';
 import { FirebaseContext } from '../../../../utils/fireBase';
 import InputBlock from '../../../controls/input';
 import Button from '../../../controls/button';
@@ -22,7 +22,7 @@ const PasswordForget: React.FC = () => {
     firebase
       .doPasswordReset(inputMail)
       .then(() => {
-        navigate(Routes.welcome);
+        navigate(RouterLinks.Welcome);
       })
       .catch((e) => {
         setError(e.message);

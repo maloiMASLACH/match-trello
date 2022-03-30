@@ -6,7 +6,7 @@ import Button from '../../controls/button';
 import { FirebaseContext } from '../../../utils/fireBase';
 import patterns, { validateEmail, validatePassword, validateUserName } from '../../../utils/patterns';
 import { FirstDesk } from '../../../constants/voidObjects';
-import Routes from '../../../constants/routerLinks';
+import RouterLinks from '../../../constants/routerLinks';
 import ErrorBLock from '../../blocks/errorBlock';
 
 const SingUpForm: React.FC = () => {
@@ -48,7 +48,7 @@ const SingUpForm: React.FC = () => {
         desks: { FirstDesk },
       }))
       .then(() => firebase.auth.currentUser?.sendEmailVerification())
-      .then(() => navigate(Routes.userPage))
+      .then(() => navigate(RouterLinks.UserPage))
       .catch((e) => {
         setError(e.message);
       });

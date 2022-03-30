@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import Routes from '../../../constants/routerLinks';
+import RouterLinks from '../../../constants/routerLinks';
 import AuthUserContext from '../../../utils/sessionHandler';
 import PasswordActionLink from '../../controls/passwordChangeLink';
 import './styles.css';
@@ -25,7 +25,7 @@ const PageWithUser = (props: PageWithUserProps) => {
 
   let taskCount = 0;
 
-  const selected = localStorage.getItem(localStorageKeys.theme) || themes[0];
+  const selected = localStorage.getItem(localStorageKeys.Theme) || themes[0];
 
   useEffect(() => {
     firebase.user(userID).on('value', (snapshot) => {
@@ -72,10 +72,10 @@ const PageWithUser = (props: PageWithUserProps) => {
           <Select id="theme" values={themes} onChange={handleTheme} selected={selected} />
         </div>
       </div>
-      <NavLink className="linkToApp" to={`${Routes.app}${userValue.uid}`}>
+      <NavLink className="linkToApp" to={`${RouterLinks.App}${userValue.uid}`}>
         Your desks
       </NavLink>
-      <PasswordActionLink text="change password" link={Routes.passReset} />
+      <PasswordActionLink text="change password" link={RouterLinks.PassReset} />
     </div>
   );
 };
