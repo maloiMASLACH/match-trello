@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import patterns, { validatePassword } from '../../../../utils/patterns';
-import Routes from '../../../../constants/routerLinks';
+import RouterLinks from '../../../../constants/routerLinks';
 import { FirebaseContext } from '../../../../utils/fireBase';
 import InputBlock from '../../../controls/input';
 import Button from '../../../controls/button';
@@ -36,7 +36,7 @@ const PasswordReset: React.FC = () => {
     firebase
       .doPasswordUpdate(passwordTwo)
       .then(() => {
-        navigate(Routes.welcome);
+        navigate(RouterLinks.Welcome);
       })
       .catch((e) => {
         setError(e.message);

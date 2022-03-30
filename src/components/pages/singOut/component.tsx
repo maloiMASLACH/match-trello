@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Routes from '../../../constants/routerLinks';
+import RouterLinks from '../../../constants/routerLinks';
 import { FirebaseContext } from '../../../utils/fireBase';
 import './styles.css';
 
@@ -10,7 +10,7 @@ const SingOut = () => {
   const firebase = useContext(FirebaseContext);
 
   const onClick = () => {
-    navigate(Routes.welcome);
+    navigate(RouterLinks.Welcome);
     firebase.doSignOut();
   };
 
