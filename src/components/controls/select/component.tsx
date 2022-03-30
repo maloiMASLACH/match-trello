@@ -4,13 +4,13 @@ import { SelectProps } from '../../../types/select';
 
 const Select = (props: SelectProps) => {
   const {
-    id, values, onChange, selected,
+    values, handleChange, selected, ...rest
   } = props;
 
   return (
     <select
-      id={id}
-      onChange={(e) => { onChange(e.target.value); }}
+      {...rest}
+      onChange={handleChange}
     >
       {values.map((theme) => (
         <option
@@ -24,4 +24,5 @@ const Select = (props: SelectProps) => {
     </select>
   );
 };
+
 export default Select;

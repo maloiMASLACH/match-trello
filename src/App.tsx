@@ -1,4 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  ChangeEvent, useContext, useEffect, useState,
+} from 'react';
 import './App.css';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import SingInForm from './components/pages/singIn';
@@ -31,10 +33,10 @@ const App = () => {
     uid: '',
   });
 
-  const handleTheme = (value: string) => {
-    localStorage.setItem(LocalStorageKeys.Theme, value);
+  const handleTheme = (option: ChangeEvent<HTMLSelectElement>) => {
+    localStorage.setItem(LocalStorageKeys.Theme, option.target.value);
 
-    setTheme(value);
+    setTheme(option.target.value);
   };
 
   useEffect(() => {

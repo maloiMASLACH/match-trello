@@ -63,4 +63,5 @@ const AppPage: React.FC = () => {
     <PageNoUser />
   );
 };
+
 export default AppPage;

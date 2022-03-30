@@ -5,7 +5,7 @@ import RouterLinks from '../../../constants/routerLinks';
 import SingOut from '../../pages/singOut';
 import { NavBarProps } from '../../../types/navBar';
 
-const NavBar = (props:NavBarProps) => {
+const NavBar = (props: NavBarProps) => {
   const { isAuthorized, isAdmin } = props;
 
   return (
@@ -21,9 +21,9 @@ const NavBar = (props:NavBarProps) => {
                 <NavLink to={RouterLinks.UserPage}>User</NavLink>
               </li>
               {isAdmin && (
-              <li>
-                <NavLink to={RouterLinks.Admin}>Admin</NavLink>
-              </li>
+                <li>
+                  <NavLink to={RouterLinks.Admin}>Admin</NavLink>
+                </li>
               )}
               <li>
                 <SingOut />
@@ -44,4 +44,5 @@ const NavBar = (props:NavBarProps) => {
     </nav>
   );
 };
+
 export default NavBar;

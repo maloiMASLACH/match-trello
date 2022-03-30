@@ -1,8 +1,9 @@
-import { HTMLAttributes } from 'react';
-
-export interface StartButtonProps extends HTMLAttributes<HTMLButtonElement> {
+export interface StartButtonProps
+  extends React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+  > {
   text: string;
   disabled: boolean;
-  onClick: () => void;
-  type: 'button' | 'submit' | 'reset' | undefined;
+  handleClick: () => void;
 }

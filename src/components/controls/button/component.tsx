@@ -7,18 +7,18 @@ import { StartButtonProps } from '../../../types/button';
 
 const Button = (props: StartButtonProps) => {
   const {
-    className, text, disabled, ...rest
+    className, text, ...rest
   } = props;
 
   return (
     <button
       {...rest}
-      type={rest.type}
-      disabled={disabled}
+      onClick={rest.handleClick}
       className={clsx('linkButton', className)}
     >
       {text}
     </button>
   );
 };
+
 export default Button;

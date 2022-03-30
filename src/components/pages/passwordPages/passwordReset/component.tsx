@@ -45,9 +45,7 @@ const PasswordReset: React.FC = () => {
 
   return (
     <>
-      <div
-        className="input-field"
-      >
+      <div className="input-field">
         <InputBlock
           id="oldPassword"
           value={passwordOne}
@@ -72,7 +70,7 @@ const PasswordReset: React.FC = () => {
         text="change password"
         type="submit"
         disabled={!isCorrect}
-        onClick={onSubmit}
+        handleClick={onSubmit}
       />
     </>
   );

@@ -12,4 +12,5 @@ const PasswordActionLink = (props: ChangeLinkProps) => {
     </NavLink>
   );
 };
+
 export default PasswordActionLink;
