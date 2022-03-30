@@ -15,8 +15,7 @@ const PasswordForget: React.FC = () => {
   const [inputMail, setInputMail] = useState('');
   const [error, setError] = useState('');
 
-  const isCorrect = inputMail
-    && patterns.mail.test(inputMail);
+  const isCorrect = inputMail && patterns.mail.test(inputMail);
 
   const onSubmit = () => {
     firebase
@@ -31,9 +30,7 @@ const PasswordForget: React.FC = () => {
 
   return (
     <>
-      <div
-        className="input-field"
-      >
+      <div className="input-field">
         <InputBlock
           id="Email"
           value={inputMail}
@@ -46,9 +43,9 @@ const PasswordForget: React.FC = () => {
       {error ? <ErrorBLock errorText={error} /> : null}
       <Button
         text="reset password"
-        disabled={!isCorrect}
         type="submit"
-        onClick={onSubmit}
+        disabled={!isCorrect}
+        handleClick={onSubmit}
       />
     </>
   );

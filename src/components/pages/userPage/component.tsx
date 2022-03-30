@@ -69,7 +69,12 @@ const PageWithUser = (props: PageWithUserProps) => {
         </div>
         <div>
           <p>Color theme</p>
-          <Select id="theme" values={themes} onChange={handleTheme} selected={selected} />
+          <Select
+            id="theme"
+            values={themes}
+            handleChange={handleTheme}
+            selected={selected}
+          />
         </div>
       </div>
       <NavLink className="linkToApp" to={`${RouterLinks.App}${userValue.uid}`}>
@@ -87,13 +92,17 @@ const PageNoUser = () => (
   </div>
 );
 
-const UserPage = (props:UserPageProps) => {
+const UserPage = (props: UserPageProps) => {
   const { handleTheme } = props;
 
   const { uid, isVerified } = useContext(AuthUserContext);
 
   return uid ? (
-    <PageWithUser isVerified={isVerified} userID={uid} handleTheme={handleTheme} />
+    <PageWithUser
+      isVerified={isVerified}
+      userID={uid}
+      handleTheme={handleTheme}
+    />
   ) : (
     <PageNoUser />
   );

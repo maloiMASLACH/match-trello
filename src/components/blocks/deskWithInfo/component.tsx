@@ -16,8 +16,10 @@ const DeskWithInfo = () => {
   const columnCount = Object.keys(deskInfo.columns || []).length;
 
   if (deskInfo.columns) {
-    taskCount = Object.values(deskInfo.columns)
-      .reduce((acc, curr) => acc + Object.keys(curr.tasks || []).length, 0);
+    taskCount = Object.values(deskInfo.columns).reduce(
+      (acc, curr) => acc + Object.keys(curr.tasks || []).length,
+      0,
+    );
   }
 
   return (

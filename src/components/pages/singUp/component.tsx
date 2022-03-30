@@ -4,7 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import InputBlock from '../../controls/input';
 import Button from '../../controls/button';
 import { FirebaseContext } from '../../../utils/fireBase';
-import patterns, { validateEmail, validatePassword, validateUserName } from '../../../utils/patterns';
+import patterns, {
+  validateEmail,
+  validatePassword,
+  validateUserName,
+} from '../../../utils/patterns';
 import { FirstDesk } from '../../../constants/voidObjects';
 import RouterLinks from '../../../constants/routerLinks';
 import ErrorBLock from '../../blocks/errorBlock';
@@ -99,9 +103,9 @@ const SingUpForm: React.FC = () => {
       {error ? <ErrorBLock errorText={error} /> : null}
       <Button
         text="SING UP"
-        disabled={!checkIsCorrect}
         type="submit"
-        onClick={onSubmit}
+        disabled={!checkIsCorrect}
+        handleClick={onSubmit}
       />
     </>
   );

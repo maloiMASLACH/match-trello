@@ -1,6 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import patterns, { validateEmail, validatePassword } from '../../../utils/patterns';
+import patterns, {
+  validateEmail,
+  validatePassword,
+} from '../../../utils/patterns';
 import RouterLinks from '../../../constants/routerLinks';
 import { FirebaseContext } from '../../../utils/fireBase';
 import InputBlock from '../../controls/input';
@@ -58,11 +61,14 @@ const SingInForm: React.FC = () => {
       {error ? <ErrorBLock errorText={error} /> : null}
       <Button
         text="SING IN"
-        disabled={!isCorrect}
         type="submit"
-        onClick={onSubmit}
+        disabled={!isCorrect}
+        handleClick={onSubmit}
       />
-      <PasswordActionLink text="forget password?" link={RouterLinks.PassForget} />
+      <PasswordActionLink
+        text="forget password?"
+        link={RouterLinks.PassForget}
+      />
     </>
   );
 };
