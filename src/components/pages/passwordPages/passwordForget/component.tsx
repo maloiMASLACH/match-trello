@@ -45,7 +45,7 @@ const PasswordForget: React.FC = () => {
         text="reset password"
         type="submit"
         disabled={!isCorrect}
-        handleClick={onSubmit}
+        onClick={onSubmit}
       />
     </>
   );

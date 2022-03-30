@@ -105,7 +105,7 @@ const SingUpForm: React.FC = () => {
         text="SING UP"
         type="submit"
         disabled={!checkIsCorrect}
-        handleClick={onSubmit}
+        onClick={onSubmit}
       />
     </>
   );

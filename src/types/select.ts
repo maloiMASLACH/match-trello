@@ -1,8 +1,6 @@
-import { ChangeEvent } from "react";
-
-export interface SelectProps {
+export interface SelectProps extends
+  React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement> {
   id: string;
   values: string[];
-  handleChange: (el: ChangeEvent<HTMLSelectElement>) => void;
   selected: string;
 }

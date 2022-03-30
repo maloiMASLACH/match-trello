@@ -4,6 +4,4 @@ export interface StartButtonProps
   HTMLButtonElement
   > {
   text: string;
-  disabled: boolean;
-  handleClick: () => void;
 }
