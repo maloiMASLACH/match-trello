@@ -13,7 +13,6 @@ const Button = (props: StartButtonProps) => {
   return (
     <button
       {...rest}
-      onClick={rest.handleClick}
       className={clsx('linkButton', className)}
     >
       {text}

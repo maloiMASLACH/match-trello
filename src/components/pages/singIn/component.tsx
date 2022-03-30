@@ -63,7 +63,7 @@ const SingInForm: React.FC = () => {
         text="SING IN"
         type="submit"
         disabled={!isCorrect}
-        handleClick={onSubmit}
+        onClick={onSubmit}
       />
       <PasswordActionLink
         text="forget password?"

@@ -4,13 +4,12 @@ import { SelectProps } from '../../../types/select';
 
 const Select = (props: SelectProps) => {
   const {
-    values, handleChange, selected, ...rest
+    values, selected, ...rest
   } = props;
 
   return (
     <select
       {...rest}
-      onChange={handleChange}
     >
       {values.map((theme) => (
         <option

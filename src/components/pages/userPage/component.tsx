@@ -72,7 +72,7 @@ const PageWithUser = (props: PageWithUserProps) => {
           <Select
             id="theme"
             values={themes}
-            handleChange={handleTheme}
+            onChange={handleTheme}
             selected={selected}
           />
         </div>
