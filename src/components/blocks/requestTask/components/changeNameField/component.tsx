@@ -83,7 +83,7 @@ const ChangeRequestTaskField = (props: ChangeRequestTaskProps) => {
           className="newTaskName"
           type="text"
           value={inputDescription}
-          placeholder="Task"
+          placeholder="Description"
           onChange={(e) => setInputDescription(e.target.value)}
         />
         <p>{errorDescription}</p>
