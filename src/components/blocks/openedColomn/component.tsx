@@ -21,6 +21,7 @@ const OpenedColumn = (props: OpenedColumnProps) => {
     taskName: '',
     date: '',
     id: 0,
+    description: '',
     completed: false,
   });
 

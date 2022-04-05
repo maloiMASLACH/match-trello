@@ -15,12 +15,18 @@ const UsersList = (props: UsersListProps) => {
       <p className="adminPageTitle">Users</p>
       <div>
         {users.map((user) => (
-          <NavLink key={user.uid} to={`${RouterLinks.App}${user.uid}`}>
+          <div className="user">
             <ul>
               <li>{user.mail}</li>
               <li>{user.name}</li>
             </ul>
-          </NavLink>
+            <NavLink key={user.uid} to={`${RouterLinks.App}${user.uid}`}>
+              <p>Desks</p>
+            </NavLink>
+            <NavLink key={user.uid} to={`${RouterLinks.Requests}${user.uid}`}>
+              <p>Requests</p>
+            </NavLink>
+          </div>
         ))}
       </div>
     </>

@@ -1,19 +1,27 @@
-.changeTaskBlock{
+.appPage div.changeTaskBlock{
   display: flex;
+  margin: 0;
 }
 .appPage div.changeTaskInputBlock{
   width: 35%;
-  height: 50px;
+  height: fit-content;
   margin: 0 10px;
   display: inline-block;
+}
+.appPage div.changeTaskInputBlock input[type=text]:not(.browser-default){
+  margin: 0 0 -5px 0;
 }
 .appPage div.changeTaskInputBlock p {
   width: 100%;
   margin: 10px auto;
   font-size: small;
+  line-height: 10px;
 }
 @media screen and (max-width: 680px) {
-  .changeTaskBlock {
+  .appPage div .changeTaskBlock {
     display: inline-block;
+}
+.appPage div.changeTaskInputBlock{
+  width: 80%;
 }
 }

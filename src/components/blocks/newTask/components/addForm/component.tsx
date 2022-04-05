@@ -4,7 +4,7 @@ import { FirebaseContext } from '../../../../../utils/fireBase';
 import sortCards from '../../../../../utils/sortCards';
 import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
 import { NewTaskAddProps } from '../../../../../types/newTask';
-import patterns, { validateBlockName } from '../../../../../utils/patterns';
+import patterns, { validateBlockName, validateDescription } from '../../../../../utils/patterns';
 
 const AddForm = (props: NewTaskAddProps) => {
   const { uid, deskObjName, handleActive } = props;
@@ -14,11 +14,14 @@ const AddForm = (props: NewTaskAddProps) => {
 
   const [inputName, setInputName] = useState('');
   const [inputDate, setInputDate] = useState('');
+  const [inputDescription, setInputDescription] = useState('');
   const [touchedName, setTouchedName] = useState(false);
   const [touchedDate, setTouchedDate] = useState(false);
+  const [touchedDescription, setTouchedDescription] = useState(false);
 
   const errorName = validateBlockName(inputName);
   const errorDate = validateBlockName(inputDate);
+  const errorDescription = validateDescription(inputDescription.toString());
 
   const addTask = () => {
     let lastId = 0;
@@ -36,6 +39,7 @@ const AddForm = (props: NewTaskAddProps) => {
       taskName: inputName,
       date: inputDate,
       completed: false,
+      description: inputDescription,
       id: lastId + 1,
     });
 
@@ -56,13 +60,23 @@ const AddForm = (props: NewTaskAddProps) => {
       </div>
       <div className="inputBlock">
         <input
-          onFocus={() => setTouchedDate(true)}
+          onBlur={() => setTouchedDate(true)}
           type="text"
           value={inputDate}
           placeholder="Task date"
           onChange={(e) => setInputDate(e.target.value)}
         />
         <p>{touchedDate && errorDate}</p>
+      </div>
+      <div className="inputBlock">
+        <input
+          onBlur={() => setTouchedDescription(true)}
+          type="text"
+          value={inputDescription}
+          placeholder="Task description"
+          onChange={(e) => setInputDescription(e.target.value)}
+        />
+        <p>{touchedDescription && errorDescription}</p>
       </div>
 
       <button

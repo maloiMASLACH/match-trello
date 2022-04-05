@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import patterns, { validateBlockName } from '../../../../../utils/patterns';
+import patterns, { validateBlockName, validateDescription } from '../../../../../utils/patterns';
 import { ChangeTaskProps } from '../../../../../types/changeInput';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import TaskValueContext from '../../../../../utils/valueContexts/taskValueContext';
@@ -15,9 +15,11 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
 
   const [inputName, setInputName] = useState(taskValue.taskName || '');
   const [inputDate, setInputDate] = useState(taskValue.date || '');
+  const [inputDescription, setInputDescription] = useState(taskValue.description || '');
 
   const errorName = validateBlockName(inputName);
   const errorDate = validateBlockName(inputDate);
+  const errorDescription = validateDescription(inputDescription.toString());
 
   const renameTask = () => {
     const taskObjName = taskValue.taskName.split(' ').join('');
@@ -27,6 +29,7 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
 
     taskValue.taskName = inputName;
     taskValue.date = inputDate;
+    taskValue.description = inputDescription;
 
     firebase.task(uid, deskObjName, columnObjName, newObj).set(taskValue);
 
@@ -54,6 +57,16 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
           onChange={(e) => setInputDate(e.target.value)}
         />
         <p>{errorDate}</p>
+      </div>
+      <div className="changeTaskInputBlock">
+        <input
+          className="newTaskName"
+          type="text"
+          value={inputDescription}
+          placeholder="Task"
+          onChange={(e) => setInputDescription(e.target.value)}
+        />
+        <p>{errorDescription}</p>
       </div>
       <button
         className="taskRedactSubmit"

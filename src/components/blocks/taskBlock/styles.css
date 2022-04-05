@@ -43,13 +43,43 @@ input.newTaskName[type=text]:not(.browser-default){
   display: flex;
   width: 45%;
   font-size: x-large;
-  line-height: 10%;
+  height: 70px;
   color: white;
   padding: 5px 10px;
   text-align: center;
   border: 3px var(--global-border-color) dashed;
   border-radius: 10px;
   justify-content: space-between;
+  transition: 1s;
+}
+.appPage div.task.true:hover{
+  height: 120px;
+}
+.appPage div.task.false{
+  height: fit-content;
+}
+.task p{
+  margin: 0;
+  margin-top: 10px;
+}
+.task .taskDescription{
+  word-wrap:break-word;
+  line-height: 15px;
+  opacity: 0;
+  margin-top: 50px;
+  position: absolute;
+  font-size: medium;
+  width: 40%;
+  height: 60px;
+}
+@keyframes descriptionShowing{
+  0%{opacity: 0;}
+  50%{opacity: 0;}
+  100%{opacity: 1;}
+}
+.appPage div.task:hover .taskDescription{
+  animation: descriptionShowing 1s;
+  opacity: 1;
 }
 .task label {
   position: absolute;
@@ -155,6 +185,9 @@ input.newTaskName[type=text]:not(.browser-default){
 @media screen and (max-width: 1440px) {
   .appPage div.task {
     width: 80%;
+  }
+  .taskDescription{
+    width: 70%;
   }
   .task label {
     margin-left: 27.5%;

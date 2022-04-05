@@ -42,4 +42,10 @@ export const validateBlockName = (value: string) => {
   return '';
 };
 
+export const validateDescription = (value: string) => {
+  if (value.length > 120) {
+    return 'Use less then 120 symbols';
+  } return '';
+};
+
 export default patterns;

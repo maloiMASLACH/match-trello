@@ -10,14 +10,14 @@ const Select = (props: SelectProps) => {
   return (
     <select
       {...rest}
+      value={selected}
     >
-      {values.map((theme) => (
+      {values.map((option) => (
         <option
-          key={theme}
-          selected={selected === theme}
-          value={theme}
+          key={option}
+          value={option}
         >
-          {theme}
+          {option}
         </option>
       ))}
     </select>

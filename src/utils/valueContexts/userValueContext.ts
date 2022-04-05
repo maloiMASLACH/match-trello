@@ -6,6 +6,7 @@ const UserValueContext = React.createContext<UserType>({
   mail: '',
   name: '',
   uid: '',
+  requests: { sended: {}, received: {} },
 });
 
 export default UserValueContext;
