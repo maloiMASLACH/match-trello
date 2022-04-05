@@ -1,7 +1,10 @@
+import { RequestsType } from './requestPage';
+
 export interface TaskType {
   taskName: string;
   completed: boolean;
   date: string;
+  description: string,
   id: number;
 }
 export interface ColumnType {
@@ -20,6 +23,7 @@ export interface UserType {
   name: string;
   uid: string;
   desks: { [key: number]: DeskType };
+  requests: RequestsType
 }
 
 export interface AuthUserType {

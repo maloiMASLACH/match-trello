@@ -34,7 +34,7 @@ const Task = (props: TaskProps) => {
 
   return (
     <div
-      className="task"
+      className={`task ${!isChanging}`}
       onDragStart={() => {
         setCurrentCard(taskValue);
       }}
@@ -79,6 +79,9 @@ const Task = (props: TaskProps) => {
             <div id="tick_mark" />
           </label>
           <p>{taskValue.date}</p>
+          <p className="taskDescription">
+            {taskValue.description || 'No description'}
+          </p>
         </>
       ) : (
         <ChangeTaskField

@@ -21,6 +21,7 @@ const PageWithUser = (props: PageWithUserProps) => {
     mail: '',
     uid: '',
     name: '',
+    requests: { sended: {}, received: {} },
   });
 
   let taskCount = 0;
@@ -77,9 +78,14 @@ const PageWithUser = (props: PageWithUserProps) => {
           />
         </div>
       </div>
-      <NavLink className="linkToApp" to={`${RouterLinks.App}${userValue.uid}`}>
-        Your desks
-      </NavLink>
+      <div className="userButtons">
+        <NavLink className="linkToApp" to={`${RouterLinks.App}${userValue.uid}`}>
+          Your desks
+        </NavLink>
+        <NavLink className="linkToApp" to={`${RouterLinks.Requests}${userValue.uid}`}>
+          Team requests
+        </NavLink>
+      </div>
       <PasswordActionLink text="change password" link={RouterLinks.PassReset} />
     </div>
   );

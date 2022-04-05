@@ -76,6 +76,39 @@ class Firebase {
     columnObjName:string,
     taskObjName:string,
   ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}/columns/${columnObjName}/tasks/${taskObjName}/id`);
+
+  sendRequest = (
+    uid:string,
+    sender:string,
+    taskObjName:string,
+  ) => this.db.ref(`users/${uid}/requests/received/${sender}/tasks/${taskObjName}`);
+
+  setRequestComplete = (
+    uid:string,
+    sender:string,
+    taskObjName:string,
+  ) => this.db.ref(`users/${uid}/requests/received/${sender}/tasks/${taskObjName}/completed`);
+
+  requesterName = (
+    uid:string,
+    sender:string,
+  ) => this.db.ref(`users/${uid}/requests/received/${sender}/sender/`);
+
+  sendedTask = (
+    uid:string,
+    receiver:string,
+    taskObjName:string,
+  ) => this.db.ref(`users/${uid}/requests/sended/${receiver}/tasks/${taskObjName}`);
+
+  receiverName = (
+    uid:string,
+    receiver:string,
+  ) => this.db.ref(`users/${uid}/requests/sended/${receiver}/sender/`);
+
+  senderTaskList = (
+    uid:string,
+    receiver:string,
+  ) => this.db.ref(`users/${uid}/requests/received/${receiver}/tasks`);
 }
 
 export default Firebase;

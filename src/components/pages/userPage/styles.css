@@ -28,15 +28,19 @@
     font-size: x-large;
     justify-content: space-between;
 }
-
+.userButtons{
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    justify-content: space-around;
+}
 .userPage a.linkToApp{
     display: flex;
     justify-content: center;
     background-color: var(--global-active-color);
     margin: 0 auto;
-    margin-top: 2vh;
     padding:  10px 0;
-    width: 50%;
+    width: 45%;
     border-radius: 30px;
     color: white;
     font-size: xx-large;

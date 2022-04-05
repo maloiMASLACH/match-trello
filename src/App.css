@@ -6,6 +6,7 @@
   --navbar-color: darkorange;
   --global-active-color: rgba(255, 140, 0, 0.5);
   --global-img-filter: brightness(1) invert(0);
+  --alt-img-filter: brightness(1) invert(0);
   --global-input-text-color: darkorange;
   --global-placeholder: rgba(255, 140, 0, 0.5);
   --global-text-color: black;
@@ -21,6 +22,7 @@
   --navbar-color: rgb(25, 25, 25);
   --global-active-color: #4183b6;
   --global-img-filter: brightness(0.5) invert(0.8);
+  --alt-img-filter: brightness(0.5) invert(0.8);
   --global-input-text-color: #80c6fc;
   --global-placeholder: #80c6fc70;
   --global-text-color: #fff;
@@ -36,6 +38,7 @@
   --navbar-color: #026f94;
   --global-active-color: rgb(41, 157, 192);
   --global-img-filter: brightness(0) invert(1);
+  --alt-img-filter: brightness(1) invert(1);
   --global-input-text-color: #026f94;
   --global-placeholder: #aad6f770;
   --global-text-color: rgb(1, 46, 77);
@@ -59,3 +62,4 @@ button:not(:disabled):hover {
 .page {
   background-color: var(--global-bg-color);
 }
+

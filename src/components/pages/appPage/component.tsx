@@ -21,6 +21,7 @@ const PageWithUser = (props: AppPageProps) => {
     name: '',
     uid: '',
     desks: {},
+    requests: { sended: {}, received: {} },
   });
 
   const sortedDesks = Object.values(userValue.desks || []).sort(sortCards);

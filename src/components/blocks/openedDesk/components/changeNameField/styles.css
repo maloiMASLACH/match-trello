@@ -18,8 +18,8 @@ input.newDeskName[type=text]:not(.browser-default){
 .newDeskNameSubmit{
     background-color: var(--global-active-color);
     border: none;
-    width: 8vw;
-    height: 80%;
+    width: 20%;
+    height: 50px;
     border-radius: 10px;
     color: white;
     font-weight: 400;
@@ -45,7 +45,7 @@ input.newDeskName[type=text]:not(.browser-default){
         width: 100%;
     }
     input.newDeskName[type=text]:not(.browser-default){
-        border-bottom: darkorange solid 3px;
+        border-bottom: var(--global-border-color) solid 3px;
         color: white;
         font-size: xx-large;
         width: 60%;
