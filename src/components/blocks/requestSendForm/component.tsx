@@ -47,7 +47,7 @@ const RequestSendForm = (props: RequestSendFormProps) => {
         key: userKey,
       })
       .then(() => {
-        firebase.receiverName(uid || '', selectedUser?.uid || '').update({
+        firebase.senderName(uid || '', selectedUser?.uid || '').update({
           mail: selectedUser?.mail,
           key: selectedUser?.uid,
         });
