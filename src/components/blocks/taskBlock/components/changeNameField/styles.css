@@ -1,9 +1,9 @@
 .appPage div.changeTaskBlock{
-  display: flex;
+  display: inline-block;
   margin: 0;
 }
 .appPage div.changeTaskInputBlock{
-  width: 35%;
+  width: 95%;
   height: fit-content;
   margin: 0 10px;
   display: inline-block;
@@ -16,6 +16,12 @@
   margin: 10px auto;
   font-size: small;
   line-height: 10px;
+}
+.appPage div.changeTaskInputBlock textarea{
+  color: white;
+  height: 70px;
+  border: 2px solid var(--global-border-color);
+  font-size: large;
 }
 @media screen and (max-width: 680px) {
   .appPage div .changeTaskBlock {

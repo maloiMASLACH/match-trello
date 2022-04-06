@@ -16,6 +16,7 @@ const RequestList = (props: RequestListProps) => {
     <>
       <div className="requester">
         <p className="requesterMail">{requester.sender.mail}</p>
+        <p className="requesterMail">{Object.values(requester.tasks).length}</p>
         <i className="fa fa-eye" aria-hidden="true" onClick={handleChanging} />
       </div>
       <div className={`receivedTasks ${isVisible}`}>

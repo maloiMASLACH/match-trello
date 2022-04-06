@@ -47,7 +47,7 @@
     11px 11px 0px #b4f0f8, 14px 14px 0px #ffffff, 17px 17px 0px #ffffff;
 }
 button:disabled {
-  opacity: 0.2;
+  opacity: 0.5;
 }
 button:not(:disabled) {
   cursor: pointer;

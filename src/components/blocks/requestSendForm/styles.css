@@ -1,0 +1,9 @@
+.sendRequestBlock p{
+    color: var(--global-active-color);
+
+}
+.sendRequestBlock textarea{
+    border: 1px solid var(--global-border-color);
+    height: 80px;
+    padding: 10px;
+}

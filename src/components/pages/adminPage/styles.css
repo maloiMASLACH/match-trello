@@ -15,6 +15,9 @@
 .adminPage .usersList div{
     display: flex;
 }
+.adminPage .usersList div.users{
+  flex-wrap: wrap;
+}
 .adminPage .usersList .user{
     margin: 20px;
     padding: 10px;

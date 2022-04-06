@@ -37,7 +37,10 @@ const PageWithUser = (props: RequestPageWithUserProps) => {
         <p className="requestPageTitle">Sended request</p>
         {userValue?.requests?.sended
           && Object.values(userValue.requests.sended).map((requester) => (
-            <SenderContext.Provider value={requester.sender} key={requester.sender.key}>
+            <SenderContext.Provider
+              value={requester.sender}
+              key={requester.sender.key}
+            >
               {requester.tasks && <SendedList requester={requester} />}
             </SenderContext.Provider>
           ))}
@@ -46,7 +49,10 @@ const PageWithUser = (props: RequestPageWithUserProps) => {
         <p className="requestPageTitle">Received tasks</p>
         {userValue?.requests?.received
           && Object.values(userValue.requests.received || []).map((requester) => (
-            <RequesterContext.Provider value={requester.sender} key={requester.sender.key}>
+            <RequesterContext.Provider
+              value={requester.sender}
+              key={requester.sender.key}
+            >
               {requester.tasks && <RequestList requester={requester} />}
             </RequesterContext.Provider>
           ))}

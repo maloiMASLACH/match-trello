@@ -13,7 +13,7 @@ const UsersList = (props: UsersListProps) => {
   return (
     <>
       <p className="adminPageTitle">Users</p>
-      <div>
+      <div className="users">
         {users.map((user) => (
           <div className="user">
             <ul>

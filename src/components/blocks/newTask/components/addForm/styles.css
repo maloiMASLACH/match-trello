@@ -1,59 +1,66 @@
+.addTaskBlock img.addTaskImgClose {
+  margin: 5px 0;
+  margin-right: 10px;
+  width: 5%;
+}
+.addTaskBlock img.addTaskImgClose:hover {
+  opacity: 0.7;
+}
 
-.addTaskBlock img.addTaskImgClose{
-    margin: 5px 0;
-    margin-right: 10px;
-    width: 5%;
+.addTaskBlock div.inputBlock {
+  margin: 0 5px;
+  padding: 0;
+  width: 40%;
 }
-.addTaskBlock img.addTaskImgClose:hover{
-    opacity: 0.7;
+.addTaskBlock div.inputBlock textarea {
+  border: var(--global-border-color) 2px solid;
+  color: white;
+  height: 55px;
 }
-
-.addTaskBlock div.inputBlock{
-    margin: 0 5px;
-    padding: 0;
-    width: 40%;
+.addTaskBlock div.inputBlock textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
 }
-.addTaskBlock div.inputBlock p{
-    font-size: small;
-    margin: -5px 0px 5px 5px
+.addTaskBlock div.inputBlock p {
+  font-size: small;
+  margin: -5px 0px 5px 5px;
 }
-.addTaskBlock input[type=text]:not(.browser-default){
-    margin: 16px auto;
-    color: white;
-    font-size: x-large;
-    width: 100%;
-    border-bottom: 2px solid var(--global-border-color);
+.addTaskBlock input[type="text"]:not(.browser-default) {
+  margin: 16px auto;
+  color: white;
+  font-size: x-large;
+  width: 100%;
+  border-bottom: 2px solid var(--global-border-color);
 }
-.addTaskBlock input[type=text]:not(.browser-default)::placeholder{
-    color: rgba(255, 255, 255, 0.7);
+.addTaskBlock input[type="text"]:not(.browser-default)::placeholder {
+  color: rgba(255, 255, 255, 0.7);
 }
 .addTaskBlock button {
-    margin: 0 auto;
-    border: none;
-    color: white;
-    text-transform: uppercase;
-    font-size: large;
-    font-weight: 800;
-    letter-spacing: 1px;
-    background-color: var(--global-active-color);
-    height: 50px;
-    width: 150px;
+  margin: 0 auto;
+  border: none;
+  color: white;
+  text-transform: uppercase;
+  font-size: large;
+  font-weight: 800;
+  letter-spacing: 1px;
+  background-color: var(--global-active-color);
+  height: 50px;
+  width: 150px;
 }
 
 @media screen and (max-width: 768px) {
-    .addTaskBlock input[type=text]:not(.browser-default){
-        margin: 16px auto;
-        color: white;
-        font-size: x-large;
-        width: 90%;
-    }
-    .addTaskBlock img.addTaskImgClose{
-        margin: 15px 0;
-        width: 10%;
-    }
-    .addTaskBlock div.inputBlock{
-        margin: 0 5px;
-        padding: 0;
-        width: 80%;
-    }
+  .addTaskBlock input[type="text"]:not(.browser-default) {
+    margin: 16px auto;
+    color: white;
+    font-size: x-large;
+    width: 90%;
   }
+  .addTaskBlock img.addTaskImgClose {
+    margin: 15px 0;
+    width: 10%;
+  }
+  .addTaskBlock div.inputBlock {
+    margin: 0 5px;
+    padding: 0;
+    width: 80%;
+  }
+}

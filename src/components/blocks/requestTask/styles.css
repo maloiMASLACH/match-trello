@@ -16,6 +16,7 @@
   height: 150px;
 }
 .requestPage div.task.false {
+  justify-content: center;
   height: fit-content;
 }
 .requestPage .task .taskDescription {
