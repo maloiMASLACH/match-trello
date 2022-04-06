@@ -6,6 +6,7 @@ import UserValueContext from '../../../../../utils/valueContexts/userValueContex
 import sortCards from '../../../../../utils/sortCards';
 import { HandleActive } from '../../../../../types/toggle';
 import patterns, { validateBlockName } from '../../../../../utils/patterns';
+import InputBlock from '../../../../controls/input';
 
 const AddForm = (props: HandleActive) => {
   const { handleActive } = props;
@@ -14,9 +15,6 @@ const AddForm = (props: HandleActive) => {
   const firebase = useContext(FirebaseContext);
 
   const [inputValue, setInputValue] = useState('');
-  const [touched, setTouched] = useState(false);
-
-  const errorMessage = validateBlockName(inputValue);
 
   const addDesk = () => {
     let lastId = 0;
@@ -47,16 +45,15 @@ const AddForm = (props: HandleActive) => {
         onClick={handleActive}
         aria-hidden="true"
       />
-      <input
-        onBlur={() => {
-          setTouched(true);
-        }}
-        type="text"
+      <InputBlock
+        id={inputValue}
         value={inputValue}
+        label=""
         placeholder="Desk name"
-        onChange={(e) => setInputValue(e.target.value)}
+        type="text"
+        validation={validateBlockName}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
       />
-      <p>{touched && errorMessage}</p>
       <button
         type="submit"
         title="Use 1-10 letters or numbers without special symbols"

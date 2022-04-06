@@ -18,19 +18,18 @@ const InputBlock = (props: InputBlockProps) => {
 
   return (
     <>
-      <input value={value} {...rest} type={isVisible ? 'text' : type} placeholder={rest.placeholder} id={id} onBlur={() => setTouched(true)} />
+      <input
+        value={value}
+        {...rest}
+        type={isVisible ? 'text' : type}
+        placeholder={rest.placeholder}
+        id={id}
+        onBlur={() => setTouched(true)}
+      />
       {type === 'password' && (
-        <i
-          className="fa fa-eye"
-          aria-hidden="true"
-          onClick={handleChanging}
-        />
+        <i className="fa fa-eye" aria-hidden="true" onClick={handleChanging} />
       )}
       <p>{touched && errorMessage}</p>
-      <label htmlFor={id} className="active singInputText">
-        {label}
-        <input type="radio" />
-      </label>
     </>
   );
 };

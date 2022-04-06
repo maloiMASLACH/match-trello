@@ -33,9 +33,10 @@ input.newTaskName[type=text]:not(.browser-default){
 .taskRedactSubmit{
   background-color: var(--global-active-color);
   border: none;
-  min-width: 10%;
+  min-width: 80%;
   color: white;
-  font-weight: 400;
+  font-weight: 600;
+  letter-spacing: 5px;
   margin-left: 0px;
 }
 

@@ -5,6 +5,7 @@ import UserValueContext from '../../../../../utils/valueContexts/userValueContex
 import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
 import patterns, { validateBlockName } from '../../../../../utils/patterns';
 import { ChangeDeskNameProps } from '../../../../../types/changeInput';
+import InputBlock from '../../../../controls/input';
 
 const ChangeNameField = (props: ChangeDeskNameProps) => {
   const { handleChanging } = props;
@@ -14,8 +15,6 @@ const ChangeNameField = (props: ChangeDeskNameProps) => {
   const deskValue = useContext(DeskValueContext);
 
   const [inputValue, setInputValue] = useState(deskValue.deskName || '');
-
-  const errorMessage = validateBlockName(inputValue);
 
   const renameDesk = () => {
     const deskObjName = deskValue.deskName.split(' ').join('');
@@ -32,14 +31,16 @@ const ChangeNameField = (props: ChangeDeskNameProps) => {
 
   return (
     <div className="changeDeskNameInputBlock">
-      <input
+      <InputBlock
         className="newDeskName"
-        type="text"
+        id={inputValue}
         value={inputValue}
+        label=""
         placeholder="New desk name"
-        onChange={(e) => setInputValue(e.target.value)}
+        type="text"
+        validation={validateBlockName}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
       />
-      <p className="changeNameError">{errorMessage}</p>
       <button
         className="newDeskNameSubmit"
         title="Use 1-10 letters or numbers without special symbols"

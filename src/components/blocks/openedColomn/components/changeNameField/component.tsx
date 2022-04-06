@@ -3,6 +3,7 @@ import patterns, { validateBlockName } from '../../../../../utils/patterns';
 import { ChangeColumnProps } from '../../../../../types/changeInput';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
+import InputBlock from '../../../../controls/input';
 
 const ChangeNameField = (props: ChangeColumnProps) => {
   const {
@@ -13,8 +14,6 @@ const ChangeNameField = (props: ChangeColumnProps) => {
   const columnValue = useContext(ColumnValueContext);
 
   const [inputValue, setInputValue] = useState(columnValue.columnName || '');
-
-  const errorMessage = validateBlockName(inputValue);
 
   const renameColumn = () => {
     const columnObjName = columnValue.columnName.split(' ').join('');
@@ -31,14 +30,16 @@ const ChangeNameField = (props: ChangeColumnProps) => {
 
   return (
     <div className="changeDeskNameInputBlock">
-      <input
+      <InputBlock
         className="newDeskName"
-        type="text"
+        id={inputValue}
         value={inputValue}
+        label=""
         placeholder="New column name"
-        onChange={(e) => setInputValue(e.target.value)}
+        type="text"
+        validation={validateBlockName}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
       />
-      <p className="changeNameError">{errorMessage}</p>
       <button
         className="newDeskNameSubmit"
         title="Use 1-10 letters or numbers without special symbols"

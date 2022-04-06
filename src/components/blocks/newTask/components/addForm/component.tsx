@@ -5,6 +5,8 @@ import sortCards from '../../../../../utils/sortCards';
 import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
 import { NewTaskAddProps } from '../../../../../types/newTask';
 import patterns, { validateBlockName, validateDescription } from '../../../../../utils/patterns';
+import TextArea from '../../../../controls/textarea';
+import InputBlock from '../../../../controls/input';
 
 const AddForm = (props: NewTaskAddProps) => {
   const { uid, deskObjName, handleActive } = props;
@@ -15,13 +17,6 @@ const AddForm = (props: NewTaskAddProps) => {
   const [inputName, setInputName] = useState('');
   const [inputDate, setInputDate] = useState('');
   const [inputDescription, setInputDescription] = useState('');
-  const [touchedName, setTouchedName] = useState(false);
-  const [touchedDate, setTouchedDate] = useState(false);
-  const [touchedDescription, setTouchedDescription] = useState(false);
-
-  const errorName = validateBlockName(inputName);
-  const errorDate = validateBlockName(inputDate);
-  const errorDescription = validateDescription(inputDescription.toString());
 
   const addTask = () => {
     let lastId = 0;
@@ -49,40 +44,45 @@ const AddForm = (props: NewTaskAddProps) => {
   return (
     <div className="addTaskBlock">
       <div className="inputBlock">
-        <input
-          onBlur={() => setTouchedName(true)}
-          type="text"
+        <InputBlock
+          id={inputName}
           value={inputName}
+          label=""
           placeholder="Task name"
-          onChange={(e) => setInputName(e.target.value)}
+          type="text"
+          validation={validateBlockName}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputName(e.target.value)}
         />
-        <p>{touchedName && errorName}</p>
       </div>
       <div className="inputBlock">
-        <input
-          onBlur={() => setTouchedDate(true)}
-          type="text"
+        <InputBlock
+          id={inputDate}
           value={inputDate}
+          label=""
           placeholder="Task date"
-          onChange={(e) => setInputDate(e.target.value)}
+          type="text"
+          validation={validateBlockName}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputDate(e.target.value)}
         />
-        <p>{touchedDate && errorDate}</p>
       </div>
       <div className="inputBlock">
-        <input
-          onBlur={() => setTouchedDescription(true)}
-          type="text"
+        <TextArea
+          id="Description"
           value={inputDescription}
-          placeholder="Task description"
-          onChange={(e) => setInputDescription(e.target.value)}
+          onChange={
+            (e: React.ChangeEvent<HTMLTextAreaElement>) => setInputDescription(e.target.value)
+          }
+          placeholder="Description"
+          validation={validateDescription}
         />
-        <p>{touchedDescription && errorDescription}</p>
       </div>
 
       <button
         title="Use 1-10 letters or numbers without special symbols"
         type="submit"
-        disabled={!(patterns.blockName.test(inputName)) || !(patterns.blockName.test(inputDate))}
+        disabled={!(patterns.blockName.test(inputName))
+          || !(patterns.blockName.test(inputDate))
+          || inputDescription.length > 120}
         onClick={addTask}
       >
         confirm

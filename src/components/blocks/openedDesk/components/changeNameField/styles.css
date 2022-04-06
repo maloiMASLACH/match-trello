@@ -11,6 +11,9 @@ input.newDeskName[type=text]:not(.browser-default){
     justify-content: space-between;
     width: 70%;
 }
+.appPage div.changeDeskNameInputBlock p{
+    color: white;
+}
 .newDeskName::placeholder{
     font-size: xx-large;
     color: var(--global-placeholder);

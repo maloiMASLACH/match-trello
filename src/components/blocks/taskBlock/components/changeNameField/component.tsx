@@ -4,6 +4,8 @@ import { ChangeTaskProps } from '../../../../../types/changeInput';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import TaskValueContext from '../../../../../utils/valueContexts/taskValueContext';
 import './styles.css';
+import TextArea from '../../../../controls/textarea';
+import InputBlock from '../../../../controls/input';
 
 const ChangeTaskField = (props: ChangeTaskProps) => {
   const {
@@ -16,10 +18,6 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
   const [inputName, setInputName] = useState(taskValue.taskName || '');
   const [inputDate, setInputDate] = useState(taskValue.date || '');
   const [inputDescription, setInputDescription] = useState(taskValue.description || '');
-
-  const errorName = validateBlockName(inputName);
-  const errorDate = validateBlockName(inputDate);
-  const errorDescription = validateDescription(inputDescription.toString());
 
   const renameTask = () => {
     const taskObjName = taskValue.taskName.split(' ').join('');
@@ -39,41 +37,49 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
   return (
     <div className="changeTaskBlock">
       <div className="changeTaskInputBlock">
-        <input
-          className="newTaskName"
-          type="text"
+        <InputBlock
+          id={inputName}
           value={inputName}
+          label=""
           placeholder="Task"
-          onChange={(e) => setInputName(e.target.value)}
+          type="text"
+          className="newTaskName"
+          validation={validateBlockName}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputName(e.target.value)}
         />
-        <p>{errorName}</p>
       </div>
       <div className="changeTaskInputBlock">
-        <input
-          className="newTaskName"
-          type="text"
+        <InputBlock
+          id={inputDate}
           value={inputDate}
-          placeholder="Date"
-          onChange={(e) => setInputDate(e.target.value)}
+          label=""
+          placeholder="Task"
+          type="text"
+          className="newTaskName"
+          validation={validateBlockName}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputDate(e.target.value)}
         />
-        <p>{errorDate}</p>
       </div>
       <div className="changeTaskInputBlock">
-        <input
+        <TextArea
+          id="Description"
           className="newTaskName"
-          type="text"
           value={inputDescription}
-          placeholder="Task"
-          onChange={(e) => setInputDescription(e.target.value)}
+          onChange={
+            (e: React.ChangeEvent<HTMLTextAreaElement>) => setInputDescription(e.target.value)
+          }
+          placeholder="Description"
+          validation={validateDescription}
         />
-        <p>{errorDescription}</p>
       </div>
       <button
         className="taskRedactSubmit"
         title="Use 1-10 letters or numbers without special symbols"
         type="submit"
         onClick={renameTask}
-        disabled={!(patterns.blockName.test(inputName)) || !(patterns.blockName.test(inputDate))}
+        disabled={!(patterns.blockName.test(inputName))
+          || !(patterns.blockName.test(inputDate))
+          || inputDescription.length > 120}
       >
         OK
       </button>

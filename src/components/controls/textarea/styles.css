@@ -1,0 +1,8 @@
+textarea {
+  color: var(--global-active-color);
+  resize: none;
+  border-bottom: 1px solid var(--global-border-color);
+}
+textarea:focus {
+  outline-color: var(--global-border-color);
+}

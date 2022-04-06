@@ -9,6 +9,7 @@ import patterns, {
 } from '../../../utils/patterns';
 import InputBlock from '../../controls/input';
 import Select from '../../controls/select';
+import TextArea from '../../controls/textarea';
 import './styles.css';
 
 const RequestSendForm = (props: RequestSendFormProps) => {
@@ -81,6 +82,7 @@ const RequestSendForm = (props: RequestSendFormProps) => {
           }
         }}
       />
+      {selectedUser?.uid.slice(1) === uid && <p>Choose another user</p>}
       <div className="inputBlock">
         <InputBlock
           id={inputName}
@@ -104,14 +106,14 @@ const RequestSendForm = (props: RequestSendFormProps) => {
         />
       </div>
       <div className="inputBlock">
-        <InputBlock
+        <TextArea
           id={inputDescription}
           value={inputDescription}
-          label=""
           placeholder="Task description"
-          type="text"
           validation={validateDescription}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputDescription(e.target.value)}
+          onChange={
+            (e: React.ChangeEvent<HTMLTextAreaElement>) => setInputDescription(e.target.value)
+          }
         />
       </div>
       <button
@@ -119,6 +121,8 @@ const RequestSendForm = (props: RequestSendFormProps) => {
         disabled={
           !patterns.blockName.test(inputName)
           || !patterns.blockName.test(inputDate)
+          || selectedUser?.uid.slice(1) === uid
+          || inputDescription.length > 120
         }
         onClick={sendTask}
       >

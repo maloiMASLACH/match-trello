@@ -10,7 +10,7 @@ const Select = (props: SelectProps) => {
   return (
     <select
       {...rest}
-      value={selected}
+      defaultValue={selected}
     >
       {values.map((option) => (
         <option

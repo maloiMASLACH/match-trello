@@ -6,6 +6,7 @@ import sortCards from '../../../../../utils/sortCards';
 import { task } from '../../../../../constants/voidObjects';
 import { NewColumnAddProps } from '../../../../../types/newColumn';
 import patterns, { validateBlockName } from '../../../../../utils/patterns';
+import InputBlock from '../../../../controls/input';
 
 const AddForm = (props: NewColumnAddProps) => {
   const { uid, handleActive } = props;
@@ -14,9 +15,6 @@ const AddForm = (props: NewColumnAddProps) => {
   const deskValue = useContext(DeskValueContext);
 
   const [inputValue, setInputValue] = useState('');
-  const [touched, setTouched] = useState(false);
-
-  const errorMessage = validateBlockName(inputValue);
 
   const addColumn = () => {
     let lastId = 0;
@@ -48,14 +46,15 @@ const AddForm = (props: NewColumnAddProps) => {
         onClick={handleActive}
         aria-hidden="true"
       />
-      <input
-        onBlur={() => setTouched(true)}
-        type="text"
+      <InputBlock
+        id={inputValue}
         value={inputValue}
+        label=""
         placeholder="Colon name"
-        onChange={(e) => setInputValue(e.target.value)}
+        type="text"
+        validation={validateBlockName}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
       />
-      <p>{touched && errorMessage}</p>
       <button
         type="submit"
         title="Use 1-10 letters or numbers without special symbols"

@@ -9,6 +9,8 @@ import './styles.css';
 import { ChangeRequestTaskProps } from '../../../../../types/requestPage';
 import RequesterContext from '../../../../../utils/valueContexts/requesterContext';
 import SenderContext from '../../../../../utils/valueContexts/senderContext';
+import TextArea from '../../../../controls/textarea';
+import InputBlock from '../../../../controls/input';
 
 const ChangeRequestTaskField = (props: ChangeRequestTaskProps) => {
   const { task, received, handleChanging } = props;
@@ -25,10 +27,6 @@ const ChangeRequestTaskField = (props: ChangeRequestTaskProps) => {
     task.description || '',
   );
 
-  const errorName = validateBlockName(inputName);
-  const errorDate = validateBlockName(inputDate);
-  const errorDescription = validateDescription(inputDescription.toString());
-
   const renameTask = () => {
     const taskObjName = task.taskName.split(' ').join('');
     const newTaskObjName = inputName.split(' ').join('');
@@ -39,7 +37,16 @@ const ChangeRequestTaskField = (props: ChangeRequestTaskProps) => {
         received ? requester.key.slice(1) : uid || '',
         taskObjName,
       )
-      .set(null);
+      .set(null)
+      .then(() => {
+        firebase
+          .sendedTask(
+            received ? requester.key.slice(1) : uid || '',
+            received ? uid || '' : receiver.key.slice(1),
+            taskObjName,
+          )
+          .set(null);
+      });
 
     task.taskName = inputName;
     task.date = inputDate;
@@ -51,7 +58,16 @@ const ChangeRequestTaskField = (props: ChangeRequestTaskProps) => {
         received ? requester.key.slice(1) : uid || '',
         newTaskObjName,
       )
-      .set(task);
+      .set(task)
+      .then(() => {
+        firebase
+          .sendedTask(
+            received ? requester.key.slice(1) : uid || '',
+            received ? uid || '' : receiver.key.slice(1),
+            newTaskObjName,
+          )
+          .set(newTaskObjName);
+      });
 
     handleChanging();
   };
@@ -59,34 +75,38 @@ const ChangeRequestTaskField = (props: ChangeRequestTaskProps) => {
   return (
     <div className="changeTaskBlock">
       <div className="changeTaskInputBlock">
-        <input
-          className="newTaskName"
-          type="text"
+        <InputBlock
+          id={inputName}
           value={inputName}
+          label=""
           placeholder="Task"
-          onChange={(e) => setInputName(e.target.value)}
+          type="text"
+          validation={validateBlockName}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputName(e.target.value)}
         />
-        <p>{errorName}</p>
       </div>
       <div className="changeTaskInputBlock">
-        <input
-          className="newTaskName"
-          type="text"
+        <InputBlock
+          id={inputDate}
           value={inputDate}
+          label=""
           placeholder="Date"
-          onChange={(e) => setInputDate(e.target.value)}
+          type="text"
+          validation={validateBlockName}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputDate(e.target.value)}
         />
-        <p>{errorDate}</p>
       </div>
       <div className="changeTaskInputBlock">
-        <input
+        <TextArea
+          id="Description"
           className="newTaskName"
-          type="text"
           value={inputDescription}
+          onChange={
+            (e: React.ChangeEvent<HTMLTextAreaElement>) => setInputDescription(e.target.value)
+          }
           placeholder="Description"
-          onChange={(e) => setInputDescription(e.target.value)}
+          validation={validateDescription}
         />
-        <p>{errorDescription}</p>
       </div>
       <button
         className="taskRedactSubmit"
@@ -96,6 +116,7 @@ const ChangeRequestTaskField = (props: ChangeRequestTaskProps) => {
         disabled={
           !patterns.blockName.test(inputName)
           || !patterns.blockName.test(inputDate)
+          || inputDescription.length > 120
         }
       >
         OK
