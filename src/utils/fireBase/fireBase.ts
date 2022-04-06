@@ -89,18 +89,18 @@ class Firebase {
     taskObjName:string,
   ) => this.db.ref(`users/${uid}/requests/received/${sender}/tasks/${taskObjName}/completed`);
 
-  requesterName = (
-    uid:string,
-    sender:string,
-  ) => this.db.ref(`users/${uid}/requests/received/${sender}/sender/`);
-
   sendedTask = (
     uid:string,
     receiver:string,
     taskObjName:string,
   ) => this.db.ref(`users/${uid}/requests/sended/${receiver}/tasks/${taskObjName}`);
 
-  receiverName = (
+  requesterName = (
+    uid:string,
+    sender:string,
+  ) => this.db.ref(`users/${uid}/requests/received/${sender}/sender/`);
+
+  senderName = (
     uid:string,
     receiver:string,
   ) => this.db.ref(`users/${uid}/requests/sended/${receiver}/sender/`);
