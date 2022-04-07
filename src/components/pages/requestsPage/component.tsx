@@ -29,6 +29,7 @@ const PageWithUser = (props: RequestPageWithUserProps) => {
       <div className="sendRequestBlock">
         <p className="requestPageTitle">New request</p>
         <RequestPageForm
+          uid={userId}
           userMail={userValue?.mail || ''}
           userKey={userValue?.uid || ''}
         />
@@ -41,7 +42,9 @@ const PageWithUser = (props: RequestPageWithUserProps) => {
               value={requester.sender}
               key={requester.sender.key}
             >
-              {requester.tasks && <SendedList requester={requester} />}
+              {requester.tasks && (
+                <SendedList uid={userId} requester={requester} />
+              )}
             </SenderContext.Provider>
           ))}
       </div>
@@ -53,7 +56,9 @@ const PageWithUser = (props: RequestPageWithUserProps) => {
               value={requester.sender}
               key={requester.sender.key}
             >
-              {requester.tasks && <RequestList requester={requester} />}
+              {requester.tasks && (
+                <RequestList requester={requester} uid={userId} />
+              )}
             </RequesterContext.Provider>
           ))}
       </div>
