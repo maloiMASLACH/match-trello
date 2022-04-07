@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import patterns, {
   validateBlockName,
   validateDescription,
@@ -13,9 +12,9 @@ import TextArea from '../../../../controls/textarea';
 import InputBlock from '../../../../controls/input';
 
 const ChangeRequestTaskField = (props: ChangeRequestTaskProps) => {
-  const { task, received, handleChanging } = props;
-
-  const { uid } = useParams();
+  const {
+    task, received, handleChanging, uid,
+  } = props;
 
   const firebase = useContext(FirebaseContext);
   const requester = useContext(RequesterContext);
@@ -28,21 +27,21 @@ const ChangeRequestTaskField = (props: ChangeRequestTaskProps) => {
   );
 
   const renameTask = () => {
-    const taskObjName = task.taskName.split(' ').join('');
-    const newTaskObjName = inputName.split(' ').join('');
+    const taskObjName = task.taskName.split(' ').join('') + task.id;
+    const newTaskObjName = inputName.split(' ').join('') + task.id;
 
     firebase
       .sendRequest(
-        received ? uid || '' : receiver.key.slice(1),
-        received ? requester.key.slice(1) : uid || '',
+        received ? uid : receiver.key.slice(1),
+        received ? requester.key.slice(1) : uid,
         taskObjName,
       )
       .set(null)
       .then(() => {
         firebase
           .sendedTask(
-            received ? requester.key.slice(1) : uid || '',
-            received ? uid || '' : receiver.key.slice(1),
+            received ? requester.key.slice(1) : uid,
+            received ? uid : receiver.key.slice(1),
             taskObjName,
           )
           .set(null);
@@ -54,16 +53,16 @@ const ChangeRequestTaskField = (props: ChangeRequestTaskProps) => {
 
     firebase
       .sendRequest(
-        received ? uid || '' : receiver.key.slice(1),
-        received ? requester.key.slice(1) : uid || '',
+        received ? uid : receiver.key.slice(1),
+        received ? requester.key.slice(1) : uid,
         newTaskObjName,
       )
       .set(task)
       .then(() => {
         firebase
           .sendedTask(
-            received ? requester.key.slice(1) : uid || '',
-            received ? uid || '' : receiver.key.slice(1),
+            received ? requester.key.slice(1) : uid,
+            received ? uid : receiver.key.slice(1),
             newTaskObjName,
           )
           .set(newTaskObjName);

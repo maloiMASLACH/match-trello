@@ -20,8 +20,8 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
   const [inputDescription, setInputDescription] = useState(taskValue.description || '');
 
   const renameTask = () => {
-    const taskObjName = taskValue.taskName.split(' ').join('');
-    const newObj = inputName.split(' ').join('');
+    const taskObjName = taskValue.taskName.split(' ').join('') + taskValue.id;
+    const newObj = inputName.split(' ').join('') + taskValue.id;
 
     firebase.task(uid, deskObjName, columnObjName, taskObjName).set(null);
 

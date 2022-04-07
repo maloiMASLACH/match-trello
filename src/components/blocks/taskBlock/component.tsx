@@ -16,7 +16,7 @@ const Task = (props: TaskProps) => {
 
   const [isChanging, setChanging] = useState<boolean>(false);
 
-  const taskObjName = taskValue.taskName.split(' ').join('');
+  const taskObjName = taskValue.taskName.split(' ').join('') + taskValue.id;
 
   const handleChanging = () => {
     setChanging((prevState) => !prevState);
@@ -71,10 +71,10 @@ const Task = (props: TaskProps) => {
             className="taskCheckBox"
             type="checkbox"
             checked={taskValue.completed}
-            id={taskValue.taskName}
+            id={taskObjName}
             onChange={setCompleted}
           />
-          <label htmlFor={taskValue.taskName}>
+          <label htmlFor={taskObjName}>
             <input type="checkbox" id="rule" />
             <div id="tick_mark" />
           </label>

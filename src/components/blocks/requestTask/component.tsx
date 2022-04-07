@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import './styles.css';
-import { useParams } from 'react-router-dom';
 import { RequestTaskProps } from '../../../types/requestPage';
 import ChangeRequestTaskField from './components/changeNameField/component';
 import { FirebaseContext } from '../../../utils/fireBase';
@@ -8,9 +7,7 @@ import RequesterContext from '../../../utils/valueContexts/requesterContext';
 import SenderContext from '../../../utils/valueContexts/senderContext';
 
 const RequestTask = (props: RequestTaskProps) => {
-  const { task, received } = props;
-
-  const { uid } = useParams();
+  const { task, received, uid } = props;
 
   const firebase = useContext(FirebaseContext);
   const requester = useContext(RequesterContext);
@@ -18,7 +15,7 @@ const RequestTask = (props: RequestTaskProps) => {
 
   const [isChanging, setChanging] = useState<boolean>(false);
 
-  const taskObjName = task.taskName.split(' ').join('');
+  const taskObjName = task.taskName.split(' ').join('') + task.id;
 
   const handleChanging = () => {
     setChanging((prevState) => !prevState);
@@ -27,8 +24,8 @@ const RequestTask = (props: RequestTaskProps) => {
   const setCompleted = () => {
     firebase
       .setRequestComplete(
-        received ? uid || '' : receiver.key.slice(1),
-        received ? requester.key.slice(1) : uid || '',
+        received ? uid : receiver.key.slice(1),
+        received ? requester.key.slice(1) : uid,
         taskObjName,
       )
       .set(!task.completed);
@@ -37,16 +34,16 @@ const RequestTask = (props: RequestTaskProps) => {
   const deleteTask = () => {
     firebase
       .sendRequest(
-        received ? uid || '' : receiver.key.slice(1),
-        received ? requester.key.slice(1) : uid || '',
+        received ? uid : receiver.key.slice(1),
+        received ? requester.key.slice(1) : uid,
         taskObjName,
       )
       .set(null)
       .then(() => {
         firebase
           .sendedTask(
-            received ? requester.key.slice(1) : uid || '',
-            received ? uid || '' : receiver.key.slice(1),
+            received ? requester.key.slice(1) : uid,
+            received ? uid : receiver.key.slice(1),
             taskObjName,
           )
           .set(null);
@@ -76,10 +73,10 @@ const RequestTask = (props: RequestTaskProps) => {
             className="taskCheckBox"
             type="checkbox"
             checked={task.completed}
-            id={task.taskName}
+            id={taskObjName}
             onChange={setCompleted}
           />
-          <label htmlFor={task.taskName}>
+          <label htmlFor={taskObjName}>
             <input type="checkbox" id="rule" />
             <div id="tick_mark" />
           </label>
@@ -90,6 +87,7 @@ const RequestTask = (props: RequestTaskProps) => {
         </>
       ) : (
         <ChangeRequestTaskField
+          uid={uid}
           task={task}
           received={received}
           handleChanging={handleChanging}

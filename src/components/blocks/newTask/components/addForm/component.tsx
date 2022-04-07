@@ -28,7 +28,7 @@ const AddForm = (props: NewTaskAddProps) => {
     }
 
     const columnObjName = columnValue.columnName.split(' ').join('');
-    const taskObjName = inputName.split(' ').join('');
+    const taskObjName = inputName.split(' ').join('') + (lastId + 1);
 
     firebase.task(uid, deskObjName, columnObjName, taskObjName).update({
       taskName: inputName,

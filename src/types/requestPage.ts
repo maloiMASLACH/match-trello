@@ -1,4 +1,4 @@
-interface TaskType {
+export interface RequestType {
   taskName: string;
   completed: boolean;
   date: string;
@@ -8,12 +8,12 @@ interface TaskType {
 
 export interface RequestsType {
   sended: { [key: number]: SenderGroupType };
-  received: { [key: number]: RequestGroupType };
+  received: { [key: string]: RequestGroupType };
 }
 
 export interface RequestGroupType {
   sender: SenderType;
-  tasks: { [key: number]: TaskType };
+  tasks: { [key: number]: RequestType };
 }
 
 export interface SenderGroupType {
@@ -27,10 +27,12 @@ export interface SenderType {
 }
 
 export interface RequestListProps{
+  uid: string;
   requester: RequestGroupType;
 }
 
 export interface SenderListProps{
+  uid: string;
   requester: SenderGroupType;
 }
 
@@ -39,17 +41,20 @@ export interface RequestPageWithUserProps {
 }
 
 export interface RequestSendFormProps {
+  uid: string
   userMail: string;
   userKey: string
 }
 
 export interface RequestTaskProps{
-  task: TaskType;
+  uid: string;
+  task: RequestType;
   received: boolean;
 }
 
 export interface ChangeRequestTaskProps{
-  task: TaskType;
+  uid: string;
+  task: RequestType;
   received: boolean
   handleChanging: () => void;
 }
