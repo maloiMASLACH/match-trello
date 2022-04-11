@@ -41,10 +41,10 @@ const RequestSendForm = (props: RequestSendFormProps) => {
   }, []);
 
   let lastId = 0;
-
+  console.log(users[userId]);
   const setLastId = () => {
     const { requests } = users[userId] || {};
-    if (requests && requests.received) {
+    if (requests && requests.received && requests.received[currentId]) {
       const { tasks } = requests.received[currentId];
       const sortedTasks = Object.values(tasks).sort(sortCards);
       lastId = sortedTasks[sortedTasks.length - 1].id + 1;
