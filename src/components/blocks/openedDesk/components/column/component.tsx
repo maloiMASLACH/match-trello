@@ -8,7 +8,7 @@ import { FirebaseContext } from '../../../../../utils/fireBase';
 
 const Column = (props: ColumnProps) => {
   const {
-    uid, deskObjName, currentColumn, setCurrentColumn,
+    uid, deskObjId, currentColumn, setCurrentColumn,
   } = props;
 
   const firebase = useContext(FirebaseContext);
@@ -35,7 +35,7 @@ const Column = (props: ColumnProps) => {
             columnValue,
             currentColumn,
             uid,
-            deskObjName,
+            deskObjId,
             firebase,
           });
         }}
@@ -50,7 +50,7 @@ const Column = (props: ColumnProps) => {
       {isOpenColumn && (
         <OpenedColumn
           uid={uid}
-          deskObjName={deskObjName}
+          deskObjId={deskObjId}
           handleOpened={handleOpened}
         />
       )}

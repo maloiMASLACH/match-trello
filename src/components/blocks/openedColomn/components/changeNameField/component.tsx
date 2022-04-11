@@ -4,10 +4,11 @@ import { ChangeColumnProps } from '../../../../../types/changeInput';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
 import InputBlock from '../../../../controls/input';
+import Placeholders from '../../../../../constants/placeholders';
 
 const ChangeNameField = (props: ChangeColumnProps) => {
   const {
-    uid, deskObjName, handleChanging,
+    uid, deskObjId, handleChanging,
   } = props;
 
   const firebase = useContext(FirebaseContext);
@@ -16,14 +17,12 @@ const ChangeNameField = (props: ChangeColumnProps) => {
   const [inputValue, setInputValue] = useState(columnValue.columnName || '');
 
   const renameColumn = () => {
-    const columnObjName = columnValue.columnName.split(' ').join('');
-    const newObj = inputValue.split(' ').join('');
+    const modifiedColumn = {
+      ...columnValue,
+      columnName: inputValue,
+    };
 
-    firebase.column(uid, deskObjName, columnObjName).set(null);
-
-    columnValue.columnName = inputValue;
-
-    firebase.column(uid, deskObjName, newObj).set(columnValue);
+    firebase.column(uid, deskObjId, columnValue.id).set(modifiedColumn);
 
     handleChanging();
   };
@@ -32,17 +31,15 @@ const ChangeNameField = (props: ChangeColumnProps) => {
     <div className="changeDeskNameInputBlock">
       <InputBlock
         className="newDeskName"
-        id={inputValue}
+        id="newColonName"
         value={inputValue}
-        label=""
-        placeholder="New column name"
+        placeholder={Placeholders.Colon}
         type="text"
         validation={validateBlockName}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
       />
       <button
         className="newDeskNameSubmit"
-        title="Use 1-10 letters or numbers without special symbols"
         disabled={!(patterns.blockName.test(inputValue))}
         type="submit"
         onClick={renameColumn}

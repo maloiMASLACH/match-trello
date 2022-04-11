@@ -6,6 +6,7 @@ import DeskValueContext from '../../../../../utils/valueContexts/deskValueContex
 import patterns, { validateBlockName } from '../../../../../utils/patterns';
 import { ChangeDeskNameProps } from '../../../../../types/changeInput';
 import InputBlock from '../../../../controls/input';
+import Placeholders from '../../../../../constants/placeholders';
 
 const ChangeNameField = (props: ChangeDeskNameProps) => {
   const { handleChanging } = props;
@@ -17,14 +18,12 @@ const ChangeNameField = (props: ChangeDeskNameProps) => {
   const [inputValue, setInputValue] = useState(deskValue.deskName || '');
 
   const renameDesk = () => {
-    const deskObjName = deskValue.deskName.split(' ').join('');
-    const newObj = inputValue.split(' ').join('');
+    const modifiedDesk = {
+      ...deskValue,
+      deskName: inputValue,
+    };
 
-    firebase.desk(userValue.uid, deskObjName).set(null);
-
-    deskValue.deskName = inputValue;
-
-    firebase.desk(userValue.uid, newObj).set(deskValue);
+    firebase.desk(userValue.uid, deskValue.id).set(modifiedDesk);
 
     handleChanging();
   };
@@ -33,17 +32,15 @@ const ChangeNameField = (props: ChangeDeskNameProps) => {
     <div className="changeDeskNameInputBlock">
       <InputBlock
         className="newDeskName"
-        id={inputValue}
+        id="newDeskName"
         value={inputValue}
-        label=""
-        placeholder="New desk name"
+        placeholder={Placeholders.Desk}
         type="text"
         validation={validateBlockName}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
       />
       <button
         className="newDeskNameSubmit"
-        title="Use 1-10 letters or numbers without special symbols"
         type="submit"
         disabled={!(patterns.blockName.test(inputValue))}
         onClick={renameDesk}

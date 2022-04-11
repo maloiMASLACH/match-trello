@@ -1,9 +1,11 @@
-import { HTMLAttributes } from 'react';
-
-export interface InputBlockProps extends HTMLAttributes<HTMLElement> {
+export interface InputBlockProps
+  extends React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+  > {
   id: string;
   value: string;
-  label: string;
+  label?: string;
   type: string;
-  validation: (value:string) => string;
+  validation: (value: string) => string;
 }

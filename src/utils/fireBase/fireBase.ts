@@ -42,58 +42,58 @@ class Firebase {
 
   users = () => this.db.ref('users');
 
-  desk = (uid:string, deskObjName:string) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}`);
+  desk = (uid:string, deskObjId:number) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjId}`);
 
   column = (
     uid:string,
-    deskObjName:string,
-    columnObjName:string,
-  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}/columns/${columnObjName}`);
+    deskObjId:number,
+    columnObjId:number,
+  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjId}/columns/${columnObjId}`);
 
-  columnId = (
+  columnPosition = (
     uid:string,
-    deskObjName:string,
-    columnObjName:string,
-  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}/columns/${columnObjName}/id`);
+    deskObjId:number,
+    columnObjId:number,
+  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjId}/columns/${columnObjId}/position`);
 
   task = (
     uid:string,
-    deskObjName:string,
-    columnObjName:string,
-    taskObjName:string,
-  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}/columns/${columnObjName}/tasks/${taskObjName}`);
+    deskObjId:number,
+    columnObjId:number,
+    taskObjId:number,
+  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjId}/columns/${columnObjId}/tasks/${taskObjId}`);
 
   taskCompleted = (
     uid:string,
-    deskObjName:string,
-    columnObjName:string,
-    taskObjName:string,
-  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}/columns/${columnObjName}/tasks/${taskObjName}/completed`);
+    deskObjId:number,
+    columnObjId:number,
+    taskObjId:number,
+  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjId}/columns/${columnObjId}/tasks/${taskObjId}/completed`);
 
-  taskId = (
+  taskPosition = (
     uid:string,
-    deskObjName:string,
-    columnObjName:string,
-    taskObjName:string,
-  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjName}/columns/${columnObjName}/tasks/${taskObjName}/id`);
+    deskObjId:number,
+    columnObjId:number,
+    taskObjId:number,
+  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjId}/columns/${columnObjId}/tasks/${taskObjId}/position`);
 
   sendRequest = (
     uid:string,
     sender:string,
-    taskObjName:string,
-  ) => this.db.ref(`users/${uid}/requests/received/${sender}/tasks/${taskObjName}`);
+    taskObjId:number,
+  ) => this.db.ref(`users/${uid}/requests/received/${sender}/tasks/${taskObjId}`);
 
   setRequestComplete = (
     uid:string,
     sender:string,
-    taskObjName:string,
-  ) => this.db.ref(`users/${uid}/requests/received/${sender}/tasks/${taskObjName}/completed`);
+    taskObjId:number,
+  ) => this.db.ref(`users/${uid}/requests/received/${sender}/tasks/${taskObjId}/completed`);
 
   sendedTask = (
     uid:string,
     receiver:string,
-    taskObjName:string,
-  ) => this.db.ref(`users/${uid}/requests/sended/${receiver}/tasks/${taskObjName}`);
+    taskObjId:number,
+  ) => this.db.ref(`users/${uid}/requests/sended/${receiver}/tasks/${taskObjId}`);
 
   requesterName = (
     uid:string,

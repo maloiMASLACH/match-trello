@@ -1,5 +1,5 @@
 .requestPage div.task {
-  display: flex;
+  display: block;
   width: 100%;
   font-size: x-large;
   height: 70px;
@@ -12,6 +12,24 @@
   transition: 1s;
   margin-top: 40px;
 }
+.requestPage div.task .tools{
+  display: flex;
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: -20px;
+  justify-content: center;
+  
+}
+.requestPage div.task .tools .taskDelete{
+  margin-left: 40%;
+  width: 50px;
+}
+.requestPage div.task .upperPart {
+  margin: 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
 .requestPage div.task.true:hover {
   height: 150px;
 }
@@ -20,27 +38,25 @@
   height: fit-content;
 }
 .requestPage .task .taskDescription {
-  word-wrap: break-word;
+  word-wrap:break-word;
   line-height: 15px;
   opacity: 0;
-  margin-top: 50px;
-  position: absolute;
+  margin: 0 auto;
+  margin-top: 0px;
+  position: relative;
   font-size: medium;
-  width: 18.5%;
+  width: 95%;
+  display: none;
   height: 60px;
 }
-.requestPage .taskRedact{
-    filter: var(--alt-img-filter);
-    margin-left: 4%;
-}
-.requestPage .taskDelete{
+.requestPage .taskRedact {
   filter: var(--alt-img-filter);
-    margin-left: 12%;
+  margin-left: 4%;
 }
-.requestPage .task label{
-    margin-left: 8%;
+.requestPage .taskDelete {
+  filter: var(--alt-img-filter);
+  margin-left: 12%;
 }
-
 
 @keyframes descriptionShowing {
   0% {
@@ -54,6 +70,7 @@
   }
 }
 .requestPage div.task:hover .taskDescription {
+  display: block;
   animation: descriptionShowing 1s;
   opacity: 1;
 }

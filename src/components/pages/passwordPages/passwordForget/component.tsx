@@ -6,6 +6,8 @@ import { FirebaseContext } from '../../../../utils/fireBase';
 import InputBlock from '../../../controls/input';
 import Button from '../../../controls/button';
 import ErrorBLock from '../../../blocks/errorBlock';
+import Labels from '../../../../constants/labels';
+import Placeholders from '../../../../constants/placeholders';
 
 const PasswordForget: React.FC = () => {
   const navigate = useNavigate();
@@ -35,8 +37,9 @@ const PasswordForget: React.FC = () => {
           id="Email"
           value={inputMail}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
-          label="E-Mail"
+          label={Labels.Email}
           type="email"
+          placeholder={Placeholders.Mail}
           validation={validateEmail}
         />
       </div>

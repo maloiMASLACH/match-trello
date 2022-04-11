@@ -5,9 +5,10 @@ import ChangeRequestTaskField from './components/changeNameField/component';
 import { FirebaseContext } from '../../../utils/fireBase';
 import RequesterContext from '../../../utils/valueContexts/requesterContext';
 import SenderContext from '../../../utils/valueContexts/senderContext';
+import ActiveImg from '../../controls/activeImg';
 
 const RequestTask = (props: RequestTaskProps) => {
-  const { task, received, uid } = props;
+  const { task, received, currentId } = props;
 
   const firebase = useContext(FirebaseContext);
   const requester = useContext(RequesterContext);
@@ -15,18 +16,21 @@ const RequestTask = (props: RequestTaskProps) => {
 
   const [isChanging, setChanging] = useState<boolean>(false);
 
-  const taskObjName = task.taskName.split(' ').join('') + task.id;
-
   const handleChanging = () => {
     setChanging((prevState) => !prevState);
+  };
+
+  const { senderId, receiverId } = {
+    senderId: received ? currentId : receiver.key.slice(1),
+    receiverId: received ? requester.key.slice(1) : currentId,
   };
 
   const setCompleted = () => {
     firebase
       .setRequestComplete(
-        received ? uid : receiver.key.slice(1),
-        received ? requester.key.slice(1) : uid,
-        taskObjName,
+        senderId,
+        receiverId,
+        task.id,
       )
       .set(!task.completed);
   };
@@ -34,17 +38,17 @@ const RequestTask = (props: RequestTaskProps) => {
   const deleteTask = () => {
     firebase
       .sendRequest(
-        received ? uid : receiver.key.slice(1),
-        received ? requester.key.slice(1) : uid,
-        taskObjName,
+        senderId,
+        receiverId,
+        task.id,
       )
       .set(null)
       .then(() => {
         firebase
           .sendedTask(
-            received ? requester.key.slice(1) : uid,
-            received ? uid : receiver.key.slice(1),
-            taskObjName,
+            receiverId,
+            senderId,
+            task.id,
           )
           .set(null);
       });
@@ -54,40 +58,42 @@ const RequestTask = (props: RequestTaskProps) => {
     <div className={`task ${!isChanging}`}>
       {!isChanging ? (
         <>
-          <p>{task.taskName}</p>
-          <img
-            src="./../redact.png"
-            className="taskRedact"
-            alt="x"
-            onClick={handleChanging}
-            aria-hidden="true"
-          />
-          <img
-            className="taskDelete"
-            alt="delete"
-            src="./../delete.png"
-            onClick={deleteTask}
-            aria-hidden="true"
-          />
-          <input
-            className="taskCheckBox"
-            type="checkbox"
-            checked={task.completed}
-            id={taskObjName}
-            onChange={setCompleted}
-          />
-          <label htmlFor={taskObjName}>
-            <input type="checkbox" id="rule" />
-            <div id="tick_mark" />
-          </label>
-          <p>{task.date}</p>
+          <div className="tools">
+            <ActiveImg
+              src="./../redact.png"
+              alt="redact"
+              className="taskRedact"
+              onClick={handleChanging}
+            />
+            <input
+              className="taskCheckBox"
+              type="checkbox"
+              checked={task.completed}
+              id={task.taskName + task.id}
+              onChange={setCompleted}
+            />
+            <label htmlFor={task.taskName + task.id}>
+              <input type="checkbox" id="rule" />
+              <div id="tick_mark" />
+            </label>
+            <ActiveImg
+              src="./../delete.png"
+              alt="delete"
+              className="taskDelete"
+              onClick={deleteTask}
+            />
+          </div>
+          <div className="upperPart">
+            <p>{task.taskName}</p>
+            <p>{task.date}</p>
+          </div>
           <p className="taskDescription">
             {task.description || 'No description'}
           </p>
         </>
       ) : (
         <ChangeRequestTaskField
-          uid={uid}
+          currentId={currentId}
           task={task}
           received={received}
           handleChanging={handleChanging}

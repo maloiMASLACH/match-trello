@@ -4,7 +4,7 @@ import { AppPageProps } from '../../../types/appPage';
 import { UserType } from '../../../types/globalTypes';
 import { FirebaseContext } from '../../../utils/fireBase';
 import AuthUserContext from '../../../utils/sessionHandler';
-import sortCards from '../../../utils/sortCards';
+import { sortCards } from '../../../utils/sortCards';
 import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
 import UserValueContext from '../../../utils/valueContexts/userValueContext';
 import DeskWithInfo from '../../blocks/deskWithInfo';
@@ -56,9 +56,9 @@ const PageNoUser = () => (
 const AppPage: React.FC = () => {
   const { uid } = useParams();
 
-  const authUser = useContext(AuthUserContext);
+  const { userId, isAdmin } = useContext(AuthUserContext);
 
-  return uid && (uid === authUser.uid || authUser.isAdmin) ? (
+  return uid && (uid === userId || isAdmin) ? (
     <PageWithUser userID={uid} />
   ) : (
     <PageNoUser />

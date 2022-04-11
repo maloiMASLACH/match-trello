@@ -10,10 +10,11 @@ import RequesterContext from '../../../../../utils/valueContexts/requesterContex
 import SenderContext from '../../../../../utils/valueContexts/senderContext';
 import TextArea from '../../../../controls/textarea';
 import InputBlock from '../../../../controls/input';
+import Placeholders from '../../../../../constants/placeholders';
 
 const ChangeRequestTaskField = (props: ChangeRequestTaskProps) => {
   const {
-    task, received, handleChanging, uid,
+    task, received, handleChanging, currentId,
   } = props;
 
   const firebase = useContext(FirebaseContext);
@@ -26,46 +27,34 @@ const ChangeRequestTaskField = (props: ChangeRequestTaskProps) => {
     task.description || '',
   );
 
+  const { senderId, receiverId } = {
+    senderId: received ? currentId : receiver.key.slice(1),
+    receiverId: received ? requester.key.slice(1) : currentId,
+  };
+
   const renameTask = () => {
-    const taskObjName = task.taskName.split(' ').join('') + task.id;
-    const newTaskObjName = inputName.split(' ').join('') + task.id;
+    const updatedTask = {
+      ...task,
+      taskName: inputName,
+      date: inputDate,
+      description: inputDescription,
+    };
 
     firebase
       .sendRequest(
-        received ? uid : receiver.key.slice(1),
-        received ? requester.key.slice(1) : uid,
-        taskObjName,
+        senderId,
+        receiverId,
+        task.id,
       )
-      .set(null)
+      .update(updatedTask)
       .then(() => {
         firebase
           .sendedTask(
-            received ? requester.key.slice(1) : uid,
-            received ? uid : receiver.key.slice(1),
-            taskObjName,
+            receiverId,
+            senderId,
+            task.id,
           )
-          .set(null);
-      });
-
-    task.taskName = inputName;
-    task.date = inputDate;
-    task.description = inputDescription;
-
-    firebase
-      .sendRequest(
-        received ? uid : receiver.key.slice(1),
-        received ? requester.key.slice(1) : uid,
-        newTaskObjName,
-      )
-      .set(task)
-      .then(() => {
-        firebase
-          .sendedTask(
-            received ? requester.key.slice(1) : uid,
-            received ? uid : receiver.key.slice(1),
-            newTaskObjName,
-          )
-          .set(newTaskObjName);
+          .update(task.id);
       });
 
     handleChanging();
@@ -75,10 +64,9 @@ const ChangeRequestTaskField = (props: ChangeRequestTaskProps) => {
     <div className="changeTaskBlock">
       <div className="changeTaskInputBlock">
         <InputBlock
-          id={inputName}
+          id="changeTaskName"
           value={inputName}
-          label=""
-          placeholder="Task"
+          placeholder={Placeholders.TaskName}
           type="text"
           validation={validateBlockName}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputName(e.target.value)}
@@ -86,10 +74,9 @@ const ChangeRequestTaskField = (props: ChangeRequestTaskProps) => {
       </div>
       <div className="changeTaskInputBlock">
         <InputBlock
-          id={inputDate}
+          id="changeTaskDate"
           value={inputDate}
-          label=""
-          placeholder="Date"
+          placeholder={Placeholders.TaskDate}
           type="text"
           validation={validateBlockName}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputDate(e.target.value)}
@@ -103,13 +90,12 @@ const ChangeRequestTaskField = (props: ChangeRequestTaskProps) => {
           onChange={
             (e: React.ChangeEvent<HTMLTextAreaElement>) => setInputDescription(e.target.value)
           }
-          placeholder="Description"
+          placeholder={Placeholders.Description}
           validation={validateDescription}
         />
       </div>
       <button
         className="taskRedactSubmit"
-        title="Use 1-10 letters or numbers without special symbols"
         type="submit"
         onClick={renameTask}
         disabled={

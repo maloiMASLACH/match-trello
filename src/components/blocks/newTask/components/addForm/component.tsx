@@ -1,15 +1,17 @@
 import React, { useContext, useState } from 'react';
 import './styles.css';
 import { FirebaseContext } from '../../../../../utils/fireBase';
-import sortCards from '../../../../../utils/sortCards';
+import { sortCards } from '../../../../../utils/sortCards';
 import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
 import { NewTaskAddProps } from '../../../../../types/newTask';
 import patterns, { validateBlockName, validateDescription } from '../../../../../utils/patterns';
 import TextArea from '../../../../controls/textarea';
 import InputBlock from '../../../../controls/input';
+import Placeholders from '../../../../../constants/placeholders';
+import ActiveImg from '../../../../controls/activeImg';
 
 const AddForm = (props: NewTaskAddProps) => {
-  const { uid, deskObjName, handleActive } = props;
+  const { uid, deskObjId, handleActive } = props;
 
   const firebase = useContext(FirebaseContext);
   const columnValue = useContext(ColumnValueContext);
@@ -24,18 +26,16 @@ const AddForm = (props: NewTaskAddProps) => {
     if (columnValue.tasks) {
       const sortedTasks = Object.values(columnValue.tasks).sort(sortCards);
 
-      lastId = sortedTasks[sortedTasks.length - 1].id;
+      lastId = sortedTasks[sortedTasks.length - 1].id + 1;
     }
 
-    const columnObjName = columnValue.columnName.split(' ').join('');
-    const taskObjName = inputName.split(' ').join('') + (lastId + 1);
-
-    firebase.task(uid, deskObjName, columnObjName, taskObjName).update({
+    firebase.task(uid, deskObjId, columnValue.id, lastId).update({
       taskName: inputName,
       date: inputDate,
       completed: false,
       description: inputDescription,
-      id: lastId + 1,
+      id: lastId,
+      position: lastId,
     });
 
     handleActive();
@@ -45,10 +45,9 @@ const AddForm = (props: NewTaskAddProps) => {
     <div className="addTaskBlock">
       <div className="inputBlock">
         <InputBlock
-          id={inputName}
+          id="addTaskName"
           value={inputName}
-          label=""
-          placeholder="Task name"
+          placeholder={Placeholders.TaskName}
           type="text"
           validation={validateBlockName}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputName(e.target.value)}
@@ -56,10 +55,9 @@ const AddForm = (props: NewTaskAddProps) => {
       </div>
       <div className="inputBlock">
         <InputBlock
-          id={inputDate}
+          id="addTaskDate"
           value={inputDate}
-          label=""
-          placeholder="Task date"
+          placeholder={Placeholders.TaskDate}
           type="text"
           validation={validateBlockName}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputDate(e.target.value)}
@@ -72,13 +70,11 @@ const AddForm = (props: NewTaskAddProps) => {
           onChange={
             (e: React.ChangeEvent<HTMLTextAreaElement>) => setInputDescription(e.target.value)
           }
-          placeholder="Description"
+          placeholder={Placeholders.Description}
           validation={validateDescription}
         />
       </div>
-
       <button
-        title="Use 1-10 letters or numbers without special symbols"
         type="submit"
         disabled={!(patterns.blockName.test(inputName))
           || !(patterns.blockName.test(inputDate))
@@ -87,12 +83,11 @@ const AddForm = (props: NewTaskAddProps) => {
       >
         confirm
       </button>
-      <img
+      <ActiveImg
         src="./../x.png"
         alt="add"
         className="addTaskImgClose"
         onClick={handleActive}
-        aria-hidden="true"
       />
     </div>
   );

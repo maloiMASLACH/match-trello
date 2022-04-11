@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import Placeholders from '../../../constants/placeholders';
 import { UserType } from '../../../types/globalTypes';
 import { RequestSendFormProps } from '../../../types/requestPage';
 import { FirebaseContext } from '../../../utils/fireBase';
@@ -6,14 +7,14 @@ import patterns, {
   validateBlockName,
   validateDescription,
 } from '../../../utils/patterns';
-import sortCards from '../../../utils/sortCards';
+import { sortCards } from '../../../utils/sortCards';
 import InputBlock from '../../controls/input';
 import Select from '../../controls/select';
 import TextArea from '../../controls/textarea';
 import './styles.css';
 
 const RequestSendForm = (props: RequestSendFormProps) => {
-  const { userMail, userKey, uid } = props;
+  const { userMail, userKey, currentId } = props;
 
   const firebase = useContext(FirebaseContext);
 
@@ -32,22 +33,23 @@ const RequestSendForm = (props: RequestSendFormProps) => {
 
   useEffect(() => {
     firebase.users().on('value', (snapshot) => {
-      setUsers(Object.values(snapshot.val()));
+      const usersObj: { [key: string]: UserType } = snapshot.val();
+      const usersArr = Object.values(usersObj);
+      usersArr.splice(usersArr.indexOf(usersObj[currentId]), 1);
+      setUsers(usersArr);
     });
   }, []);
 
   let lastId = 0;
 
   const setLastId = () => {
-    if (
-      users[userId]
-      && users[userId].requests
-      && users[userId].requests.received[uid!]
-      && users[userId].requests.received[uid!].tasks
-    ) {
-      const sortedTasks = Object.values(
-        users[userId].requests.received[uid!].tasks,
-      ).sort(sortCards);
+    const { requests } = users[userId] || {};
+    if (requests
+       && requests.received
+       && requests.received[currentId]
+       && requests.received[currentId].tasks) {
+      const { tasks } = requests.received[currentId];
+      const sortedTasks = Object.values(tasks).sort(sortCards);
       lastId = sortedTasks[sortedTasks.length - 1].id + 1;
     }
   };
@@ -55,35 +57,32 @@ const RequestSendForm = (props: RequestSendFormProps) => {
   const sendTask = () => {
     setLastId();
 
-    const taskObjName = inputName.split(' ').join('') + lastId;
+    const taskObjId = lastId;
+    const { uid } = users[userId];
 
     firebase
-      .requesterName(users[userId]?.uid, uid)
+      .requesterName(uid, currentId)
       .update({
         mail: userMail,
         key: userKey,
       })
       .then(() => {
-        firebase.senderName(uid, users[userId]?.uid).update({
+        firebase.senderName(currentId, uid).update({
           mail: users[userId]?.mail,
-          key: users[userId]?.uid,
+          key: uid,
         });
       })
       .then(() => {
-        firebase
-          .sendedTask(uid, users[userId]?.uid, taskObjName)
-          .set(taskObjName);
+        firebase.sendedTask(currentId, uid, taskObjId).set(taskObjId);
       })
       .then(() => {
-        firebase
-          .sendRequest(users[userId]?.uid, uid, taskObjName)
-          .update({
-            taskName: inputName,
-            date: inputDate,
-            completed: false,
-            description: inputDescription,
-            id: lastId,
-          });
+        firebase.sendRequest(uid, currentId, taskObjId).update({
+          taskName: inputName,
+          date: inputDate,
+          completed: false,
+          description: inputDescription,
+          id: lastId,
+        });
       });
   };
 
@@ -92,20 +91,18 @@ const RequestSendForm = (props: RequestSendFormProps) => {
       <Select
         id="requestList"
         values={usersMails}
-        selected={usersMails[0]}
+        defaultValue={usersMails[0]}
         onChange={(e) => {
           if (users) {
             setUserId(usersMails.indexOf(e.target.value));
           }
         }}
       />
-      {users[userId]?.uid.slice(1) === uid && <p>Choose another user</p>}
       <div className="inputBlock">
         <InputBlock
-          id={inputName}
+          id="taskName"
           value={inputName}
-          label=""
-          placeholder="Task name"
+          placeholder={Placeholders.TaskName}
           type="text"
           validation={validateBlockName}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputName(e.target.value)}
@@ -113,10 +110,9 @@ const RequestSendForm = (props: RequestSendFormProps) => {
       </div>
       <div className="inputBlock">
         <InputBlock
-          id={inputDate}
+          id="taskDate"
           value={inputDate}
-          label=""
-          placeholder="Task date"
+          placeholder={Placeholders.TaskDate}
           type="text"
           validation={validateBlockName}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputDate(e.target.value)}
@@ -124,9 +120,9 @@ const RequestSendForm = (props: RequestSendFormProps) => {
       </div>
       <div className="inputBlock">
         <TextArea
-          id={inputDescription}
+          id="description"
           value={inputDescription}
-          placeholder="Task description"
+          placeholder={Placeholders.Description}
           validation={validateDescription}
           onChange={
             (e: React.ChangeEvent<HTMLTextAreaElement>) => setInputDescription(e.target.value)
@@ -138,7 +134,7 @@ const RequestSendForm = (props: RequestSendFormProps) => {
         disabled={
           !patterns.blockName.test(inputName)
           || !patterns.blockName.test(inputDate)
-          || users[userId]?.uid.slice(1) === uid
+          || users[userId]?.uid.slice(1) === currentId
           || inputDescription.length > 120
         }
         onClick={sendTask}

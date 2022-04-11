@@ -5,6 +5,7 @@ const ColumnValueContext = React.createContext<ColumnType>({
   tasks: [],
   columnName: '',
   id: 0,
+  position: 0,
 });
 
 export default ColumnValueContext;

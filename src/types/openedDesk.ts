@@ -2,7 +2,7 @@ import { ColumnType } from './globalTypes';
 
 export interface ColumnProps {
   uid: string;
-  deskObjName: string;
+  deskObjId: number;
   currentColumn: ColumnType;
   setCurrentColumn: (el: ColumnType) => void;
 }

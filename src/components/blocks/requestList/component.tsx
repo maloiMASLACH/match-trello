@@ -4,7 +4,7 @@ import RequestTask from '../requestTask';
 import { RequestListProps } from '../../../types/requestPage';
 
 const RequestList = (props: RequestListProps) => {
-  const { requester, uid } = props;
+  const { requester, currentId } = props;
 
   const [isVisible, setIsVisible] = useState(true);
 
@@ -21,7 +21,12 @@ const RequestList = (props: RequestListProps) => {
       </div>
       <div className={`receivedTasks ${isVisible}`}>
         {Object.values(requester.tasks).map((task) => (
-          <RequestTask task={task} received key={task.id} uid={uid} />
+          <RequestTask
+            task={task}
+            received
+            key={task.id}
+            currentId={currentId}
+          />
         ))}
       </div>
     </>

@@ -12,14 +12,14 @@ import SendedList from '../../blocks/sendedList';
 import './styles.css';
 
 const PageWithUser = (props: RequestPageWithUserProps) => {
-  const { userId } = props;
+  const { currentId } = props;
 
   const firebase = useContext(FirebaseContext);
 
   const [userValue, setUserValue] = useState<UserType>();
 
   useEffect(() => {
-    firebase.user(userId).on('value', (snapshot) => {
+    firebase.user(currentId).on('value', (snapshot) => {
       setUserValue(snapshot.val());
     });
   }, []);
@@ -29,9 +29,9 @@ const PageWithUser = (props: RequestPageWithUserProps) => {
       <div className="sendRequestBlock">
         <p className="requestPageTitle">New request</p>
         <RequestPageForm
-          uid={userId}
           userMail={userValue?.mail || ''}
           userKey={userValue?.uid || ''}
+          currentId={currentId}
         />
       </div>
       <div className="sendRequestBlock">
@@ -43,7 +43,7 @@ const PageWithUser = (props: RequestPageWithUserProps) => {
               key={requester.sender.key}
             >
               {requester.tasks && (
-                <SendedList uid={userId} requester={requester} />
+                <SendedList requester={requester} currentId={currentId} />
               )}
             </SenderContext.Provider>
           ))}
@@ -57,7 +57,7 @@ const PageWithUser = (props: RequestPageWithUserProps) => {
               key={requester.sender.key}
             >
               {requester.tasks && (
-                <RequestList requester={requester} uid={userId} />
+                <RequestList requester={requester} currentId={currentId} />
               )}
             </RequesterContext.Provider>
           ))}
@@ -76,10 +76,10 @@ const PageNoUser = () => (
 const RequestPage = () => {
   const { uid } = useParams();
 
-  const authUser = useContext(AuthUserContext);
+  const { userId, isAdmin } = useContext(AuthUserContext);
 
-  return uid && (uid === authUser.uid || authUser.isAdmin) ? (
-    <PageWithUser userId={uid} />
+  return uid && (uid === userId || isAdmin) ? (
+    <PageWithUser currentId={userId} />
   ) : (
     <PageNoUser />
   );

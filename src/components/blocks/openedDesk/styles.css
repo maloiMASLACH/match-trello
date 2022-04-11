@@ -3,9 +3,10 @@
     position: absolute;
     margin: 0;
     background-color: var(--global-block-bg-color);
-    width: 65%;
+    min-width: 50%;
+    max-width: 75%;
     height: fit-content;
-    min-height: 45vw;
+    min-height: 65vh;
     border-radius: 30px;
     z-index: 1;
 }

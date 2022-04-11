@@ -1,5 +1,5 @@
 export interface OpenedColumnProps {
   uid: string;
-  deskObjName: string;
+  deskObjId: number;
   handleOpened: () => void;
 }

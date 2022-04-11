@@ -6,10 +6,11 @@ import TaskValueContext from '../../../../../utils/valueContexts/taskValueContex
 import './styles.css';
 import TextArea from '../../../../controls/textarea';
 import InputBlock from '../../../../controls/input';
+import Placeholders from '../../../../../constants/placeholders';
 
 const ChangeTaskField = (props: ChangeTaskProps) => {
   const {
-    uid, columnObjName, deskObjName, handleChanging,
+    uid, columnObjId, deskObjId, handleChanging,
   } = props;
 
   const firebase = useContext(FirebaseContext);
@@ -20,16 +21,14 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
   const [inputDescription, setInputDescription] = useState(taskValue.description || '');
 
   const renameTask = () => {
-    const taskObjName = taskValue.taskName.split(' ').join('') + taskValue.id;
-    const newObj = inputName.split(' ').join('') + taskValue.id;
+    const modifiedTask = {
+      ...taskValue,
+      taskName: inputName,
+      date: inputDate,
+      description: inputDescription,
+    };
 
-    firebase.task(uid, deskObjName, columnObjName, taskObjName).set(null);
-
-    taskValue.taskName = inputName;
-    taskValue.date = inputDate;
-    taskValue.description = inputDescription;
-
-    firebase.task(uid, deskObjName, columnObjName, newObj).set(taskValue);
+    firebase.task(uid, deskObjId, columnObjId, taskValue.id).set(modifiedTask);
 
     handleChanging();
   };
@@ -38,10 +37,9 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
     <div className="changeTaskBlock">
       <div className="changeTaskInputBlock">
         <InputBlock
-          id={inputName}
+          id="changeTaskName"
           value={inputName}
-          label=""
-          placeholder="Task"
+          placeholder={Placeholders.TaskName}
           type="text"
           className="newTaskName"
           validation={validateBlockName}
@@ -50,10 +48,9 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
       </div>
       <div className="changeTaskInputBlock">
         <InputBlock
-          id={inputDate}
+          id="changeTaskDate"
           value={inputDate}
-          label=""
-          placeholder="Task"
+          placeholder={Placeholders.TaskDate}
           type="text"
           className="newTaskName"
           validation={validateBlockName}
@@ -68,13 +65,12 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
           onChange={
             (e: React.ChangeEvent<HTMLTextAreaElement>) => setInputDescription(e.target.value)
           }
-          placeholder="Description"
+          placeholder={Placeholders.Description}
           validation={validateDescription}
         />
       </div>
       <button
         className="taskRedactSubmit"
-        title="Use 1-10 letters or numbers without special symbols"
         type="submit"
         onClick={renameTask}
         disabled={!(patterns.blockName.test(inputName))

@@ -2,11 +2,13 @@ import React, { useContext, useState } from 'react';
 import './styles.css';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
-import sortCards from '../../../../../utils/sortCards';
+import { sortCards } from '../../../../../utils/sortCards';
 import { task } from '../../../../../constants/voidObjects';
 import { NewColumnAddProps } from '../../../../../types/newColumn';
 import patterns, { validateBlockName } from '../../../../../utils/patterns';
 import InputBlock from '../../../../controls/input';
+import Placeholders from '../../../../../constants/placeholders';
+import ActiveImg from '../../../../controls/activeImg';
 
 const AddForm = (props: NewColumnAddProps) => {
   const { uid, handleActive } = props;
@@ -22,16 +24,14 @@ const AddForm = (props: NewColumnAddProps) => {
     if (deskValue.columns) {
       const sortedColumns = Object.values(deskValue.columns).sort(sortCards);
 
-      lastId = sortedColumns[sortedColumns.length - 1].id;
+      lastId = sortedColumns[sortedColumns.length - 1].id + 1;
     }
 
-    const deskObjName = deskValue.deskName.split(' ').join('');
-    const columnObjName = inputValue.split(' ').join('');
-
-    firebase.column(uid, deskObjName, columnObjName).update({
-      tasks: { task },
-      id: lastId + 1,
+    firebase.column(uid, deskValue.id, lastId).update({
+      tasks: { 1: task },
+      id: lastId,
       columnName: inputValue,
+      position: lastId,
     });
 
     handleActive();
@@ -39,25 +39,22 @@ const AddForm = (props: NewColumnAddProps) => {
 
   return (
     <div className="addColonBlock">
-      <img
-        src="./../x.png"
-        alt="add"
+      <ActiveImg
+        src="../../x.png"
+        alt="close"
         className="addColonImgClose"
         onClick={handleActive}
-        aria-hidden="true"
       />
       <InputBlock
-        id={inputValue}
+        id="newColonName"
         value={inputValue}
-        label=""
-        placeholder="Colon name"
+        placeholder={Placeholders.Colon}
         type="text"
         validation={validateBlockName}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputValue(e.target.value)}
       />
       <button
         type="submit"
-        title="Use 1-10 letters or numbers without special symbols"
         disabled={!patterns.blockName.test(inputValue)}
         onClick={addColumn}
       >
