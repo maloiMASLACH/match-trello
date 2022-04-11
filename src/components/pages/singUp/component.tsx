@@ -9,9 +9,10 @@ import patterns, {
   validatePassword,
   validateUserName,
 } from '../../../utils/patterns';
-import { FirstDesk } from '../../../constants/voidObjects';
 import RouterLinks from '../../../constants/routerLinks';
 import ErrorBLock from '../../blocks/errorBlock';
+import Labels from '../../../constants/labels';
+import Placeholders from '../../../constants/placeholders';
 
 const SingUpForm: React.FC = () => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const SingUpForm: React.FC = () => {
         name: inputName,
         mail: inputMail,
         uid: `/${newUser.user!.uid}`,
-        desks: { FirstDesk },
+        desks: {},
       }))
       .then(() => firebase.auth.currentUser?.sendEmailVerification())
       .then(() => navigate(RouterLinks.UserPage))
@@ -65,26 +66,27 @@ const SingUpForm: React.FC = () => {
           id="Login"
           value={inputName}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputName(e.target.value)}
-          label="User Name (Login)"
+          label={Labels.Name}
           type="text"
-          placeholder="Length 4-15. Don`t use special symbols."
+          placeholder={Placeholders.Login}
           validation={validateUserName}
         />
         <InputBlock
           id="Email"
           value={inputMail}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
-          label="Your E-mail"
+          label={Labels.Email}
           type="email"
+          placeholder={Placeholders.Mail}
           validation={validateEmail}
         />
         <InputBlock
           id="Password"
           value={inputPassword}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputPassword(e.target.value)}
-          label="Password"
+          label={Labels.Password}
           type="password"
-          placeholder="Use 6-15 letters or numbers."
+          placeholder={Placeholders.Password}
           validation={validatePassword}
         />
         <InputBlock
@@ -93,9 +95,9 @@ const SingUpForm: React.FC = () => {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setConfirmPassword(e.target.value);
           }}
-          label="Conform Password"
+          label={Labels.Confirm}
           type="password"
-          placeholder="Use 6-15 letters or numbers."
+          placeholder={Placeholders.Password}
           validation={validatePassword}
         />
         <p className="passwordsDontSameMessage">{passwordsDontSameMessage}</p>

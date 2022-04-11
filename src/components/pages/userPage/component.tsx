@@ -74,7 +74,7 @@ const PageWithUser = (props: PageWithUserProps) => {
             id="theme"
             values={themes}
             onChange={handleTheme}
-            selected={selected}
+            defaultValue={selected}
           />
         </div>
       </div>
@@ -101,12 +101,12 @@ const PageNoUser = () => (
 const UserPage = (props: UserPageProps) => {
   const { handleTheme } = props;
 
-  const { uid, isVerified } = useContext(AuthUserContext);
+  const { userId, isVerified } = useContext(AuthUserContext);
 
-  return uid ? (
+  return userId ? (
     <PageWithUser
       isVerified={isVerified}
-      userID={uid}
+      userID={userId}
       handleTheme={handleTheme}
     />
   ) : (

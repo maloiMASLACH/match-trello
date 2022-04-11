@@ -4,7 +4,7 @@ import { InputBlockProps } from '../../../types/input';
 
 const InputBlock = (props: InputBlockProps) => {
   const {
-    id, value, label, type, validation, ...rest
+    id, value, type, label, validation, ...rest
   } = props;
 
   const [isVisible, setIsVisible] = useState(false);
@@ -30,6 +30,12 @@ const InputBlock = (props: InputBlockProps) => {
         <i className="fa fa-eye" aria-hidden="true" onClick={handleChanging} />
       )}
       <p>{touched && errorMessage}</p>
+      {label && (
+      <label htmlFor={id} className="active singInputText">
+        {label}
+        <input type="radio" />
+      </label>
+      )}
     </>
   );
 };

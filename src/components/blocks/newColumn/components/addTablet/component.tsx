@@ -1,5 +1,6 @@
 import React from 'react';
 import { HandleActive } from '../../../../../types/toggle';
+import ActiveImg from '../../../../controls/activeImg';
 import './styles.css';
 
 const AddTablet = (props: HandleActive) => {
@@ -8,12 +9,11 @@ const AddTablet = (props: HandleActive) => {
   return (
     <div className="addColonBlock">
       <p>Create new column</p>
-      <img
+      <ActiveImg
         src="./../plus.png"
         alt="add"
         className="addColonImg"
         onClick={handleActive}
-        aria-hidden="true"
       />
     </div>
   );

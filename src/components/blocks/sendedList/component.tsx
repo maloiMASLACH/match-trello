@@ -4,10 +4,10 @@ import RequestTask from '../requestTask';
 import { TaskType } from '../../../types/globalTypes';
 import { FirebaseContext } from '../../../utils/fireBase';
 import SenderContext from '../../../utils/valueContexts/senderContext';
-import { SenderListProps } from '../../../types/requestPage';
+import { RequestListProps } from '../../../types/requestPage';
 
-const SendedList = (props: SenderListProps) => {
-  const { requester, uid } = props;
+const SendedList = (props: RequestListProps) => {
+  const { requester, currentId } = props;
 
   const firebase = useContext(FirebaseContext);
   const receiver = useContext(SenderContext);
@@ -21,7 +21,7 @@ const SendedList = (props: SenderListProps) => {
 
   useEffect(() => {
     firebase
-      .senderTaskList(receiver.key.slice(1), uid)
+      .senderTaskList(receiver.key.slice(1), currentId)
       .on('value', (snapshot) => {
         setTasks(snapshot.val());
       });
@@ -36,7 +36,12 @@ const SendedList = (props: SenderListProps) => {
       </div>
       <div className={`receivedTasks ${isVisible}`}>
         {Object.values(tasks || []).map((task) => (
-          <RequestTask task={task} received={false} key={task.id} uid={uid} />
+          <RequestTask
+            task={task}
+            received={false}
+            key={task.id}
+            currentId={currentId}
+          />
         ))}
       </div>
     </>

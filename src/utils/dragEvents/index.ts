@@ -6,7 +6,7 @@ interface OnDropColumnProps {
   columnValue: ColumnType;
   currentColumn: ColumnType;
   uid: string;
-  deskObjName: string;
+  deskObjId: number;
   firebase: Firebase;
 }
 
@@ -15,8 +15,8 @@ interface OnDropCardProps {
   taskValue: TaskType;
   currentCard: TaskType;
   uid: string;
-  deskObjName: string;
-  columnObjName: string;
+  deskObjId: number;
+  columnObjId: number;
   firebase: Firebase;
 }
 
@@ -26,15 +26,12 @@ export const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
 };
 export const onDropColumn = (props: OnDropColumnProps) => {
   const {
-    e, columnValue, currentColumn, uid, deskObjName, firebase,
+    e, columnValue, currentColumn, uid, deskObjId, firebase,
   } = props;
 
   if (e.currentTarget.getAttribute('draggable') === 'true' && currentColumn.columnName) {
-    const firstColumnObjName = columnValue.columnName.split(' ').join('');
-    const secondColumnObjName = currentColumn.columnName.split(' ').join('');
-
-    firebase.columnId(uid, deskObjName, firstColumnObjName).set(currentColumn.id);
-    firebase.columnId(uid, deskObjName, secondColumnObjName).set(columnValue.id);
+    firebase.columnPosition(uid, deskObjId, columnValue.id).set(currentColumn.position);
+    firebase.columnPosition(uid, deskObjId, currentColumn.id).set(columnValue.position);
   }
 };
 
@@ -44,20 +41,17 @@ export const onDropCard = (props: OnDropCardProps) => {
     taskValue,
     currentCard,
     uid,
-    deskObjName,
-    columnObjName,
+    deskObjId,
+    columnObjId,
     firebase,
   } = props;
 
   if (e.currentTarget.getAttribute('draggable') === 'true' && currentCard.taskName) {
-    const firstTaskObjName = taskValue.taskName.split(' ').join('');
-    const secondTaskObjName = currentCard.taskName.split(' ').join('');
-
     firebase
-      .taskId(uid, deskObjName, columnObjName, firstTaskObjName)
-      .set(currentCard.id);
+      .taskPosition(uid, deskObjId, columnObjId, taskValue.id)
+      .set(currentCard.position);
     firebase
-      .taskId(uid, deskObjName, columnObjName, secondTaskObjName)
-      .set(taskValue.id);
+      .taskPosition(uid, deskObjId, columnObjId, currentCard.id)
+      .set(taskValue.position);
   }
 };

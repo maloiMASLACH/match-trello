@@ -27,33 +27,28 @@ export interface SenderType {
 }
 
 export interface RequestListProps{
-  uid: string;
-  requester: RequestGroupType;
-}
-
-export interface SenderListProps{
-  uid: string;
-  requester: SenderGroupType;
+  currentId: string;
+  requester: RequestGroupType | SenderGroupType;
 }
 
 export interface RequestPageWithUserProps {
-  userId:string;
+  currentId:string;
 }
 
 export interface RequestSendFormProps {
-  uid: string
+  currentId: string
   userMail: string;
   userKey: string
 }
 
 export interface RequestTaskProps{
-  uid: string;
+  currentId: string;
   task: RequestType;
   received: boolean;
 }
 
 export interface ChangeRequestTaskProps{
-  uid: string;
+  currentId: string;
   task: RequestType;
   received: boolean
   handleChanging: () => void;

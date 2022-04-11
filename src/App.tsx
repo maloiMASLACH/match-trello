@@ -31,7 +31,7 @@ const App = () => {
   const [user, setUser] = useState<AuthUserType>({
     isVerified: false,
     isAdmin: false,
-    uid: '',
+    userId: '',
   });
 
   const handleTheme = (option: ChangeEvent<HTMLSelectElement>) => {
@@ -48,7 +48,7 @@ const App = () => {
     <BrowserRouter>
       <AuthUserContext.Provider value={user}>
         <div className="page" data-theme={theme}>
-          <NavBar isAuthorized={!!user.uid} isAdmin={user.isAdmin} />
+          <NavBar isAuthorized={!!user.userId} isAdmin={user.isAdmin} />
           <div className="container">
             <Routes>
               <Route element={<WelcomePage />} path={RouterLinks.Welcome} />

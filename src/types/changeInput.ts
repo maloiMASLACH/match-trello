@@ -4,13 +4,13 @@ export interface ChangeDeskNameProps {
 
 export interface ChangeColumnProps {
   uid: string;
-  deskObjName: string;
+  deskObjId: number;
   handleChanging: () => void;
 }
 
 export interface ChangeTaskProps {
   uid: string;
-  columnObjName: string;
-  deskObjName: string;
+  columnObjId: number;
+  deskObjId: number;
   handleChanging: () => void;
 }

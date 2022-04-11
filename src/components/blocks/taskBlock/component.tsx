@@ -5,10 +5,11 @@ import './styles.css';
 import { TaskProps } from '../../../types/taskBlock';
 import ChangeTaskField from './components/changeNameField';
 import TaskValueContext from '../../../utils/valueContexts/taskValueContext';
+import ActiveImg from '../../controls/activeImg';
 
 const Task = (props: TaskProps) => {
   const {
-    uid, columnObjName, deskObjName, currentCard, setCurrentCard,
+    uid, columnObjId, deskObjId, currentCard, setCurrentCard,
   } = props;
 
   const firebase = useContext(FirebaseContext);
@@ -16,20 +17,18 @@ const Task = (props: TaskProps) => {
 
   const [isChanging, setChanging] = useState<boolean>(false);
 
-  const taskObjName = taskValue.taskName.split(' ').join('') + taskValue.id;
-
   const handleChanging = () => {
     setChanging((prevState) => !prevState);
   };
 
   const setCompleted = () => {
     firebase
-      .taskCompleted(uid, deskObjName, columnObjName, taskObjName)
+      .taskCompleted(uid, deskObjId, columnObjId, taskValue.id)
       .set(!taskValue.completed);
   };
 
   const deleteTask = () => {
-    firebase.task(uid, deskObjName, columnObjName, taskObjName).set(null);
+    firebase.task(uid, deskObjId, columnObjId, taskValue.id).set(null);
   };
 
   return (
@@ -44,41 +43,43 @@ const Task = (props: TaskProps) => {
         taskValue,
         currentCard,
         uid,
-        deskObjName,
-        columnObjName,
+        deskObjId,
+        columnObjId,
         firebase,
       })}
       draggable={!isChanging}
     >
       {!isChanging ? (
         <>
-          <p>{taskValue.taskName}</p>
-          <img
-            src="./../redact.png"
-            className="taskRedact"
-            alt="x"
-            onClick={handleChanging}
-            aria-hidden="true"
-          />
-          <img
-            className="taskDelete"
-            alt="delete"
-            src="./../delete.png"
-            onClick={deleteTask}
-            aria-hidden="true"
-          />
-          <input
-            className="taskCheckBox"
-            type="checkbox"
-            checked={taskValue.completed}
-            id={taskObjName}
-            onChange={setCompleted}
-          />
-          <label htmlFor={taskObjName}>
-            <input type="checkbox" id="rule" />
-            <div id="tick_mark" />
-          </label>
-          <p>{taskValue.date}</p>
+          <div className="tools">
+            <ActiveImg
+              src="./../redact.png"
+              alt="redact"
+              className="taskRedact"
+              onClick={handleChanging}
+            />
+            <input
+              className="taskCheckBox"
+              type="checkbox"
+              checked={taskValue.completed}
+              id={taskValue.taskName + taskValue.id}
+              onChange={setCompleted}
+            />
+            <label htmlFor={taskValue.taskName + taskValue.id}>
+              <input type="checkbox" id="rule" />
+              <div id="tick_mark" />
+            </label>
+            <ActiveImg
+              src="./../delete.png"
+              alt="delete"
+              className="taskDelete"
+              onClick={deleteTask}
+            />
+          </div>
+          <div className="upperPart">
+            <p>{taskValue.taskName}</p>
+            <p>{taskValue.date}</p>
+          </div>
           <p className="taskDescription">
             {taskValue.description || 'No description'}
           </p>
@@ -86,8 +87,8 @@ const Task = (props: TaskProps) => {
       ) : (
         <ChangeTaskField
           uid={uid}
-          deskObjName={deskObjName}
-          columnObjName={columnObjName}
+          deskObjId={deskObjId}
+          columnObjId={columnObjId}
           handleChanging={handleChanging}
         />
       )}

@@ -11,6 +11,8 @@ import Button from '../../controls/button';
 import PasswordActionLink from '../../controls/passwordChangeLink/component';
 import './styles.css';
 import ErrorBLock from '../../blocks/errorBlock';
+import Labels from '../../../constants/labels';
+import Placeholders from '../../../constants/placeholders';
 
 const SingInForm: React.FC = () => {
   const navigate = useNavigate();
@@ -44,17 +46,18 @@ const SingInForm: React.FC = () => {
           id="Email"
           value={inputMail}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputMail(e.target.value)}
-          label="E-Mail"
+          label={Labels.Email}
           type="email"
+          placeholder={Placeholders.Mail}
           validation={validateEmail}
         />
         <InputBlock
           id="Password"
           value={inputPassword}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInputPassword(e.target.value)}
-          label="Password"
+          label={Labels.Password}
           type="password"
-          placeholder="Use 6-15 letters or numbers"
+          placeholder={Placeholders.Password}
           validation={validatePassword}
         />
       </div>

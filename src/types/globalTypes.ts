@@ -6,11 +6,13 @@ export interface TaskType {
   date: string;
   description: string,
   id: number;
+  position: number;
 }
 export interface ColumnType {
   tasks: { [key: number]: TaskType };
   columnName: string;
   id: number;
+  position: number;
 }
 export interface DeskType {
   columns: { [key: number]: ColumnType };
@@ -29,5 +31,5 @@ export interface UserType {
 export interface AuthUserType {
   isVerified: boolean;
   isAdmin: boolean;
-  uid: string;
+  userId: string;
 }

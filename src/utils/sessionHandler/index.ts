@@ -4,7 +4,7 @@ import { AuthUserType } from '../../types/globalTypes';
 const AuthUserContext = React.createContext<AuthUserType>({
   isVerified: false,
   isAdmin: false,
-  uid: '',
+  userId: '',
 });
 
 export default AuthUserContext;

@@ -4,13 +4,12 @@ import { SelectProps } from '../../../types/select';
 
 const Select = (props: SelectProps) => {
   const {
-    values, selected, ...rest
+    values, ...rest
   } = props;
 
   return (
     <select
       {...rest}
-      defaultValue={selected}
     >
       {values.map((option) => (
         <option

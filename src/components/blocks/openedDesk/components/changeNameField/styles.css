@@ -1,7 +1,7 @@
 
 input.newDeskName[type=text]:not(.browser-default){
     border-bottom: var(--global-border-color) solid 3px;
-    color: var(--global-input-text-color);
+    color: white;
     font-size: xx-large;
     width: 40%;
 }

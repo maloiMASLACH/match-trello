@@ -6,6 +6,8 @@ import { FirebaseContext } from '../../../../utils/fireBase';
 import InputBlock from '../../../controls/input';
 import Button from '../../../controls/button';
 import ErrorBLock from '../../../blocks/errorBlock';
+import Labels from '../../../../constants/labels';
+import Placeholders from '../../../../constants/placeholders';
 
 const PasswordReset: React.FC = () => {
   const navigate = useNavigate();
@@ -50,16 +52,16 @@ const PasswordReset: React.FC = () => {
           id="oldPassword"
           value={passwordOne}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirstPassword(e.target.value)}
-          label="New Password"
+          label={Labels.NewPassword}
           type="password"
-          placeholder="Use 6-15 letters or numbers"
+          placeholder={Placeholders.Password}
           validation={validatePassword}
         />
         <InputBlock
           id="newPassword"
           value={passwordTwo}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSecondPassword(e.target.value)}
-          label="Confirm Password"
+          label={Labels.Confirm}
           type="password"
           validation={validatePassword}
         />

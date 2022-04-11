@@ -4,7 +4,7 @@ import './styles.css';
 
 const TextArea = (props: TextAreaProps) => {
   const {
-    id, value, validation, ...rest
+    value, validation, ...rest
   } = props;
 
   const [touched, setTouched] = useState(false);
@@ -16,8 +16,6 @@ const TextArea = (props: TextAreaProps) => {
       <textarea
         value={value}
         {...rest}
-        placeholder={rest.placeholder}
-        id={id}
         onBlur={() => setTouched(true)}
       />
       <p>{touched && errorMessage}</p>

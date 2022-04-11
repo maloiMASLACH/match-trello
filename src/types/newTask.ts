@@ -1,10 +1,10 @@
 export interface NewTaskProps {
   uid: string;
-  deskObjName: string;
+  deskObjId: number;
 }
 
 export interface NewTaskAddProps {
   uid: string;
-  deskObjName: string;
+  deskObjId: number;
   handleActive: () => void;
 }

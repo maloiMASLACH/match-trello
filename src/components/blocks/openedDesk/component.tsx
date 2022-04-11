@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { ColumnType } from '../../../types/globalTypes';
 import { FirebaseContext } from '../../../utils/fireBase';
-import sortCards from '../../../utils/sortCards';
+import { sortByPosition } from '../../../utils/sortCards';
 import NewColumn from '../newColumn';
 import './styles.css';
 import ChangeNameField from './components/changeNameField';
@@ -10,6 +10,7 @@ import UserValueContext from '../../../utils/valueContexts/userValueContext';
 import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
 import ColumnValueContext from '../../../utils/valueContexts/columnValueContext';
 import { HandleActive } from '../../../types/toggle';
+import ActiveImg from '../../controls/activeImg';
 
 const OpenedDesk = (props: HandleActive) => {
   const { handleActive } = props;
@@ -23,18 +24,17 @@ const OpenedDesk = (props: HandleActive) => {
     tasks: [],
     columnName: '',
     id: 0,
+    position: 0,
   });
 
-  const deskObjName = deskInfo.deskName.split(' ').join('');
-
-  const sortedColumns = Object.values(deskInfo.columns || []).sort(sortCards);
+  const sortedColumns = Object.values(deskInfo.columns || []).sort(sortByPosition);
 
   const handleChanging = () => {
     setChanging((prevState) => !prevState);
   };
 
   const deleteDesk = () => {
-    firebase.desk(userValue.uid, deskObjName).set(null);
+    firebase.desk(userValue.uid, deskInfo.id).set(null);
   };
 
   return (
@@ -48,25 +48,22 @@ const OpenedDesk = (props: HandleActive) => {
           <ChangeNameField handleChanging={handleChanging} />
         )}
         <div className="toolImg">
-          <img
-            className="deskDelete"
+          <ActiveImg
             src="./../redact.png"
             alt="redact"
-            onClick={handleChanging}
-            aria-hidden="true"
-          />
-          <img
             className="deskDelete"
-            alt="delete"
-            src="./../delete.png"
-            onClick={deleteDesk}
-            aria-hidden="true"
+            onClick={handleChanging}
           />
-          <img
+          <ActiveImg
+            src="./../delete.png"
+            alt="delete"
+            className="deskDelete"
+            onClick={deleteDesk}
+          />
+          <ActiveImg
             src="./../x.png"
             alt="x"
             onClick={handleActive}
-            aria-hidden="true"
           />
         </div>
       </div>
@@ -76,7 +73,7 @@ const OpenedDesk = (props: HandleActive) => {
             <ColumnValueContext.Provider key={column.id} value={column}>
               <Column
                 uid={userValue.uid}
-                deskObjName={deskObjName}
+                deskObjId={deskInfo.id}
                 currentColumn={currentColumn}
                 setCurrentColumn={setCurrentColumn}
               />

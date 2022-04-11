@@ -5,21 +5,6 @@
   opacity: 0.7;
 }
 
-.taskDelete{
-  position: absolute;
-  width: 50px;
-  margin-top: -34px;
-  margin-left: 25%;
-  filter: var(--global-img-filter);
-}
-.taskRedact{
-  position: absolute;
-  width: 50px;
-  margin-top: -34px;
-  margin-left: 10%;
-  filter: var(--global-img-filter);
-}
-
 input.newTaskName[type=text]:not(.browser-default){
   border-bottom: var(--global-border-color) solid 3px;
   color: white;
@@ -41,17 +26,40 @@ input.newTaskName[type=text]:not(.browser-default){
 }
 
 .appPage div.task {
-  display: flex;
+  display: inline;
   width: 45%;
   font-size: x-large;
   height: 70px;
-  color: white;
   padding: 5px 10px;
+  color: white;
   text-align: center;
   border: 3px var(--global-border-color) dashed;
   border-radius: 10px;
-  justify-content: space-between;
   transition: 1s;
+}
+.appPage div.task .tools{
+ display: flex;
+ width: 40%;
+ margin: 0 auto;
+ margin-bottom: -20px;
+}
+.taskDelete{
+  margin-left: 50%;
+  width: 50px;
+  margin-top: -34px;
+  filter: var(--global-img-filter);
+}
+.taskRedact{
+  width: 50px;
+  margin-top: -34px;
+  filter: var(--global-img-filter);
+}
+.appPage div.task .upperPart{
+  padding: 0;
+  margin: 0;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 .appPage div.task.true:hover{
   height: 120px;
@@ -67,10 +75,11 @@ input.newTaskName[type=text]:not(.browser-default){
   word-wrap:break-word;
   line-height: 15px;
   opacity: 0;
-  margin-top: 50px;
-  position: absolute;
+  margin: 0 auto;
+  margin-top: 0px;
+  position: relative;
   font-size: medium;
-  width: 40%;
+  width: 95%;
   height: 60px;
 }
 @keyframes descriptionShowing{
@@ -87,7 +96,6 @@ input.newTaskName[type=text]:not(.browser-default){
   width: 50px;
   height: 50px;
   margin: 0 auto;
-  margin-left: 17.5%;
   margin-top: -13px;
   background-color: var(--global-active-color);
   transform: translateY(-50%);
@@ -190,15 +198,6 @@ input.newTaskName[type=text]:not(.browser-default){
   .taskDescription{
     width: 70%;
   }
-  .task label {
-    margin-left: 27.5%;
-  }
-  .taskDelete{
-    margin-left: 35%;
-  }
-  .taskRedact{
-    margin-left: 20%;
-  }
 }
 @media screen and (max-width: 1024px) {
   .task label {
@@ -232,24 +231,10 @@ input.newTaskName[type=text]:not(.browser-default){
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.23);
     transform: translateX(78px);
   }
-  .taskDelete{
-    width: 30px;
-  }
-  .taskRedact{
-    width: 30px;
-  }
+
 }
 @media screen and (max-width: 425px) {
   .appPage div.task {
     width: 90%;
-  }
-  .task label {
-    margin-left: 20.5%;
-  }
-  .taskDelete{
-    margin-left: 35%;
-  }
-  .taskRedact{
-    margin-left: 5%;
   }
 }
