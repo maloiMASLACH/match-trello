@@ -4,11 +4,14 @@ import { FirebaseContext } from '../../../../../utils/fireBase';
 import { sortCards } from '../../../../../utils/sortCards';
 import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
 import { NewTaskAddProps } from '../../../../../types/newTask';
-import patterns, { validateBlockName, validateDescription } from '../../../../../utils/patterns';
+import patterns, {
+  validateBlockName,
+  validateDescription,
+} from '../../../../../utils/patterns';
 import TextArea from '../../../../controls/textarea';
 import InputBlock from '../../../../controls/input';
 import Placeholders from '../../../../../constants/placeholders';
-import ActiveImg from '../../../../controls/activeImg';
+import CloseImg from '../../../../controls/images/close';
 
 const AddForm = (props: NewTaskAddProps) => {
   const { uid, deskObjId, handleActive } = props;
@@ -76,19 +79,16 @@ const AddForm = (props: NewTaskAddProps) => {
       </div>
       <button
         type="submit"
-        disabled={!(patterns.blockName.test(inputName))
-          || !(patterns.blockName.test(inputDate))
-          || inputDescription.length > 120}
+        disabled={
+          !patterns.blockName.test(inputName)
+          || !patterns.blockName.test(inputDate)
+          || inputDescription.length > 120
+        }
         onClick={addTask}
       >
         confirm
       </button>
-      <ActiveImg
-        src="./../x.png"
-        alt="add"
-        className="addTaskImgClose"
-        onClick={handleActive}
-      />
+      <CloseImg className="addTaskImgClose" onClick={handleActive} />
     </div>
   );
 };

@@ -15,6 +15,7 @@ const Select = (props: SelectProps) => {
         <option
           key={option}
           value={option}
+          id={`${values.indexOf(option)}`}
         >
           {option}
         </option>

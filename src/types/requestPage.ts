@@ -2,7 +2,7 @@ export interface RequestType {
   taskName: string;
   completed: boolean;
   date: string;
-  description: string,
+  description: string;
   id: number;
 }
 
@@ -26,30 +26,36 @@ export interface SenderType {
   mail: string;
 }
 
-export interface RequestListProps{
+export interface TaskListProps {
+  tasks: { [key: number]: string } | { [key: number]: RequestType };
+  currentId: string;
+  received: boolean;
+}
+
+export interface RequestListProps {
   currentId: string;
   requester: RequestGroupType | SenderGroupType;
 }
 
 export interface RequestPageWithUserProps {
-  currentId:string;
+  currentId: string;
 }
 
 export interface RequestSendFormProps {
-  currentId: string
+  currentId: string;
   userMail: string;
-  userKey: string
+  userKey: string;
 }
 
-export interface RequestTaskProps{
+export interface RequestTaskProps {
   currentId: string;
   task: RequestType;
   received: boolean;
 }
 
-export interface ChangeRequestTaskProps{
+export interface ChangeRequestTaskProps {
   currentId: string;
   task: RequestType;
-  received: boolean
+  received: boolean;
   handleChanging: () => void;
 }

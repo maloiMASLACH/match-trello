@@ -1,11 +1,13 @@
 import React, { useContext, useState } from 'react';
+import clsx from 'clsx';
 import { onDragOver, onDropCard } from '../../../utils/dragEvents';
 import { FirebaseContext } from '../../../utils/fireBase';
 import './styles.css';
 import { TaskProps } from '../../../types/taskBlock';
 import ChangeTaskField from './components/changeNameField';
 import TaskValueContext from '../../../utils/valueContexts/taskValueContext';
-import ActiveImg from '../../controls/activeImg';
+import RedactImg from '../../controls/images/redact';
+import DeleteImg from '../../controls/images/delete';
 
 const Task = (props: TaskProps) => {
   const {
@@ -33,7 +35,7 @@ const Task = (props: TaskProps) => {
 
   return (
     <div
-      className={`task ${!isChanging}`}
+      className={clsx('task', `${!isChanging}`)}
       onDragStart={() => {
         setCurrentCard(taskValue);
       }}
@@ -52,12 +54,7 @@ const Task = (props: TaskProps) => {
       {!isChanging ? (
         <>
           <div className="tools">
-            <ActiveImg
-              src="./../redact.png"
-              alt="redact"
-              className="taskRedact"
-              onClick={handleChanging}
-            />
+            <RedactImg className="taskRedact" onClick={handleChanging} />
             <input
               className="taskCheckBox"
               type="checkbox"
@@ -69,12 +66,7 @@ const Task = (props: TaskProps) => {
               <input type="checkbox" id="rule" />
               <div id="tick_mark" />
             </label>
-            <ActiveImg
-              src="./../delete.png"
-              alt="delete"
-              className="taskDelete"
-              onClick={deleteTask}
-            />
+            <DeleteImg className="taskDelete" onClick={deleteTask} />
           </div>
           <div className="upperPart">
             <p>{taskValue.taskName}</p>

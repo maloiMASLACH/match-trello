@@ -8,7 +8,7 @@ import { HandleActive } from '../../../../../types/toggle';
 import patterns, { validateBlockName } from '../../../../../utils/patterns';
 import InputBlock from '../../../../controls/input';
 import Placeholders from '../../../../../constants/placeholders';
-import ActiveImg from '../../../../controls/activeImg';
+import CloseImg from '../../../../controls/images/close';
 
 const AddForm = (props: HandleActive) => {
   const { handleActive } = props;
@@ -38,12 +38,7 @@ const AddForm = (props: HandleActive) => {
 
   return (
     <div className="addBlock">
-      <ActiveImg
-        src="./../x.png"
-        alt="add"
-        className="addDeskImgClose"
-        onClick={handleActive}
-      />
+      <CloseImg className="addDeskImgClose" onClick={handleActive} />
       <InputBlock
         id="newDeskName"
         value={inputValue}
@@ -54,7 +49,7 @@ const AddForm = (props: HandleActive) => {
       />
       <button
         type="submit"
-        disabled={!(patterns.blockName.test(inputValue))}
+        disabled={!patterns.blockName.test(inputValue)}
         onClick={addDesk}
       >
         confirm

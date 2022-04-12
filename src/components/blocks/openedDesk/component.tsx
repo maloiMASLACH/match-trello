@@ -1,16 +1,18 @@
-import React, { useContext, useState } from 'react';
-import { ColumnType } from '../../../types/globalTypes';
-import { FirebaseContext } from '../../../utils/fireBase';
-import { sortByPosition } from '../../../utils/sortCards';
-import NewColumn from '../newColumn';
-import './styles.css';
-import ChangeNameField from './components/changeNameField';
-import Column from './components/column';
-import UserValueContext from '../../../utils/valueContexts/userValueContext';
-import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
-import ColumnValueContext from '../../../utils/valueContexts/columnValueContext';
-import { HandleActive } from '../../../types/toggle';
-import ActiveImg from '../../controls/activeImg';
+import React, { useContext, useState } from "react";
+import { ColumnType } from "../../../types/globalTypes";
+import { FirebaseContext } from "../../../utils/fireBase";
+import { sortByPosition } from "../../../utils/sortCards";
+import NewColumn from "../newColumn";
+import "./styles.css";
+import ChangeNameField from "./components/changeNameField";
+import Column from "./components/column";
+import UserValueContext from "../../../utils/valueContexts/userValueContext";
+import DeskValueContext from "../../../utils/valueContexts/deskValueContext";
+import ColumnValueContext from "../../../utils/valueContexts/columnValueContext";
+import { HandleActive } from "../../../types/toggle";
+import CloseImg from "../../controls/images/close";
+import RedactImg from "../../controls/images/redact";
+import DeleteImg from "../../controls/images/delete";
 
 const OpenedDesk = (props: HandleActive) => {
   const { handleActive } = props;
@@ -22,12 +24,14 @@ const OpenedDesk = (props: HandleActive) => {
   const [isChanging, setChanging] = useState<boolean>(false);
   const [currentColumn, setCurrentColumn] = useState<ColumnType>({
     tasks: [],
-    columnName: '',
+    columnName: "",
     id: 0,
     position: 0,
   });
 
-  const sortedColumns = Object.values(deskInfo.columns || []).sort(sortByPosition);
+  const sortedColumns = Object.values(deskInfo.columns || []).sort(
+    sortByPosition
+  );
 
   const handleChanging = () => {
     setChanging((prevState) => !prevState);
@@ -41,44 +45,27 @@ const OpenedDesk = (props: HandleActive) => {
     <div className="openedDeskBlock">
       <div className="openedDeskBlockHead">
         {!isChanging ? (
-          <h3>
-            {deskInfo.deskName}
-          </h3>
+          <h3>{deskInfo.deskName}</h3>
         ) : (
           <ChangeNameField handleChanging={handleChanging} />
         )}
         <div className="toolImg">
-          <ActiveImg
-            src="./../redact.png"
-            alt="redact"
-            className="deskDelete"
-            onClick={handleChanging}
-          />
-          <ActiveImg
-            src="./../delete.png"
-            alt="delete"
-            className="deskDelete"
-            onClick={deleteDesk}
-          />
-          <ActiveImg
-            src="./../x.png"
-            alt="x"
-            onClick={handleActive}
-          />
+          <RedactImg className="deskDelete" onClick={handleChanging} />
+          <DeleteImg className="deskDelete" onClick={deleteDesk} />
+          <CloseImg onClick={handleActive} />
         </div>
       </div>
       <div className="colons">
-        { sortedColumns
-          .map((column: ColumnType) => (
-            <ColumnValueContext.Provider key={column.id} value={column}>
-              <Column
-                uid={userValue.uid}
-                deskObjId={deskInfo.id}
-                currentColumn={currentColumn}
-                setCurrentColumn={setCurrentColumn}
-              />
-            </ColumnValueContext.Provider>
-          ))}
+        {sortedColumns.map((column: ColumnType) => (
+          <ColumnValueContext.Provider key={column.id} value={column}>
+            <Column
+              uid={userValue.uid}
+              deskObjId={deskInfo.id}
+              currentColumn={currentColumn}
+              setCurrentColumn={setCurrentColumn}
+            />
+          </ColumnValueContext.Provider>
+        ))}
         <NewColumn uid={userValue.uid} />
       </div>
     </div>

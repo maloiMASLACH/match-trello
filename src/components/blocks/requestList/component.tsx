@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './styles.css';
-import RequestTask from '../requestTask';
 import { RequestListProps } from '../../../types/requestPage';
+import TaskList from '../taskList';
 
 const RequestList = (props: RequestListProps) => {
   const { requester, currentId } = props;
@@ -20,14 +20,7 @@ const RequestList = (props: RequestListProps) => {
         <i className="fa fa-eye" aria-hidden="true" onClick={handleChanging} />
       </div>
       <div className={`receivedTasks ${isVisible}`}>
-        {Object.values(requester.tasks).map((task) => (
-          <RequestTask
-            task={task}
-            received
-            key={task.id}
-            currentId={currentId}
-          />
-        ))}
+        <TaskList tasks={requester.tasks} currentId={currentId} received />
       </div>
     </>
   );

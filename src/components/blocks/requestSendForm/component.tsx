@@ -21,22 +21,21 @@ const RequestSendForm = (props: RequestSendFormProps) => {
   const [inputName, setInputName] = useState('');
   const [inputDate, setInputDate] = useState('');
   const [inputDescription, setInputDescription] = useState('');
+
   const [userId, setUserId] = useState(0);
 
   const [users, setUsers] = useState<UserType[]>([]);
-
-  const usersMails: string[] = [];
-
-  users?.forEach((user) => {
-    usersMails.push(user.mail);
-  });
+  const [usersMail, setUsersMail] = useState<string[]>([]);
 
   useEffect(() => {
     firebase.users().on('value', (snapshot) => {
       const usersObj: { [key: string]: UserType } = snapshot.val();
       const usersArr = Object.values(usersObj);
+
       usersArr.splice(usersArr.indexOf(usersObj[currentId]), 1);
+
       setUsers(usersArr);
+      setUsersMail(usersArr.map((user) => user.mail));
     });
   }, []);
 
@@ -44,13 +43,15 @@ const RequestSendForm = (props: RequestSendFormProps) => {
 
   const setLastId = () => {
     const { requests } = users[userId] || {};
-    if (requests
-       && requests.received
-       && requests.received[currentId]
-       && requests.received[currentId].tasks) {
-      const { tasks } = requests.received[currentId];
-      const sortedTasks = Object.values(tasks).sort(sortCards);
-      lastId = sortedTasks[sortedTasks.length - 1].id + 1;
+
+    if (requests?.received) {
+      const { tasks } = requests.received[currentId] || {};
+
+      if (tasks) {
+        const sortedTasks = Object.values(tasks).sort(sortCards);
+
+        lastId = sortedTasks[sortedTasks.length - 1].id + 1;
+      }
     }
   };
 
@@ -59,6 +60,7 @@ const RequestSendForm = (props: RequestSendFormProps) => {
 
     const taskObjId = lastId;
     const { uid } = users[userId];
+    const { mail } = users[userId];
 
     firebase
       .requesterName(uid, currentId)
@@ -68,7 +70,7 @@ const RequestSendForm = (props: RequestSendFormProps) => {
       })
       .then(() => {
         firebase.senderName(currentId, uid).update({
-          mail: users[userId]?.mail,
+          mail,
           key: uid,
         });
       })
@@ -90,11 +92,10 @@ const RequestSendForm = (props: RequestSendFormProps) => {
     <>
       <Select
         id="requestList"
-        values={usersMails}
-        defaultValue={usersMails[0]}
+        values={usersMail}
         onChange={(e) => {
           if (users) {
-            setUserId(usersMails.indexOf(e.target.value));
+            setUserId(usersMail.indexOf(e.target.value));
           }
         }}
       />
