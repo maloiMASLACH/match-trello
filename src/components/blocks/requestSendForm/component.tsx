@@ -25,7 +25,7 @@ const RequestSendForm = (props: RequestSendFormProps) => {
   const [userId, setUserId] = useState(0);
 
   const [users, setUsers] = useState<UserType[]>([]);
-  const [usersMail, setUsersMail] = useState<string[]>([]);
+  const [usersMails, setUsersMails] = useState<string[]>([]);
 
   useEffect(() => {
     firebase.users().on('value', (snapshot) => {
@@ -35,7 +35,7 @@ const RequestSendForm = (props: RequestSendFormProps) => {
       usersArr.splice(usersArr.indexOf(usersObj[currentId]), 1);
 
       setUsers(usersArr);
-      setUsersMail(usersArr.map((user) => user.mail));
+      setUsersMails(usersArr.map((user) => user.mail));
     });
   }, []);
 
@@ -92,10 +92,10 @@ const RequestSendForm = (props: RequestSendFormProps) => {
     <>
       <Select
         id="requestList"
-        values={usersMail}
+        values={usersMails}
         onChange={(e) => {
           if (users) {
-            setUserId(usersMail.indexOf(e.target.value));
+            setUserId(usersMails.indexOf(e.target.value));
           }
         }}
       />
