@@ -1,18 +1,18 @@
-import React, { useContext, useState } from "react";
-import { ColumnType } from "../../../types/globalTypes";
-import { FirebaseContext } from "../../../utils/fireBase";
-import { sortByPosition } from "../../../utils/sortCards";
-import NewColumn from "../newColumn";
-import "./styles.css";
-import ChangeNameField from "./components/changeNameField";
-import Column from "./components/column";
-import UserValueContext from "../../../utils/valueContexts/userValueContext";
-import DeskValueContext from "../../../utils/valueContexts/deskValueContext";
-import ColumnValueContext from "../../../utils/valueContexts/columnValueContext";
-import { HandleActive } from "../../../types/toggle";
-import CloseImg from "../../controls/images/close";
-import RedactImg from "../../controls/images/redact";
-import DeleteImg from "../../controls/images/delete";
+import React, { useContext, useState } from 'react';
+import { ColumnType } from '../../../types/globalTypes';
+import { FirebaseContext } from '../../../utils/fireBase';
+import { sortByPosition } from '../../../utils/sortCards';
+import NewColumn from '../newColumn';
+import './styles.css';
+import ChangeNameField from './components/changeNameField';
+import Column from './components/column';
+import UserValueContext from '../../../utils/valueContexts/userValueContext';
+import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
+import ColumnValueContext from '../../../utils/valueContexts/columnValueContext';
+import { HandleActive } from '../../../types/toggle';
+import CloseImg from '../../controls/images/close';
+import RedactImg from '../../controls/images/redact';
+import DeleteImg from '../../controls/images/delete';
 
 const OpenedDesk = (props: HandleActive) => {
   const { handleActive } = props;
@@ -24,13 +24,13 @@ const OpenedDesk = (props: HandleActive) => {
   const [isChanging, setChanging] = useState<boolean>(false);
   const [currentColumn, setCurrentColumn] = useState<ColumnType>({
     tasks: [],
-    columnName: "",
+    columnName: '',
     id: 0,
     position: 0,
   });
 
   const sortedColumns = Object.values(deskInfo.columns || []).sort(
-    sortByPosition
+    sortByPosition,
   );
 
   const handleChanging = () => {

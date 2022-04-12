@@ -1,17 +1,17 @@
-import React, { useContext, useState } from "react";
-import { TaskType } from "../../../types/globalTypes";
-import { FirebaseContext } from "../../../utils/fireBase";
-import { sortByPosition } from "../../../utils/sortCards";
-import NewTask from "../newTask";
-import Task from "../taskBlock";
-import "./styles.css";
-import ChangeNameField from "./components/changeNameField";
-import ColumnValueContext from "../../../utils/valueContexts/columnValueContext";
-import TaskValueContext from "../../../utils/valueContexts/taskValueContext";
-import { OpenedColumnProps } from "../../../types/openedColumn";
-import RedactImg from "../../controls/images/redact";
-import DeleteImg from "../../controls/images/delete";
-import CloseImg from "../../controls/images/close";
+import React, { useContext, useState } from 'react';
+import { TaskType } from '../../../types/globalTypes';
+import { FirebaseContext } from '../../../utils/fireBase';
+import { sortByPosition } from '../../../utils/sortCards';
+import NewTask from '../newTask';
+import Task from '../taskBlock';
+import './styles.css';
+import ChangeNameField from './components/changeNameField';
+import ColumnValueContext from '../../../utils/valueContexts/columnValueContext';
+import TaskValueContext from '../../../utils/valueContexts/taskValueContext';
+import { OpenedColumnProps } from '../../../types/openedColumn';
+import RedactImg from '../../controls/images/redact';
+import DeleteImg from '../../controls/images/delete';
+import CloseImg from '../../controls/images/close';
 
 const OpenedColumn = (props: OpenedColumnProps) => {
   const { uid, deskObjId, handleOpened } = props;
@@ -21,16 +21,16 @@ const OpenedColumn = (props: OpenedColumnProps) => {
 
   const [isChanging, setChanging] = useState<boolean>(false);
   const [currentTask, setCurrentTask] = useState<TaskType>({
-    taskName: "",
-    date: "",
+    taskName: '',
+    date: '',
     id: 0,
     position: 0,
-    description: "",
+    description: '',
     completed: false,
   });
 
   const sortedColumns = Object.values(columnValue.tasks || []).sort(
-    sortByPosition
+    sortByPosition,
   );
 
   const deleteColumn = () => {
