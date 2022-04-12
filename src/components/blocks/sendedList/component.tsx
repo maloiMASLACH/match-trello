@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './styles.css';
-import RequestTask from '../requestTask';
 import { TaskType } from '../../../types/globalTypes';
 import { FirebaseContext } from '../../../utils/fireBase';
 import SenderContext from '../../../utils/valueContexts/senderContext';
 import { RequestListProps } from '../../../types/requestPage';
+import TaskList from '../taskList';
 
 const SendedList = (props: RequestListProps) => {
   const { requester, currentId } = props;
@@ -35,14 +35,7 @@ const SendedList = (props: RequestListProps) => {
         <i className="fa fa-eye" aria-hidden="true" onClick={handleChanging} />
       </div>
       <div className={`receivedTasks ${isVisible}`}>
-        {Object.values(tasks || []).map((task) => (
-          <RequestTask
-            task={task}
-            received={false}
-            key={task.id}
-            currentId={currentId}
-          />
-        ))}
+        <TaskList tasks={tasks} currentId={currentId} received={false} />
       </div>
     </>
   );

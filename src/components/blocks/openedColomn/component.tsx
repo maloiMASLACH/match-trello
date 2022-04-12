@@ -9,7 +9,9 @@ import ChangeNameField from './components/changeNameField';
 import ColumnValueContext from '../../../utils/valueContexts/columnValueContext';
 import TaskValueContext from '../../../utils/valueContexts/taskValueContext';
 import { OpenedColumnProps } from '../../../types/openedColumn';
-import ActiveImg from '../../controls/activeImg';
+import RedactImg from '../../controls/images/redact';
+import DeleteImg from '../../controls/images/delete';
+import CloseImg from '../../controls/images/close';
 
 const OpenedColumn = (props: OpenedColumnProps) => {
   const { uid, deskObjId, handleOpened } = props;
@@ -27,7 +29,9 @@ const OpenedColumn = (props: OpenedColumnProps) => {
     completed: false,
   });
 
-  const sortedColumns = Object.values(columnValue.tasks || []).sort(sortByPosition);
+  const sortedColumns = Object.values(columnValue.tasks || []).sort(
+    sortByPosition,
+  );
 
   const deleteColumn = () => {
     firebase.column(uid, deskObjId, columnValue.id).set(null);
@@ -46,41 +50,27 @@ const OpenedColumn = (props: OpenedColumnProps) => {
             deskObjId={deskObjId}
             handleChanging={handleChanging}
           />
-        ) : (<h3>{columnValue.columnName}</h3>)}
+        ) : (
+          <h3>{columnValue.columnName}</h3>
+        )}
         <div className="toolImg">
-          <ActiveImg
-            src="./../redact.png"
-            alt="redact"
-            className="deskDelete"
-            onClick={handleChanging}
-          />
-          <ActiveImg
-            src="./../delete.png"
-            alt="delete"
-            className="deskDelete"
-            onClick={deleteColumn}
-          />
-          <ActiveImg
-            src="./../x.png"
-            alt="x"
-            className="deskDelete"
-            onClick={handleOpened}
-          />
+          <RedactImg className="deskDelete" onClick={handleChanging} />
+          <DeleteImg className="deskDelete" onClick={deleteColumn} />
+          <CloseImg className="deskDelete" onClick={handleOpened} />
         </div>
       </div>
       <div className="tasks">
-        {sortedColumns
-          .map((task: TaskType) => (
-            <TaskValueContext.Provider key={task.id} value={task}>
-              <Task
-                uid={uid}
-                deskObjId={deskObjId}
-                columnObjId={columnValue.id}
-                currentCard={currentTask}
-                setCurrentCard={setCurrentTask}
-              />
-            </TaskValueContext.Provider>
-          ))}
+        {sortedColumns.map((task: TaskType) => (
+          <TaskValueContext.Provider key={task.id} value={task}>
+            <Task
+              uid={uid}
+              deskObjId={deskObjId}
+              columnObjId={columnValue.id}
+              currentCard={currentTask}
+              setCurrentCard={setCurrentTask}
+            />
+          </TaskValueContext.Provider>
+        ))}
         <NewTask uid={uid} deskObjId={deskObjId} />
       </div>
     </div>

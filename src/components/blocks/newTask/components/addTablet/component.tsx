@@ -1,6 +1,6 @@
 import React from 'react';
 import { HandleActive } from '../../../../../types/toggle';
-import ActiveImg from '../../../../controls/activeImg';
+import AddImg from '../../../../controls/images/add';
 import './styles.css';
 
 const AddTablet = (props: HandleActive) => {
@@ -9,7 +9,7 @@ const AddTablet = (props: HandleActive) => {
   return (
     <div className="addTaskBlock">
       <p>Add task</p>
-      <ActiveImg
+      <AddImg
         src="./../plus.png"
         alt="add"
         className="addTaskImg"

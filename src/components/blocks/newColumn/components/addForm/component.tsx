@@ -8,7 +8,7 @@ import { NewColumnAddProps } from '../../../../../types/newColumn';
 import patterns, { validateBlockName } from '../../../../../utils/patterns';
 import InputBlock from '../../../../controls/input';
 import Placeholders from '../../../../../constants/placeholders';
-import ActiveImg from '../../../../controls/activeImg';
+import CloseImg from '../../../../controls/images/close';
 
 const AddForm = (props: NewColumnAddProps) => {
   const { uid, handleActive } = props;
@@ -39,12 +39,7 @@ const AddForm = (props: NewColumnAddProps) => {
 
   return (
     <div className="addColonBlock">
-      <ActiveImg
-        src="../../x.png"
-        alt="close"
-        className="addColonImgClose"
-        onClick={handleActive}
-      />
+      <CloseImg className="addColonImgClose" onClick={handleActive} />
       <InputBlock
         id="newColonName"
         value={inputValue}

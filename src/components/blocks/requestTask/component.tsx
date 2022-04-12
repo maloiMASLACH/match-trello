@@ -5,7 +5,8 @@ import ChangeRequestTaskField from './components/changeNameField/component';
 import { FirebaseContext } from '../../../utils/fireBase';
 import RequesterContext from '../../../utils/valueContexts/requesterContext';
 import SenderContext from '../../../utils/valueContexts/senderContext';
-import ActiveImg from '../../controls/activeImg';
+import RedactImg from '../../controls/images/redact';
+import DeleteImg from '../../controls/images/delete';
 
 const RequestTask = (props: RequestTaskProps) => {
   const { task, received, currentId } = props;
@@ -27,30 +28,16 @@ const RequestTask = (props: RequestTaskProps) => {
 
   const setCompleted = () => {
     firebase
-      .setRequestComplete(
-        senderId,
-        receiverId,
-        task.id,
-      )
+      .setRequestComplete(senderId, receiverId, task.id)
       .set(!task.completed);
   };
 
   const deleteTask = () => {
     firebase
-      .sendRequest(
-        senderId,
-        receiverId,
-        task.id,
-      )
+      .sendRequest(senderId, receiverId, task.id)
       .set(null)
       .then(() => {
-        firebase
-          .sendedTask(
-            receiverId,
-            senderId,
-            task.id,
-          )
-          .set(null);
+        firebase.sendedTask(receiverId, senderId, task.id).set(null);
       });
   };
 
@@ -59,12 +46,7 @@ const RequestTask = (props: RequestTaskProps) => {
       {!isChanging ? (
         <>
           <div className="tools">
-            <ActiveImg
-              src="./../redact.png"
-              alt="redact"
-              className="taskRedact"
-              onClick={handleChanging}
-            />
+            <RedactImg className="taskRedact" onClick={handleChanging} />
             <input
               className="taskCheckBox"
               type="checkbox"
@@ -76,12 +58,7 @@ const RequestTask = (props: RequestTaskProps) => {
               <input type="checkbox" id="rule" />
               <div id="tick_mark" />
             </label>
-            <ActiveImg
-              src="./../delete.png"
-              alt="delete"
-              className="taskDelete"
-              onClick={deleteTask}
-            />
+            <DeleteImg className="taskDelete" onClick={deleteTask} />
           </div>
           <div className="upperPart">
             <p>{task.taskName}</p>
