@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import './styles.css';
 import { FirebaseContext } from '../../../../../utils/fireBase';
-import { FirstColumn } from '../../../../../constants/voidObjects';
 import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
 import { sortCards } from '../../../../../utils/sortCards';
 import { HandleActive } from '../../../../../types/toggle';
@@ -28,7 +27,6 @@ const AddForm = (props: HandleActive) => {
     }
 
     firebase.desk(userValue.uid, lastId).update({
-      columns: { 1: FirstColumn },
       id: lastId,
       deskName: inputValue,
     });

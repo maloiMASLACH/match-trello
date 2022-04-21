@@ -22,11 +22,14 @@ const PageWithUser = (props: PageWithUserProps) => {
     uid: '',
     name: '',
     requests: { sended: {}, received: {} },
+    assignments: {},
   });
 
   let taskCount = 0;
+  let assignCount = 0;
 
   const selected = localStorage.getItem(localStorageKeys.Theme) || themes[0];
+  const seenAssigns = localStorage.getItem(localStorageKeys.Assignments) || 0;
 
   useEffect(() => {
     firebase.user(userID).on('value', (snapshot) => {
@@ -42,6 +45,13 @@ const PageWithUser = (props: PageWithUserProps) => {
         });
       }
     });
+  }
+
+  if (userValue.assignments) {
+    assignCount = Object.values(userValue.assignments).reduce(
+      (acc, curr) => acc + Object.keys(curr.tasks || []).length,
+      0,
+    );
   }
 
   return (
@@ -85,6 +95,11 @@ const PageWithUser = (props: PageWithUserProps) => {
         <NavLink className="linkToApp" to={`${RouterLinks.Requests}${userValue.uid}`}>
           Team requests
         </NavLink>
+        {Object.values(userValue.assignments || {}).length && (
+          <NavLink className="linkToApp" to={`${RouterLinks.Assignment}`}>
+            {`Assignments ${+seenAssigns < assignCount ? assignCount - +seenAssigns : ''}`}
+          </NavLink>
+        )}
       </div>
       <PasswordActionLink text="change password" link={RouterLinks.PassReset} />
     </div>

@@ -1,8 +1,5 @@
-.openedColonBlock {
+.appPage div.openedColonBlock {
   margin: 0 auto;
-  border: 5px dashed var(--global-border-color);
-  position: absolute;
-  background-color: var(--global-block-bg-color);
   width: 100%;
   border-radius: 30px;
   z-index: 2;

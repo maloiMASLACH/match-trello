@@ -21,6 +21,7 @@ import ErrorPage from './components/pages/errorPage';
 import LocalStorageKeys from './constants/localStorageKeys';
 import themes from './constants/themes';
 import RequestPage from './components/pages/requestsPage';
+import AssignmentPage from './components/pages/assignmentsPage';
 
 const App = () => {
   const firebase = useContext(FirebaseContext);
@@ -64,6 +65,7 @@ const App = () => {
               <Route element={<PasswordReset />} path={RouterLinks.PassReset} />
               <Route element={<AdminPage />} path={RouterLinks.Admin} />
               <Route element={<RequestPage />} path={`${RouterLinks.Requests}/:uid`} />
+              <Route element={<AssignmentPage />} path={RouterLinks.Assignment} />
             </Routes>
           </div>
         </div>

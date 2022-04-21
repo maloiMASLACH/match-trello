@@ -8,8 +8,10 @@ const AddTablet = (props: HandleActive) => {
 
   return (
     <div className="addBlock">
-      <p>Create new desk</p>
-      <AddImg className="addDeskImg" onClick={handleActive} />
+      <div className="addTablet">
+        <p>Create new desk</p>
+        <AddImg className="addDeskImg" onClick={handleActive} />
+      </div>
     </div>
   );
 };

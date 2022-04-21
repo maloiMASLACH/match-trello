@@ -1,3 +1,9 @@
+.appTitle{
+    color: white;
+    background-color: var(--global-title-bg-color);
+    width: fit-content;
+    padding: 10px;
+}
 .appPage{
     width: 100%;
     display: flex;
@@ -6,5 +12,4 @@
 .appPage div{
     margin: 20px;
     justify-content: center;
-
 }

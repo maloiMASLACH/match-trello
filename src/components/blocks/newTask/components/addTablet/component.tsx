@@ -8,13 +8,10 @@ const AddTablet = (props: HandleActive) => {
 
   return (
     <div className="addTaskBlock">
-      <p>Add task</p>
-      <AddImg
-        src="./../plus.png"
-        alt="add"
-        className="addTaskImg"
-        onClick={handleActive}
-      />
+      <div className="addTablet" onClick={handleActive} aria-hidden="true">
+        <p>Add task</p>
+        <AddImg src="./../plus.png" alt="add" className="addTaskImg" />
+      </div>
     </div>
   );
 };

@@ -1,9 +1,15 @@
 
 .addBlock img.addDeskImg{
     margin: 10px auto;
-    max-width: 60%;
+    width: 30%;
     min-width: 10vh;
 }
 .addBlock img.addDeskImg:hover{
     opacity: 0.7;
+}
+.addBlock .addTablet{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    margin: 0;
 }

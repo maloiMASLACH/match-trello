@@ -3,7 +3,7 @@
     margin: 0 auto;
     width: 80%;
     justify-content: center;
-    background-color: var(--global-active-color);
+    background-color: var(--global-title-bg-color);
     margin-top: 4vh;
     color: #ffff;
     font-size: x-large;

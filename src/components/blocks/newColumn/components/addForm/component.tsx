@@ -3,7 +3,6 @@ import './styles.css';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
 import { sortCards } from '../../../../../utils/sortCards';
-import { task } from '../../../../../constants/voidObjects';
 import { NewColumnAddProps } from '../../../../../types/newColumn';
 import patterns, { validateBlockName } from '../../../../../utils/patterns';
 import InputBlock from '../../../../controls/input';
@@ -28,7 +27,6 @@ const AddForm = (props: NewColumnAddProps) => {
     }
 
     firebase.column(uid, deskValue.id, lastId).update({
-      tasks: { 1: task },
       id: lastId,
       columnName: inputValue,
       position: lastId,

@@ -31,10 +31,11 @@
     margin-top: 50px;
     height: 50px;
     font-size: x-large;
-    background-color:var(--global-active-color);
+    background-color:var(--global-title-bg-color);
     border: none;
     border-radius: 10px;
     text-transform: uppercase;
+    color: var(--global-text-color);
     width: 100%;
 }
 .sendRequestBlock select{

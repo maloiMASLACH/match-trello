@@ -6,6 +6,8 @@ const TaskValueContext = React.createContext<TaskType>({
   date: '',
   id: 0,
   position: 0,
+  forUser: '',
+  forUserId: '',
   description: '',
   completed: false,
 });

@@ -12,7 +12,7 @@ import NewDesk from '../../blocks/newDesk';
 import './styles.css';
 
 const PageWithUser = (props: AppPageProps) => {
-  const { userID } = props;
+  const { userID, isVisitor } = props;
 
   const firebase = useContext(FirebaseContext);
 
@@ -22,6 +22,7 @@ const PageWithUser = (props: AppPageProps) => {
     uid: '',
     desks: {},
     requests: { sended: {}, received: {} },
+    assignments: {},
   });
 
   const sortedDesks = Object.values(userValue.desks || []).sort(sortCards);
@@ -34,6 +35,7 @@ const PageWithUser = (props: AppPageProps) => {
 
   return (
     <UserValueContext.Provider value={userValue}>
+      {isVisitor && <h3 className="appTitle">{`${userValue.name}'s desks`}</h3>}
       <div className="appPage">
         {sortedDesks.map((desk) => (
           <DeskValueContext.Provider key={desk.id} value={desk}>
@@ -59,7 +61,7 @@ const AppPage: React.FC = () => {
   const { userId, isAdmin } = useContext(AuthUserContext);
 
   return uid && (uid === userId || isAdmin) ? (
-    <PageWithUser userID={uid} />
+    <PageWithUser userID={uid} isVisitor={uid !== userId} />
   ) : (
     <PageNoUser />
   );

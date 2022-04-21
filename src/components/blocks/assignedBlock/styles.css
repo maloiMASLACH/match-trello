@@ -1,0 +1,21 @@
+.assignedBlock{
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+}
+.assignedBlock .deskHead{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    justify-content: space-around;
+    color: white;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 30px;
+    border-bottom: 3px var(--global-border-color) dashed;
+}
+.assignedBlock p{
+    margin: 0 auto;
+    font-size: xx-large;
+    color: white;
+}

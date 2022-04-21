@@ -1,0 +1,30 @@
+.appointee{
+    margin: 10px;
+    width: 45%;
+    border: 3px solid var(--global-border-color);
+    border-radius: 20px;
+}
+
+.appointeeHead{
+    margin: 0 auto;
+    display: flex;
+    width: 90%;
+    color: white;
+    justify-content: space-around;
+    align-items: center;
+}
+.appointeeHead i{
+    font-size: xx-large;
+}
+.appointeeHead i:hover{
+    color: var(--global-active-color);
+}
+.assignedTask{
+    display: flex;
+    margin: 10px auto;
+    width: 90%;
+    border: 3px dashed var(--global-border-color);
+}
+.assignedTask:hover{
+    border: 3px solid var(--global-border-color);
+}

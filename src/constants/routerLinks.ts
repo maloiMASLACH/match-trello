@@ -8,6 +8,7 @@ enum RouterLinks {
   PassReset = '/passwordReset',
   Admin = '/admin',
   Requests = '/requests',
+  Assignment = '/assignment',
 }
 
 export default RouterLinks;

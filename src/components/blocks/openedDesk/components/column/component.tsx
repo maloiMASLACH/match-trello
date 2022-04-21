@@ -5,6 +5,9 @@ import './styles.css';
 import OpenedColumn from '../../../openedColomn/component';
 import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
 import { FirebaseContext } from '../../../../../utils/fireBase';
+import ChangeNameField from '../../../openedColomn/components/changeNameField';
+import DeleteImg from '../../../../controls/images/delete';
+import RedactImg from '../../../../controls/images/redact';
 
 const Column = (props: ColumnProps) => {
   const {
@@ -14,7 +17,8 @@ const Column = (props: ColumnProps) => {
   const firebase = useContext(FirebaseContext);
   const columnValue = useContext(ColumnValueContext);
 
-  const [isOpenColumn, setOpenColumn] = useState<boolean>(false);
+  const [isOpenColumn, setOpenColumn] = useState<boolean>(true);
+  const [isChanging, setChanging] = useState<boolean>(false);
 
   const taskLength = Object.values(columnValue?.tasks || []).length;
 
@@ -22,39 +26,61 @@ const Column = (props: ColumnProps) => {
     setOpenColumn((prevState) => !prevState);
   };
 
+  const handleChanging = () => {
+    setChanging((prevState) => !prevState);
+  };
+
+  const deleteColumn = () => {
+    firebase.column(uid, deskObjId, columnValue.id).set(null);
+  };
+
   return (
-    <>
-      <div
-        onDragStart={() => {
-          setCurrentColumn(columnValue);
-        }}
-        onDragOver={onDragOver}
-        onDrop={(e) => {
-          onDropColumn({
-            e,
-            columnValue,
-            currentColumn,
-            uid,
-            deskObjId,
-            firebase,
-          });
-        }}
-        draggable
-        className="colon"
-        onClick={handleOpened}
-        aria-hidden="true"
-      >
-        <h4>{columnValue!.columnName}</h4>
-        <p>{`${taskLength} task(s)`}</p>
+    <div
+      onDragStart={() => {
+        setCurrentColumn(columnValue);
+      }}
+      onDragOver={onDragOver}
+      onDrop={(e) => {
+        onDropColumn({
+          e,
+          columnValue,
+          currentColumn,
+          uid,
+          deskObjId,
+          firebase,
+        });
+      }}
+      draggable
+      className="column"
+      aria-hidden="true"
+    >
+      <div className="columnHead">
+        {isChanging ? (
+          <ChangeNameField
+            uid={uid}
+            deskObjId={deskObjId}
+            handleChanging={handleChanging}
+          />
+        ) : (
+          <div className="columnInfo">
+            <h4>{columnValue!.columnName}</h4>
+            <i className="fa fa-eye table" aria-hidden="true" onClick={handleOpened} />
+          </div>
+        )}
+        <div className="toolImg">
+          <RedactImg className="deskDelete" onClick={handleChanging} />
+          <DeleteImg className="deskDelete" onClick={deleteColumn} />
+        </div>
       </div>
-      {isOpenColumn && (
+      {isOpenColumn ? (
         <OpenedColumn
           uid={uid}
           deskObjId={deskObjId}
-          handleOpened={handleOpened}
         />
+      ) : (
+        <p>{`${taskLength} task(s)`}</p>
       )}
-    </>
+    </div>
   );
 };
 
