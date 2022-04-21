@@ -1,17 +1,63 @@
-.colon{
+.column{
+    width: 90%;
     font-size: x-large;
     line-height: 10%;
     color: white;
+    height: fit-content;
     padding: 5px 10px;
     text-align: center;
     border: 3px var(--global-border-color) dashed;
     border-radius: 10px;
 }
-.colon:hover{
+.column p{
+    line-height: 60px;
+}
+.column:hover{
     border: 3px var(--global-border-color) solid;
 }
+.appPage div.columnHead{
+    display: flex;
+    margin: 0;
+    justify-content: space-between;
+    color: white;
+    align-items: center;
+    width: 100%;
+    border-bottom: 3px var(--global-border-color) dashed;
+}
+.columnHead .columnInfo{
+    display: flex;
+    width: calc(100% - 90px);
+    margin: 0;
+    align-items: center;
+    justify-content: space-between;
+}
+.columnHead .columnInfo i{
+    transition: 0.3s;
+    font-size: xx-large;
+}
+.columnHead .columnInfo i:hover{
+    color: var(--global-active-color);
+}
+.columnHead .toolImg{
+    width: 70px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-left: 10px;
+    border-left: 3px var(--global-border-color) dashed;
+}
+.columnHead .toolImg img{
+    width: 50px;
+    margin: 5px 0;
+    cursor: pointer;
+    filter:var(--global-img-filter);
+}
+.columnHead .toolImg img:hover{
+opacity: 0.7;
+}
 @media screen and (max-width: 425px) {
-    .colon{
+    .column{
         width: 80%;
     }
  }

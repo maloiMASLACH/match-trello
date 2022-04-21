@@ -8,6 +8,7 @@ import ChangeTaskField from './components/changeNameField';
 import TaskValueContext from '../../../utils/valueContexts/taskValueContext';
 import RedactImg from '../../controls/images/redact';
 import DeleteImg from '../../controls/images/delete';
+import TextColor from '../../../constants/textColors';
 
 const Task = (props: TaskProps) => {
   const {
@@ -31,11 +32,16 @@ const Task = (props: TaskProps) => {
 
   const deleteTask = () => {
     firebase.task(uid, deskObjId, columnObjId, taskValue.id).set(null);
+
+    if (taskValue.forUser) {
+      firebase.assignment(taskValue.forUserId, uid.slice(1), `${deskObjId}_${columnObjId}_${taskValue.id}`).set(null);
+    }
   };
 
   return (
     <div
       className={clsx('task', `${!isChanging}`)}
+      style={{ background: TextColor[taskValue.forUser.split('')[0]] }}
       onDragStart={() => {
         setCurrentCard(taskValue);
       }}
@@ -73,7 +79,8 @@ const Task = (props: TaskProps) => {
             <p>{taskValue.date}</p>
           </div>
           <p className="taskDescription">
-            {taskValue.description || 'No description'}
+            <p>{`Assigned to: ${taskValue.forUser}`}</p>
+            <p>{taskValue.description || 'No description'}</p>
           </p>
         </>
       ) : (

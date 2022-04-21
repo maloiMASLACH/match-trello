@@ -23,6 +23,10 @@
   border: 2px solid var(--global-border-color);
   font-size: large;
 }
+.appPage div.changeTaskInputBlock select{
+  margin: 5px auto;
+  display: block;
+}
 @media screen and (max-width: 680px) {
   .appPage div .changeTaskBlock {
     display: inline-block;

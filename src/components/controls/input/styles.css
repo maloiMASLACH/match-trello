@@ -64,6 +64,12 @@ input[type=email]:not(.browser-default):focus:not([readonly])+i{
 .bluePage input[type=email]:not(.browser-default):focus:not([readonly])+i{
     color: teal;
 }
+.input-field>label {
+    color: var(--global-input-text-color);;
+}
+input::placeholder{
+    color: var(--global-placeholder-color);
+}
 .input-field > i {
     cursor: pointer;
     color:#000000; 

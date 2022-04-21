@@ -13,6 +13,7 @@ const Select = (props: SelectProps) => {
     >
       {values.map((option) => (
         <option
+          label={option}
           key={option}
           value={option}
           id={`${values.indexOf(option)}`}

@@ -1,8 +1,8 @@
 .addColonBlock{
     border: 5px solid var(--global-border-color);
     border-radius: 30px;
-    width: 20%;
-    background-color: var(--global-active-color);
+    width: 90%;
+    background-color: var(--global-block-bg-color);
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -17,7 +17,7 @@
 }
 .addColonBlock img.addColonImg{
     margin: 10px auto;
-    width: 40%;
+    width: 20%;
     filter: var(--global-img-filter);
 }
 .addColonBlock img.addColonImg:hover{
@@ -51,28 +51,7 @@
     font-size: large;
     font-weight: 800;
     letter-spacing: 3px;
-    background-color: var(--global-active-color);
+    background-color: var(--global-block-bg-color);
     height: 50px;
     width: 70%;
 }
-
-@media screen and (max-width: 1440px) {
-    .addColonBlock{
-        width: 30%;
-    }
- }
-@media screen and (max-width: 1024px) {
-    .addColonBlock{
-        width: 40%;
-    }
- }
- @media screen and (max-width: 768px) {
-    .addColonBlock{
-        width: 60%;
-    }
- }
-@media screen and (max-width: 425px) {
-    .addColonBlock{
-        width: 80%;
-    }
- }

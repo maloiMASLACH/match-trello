@@ -4,10 +4,26 @@ export interface TaskType {
   taskName: string;
   completed: boolean;
   date: string;
-  description: string,
+  description: string;
+  forUser: string;
+  forUserId: string;
   id: number;
   position: number;
 }
+
+export interface AssignmentType {
+  taskName: string;
+  date: string;
+  id: number;
+  fromUser: string;
+}
+
+export interface AppointeeType {
+  tasks: { [key: string]: AssignmentType };
+  from: string;
+  id: string;
+}
+
 export interface ColumnType {
   tasks: { [key: number]: TaskType };
   columnName: string;
@@ -25,7 +41,8 @@ export interface UserType {
   name: string;
   uid: string;
   desks: { [key: number]: DeskType };
-  requests: RequestsType
+  requests: RequestsType;
+  assignments: { [key: string]: AppointeeType };
 }
 
 export interface AuthUserType {

@@ -1,10 +1,16 @@
-.addTaskBlock{
+.appPage div .addTaskBlock{
     border: 5px solid var(--global-border-color);
+    margin: 0;
     border-radius: 30px;
-    width: 80%;
+    width: 100%;
     background-color: var(--global-block-bg-color);
     display: flex;
+    flex-direction: column;
     align-items: center;
+}
+.addTaskBlock .addTablet{
+    margin: 0;
+    display: flex;
 }
 .addTaskBlock img{
     filter: var(--global-img-filter);
@@ -22,6 +28,5 @@
     .addTaskBlock{
         display: flex;
         flex-direction: column;
-        width: 80%;
     }
   }

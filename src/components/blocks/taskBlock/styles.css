@@ -16,7 +16,7 @@ input.newTaskName[type=text]:not(.browser-default){
   color: var(--global-placeholder) ;
 }
 .taskRedactSubmit{
-  background-color: var(--global-active-color);
+  background-color: var(--global-block-bg-color);
   border: none;
   min-width: 80%;
   color: white;
@@ -27,7 +27,7 @@ input.newTaskName[type=text]:not(.browser-default){
 
 .appPage div.task {
   display: inline;
-  width: 45%;
+  width: 100%;
   font-size: x-large;
   height: 70px;
   padding: 5px 10px;
@@ -62,7 +62,7 @@ input.newTaskName[type=text]:not(.browser-default){
   justify-content: space-between;
 }
 .appPage div.task.true:hover{
-  height: 120px;
+  height: 150px;
 }
 .appPage div.task.false{
   height: fit-content;
@@ -73,7 +73,6 @@ input.newTaskName[type=text]:not(.browser-default){
 }
 .task .taskDescription{
   word-wrap:break-word;
-  line-height: 15px;
   opacity: 0;
   margin: 0 auto;
   margin-top: 0px;
@@ -90,6 +89,11 @@ input.newTaskName[type=text]:not(.browser-default){
 .appPage div.task:hover .taskDescription{
   animation: descriptionShowing 1s;
   opacity: 1;
+}
+.task .taskDescription p{
+  margin: 0;
+  font-size: medium;
+  line-height: 15px;
 }
 .task label {
   position: absolute;

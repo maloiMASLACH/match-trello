@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './styles.css';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import { sortCards } from '../../../../../utils/sortCards';
@@ -12,16 +12,27 @@ import TextArea from '../../../../controls/textarea';
 import InputBlock from '../../../../controls/input';
 import Placeholders from '../../../../../constants/placeholders';
 import CloseImg from '../../../../controls/images/close';
+import { UserType } from '../../../../../types/globalTypes';
+import Select from '../../../../controls/select';
+import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
+import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
 
 const AddForm = (props: NewTaskAddProps) => {
   const { uid, deskObjId, handleActive } = props;
 
   const firebase = useContext(FirebaseContext);
   const columnValue = useContext(ColumnValueContext);
+  const { id } = useContext(DeskValueContext);
+  const { mail } = useContext(UserValueContext);
 
   const [inputName, setInputName] = useState('');
   const [inputDate, setInputDate] = useState('');
   const [inputDescription, setInputDescription] = useState('');
+
+  const [userId, setUserId] = useState(-1);
+
+  const [users, setUsers] = useState<UserType[]>([]);
+  const [usersMails, setUsersMails] = useState<string[]>(['']);
 
   const addTask = () => {
     let lastId = 0;
@@ -37,12 +48,48 @@ const AddForm = (props: NewTaskAddProps) => {
       date: inputDate,
       completed: false,
       description: inputDescription,
+      forUser: users[userId] ? users[userId].mail : '',
+      forUserId: users[userId] ? users[userId].uid : '',
       id: lastId,
       position: lastId,
     });
 
+    if (userId !== -1) {
+      if (!users[userId].assignments || !users[userId].assignments[uid]) {
+        firebase.appointee(users[userId].uid, uid).update({
+          from: mail,
+          id: lastId,
+          position: lastId,
+        });
+      }
+
+      const assignmentId = `${id}_${columnValue.id}_${lastId}`;
+
+      firebase.assignment(users[userId].uid, uid, assignmentId).update({
+        taskName: inputName,
+        date: inputDate,
+        id: assignmentId,
+        fromUser: uid,
+      });
+    }
+
     handleActive();
   };
+
+  useEffect(() => {
+    firebase.users().on('value', (snapshot) => {
+      const usersObj: { [key: string]: UserType } = snapshot.val();
+      const usersArr = Object.values(usersObj);
+
+      usersArr.splice(usersArr.indexOf(usersObj[uid.slice(1)]), 1);
+
+      const usersMailsArr = usersArr.map((user) => user.mail);
+      usersMailsArr.unshift('');
+
+      setUsers(usersArr);
+      setUsersMails(usersMailsArr);
+    });
+  }, []);
 
   return (
     <div className="addTaskBlock">
@@ -75,6 +122,17 @@ const AddForm = (props: NewTaskAddProps) => {
           }
           placeholder={Placeholders.Description}
           validation={validateDescription}
+        />
+      </div>
+      <div className="inputBlock">
+        <Select
+          id="requestList"
+          values={usersMails}
+          onChange={(e) => {
+            if (users) {
+              setUserId(usersMails.indexOf(e.target.value) - 1);
+            }
+          }}
         />
       </div>
       <button

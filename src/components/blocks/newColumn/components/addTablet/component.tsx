@@ -8,8 +8,10 @@ const AddTablet = (props: HandleActive) => {
 
   return (
     <div className="addColonBlock">
-      <p>Create new column</p>
-      <AddImg className="addColonImg" onClick={handleActive} />
+      <div className="addTablet">
+        <p>Create new column</p>
+        <AddImg className="addColonImg" onClick={handleActive} />
+      </div>
     </div>
   );
 };

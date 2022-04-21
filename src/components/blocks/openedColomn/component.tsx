@@ -1,30 +1,25 @@
 import React, { useContext, useState } from 'react';
 import { TaskType } from '../../../types/globalTypes';
-import { FirebaseContext } from '../../../utils/fireBase';
 import { sortByPosition } from '../../../utils/sortCards';
 import NewTask from '../newTask';
 import Task from '../taskBlock';
 import './styles.css';
-import ChangeNameField from './components/changeNameField';
 import ColumnValueContext from '../../../utils/valueContexts/columnValueContext';
 import TaskValueContext from '../../../utils/valueContexts/taskValueContext';
 import { OpenedColumnProps } from '../../../types/openedColumn';
-import RedactImg from '../../controls/images/redact';
-import DeleteImg from '../../controls/images/delete';
-import CloseImg from '../../controls/images/close';
 
 const OpenedColumn = (props: OpenedColumnProps) => {
-  const { uid, deskObjId, handleOpened } = props;
+  const { uid, deskObjId } = props;
 
-  const firebase = useContext(FirebaseContext);
   const columnValue = useContext(ColumnValueContext);
 
-  const [isChanging, setChanging] = useState<boolean>(false);
   const [currentTask, setCurrentTask] = useState<TaskType>({
     taskName: '',
     date: '',
     id: 0,
     position: 0,
+    forUser: '',
+    forUserId: '',
     description: '',
     completed: false,
   });
@@ -33,32 +28,8 @@ const OpenedColumn = (props: OpenedColumnProps) => {
     sortByPosition,
   );
 
-  const deleteColumn = () => {
-    firebase.column(uid, deskObjId, columnValue.id).set(null);
-  };
-
-  const handleChanging = () => {
-    setChanging((prevState) => !prevState);
-  };
-
   return (
     <div className="openedColonBlock">
-      <div className="openedColonBlockHead">
-        {isChanging ? (
-          <ChangeNameField
-            uid={uid}
-            deskObjId={deskObjId}
-            handleChanging={handleChanging}
-          />
-        ) : (
-          <h3>{columnValue.columnName}</h3>
-        )}
-        <div className="toolImg">
-          <RedactImg className="deskDelete" onClick={handleChanging} />
-          <DeleteImg className="deskDelete" onClick={deleteColumn} />
-          <CloseImg className="deskDelete" onClick={handleOpened} />
-        </div>
-      </div>
       <div className="tasks">
         {sortedColumns.map((task: TaskType) => (
           <TaskValueContext.Provider key={task.id} value={task}>

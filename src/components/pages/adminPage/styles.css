@@ -22,7 +22,7 @@
     margin: 20px;
     padding: 10px;
     display: inline;
-    background-color: var(--global-input-text-color);
+    background-color: var(--global-block-bg-color);
     color: white;
 }
 .adminPage .usersList .user p {
