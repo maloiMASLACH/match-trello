@@ -59,7 +59,7 @@
     .userPage .userIcon{
         width: 70%;
         border-radius: 10px;
-        font-size: 50px;
+        font-size: 150%;
         color: white;
         line-height: 3vh;
     }

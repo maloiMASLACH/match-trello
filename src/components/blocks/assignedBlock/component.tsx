@@ -1,11 +1,12 @@
-import React from 'react';
-import LocalStorageKeys from '../../../constants/localStorageKeys';
-import { AssignedBlockProps } from '../../../types/assignmentPage';
+import React, { useState } from 'react';
+import { AssignedBlockProps } from '../../../types/assignedTask';
 import OpenedAssignBlock from './component/openedBlock';
 import './styles.css';
 
 const AssignedBlock = (props: AssignedBlockProps) => {
   const { assignments } = props;
+
+  const [isOpen, setOpenColumn] = useState<boolean>(false);
 
   let taskCount = 0;
 
@@ -16,15 +17,21 @@ const AssignedBlock = (props: AssignedBlockProps) => {
     );
   }
 
-  localStorage.setItem(LocalStorageKeys.Assignments, `${taskCount}`);
+  const handleActive = () => {
+    setOpenColumn((prevState) => !prevState);
+  };
 
   return (
     <div className="assignedBlock">
       <div className="deskHead">
         <h3>Assignments</h3>
-        <p>{`${taskCount} task(s)`}</p>
+        <i
+          className="fa fa-eye table"
+          aria-hidden="true"
+          onClick={handleActive}
+        />
       </div>
-      {assignments && <OpenedAssignBlock assignments={assignments} />}
+      {isOpen ? assignments && <OpenedAssignBlock assignments={assignments} /> : <p>{`${taskCount} tasks`}</p>}
     </div>
   );
 };

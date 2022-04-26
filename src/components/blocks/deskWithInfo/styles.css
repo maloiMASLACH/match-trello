@@ -1,64 +1,83 @@
-.appPage div.infoBlock{
-    border: 3px solid var(--global-border-color);
-    height: fit-content;
-    width: 45%;
-    border-radius: 30px;
-    background-color: var(--global-block-bg-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.appPage div.infoBlock {
+  border: 3px solid var(--global-border-color);
+  height: fit-content;
+  width: 45%;
+  border-radius: 30px;
+  background-color: var(--global-block-bg-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
-.infoBlock .deskHead{
-    display: flex;
-    margin: 0;
-    justify-content: space-between;
-    color: white;
-    align-items: center;
-    width: 100%;
-    border-bottom: 3px var(--global-border-color) dashed;
+.appPage div.infoBlock.active {
+  display: none;
 }
-.infoBlock .deskHead .deskInfo{
-    display: flex;
-    margin: 0;
-    justify-content: space-between;
-    align-items: center;
-    width: calc(100% - 100px);
+.infoBlock .deskHead {
+  display: flex;
+  margin: 0;
+  justify-content: space-between;
+  color: white;
+  align-items: center;
+  width: 100%;
+  border-bottom: 3px var(--global-border-color) dashed;
 }
-.infoBlock .deskHead h3{
-margin-left: 15px;
+.infoBlock .deskHead .deskInfo {
+  display: flex;
+  margin: 0;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 100px);
 }
-.deskHead .table{
-    font-size: xx-large;
-    transition: 0.3s;
+.infoBlock .deskHead h3 {
+  margin-left: 15px;
 }
-.deskHead .table:hover{
-    color: var(--global-active-color);
+.deskHead .table {
+  font-size: xx-large;
+  transition: 0.3s;
 }
-.deskHead .toolImg{
-    width: 70px;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding-left: 10px;
-    border-left: 3px var(--global-border-color) dashed;
+.deskHead .table:hover {
+  color: var(--global-active-color);
 }
-.deskHead .toolImg img{
-    width: 50px;
-    margin: 5px 0;
-    cursor: pointer;
-    filter:var(--global-img-filter);
+.deskHead .toolImg {
+  width: 70px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-left: 10px;
+  border-left: 3px var(--global-border-color) dashed;
 }
-.deskHead .toolImg img:hover{
-    opacity: 0.7;
+.deskHead .toolImg img {
+  width: 50px;
+  margin: 5px 0;
+  cursor: pointer;
+  filter: var(--global-img-filter);
 }
-.infoBlock p{
-    margin: 0 auto;
-    font-size: xx-large;
-    color: white;
+.deskHead .toolImg img:hover {
+  opacity: 0.7;
+}
+.infoBlock p {
+  margin: 0 auto;
+  font-size: xx-large;
+  color: white;
+}
+.appPage div.openedHead{
+  display: flex;
+  width: 100%;
+  justify-content: start;
+}
+.openedHead h4{
+  margin-left:30px;
+  color: var(--global-active-color);
+  font-weight: 600;
+}
+img.back {
+  width: 50px;
+  margin: 15px 0;
+  cursor: pointer;
+  filter: var(--alt-img-filter);
 }
 @media screen and (max-width: 1140px) {
-    .appPage div.infoBlock{
-        width: 100%;
-    }
- }
+  .appPage div.infoBlock {
+    width: 100%;
+  }
+}

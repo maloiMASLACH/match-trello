@@ -9,7 +9,65 @@
     display: flex;
     flex-wrap: wrap;
 }
+.appPage.active{
+    display:inline-block;
+}
 .appPage div{
     margin: 20px;
     justify-content: center;
+}
+.appHead{
+    align-items: center;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.appHead .switcher{
+    display: flex;
+    align-items: center;
+    
+}
+.appHead .switcher p{
+    margin-left: 10px;
+    color: var(--global-title-bg-color);
+    font-size: xx-large;
+}
+.appHead .switcher input[type="checkbox"] {
+	visibility: hidden;
+}
+.appHead .switcher input[type="checkbox"] + label {
+    color: var(--global-border-color)
+}
+.appHead .switcher input[type="checkbox"]:checked + label {
+    background-color: var(--global-title-bg-color);
+}
+
+.appHead .switcher input[type="checkbox"]:checked + label:before {
+    transform: translateX(100px);
+    background-color: #FFF;
+}
+
+.appHead .switcher label {
+	display: flex;
+	width: 160px;
+	height: 60px;
+	border: 6px solid;
+	border-radius: 99em;
+	position: relative;
+	transition: transform .75s ease-in-out;
+	transform-origin: 50% 50%;
+	cursor: pointer;
+}
+.appHead .switcher label:before {
+    transition: transform .75s ease;
+    content: "";
+    display: block;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: var(--global-border-color);
+    border-radius: 50%;
+    top: 5px;
+    left: 5px;
 }

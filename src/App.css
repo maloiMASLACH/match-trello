@@ -126,4 +126,7 @@ button:not(:disabled):hover {
 .page {
   background: var(--global-bg-color);
 }
+.container{
+  max-width: none;
+}
 

@@ -7,10 +7,16 @@ import Column from './components/column';
 import UserValueContext from '../../../utils/valueContexts/userValueContext';
 import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
 import ColumnValueContext from '../../../utils/valueContexts/columnValueContext';
+import { columnChecker } from '../../../utils/assignedChecker';
+import AuthUserContext from '../../../utils/sessionHandler';
+import { OpenedDeskProps } from '../../../types/openedDesk';
 
-const OpenedDesk = () => {
+const OpenedDesk = (props: OpenedDeskProps) => {
+  const { isSwitched } = props;
+
   const userValue = useContext(UserValueContext);
   const deskInfo = useContext(DeskValueContext);
+  const { userMail } = useContext(AuthUserContext);
 
   const [currentColumn, setCurrentColumn] = useState<ColumnType>({
     tasks: [],
@@ -23,16 +29,21 @@ const OpenedDesk = () => {
     sortByPosition,
   );
 
+  const yourColumns = !isSwitched
+    ? sortedColumns
+    : columnChecker(sortedColumns, userMail);
+
   return (
     <div className="openedDeskBlock">
       <div className="colons">
-        {sortedColumns.map((column: ColumnType) => (
+        {yourColumns.map((column: ColumnType) => (
           <ColumnValueContext.Provider key={column.id} value={column}>
             <Column
               uid={userValue.uid}
               deskObjId={deskInfo.id}
               currentColumn={currentColumn}
               setCurrentColumn={setCurrentColumn}
+              isSwitched={isSwitched}
             />
           </ColumnValueContext.Provider>
         ))}

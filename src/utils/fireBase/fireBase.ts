@@ -109,17 +109,6 @@ class Firebase {
     uid:string,
     receiver:string,
   ) => this.db.ref(`users/${uid}/requests/received/${receiver}/tasks`);
-
-  appointee = (
-    uid:string,
-    appointee:string,
-  ) => this.db.ref(`users/${uid.slice(1)}/assignments/${appointee}`);
-
-  assignment = (
-    uid:string,
-    appointee:string,
-    assignment:string,
-  ) => this.db.ref(`users/${uid.slice(1)}/assignments/${appointee}/tasks/${assignment}`);
 }
 
 export default Firebase;

@@ -1,5 +1,8 @@
-import React, { useContext, useState } from 'react';
-import patterns, { validateBlockName, validateDescription } from '../../../../../utils/patterns';
+import React, { useContext, useEffect, useState } from 'react';
+import patterns, {
+  validateBlockName,
+  validateDescription,
+} from '../../../../../utils/patterns';
 import { ChangeTaskProps } from '../../../../../types/changeInput';
 import { FirebaseContext } from '../../../../../utils/fireBase';
 import TaskValueContext from '../../../../../utils/valueContexts/taskValueContext';
@@ -7,6 +10,10 @@ import './styles.css';
 import TextArea from '../../../../controls/textarea';
 import InputBlock from '../../../../controls/input';
 import Placeholders from '../../../../../constants/placeholders';
+import Select from '../../../../controls/select';
+import { UserType } from '../../../../../types/globalTypes';
+import GetUserMails from '../../../../../utils/getUserMails';
+import AuthUserContext from '../../../../../utils/sessionHandler';
 
 const ChangeTaskField = (props: ChangeTaskProps) => {
   const {
@@ -15,10 +22,18 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
 
   const firebase = useContext(FirebaseContext);
   const taskValue = useContext(TaskValueContext);
+  const { userMail } = useContext(AuthUserContext);
+
+  const [users, setUsers] = useState<UserType[]>([]);
+  const [usersMails, setUsersMails] = useState<string[]>(['']);
+
+  const [userId, setUserId] = useState(-1);
 
   const [inputName, setInputName] = useState(taskValue.taskName || '');
   const [inputDate, setInputDate] = useState(taskValue.date || '');
-  const [inputDescription, setInputDescription] = useState(taskValue.description || '');
+  const [inputDescription, setInputDescription] = useState(
+    taskValue.description || '',
+  );
 
   const renameTask = () => {
     const modifiedTask = {
@@ -26,12 +41,27 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
       taskName: inputName,
       date: inputDate,
       description: inputDescription,
+      forUser: users[userId] ? users[userId].mail : '',
+      forUserId: users[userId] ? users[userId].uid : '',
+      assignedBy: userMail,
     };
 
     firebase.task(uid, deskObjId, columnObjId, taskValue.id).set(modifiedTask);
 
     handleChanging();
   };
+
+  useEffect(() => {
+    firebase.users().on('value', (snapshot) => {
+      const params = {
+        users: snapshot.val(),
+        uid,
+        setUsers,
+        setUsersMails,
+      };
+      GetUserMails(params);
+    });
+  }, []);
 
   return (
     <div className="changeTaskBlock">
@@ -69,13 +99,26 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
           validation={validateDescription}
         />
       </div>
+      <div className="changeTaskInputBlock">
+        <Select
+          id="requestList"
+          values={usersMails}
+          onChange={(e) => {
+            if (users) {
+              setUserId(usersMails.indexOf(e.target.value) - 1);
+            }
+          }}
+        />
+      </div>
       <button
         className="taskRedactSubmit"
         type="submit"
         onClick={renameTask}
-        disabled={!(patterns.blockName.test(inputName))
-          || !(patterns.blockName.test(inputDate))
-          || inputDescription.length > 120}
+        disabled={
+          !patterns.blockName.test(inputName)
+          || !patterns.blockName.test(inputDate)
+          || inputDescription.length > 120
+        }
       >
         OK
       </button>
