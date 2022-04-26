@@ -26,6 +26,7 @@ input.newTaskName[type=text]:not(.browser-default){
 }
 
 .appPage div.task {
+  margin: 20px 0;
   display: inline;
   width: 100%;
   font-size: x-large;
@@ -62,7 +63,7 @@ input.newTaskName[type=text]:not(.browser-default){
   justify-content: space-between;
 }
 .appPage div.task.true:hover{
-  height: 150px;
+  height: 180px;
 }
 .appPage div.task.false{
   height: fit-content;
@@ -80,6 +81,13 @@ input.newTaskName[type=text]:not(.browser-default){
   font-size: medium;
   width: 95%;
   height: 60px;
+}
+.taskDescription .assigned{
+  display: flex;
+  justify-content: space-between;
+}
+.taskDescription .bolder{
+  font-weight: 700;
 }
 @keyframes descriptionShowing{
   0%{opacity: 0;}
@@ -196,9 +204,6 @@ input.newTaskName[type=text]:not(.browser-default){
   opacity: 1;
 }
 @media screen and (max-width: 1440px) {
-  .appPage div.task {
-    width: 80%;
-  }
   .taskDescription{
     width: 70%;
   }

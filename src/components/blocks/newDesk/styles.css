@@ -2,7 +2,7 @@
     border: 5px solid var(--global-border-color);
     border-radius: 30px;
     width: 45%;
-    height: fit-content;
+    max-height: 180px;
     background-color: var(--global-block-bg-color);
     display: flex;
     flex-direction: column;

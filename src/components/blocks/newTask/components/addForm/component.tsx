@@ -14,16 +14,15 @@ import Placeholders from '../../../../../constants/placeholders';
 import CloseImg from '../../../../controls/images/close';
 import { UserType } from '../../../../../types/globalTypes';
 import Select from '../../../../controls/select';
-import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
-import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
+import GetUserMails from '../../../../../utils/getUserMails';
+import AuthUserContext from '../../../../../utils/sessionHandler';
 
 const AddForm = (props: NewTaskAddProps) => {
   const { uid, deskObjId, handleActive } = props;
 
   const firebase = useContext(FirebaseContext);
   const columnValue = useContext(ColumnValueContext);
-  const { id } = useContext(DeskValueContext);
-  const { mail } = useContext(UserValueContext);
+  const { userMail } = useContext(AuthUserContext);
 
   const [inputName, setInputName] = useState('');
   const [inputDate, setInputDate] = useState('');
@@ -50,44 +49,23 @@ const AddForm = (props: NewTaskAddProps) => {
       description: inputDescription,
       forUser: users[userId] ? users[userId].mail : '',
       forUserId: users[userId] ? users[userId].uid : '',
+      assignedBy: userMail,
       id: lastId,
       position: lastId,
     });
-
-    if (userId !== -1) {
-      if (!users[userId].assignments || !users[userId].assignments[uid]) {
-        firebase.appointee(users[userId].uid, uid).update({
-          from: mail,
-          id: lastId,
-          position: lastId,
-        });
-      }
-
-      const assignmentId = `${id}_${columnValue.id}_${lastId}`;
-
-      firebase.assignment(users[userId].uid, uid, assignmentId).update({
-        taskName: inputName,
-        date: inputDate,
-        id: assignmentId,
-        fromUser: uid,
-      });
-    }
 
     handleActive();
   };
 
   useEffect(() => {
     firebase.users().on('value', (snapshot) => {
-      const usersObj: { [key: string]: UserType } = snapshot.val();
-      const usersArr = Object.values(usersObj);
-
-      usersArr.splice(usersArr.indexOf(usersObj[uid.slice(1)]), 1);
-
-      const usersMailsArr = usersArr.map((user) => user.mail);
-      usersMailsArr.unshift('');
-
-      setUsers(usersArr);
-      setUsersMails(usersMailsArr);
+      const params = {
+        users: snapshot.val(),
+        uid,
+        setUsers,
+        setUsersMails,
+      };
+      GetUserMails(params);
     });
   }, []);
 

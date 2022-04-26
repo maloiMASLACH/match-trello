@@ -32,10 +32,6 @@ const Task = (props: TaskProps) => {
 
   const deleteTask = () => {
     firebase.task(uid, deskObjId, columnObjId, taskValue.id).set(null);
-
-    if (taskValue.forUser) {
-      firebase.assignment(taskValue.forUserId, uid.slice(1), `${deskObjId}_${columnObjId}_${taskValue.id}`).set(null);
-    }
   };
 
   return (
@@ -79,7 +75,14 @@ const Task = (props: TaskProps) => {
             <p>{taskValue.date}</p>
           </div>
           <p className="taskDescription">
-            <p>{`Assigned to: ${taskValue.forUser}`}</p>
+            <p className="assigned">
+              {taskValue.forUser && 'Assigned to:'}
+              <p className="bolder">{taskValue.forUser}</p>
+            </p>
+            <p className="assigned">
+              {taskValue.forUser && 'By:'}
+              <p className="bolder">{taskValue.assignedBy}</p>
+            </p>
             <p>{taskValue.description || 'No description'}</p>
           </p>
         </>

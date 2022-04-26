@@ -7,21 +7,9 @@ export interface TaskType {
   description: string;
   forUser: string;
   forUserId: string;
+  assignedBy: string;
   id: number;
   position: number;
-}
-
-export interface AssignmentType {
-  taskName: string;
-  date: string;
-  id: number;
-  fromUser: string;
-}
-
-export interface AppointeeType {
-  tasks: { [key: string]: AssignmentType };
-  from: string;
-  id: string;
 }
 
 export interface ColumnType {
@@ -42,11 +30,11 @@ export interface UserType {
   uid: string;
   desks: { [key: number]: DeskType };
   requests: RequestsType;
-  assignments: { [key: string]: AppointeeType };
 }
 
 export interface AuthUserType {
   isVerified: boolean;
   isAdmin: boolean;
   userId: string;
+  userMail: string;
 }

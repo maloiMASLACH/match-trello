@@ -1,23 +1,27 @@
 import React, { useContext, useState } from 'react';
+import { DeskWithInfoProps } from '../../../types/deskWithInfo';
 import { FirebaseContext } from '../../../utils/fireBase';
 import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
 import UserValueContext from '../../../utils/valueContexts/userValueContext';
+import BackImg from '../../controls/images/back/component';
 import DeleteImg from '../../controls/images/delete';
 import RedactImg from '../../controls/images/redact';
 import OpenedDesk from '../openedDesk';
 import ChangeNameField from './components/changeNameField';
 import './styles.css';
 
-const DeskWithInfo = () => {
+const DeskWithInfo = (props: DeskWithInfoProps) => {
+  const { isActive, handleActive, isSwitched } = props;
+
   const firebase = useContext(FirebaseContext);
   const userValue = useContext(UserValueContext);
   const deskInfo = useContext(DeskValueContext);
 
   const [isChanging, setChanging] = useState<boolean>(false);
 
-  const [isOpen, setOpenDesk] = useState<boolean>(true);
+  const [isOpen, setOpenDesk] = useState<boolean>(false);
 
-  const handleActive = () => {
+  const handleOpened = () => {
     setOpenDesk((prevState) => !prevState);
   };
 
@@ -39,13 +43,20 @@ const DeskWithInfo = () => {
     );
   }
 
-  return (
-    <div className="infoBlock">
+  return !isOpen ? (
+    <div className={`infoBlock ${isActive && 'active'} ${isOpen && 'open'}`}>
       <div className="deskHead">
         {!isChanging ? (
           <div className="deskInfo">
             <h3>{deskInfo.deskName}</h3>
-            <i className="fa fa-eye table" aria-hidden="true" onClick={handleActive} />
+            <i
+              className="fa fa-eye table"
+              aria-hidden="true"
+              onClick={() => {
+                handleOpened();
+                handleActive();
+              }}
+            />
           </div>
         ) : (
           <ChangeNameField handleChanging={handleChanging} />
@@ -55,13 +66,23 @@ const DeskWithInfo = () => {
           <DeleteImg className="deskDelete" onClick={deleteDesk} />
         </div>
       </div>
-      {isOpen ? <OpenedDesk /> : (
-        <>
-          <p>{`${columnCount} columns`}</p>
-          <p>{`${taskCount} tasks`}</p>
-        </>
-      )}
+      <p>{`${columnCount} columns`}</p>
+      <p>{`${taskCount} tasks`}</p>
     </div>
+  ) : (
+    <>
+      <div className="openedHead">
+        <BackImg
+          className="back"
+          onClick={() => {
+            handleOpened();
+            handleActive();
+          }}
+        />
+        <h4>{`Desk: ${deskInfo.deskName}`}</h4>
+      </div>
+      <OpenedDesk isSwitched={isSwitched} />
+    </>
   );
 };
 

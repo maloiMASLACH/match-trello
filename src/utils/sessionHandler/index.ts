@@ -5,6 +5,7 @@ const AuthUserContext = React.createContext<AuthUserType>({
   isVerified: false,
   isAdmin: false,
   userId: '',
+  userMail: '',
 });
 
 export default AuthUserContext;

@@ -1,5 +1,5 @@
 .column{
-    width: 90%;
+    width: 350px;
     font-size: x-large;
     line-height: 10%;
     color: white;
@@ -8,6 +8,7 @@
     text-align: center;
     border: 3px var(--global-border-color) dashed;
     border-radius: 10px;
+    background-color: var(--global-block-bg-color);
 }
 .column p{
     line-height: 60px;

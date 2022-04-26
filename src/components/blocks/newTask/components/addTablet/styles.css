@@ -1,7 +1,7 @@
 
 .addTaskBlock img.addTaskImg{
     margin: 10px auto;
-    width: 10%;
+    width: 20%;
 }
 .addTaskBlock img.addTaskImg:hover{
     opacity: 0.7;

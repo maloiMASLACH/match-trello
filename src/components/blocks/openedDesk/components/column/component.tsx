@@ -11,7 +11,7 @@ import RedactImg from '../../../../controls/images/redact';
 
 const Column = (props: ColumnProps) => {
   const {
-    uid, deskObjId, currentColumn, setCurrentColumn,
+    uid, deskObjId, currentColumn, setCurrentColumn, isSwitched,
   } = props;
 
   const firebase = useContext(FirebaseContext);
@@ -64,7 +64,11 @@ const Column = (props: ColumnProps) => {
         ) : (
           <div className="columnInfo">
             <h4>{columnValue!.columnName}</h4>
-            <i className="fa fa-eye table" aria-hidden="true" onClick={handleOpened} />
+            <i
+              className="fa fa-eye table"
+              aria-hidden="true"
+              onClick={handleOpened}
+            />
           </div>
         )}
         <div className="toolImg">
@@ -73,10 +77,7 @@ const Column = (props: ColumnProps) => {
         </div>
       </div>
       {isOpenColumn ? (
-        <OpenedColumn
-          uid={uid}
-          deskObjId={deskObjId}
-        />
+        <OpenedColumn uid={uid} deskObjId={deskObjId} isSwitched={isSwitched} />
       ) : (
         <p>{`${taskLength} task(s)`}</p>
       )}
