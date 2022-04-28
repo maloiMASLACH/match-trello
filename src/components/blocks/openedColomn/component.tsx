@@ -7,14 +7,11 @@ import './styles.css';
 import ColumnValueContext from '../../../utils/valueContexts/columnValueContext';
 import TaskValueContext from '../../../utils/valueContexts/taskValueContext';
 import { OpenedColumnProps } from '../../../types/openedColumn';
-import AuthUserContext from '../../../utils/sessionHandler';
-import { taskChecker } from '../../../utils/assignedChecker';
 
 const OpenedColumn = (props: OpenedColumnProps) => {
-  const { uid, deskObjId, isSwitched } = props;
+  const { uid, deskObjId } = props;
 
   const columnValue = useContext(ColumnValueContext);
-  const { userMail } = useContext(AuthUserContext);
 
   const [currentTask, setCurrentTask] = useState<TaskType>({
     taskName: '',
@@ -24,6 +21,9 @@ const OpenedColumn = (props: OpenedColumnProps) => {
     forUser: '',
     forUserId: '',
     assignedBy: '',
+    assignedById: '',
+    deskObjId: '',
+    columnObjId: '',
     description: '',
     completed: false,
   });
@@ -32,19 +32,12 @@ const OpenedColumn = (props: OpenedColumnProps) => {
     sortByPosition,
   );
 
-  const yourColumns = !isSwitched
-    ? sortedColumns
-    : taskChecker(sortedColumns, userMail);
-
   return (
     <div className="openedColonBlock">
       <div className="tasks">
-        {yourColumns.map((task: TaskType) => (
+        {sortedColumns.map((task: TaskType) => (
           <TaskValueContext.Provider key={task.id} value={task}>
             <Task
-              uid={uid}
-              deskObjId={deskObjId}
-              columnObjId={columnValue.id}
               currentCard={currentTask}
               setCurrentCard={setCurrentTask}
             />

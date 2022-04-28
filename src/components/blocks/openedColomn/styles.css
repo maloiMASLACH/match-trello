@@ -2,7 +2,6 @@
   margin: 0 auto;
   width: 100%;
   border-radius: 30px;
-  z-index: 2;
 }
 .openedColonBlockHead {
   border-bottom: 8px dashed var(--global-border-color);
@@ -14,7 +13,7 @@
   text-align: center;
   color: white;
 }
-.openedColonBlockHead .toolImg{
+.openedColonBlockHead .toolImg {
   display: flex;
   height: 60px;
   width: 30%;
@@ -29,7 +28,7 @@
   opacity: 0.7;
 }
 .openedColonBlockHead img.deskDelete {
-margin-right: 30px;
+  margin-right: 30px;
 }
 
 .tasks {
@@ -40,30 +39,9 @@ margin-right: 30px;
   .openedColonBlock h3 {
     width: 100%;
   }
-  .openedColonBlockHead{
+  .openedColonBlockHead {
     display: inline-block;
     height: 120px;
     width: 95%;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -12,7 +12,7 @@ import TextColor from '../../../constants/textColors';
 
 const Task = (props: TaskProps) => {
   const {
-    uid, columnObjId, deskObjId, currentCard, setCurrentCard,
+    currentCard, setCurrentCard,
   } = props;
 
   const firebase = useContext(FirebaseContext);
@@ -26,12 +26,22 @@ const Task = (props: TaskProps) => {
 
   const setCompleted = () => {
     firebase
-      .taskCompleted(uid, deskObjId, columnObjId, taskValue.id)
+      .taskCompleted(
+        taskValue.assignedById,
+        Number(taskValue.deskObjId),
+        Number(taskValue.columnObjId),
+        taskValue.id,
+      )
       .set(!taskValue.completed);
   };
 
   const deleteTask = () => {
-    firebase.task(uid, deskObjId, columnObjId, taskValue.id).set(null);
+    firebase.task(
+      taskValue.assignedById,
+      Number(taskValue.deskObjId),
+      Number(taskValue.columnObjId),
+      taskValue.id,
+    ).set(null);
   };
 
   return (
@@ -46,9 +56,9 @@ const Task = (props: TaskProps) => {
         e,
         taskValue,
         currentCard,
-        uid,
-        deskObjId,
-        columnObjId,
+        uid: taskValue.assignedById,
+        deskObjId: Number(taskValue.deskObjId),
+        columnObjId: Number(taskValue.columnObjId),
         firebase,
       })}
       draggable={!isChanging}
@@ -88,9 +98,6 @@ const Task = (props: TaskProps) => {
         </>
       ) : (
         <ChangeTaskField
-          uid={uid}
-          deskObjId={deskObjId}
-          columnObjId={columnObjId}
           handleChanging={handleChanging}
         />
       )}

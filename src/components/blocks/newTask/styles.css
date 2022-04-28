@@ -11,6 +11,8 @@
 .addTaskBlock .addTablet{
     margin: 0;
     display: flex;
+    width: 100%;
+    justify-content: space-around;
 }
 .addTaskBlock img{
     filter: var(--global-img-filter);

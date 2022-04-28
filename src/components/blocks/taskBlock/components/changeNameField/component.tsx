@@ -17,7 +17,7 @@ import AuthUserContext from '../../../../../utils/sessionHandler';
 
 const ChangeTaskField = (props: ChangeTaskProps) => {
   const {
-    uid, columnObjId, deskObjId, handleChanging,
+    handleChanging,
   } = props;
 
   const firebase = useContext(FirebaseContext);
@@ -46,7 +46,12 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
       assignedBy: userMail,
     };
 
-    firebase.task(uid, deskObjId, columnObjId, taskValue.id).set(modifiedTask);
+    firebase.task(
+      taskValue.assignedById,
+      Number(taskValue.deskObjId),
+      Number(taskValue.columnObjId),
+      taskValue.id,
+    ).set(modifiedTask);
 
     handleChanging();
   };
@@ -55,7 +60,7 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
     firebase.users().on('value', (snapshot) => {
       const params = {
         users: snapshot.val(),
-        uid,
+        uid: taskValue.assignedById,
         setUsers,
         setUsersMails,
       };

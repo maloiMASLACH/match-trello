@@ -49,7 +49,10 @@ const AddForm = (props: NewTaskAddProps) => {
       description: inputDescription,
       forUser: users[userId] ? users[userId].mail : '',
       forUserId: users[userId] ? users[userId].uid : '',
-      assignedBy: userMail,
+      assignedBy: userId !== -1 ? userMail : '',
+      assignedById: uid,
+      deskObjId,
+      columnObjId: columnValue.id,
       id: lastId,
       position: lastId,
     });

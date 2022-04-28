@@ -1,30 +1,42 @@
-.appointee{
-    margin: 10px;
-    width: 90%;
-    border: 3px solid var(--global-border-color);
-    border-radius: 20px;
+.assignments {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.appointeeHead{
-    margin: 0 auto;
-    display: flex;
-    width: 90%;
-    color: white;
-    justify-content: space-around;
-    align-items: center;
+.appointee {
+  margin: 10px;
+  width: 350px;
+  border: 3px solid var(--global-border-color);
+  border-radius: 20px;
+  background-color: var(--global-block-bg-color);
 }
-.appointeeHead i{
-    font-size: xx-large;
+
+.appPage div.appointeeHead {
+  margin: 0;
+  display: flex;
+  width: 100%;
+  color: white;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 3px dashed var(--global-border-color);
 }
-.appointeeHead i:hover{
-    color: var(--global-active-color);
+.appointeeHead i {
+  font-size: xx-large;
 }
-.assignedTask{
-    display: flex;
-    margin: 10px auto;
-    width: 90%;
-    border: 3px dashed var(--global-border-color);
+.appointeeHead i:hover {
+  color: var(--global-active-color);
 }
-.assignedTask:hover{
-    border: 3px solid var(--global-border-color);
+.appointee .assignTasks {
+
+  margin-top: 40px;
+}
+.appointee .assignTasks div.task {
+  margin-top: 40px;
+  display: block;
+}
+.assignLength {
+  color: white;
+  text-align: center;
+  font-size: x-large;
 }

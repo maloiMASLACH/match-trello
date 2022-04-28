@@ -8,6 +8,9 @@ export interface TaskType {
   forUser: string;
   forUserId: string;
   assignedBy: string;
+  assignedById: string;
+  deskObjId: string;
+  columnObjId: string;
   id: number;
   position: number;
 }
