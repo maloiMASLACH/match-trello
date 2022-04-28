@@ -8,11 +8,11 @@
 input.newTaskName[type=text]:not(.browser-default){
   border-bottom: var(--global-border-color) solid 3px;
   color: white;
-  font-size: xx-large;
+  font-size: large;
   width: 100%;
 }
 .newTaskName::placeholder{
-  font-size: xx-large;
+  font-size: large;
   color: var(--global-placeholder) ;
 }
 .taskRedactSubmit{
@@ -24,6 +24,10 @@ input.newTaskName[type=text]:not(.browser-default){
   letter-spacing: 5px;
   margin-left: 0px;
 }
+.appPage div.tasks{
+  margin: 0 auto;
+  margin-top: 20px;
+}
 
 .appPage div.task {
   margin: 20px 0;
@@ -31,7 +35,7 @@ input.newTaskName[type=text]:not(.browser-default){
   width: 100%;
   font-size: x-large;
   height: 70px;
-  padding: 5px 10px;
+  padding: 0px 10px;
   color: white;
   text-align: center;
   border: 3px var(--global-border-color) dashed;
@@ -46,12 +50,12 @@ input.newTaskName[type=text]:not(.browser-default){
 }
 .taskDelete{
   margin-left: 50%;
-  width: 50px;
+  width: 30px;
   margin-top: -34px;
   filter: var(--global-img-filter);
 }
 .taskRedact{
-  width: 50px;
+  width: 30px;
   margin-top: -34px;
   filter: var(--global-img-filter);
 }
@@ -100,13 +104,16 @@ input.newTaskName[type=text]:not(.browser-default){
 }
 .task .taskDescription p{
   margin: 0;
-  font-size: medium;
+  font-size: small;
   line-height: 15px;
+}
+.task .taskDescription p:not(.assigned p){
+  margin-top: 10px;
 }
 .task label {
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   margin: 0 auto;
   margin-top: -13px;
   background-color: var(--global-active-color);
@@ -128,8 +135,8 @@ input.newTaskName[type=text]:not(.browser-default){
   top: 50%;
   right: 0;
   left: 0;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   margin: 0 auto;
   background-color: #fff;
   transform: translateY(-50%);
@@ -139,8 +146,8 @@ input.newTaskName[type=text]:not(.browser-default){
 }
 
 .task label:hover:before {
-  width: 35px;
-  height: 35px;
+  width: 15px;
+  height: 15px;
   box-shadow: inset 0 7px 10px #ff9d96;
 }
 
@@ -150,11 +157,11 @@ input.newTaskName[type=text]:not(.browser-default){
 
 #tick_mark {
   position: absolute;
-  top: 1px;
+  top: 5px;
   right: 0;
-  left: -5px;
-  width: 30px;
-  height: 30px;
+  left: -7px;
+  width: 15px;
+  height: 15px;
   margin: 0 auto;
   margin-left: 14px;
   transform: rotateZ(-40deg);
@@ -173,8 +180,8 @@ input.newTaskName[type=text]:not(.browser-default){
 #tick_mark:before {
   left: 0;
   bottom: 0;
-  width: 7px;
-  height: 25px;
+  width: 5px;
+  height: 100%;
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.23);
   transform: translateY(-68px);
 }
@@ -182,8 +189,8 @@ input.newTaskName[type=text]:not(.browser-default){
 #tick_mark:after {
   left: 0;
   bottom: 0;
-  width: 100%;
-  height: 7px;
+  width: 20px;
+  height: 5px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.23);
   transform: translateX(78px);
 }
@@ -208,40 +215,7 @@ input.newTaskName[type=text]:not(.browser-default){
     width: 70%;
   }
 }
-@media screen and (max-width: 1024px) {
-  .task label {
-    margin-top: -10px;
-    width: 30px;
-  height: 30px;
-  }
-  .task label:before {
-    width: 15px;
-    height: 15px;
-  }
-  
-  .task label:hover:before {
-    width: 20px;
-    height: 20px;
-  }
-  #tick_mark {
 
-    top: -13px;
-    left: -13px;
-    width: 30px;
-  }
-  #tick_mark:before {
-    width: 3px;
-    height: 15px;
-  }
-  
-  #tick_mark:after {
-    width: 60%;
-    height: 5px;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.23);
-    transform: translateX(78px);
-  }
-
-}
 @media screen and (max-width: 425px) {
   .appPage div.task {
     width: 90%;

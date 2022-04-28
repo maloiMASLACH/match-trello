@@ -9,8 +9,5 @@ export interface ChangeColumnProps {
 }
 
 export interface ChangeTaskProps {
-  uid: string;
-  columnObjId: number;
-  deskObjId: number;
   handleChanging: () => void;
 }

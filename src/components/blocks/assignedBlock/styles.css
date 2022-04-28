@@ -1,12 +1,15 @@
 .assignedBlock {
   border: 3px solid var(--global-border-color);
   height: fit-content;
-  width: 45%;
+  width: 350px;
   border-radius: 30px;
   background-color: var(--global-block-bg-color);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+.assignedBlock.active{
+  display: none;
 }
 .assignedBlock .deskHead {
   display: flex;
@@ -24,7 +27,7 @@
   font-size: xx-large;
   color: white;
 }
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1140px) {
   .assignedBlock {
   width: 100%;
 }  

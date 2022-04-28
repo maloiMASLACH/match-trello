@@ -1,10 +1,31 @@
 import React, { useState } from 'react';
-import { AssignedBlockProps } from '../../../types/assignedTask';
+import {
+  AssignedBlockProps,
+  OpenedHeadProps,
+} from '../../../types/assignedTask';
+import BackImg from '../../controls/images/back/component';
 import OpenedAssignBlock from './component/openedBlock';
 import './styles.css';
 
+const OpenedHead = (props: OpenedHeadProps) => {
+  const { handleOpen, handleActive } = props;
+
+  return (
+    <div className="openedHead">
+      <BackImg
+        className="back"
+        onClick={() => {
+          handleOpen();
+          handleActive();
+        }}
+      />
+      <h4>Assignments</h4>
+    </div>
+  );
+};
+
 const AssignedBlock = (props: AssignedBlockProps) => {
-  const { assignments } = props;
+  const { isActive, handleActive, assignments } = props;
 
   const [isOpen, setOpenColumn] = useState<boolean>(false);
 
@@ -17,23 +38,35 @@ const AssignedBlock = (props: AssignedBlockProps) => {
     );
   }
 
-  const handleActive = () => {
+  const handleOpen = () => {
     setOpenColumn((prevState) => !prevState);
   };
 
-  return (
-    <div className="assignedBlock">
-      <div className="deskHead">
-        <h3>Assignments</h3>
-        <i
-          className="fa fa-eye table"
-          aria-hidden="true"
-          onClick={handleActive}
-        />
+  return assignments.length ? (
+    !isOpen ? (
+      <div className={`assignedBlock ${isActive && 'active'}`}>
+        <div className="deskHead">
+          <h3>Assignments</h3>
+          <i
+            className="fa fa-eye table"
+            aria-hidden="true"
+            onClick={() => {
+              handleActive();
+              handleOpen();
+            }}
+          />
+        </div>
+        <p>{`${taskCount} tasks`}</p>
       </div>
-      {isOpen ? assignments && <OpenedAssignBlock assignments={assignments} /> : <p>{`${taskCount} tasks`}</p>}
-    </div>
-  );
+    ) : (
+      <>
+        <OpenedHead handleActive={handleActive} handleOpen={handleOpen} />
+        <OpenedAssignBlock assignments={assignments} />
+      </>
+    )
+  ) : isOpen ? (
+    <OpenedHead handleActive={handleActive} handleOpen={handleOpen} />
+  ) : null;
 };
 
 export default AssignedBlock;

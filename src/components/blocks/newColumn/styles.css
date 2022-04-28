@@ -1,7 +1,8 @@
 .addColonBlock{
     border: 5px solid var(--global-border-color);
     border-radius: 30px;
-    width: 350px;
+    height: 210px;
+    width: 280px;
     background-color: var(--global-block-bg-color);
     display: flex;
     flex-direction: column;
@@ -12,7 +13,7 @@
     margin: 10px auto;
     color: white;
     font-weight: 600;
-    font-size: x-large;
+    font-size: medium;
 
 }
 .addColonBlock img.addColonImg{

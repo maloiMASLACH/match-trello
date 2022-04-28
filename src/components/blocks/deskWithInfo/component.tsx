@@ -11,7 +11,7 @@ import ChangeNameField from './components/changeNameField';
 import './styles.css';
 
 const DeskWithInfo = (props: DeskWithInfoProps) => {
-  const { isActive, handleActive, isSwitched } = props;
+  const { isActive, handleActive } = props;
 
   const firebase = useContext(FirebaseContext);
   const userValue = useContext(UserValueContext);
@@ -81,7 +81,7 @@ const DeskWithInfo = (props: DeskWithInfoProps) => {
         />
         <h4>{`Desk: ${deskInfo.deskName}`}</h4>
       </div>
-      <OpenedDesk isSwitched={isSwitched} />
+      <OpenedDesk />
     </>
   );
 };

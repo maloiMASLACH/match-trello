@@ -1,8 +1,8 @@
 .addBlock{
     border: 5px solid var(--global-border-color);
     border-radius: 30px;
-    width: 45%;
-    max-height: 180px;
+    width: 350px;
+    max-height: 160px;
     background-color: var(--global-block-bg-color);
     display: flex;
     flex-direction: column;
@@ -14,8 +14,6 @@
     width: 70%;
     color: white;
     font-weight: 700;
-    font-size: xx-large;
-
 }
 .addBlock img.addDeskImg{
     filter: var(--global-img-filter);

@@ -1,7 +1,6 @@
 .appPage div .openedDeskBlock{
     margin: 0 auto;
     height: fit-content;
-    z-index: 1;
 }
 
 .openedDeskBlock h3 {
@@ -11,16 +10,12 @@
     color: white;
 
 }
-.openedDeskBlockHead {
-    border-bottom: 8px dashed var(--global-border-color) ;
-    display: flex;
-    height: 70px;
-}
 
 .openedDeskBlock .colons{
     margin: 0;
     display: flex;
     flex-wrap: wrap;
+    justify-content: start;
 
 }
  @media screen and (max-width: 768px) {

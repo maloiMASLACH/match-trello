@@ -1,7 +1,7 @@
 .appPage div.infoBlock {
   border: 3px solid var(--global-border-color);
   height: fit-content;
-  width: 45%;
+  width: 350px;
   border-radius: 30px;
   background-color: var(--global-block-bg-color);
   display: flex;
@@ -17,6 +17,7 @@
   justify-content: space-between;
   color: white;
   align-items: center;
+  min-height: 100px;
   width: 100%;
   border-bottom: 3px var(--global-border-color) dashed;
 }
@@ -25,10 +26,11 @@
   margin: 0;
   justify-content: space-between;
   align-items: center;
-  width: calc(100% - 100px);
+  width: calc(100% - 60px);
 }
 .infoBlock .deskHead h3 {
   margin-left: 15px;
+  font-size: xx-large;
 }
 .deskHead .table {
   font-size: xx-large;
@@ -38,7 +40,7 @@
   color: var(--global-active-color);
 }
 .deskHead .toolImg {
-  width: 70px;
+  width: 50px;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -47,7 +49,7 @@
   border-left: 3px var(--global-border-color) dashed;
 }
 .deskHead .toolImg img {
-  width: 50px;
+  width: 30px;
   margin: 5px 0;
   cursor: pointer;
   filter: var(--global-img-filter);
@@ -57,7 +59,7 @@
 }
 .infoBlock p {
   margin: 0 auto;
-  font-size: xx-large;
+  font-size: large;
   color: white;
 }
 .appPage div.openedHead{

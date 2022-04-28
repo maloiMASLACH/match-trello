@@ -1,6 +1,6 @@
 .column{
-    width: 350px;
-    font-size: x-large;
+    width: 280px;
+    font-size: large;
     line-height: 10%;
     color: white;
     height: fit-content;
@@ -32,6 +32,9 @@
     align-items: center;
     justify-content: space-between;
 }
+.columnHead .columnInfo h4{
+    font-size: x-large;
+}
 .columnHead .columnInfo i{
     transition: 0.3s;
     font-size: xx-large;
@@ -40,7 +43,7 @@
     color: var(--global-active-color);
 }
 .columnHead .toolImg{
-    width: 70px;
+    width: 50px;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -49,7 +52,7 @@
     border-left: 3px var(--global-border-color) dashed;
 }
 .columnHead .toolImg img{
-    width: 50px;
+    width: 30px;
     margin: 5px 0;
     cursor: pointer;
     filter:var(--global-img-filter);
@@ -57,6 +60,16 @@
 .columnHead .toolImg img:hover{
 opacity: 0.7;
 }
+@media screen and (max-width: 1140px) {
+    .column{
+        width: 260px;
+    }
+ }
+ @media screen and (max-width: 768px) {
+    .column{
+        width: 90%;
+    }
+ }
 @media screen and (max-width: 425px) {
     .column{
         width: 80%;

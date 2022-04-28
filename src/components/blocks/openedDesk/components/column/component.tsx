@@ -11,7 +11,7 @@ import RedactImg from '../../../../controls/images/redact';
 
 const Column = (props: ColumnProps) => {
   const {
-    uid, deskObjId, currentColumn, setCurrentColumn, isSwitched,
+    uid, deskObjId, currentColumn, setCurrentColumn,
   } = props;
 
   const firebase = useContext(FirebaseContext);
@@ -77,7 +77,7 @@ const Column = (props: ColumnProps) => {
         </div>
       </div>
       {isOpenColumn ? (
-        <OpenedColumn uid={uid} deskObjId={deskObjId} isSwitched={isSwitched} />
+        <OpenedColumn uid={uid} deskObjId={deskObjId} />
       ) : (
         <p>{`${taskLength} task(s)`}</p>
       )}
