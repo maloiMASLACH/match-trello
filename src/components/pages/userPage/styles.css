@@ -1,12 +1,12 @@
 .userPage{
     margin: 5vh auto;
-    width: 70vw;
+    width: 80%;
     height: 20vh;
     display: inline;
     justify-content: center;
 }
 .userPage .userIcon{
-    margin: 5vh auto;
+    margin: 4vh auto;
     width: fit-content;
     text-align: center;
     text-transform: capitalize;
@@ -18,7 +18,7 @@
     padding: 30px;
 }
 .userPage .commonInfo{
-    width: 80%;
+    width: 60%;
     margin: 0 auto;
 }
 .userPage .commonInfo div{

@@ -2,7 +2,8 @@
     border: 5px solid var(--global-border-color);
     border-radius: 30px;
     height: 210px;
-    width: 280px;
+    min-width: 280px;
+    max-width: 280px;
     background-color: var(--global-block-bg-color);
     display: flex;
     flex-direction: column;
@@ -55,4 +56,32 @@
     background-color: var(--global-block-bg-color);
     height: 50px;
     width: 70%;
+}
+@media screen and (max-width: 1140px) {
+    .addColonBlock{
+        height: 170px;
+        width: 90%;
+        max-width: none;
+        flex-direction: row;
+    }  
+    .addColonBlock img.addColonImg{
+        margin: 10px auto;
+        width: 20%;
+        filter: var(--global-img-filter);
+    }
+}
+@media screen and (max-width: 768px) {
+    .addColonBlock{
+        height: 150px;
+    }  
+}
+@media screen and (max-width: 425px) {
+    .addColonBlock{
+        height: 100px;
+    }  
+    .addColonBlock img.addColonImg{
+        margin: 10px auto;
+        width: 20%;
+        filter: var(--global-img-filter);
+    }
 }

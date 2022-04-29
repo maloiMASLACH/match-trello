@@ -5,12 +5,15 @@
     padding: 10px;
 }
 .appPage{
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
 }
 .appPage.active{
-    display:inline-block;
+    display:block;
+    width: 90%;
+    margin: 0 auto;
 }
 .appPage div{
     margin: 20px;

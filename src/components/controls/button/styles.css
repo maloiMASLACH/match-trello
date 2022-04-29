@@ -1,7 +1,7 @@
 .linkButton{
     display: flex;
     margin: 0 auto;
-    width: 80%;
+    width: 60%;
     justify-content: center;
     background-color: var(--global-title-bg-color);
     margin-top: 4vh;

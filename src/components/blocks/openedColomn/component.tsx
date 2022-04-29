@@ -32,9 +32,17 @@ const OpenedColumn = (props: OpenedColumnProps) => {
     sortByPosition,
   );
 
+  const xScroll = (e: React.WheelEvent<HTMLDivElement>) => {
+    e.currentTarget.scrollTo({
+      top: e.currentTarget.scrollTop += e.deltaY * 0.2,
+      left: 0,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <div className="openedColonBlock">
-      <div className="tasks">
+      <div className="tasks" onWheel={(e) => xScroll(e)}>
         {sortedColumns.map((task: TaskType) => (
           <TaskValueContext.Provider key={task.id} value={task}>
             <Task

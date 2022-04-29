@@ -24,10 +24,7 @@ input.newTaskName[type=text]:not(.browser-default){
   letter-spacing: 5px;
   margin-left: 0px;
 }
-.appPage div.tasks{
-  margin: 0 auto;
-  margin-top: 20px;
-}
+
 
 .appPage div.task {
   margin: 20px 0;
@@ -46,17 +43,19 @@ input.newTaskName[type=text]:not(.browser-default){
  display: flex;
  width: 40%;
  margin: 0 auto;
- margin-bottom: -20px;
+ margin-bottom: -15px;
 }
 .taskDelete{
-  margin-left: 50%;
+  margin-left: 3px;
   width: 30px;
-  margin-top: -34px;
+  height: 30px;
+  margin-top: -30px;
   filter: var(--global-img-filter);
 }
 .taskRedact{
   width: 30px;
-  margin-top: -34px;
+  height: 30px;
+  margin-top: -30px;
   filter: var(--global-img-filter);
 }
 .appPage div.task .upperPart{
@@ -67,7 +66,7 @@ input.newTaskName[type=text]:not(.browser-default){
   justify-content: space-between;
 }
 .appPage div.task.true:hover{
-  height: 180px;
+  height: 200px;
 }
 .appPage div.task.false{
   height: fit-content;
@@ -84,7 +83,7 @@ input.newTaskName[type=text]:not(.browser-default){
   position: relative;
   font-size: medium;
   width: 95%;
-  height: 60px;
+
 }
 .taskDescription .assigned{
   display: flex;
@@ -111,7 +110,6 @@ input.newTaskName[type=text]:not(.browser-default){
   margin-top: 10px;
 }
 .task label {
-  position: absolute;
   width: 30px;
   height: 30px;
   margin: 0 auto;
@@ -123,7 +121,6 @@ input.newTaskName[type=text]:not(.browser-default){
   cursor: pointer;
   transition: 0.2s ease transform, 0.2s ease background-color,
     0.2s ease box-shadow;
-  overflow: hidden;
   z-index: 1;
 }
 
@@ -156,10 +153,6 @@ input.newTaskName[type=text]:not(.browser-default){
 }
 
 #tick_mark {
-  position: absolute;
-  top: 5px;
-  right: 0;
-  left: -7px;
   width: 15px;
   height: 15px;
   margin: 0 auto;
@@ -194,6 +187,10 @@ input.newTaskName[type=text]:not(.browser-default){
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.23);
   transform: translateX(78px);
 }
+.taskCheckBox[type="checkbox"]:not(:checked), .taskCheckBox[type="checkbox"]:checked{
+  position: inherit;
+  width: 30px;
+}
 
 .taskCheckBox[type="checkbox"]:checked + label {
   background-color: #07d410;
@@ -207,7 +204,7 @@ input.newTaskName[type=text]:not(.browser-default){
 
 .taskCheckBox[type="checkbox"]:checked + label #tick_mark:before,
 .taskCheckBox[type="checkbox"]:checked + label #tick_mark:after {
-  transform: translate(0);
+  transform: translateY(0px) translateX(-10px);
   opacity: 1;
 }
 @media screen and (max-width: 1440px) {
