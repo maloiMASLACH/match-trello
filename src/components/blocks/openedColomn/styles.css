@@ -31,9 +31,18 @@
   margin-right: 30px;
 }
 
-.tasks {
+.appPage div.tasks {
+  margin: 0 auto;
+  padding: 20px 0;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  max-height: 60vh;
+  justify-content: start;
+  overflow: hidden;
+  flex-wrap: nowrap;
+}
+@media screen and (max-width: 1440px) {
+
 }
 @media screen and (max-width: 768px) {
   .openedColonBlock h3 {

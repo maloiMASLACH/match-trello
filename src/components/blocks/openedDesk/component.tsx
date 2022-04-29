@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { ColumnType } from '../../../types/globalTypes';
-import { sortByPosition } from '../../../utils/sortCards';
+import { invertSort } from '../../../utils/sortCards';
 import NewColumn from '../newColumn';
 import './styles.css';
 import Column from './components/column';
@@ -20,12 +20,23 @@ const OpenedDesk = () => {
   });
 
   const sortedColumns = Object.values(deskInfo.columns || []).sort(
-    sortByPosition,
+    invertSort,
   );
+
+  const yScroll = (e:React.WheelEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      e.currentTarget.scrollTo({
+        top: 0,
+        left: e.currentTarget.scrollLeft += e.deltaY * 0.2,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   return (
     <div className="openedDeskBlock">
-      <div className="colons">
+      <div className="colons" onWheel={(e) => yScroll(e)}>
+        <NewColumn uid={userValue.uid} />
         {sortedColumns.map((column: ColumnType) => (
           <ColumnValueContext.Provider key={column.id} value={column}>
             <Column
@@ -36,7 +47,6 @@ const OpenedDesk = () => {
             />
           </ColumnValueContext.Provider>
         ))}
-        <NewColumn uid={userValue.uid} />
       </div>
     </div>
   );

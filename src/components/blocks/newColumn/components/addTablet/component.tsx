@@ -7,10 +7,10 @@ const AddTablet = (props: HandleActive) => {
   const { handleActive } = props;
 
   return (
-    <div className="addColonBlock">
+    <div className="addColonBlock" onClick={handleActive} aria-hidden>
       <div className="addTablet">
         <p>Create new column</p>
-        <AddImg className="addColonImg" onClick={handleActive} />
+        <AddImg className="addColonImg" />
       </div>
     </div>
   );

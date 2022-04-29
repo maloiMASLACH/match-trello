@@ -3,6 +3,10 @@
   display: inline;
   justify-content: center;
 }
+.usersList {
+  margin: 0 auto;
+  width: 80%;
+}
 .adminPage .usersList p.adminPageTitle {
   margin-left: 50px;
   background-color: var(--navbar-color);

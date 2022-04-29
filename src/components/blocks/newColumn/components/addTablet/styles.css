@@ -8,3 +8,8 @@
 .addColonBlock .addTablet p{
     font-size: x-large;
 }
+@media screen and (max-width: 1140px) {
+    .addColonBlock .addTablet{
+        flex-direction: row;
+    }   
+}

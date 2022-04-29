@@ -1,5 +1,6 @@
 .column{
-    width: 280px;
+    min-width: 280px;
+    max-width: 280px;
     font-size: large;
     line-height: 10%;
     color: white;
@@ -60,14 +61,11 @@
 .columnHead .toolImg img:hover{
 opacity: 0.7;
 }
+
 @media screen and (max-width: 1140px) {
     .column{
-        width: 260px;
-    }
- }
- @media screen and (max-width: 768px) {
-    .column{
         width: 90%;
+        max-width: none;
     }
  }
 @media screen and (max-width: 425px) {

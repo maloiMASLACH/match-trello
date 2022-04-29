@@ -25,9 +25,9 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
   const { userMail } = useContext(AuthUserContext);
 
   const [users, setUsers] = useState<UserType[]>([]);
-  const [usersMails, setUsersMails] = useState<string[]>(['']);
+  const [usersMails, setUsersMails] = useState<string[]>(['', taskValue.forUser]);
 
-  const [userId, setUserId] = useState(-1);
+  const [userId, setUserId] = useState(0);
 
   const [inputName, setInputName] = useState(taskValue.taskName || '');
   const [inputDate, setInputDate] = useState(taskValue.date || '');
@@ -41,9 +41,9 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
       taskName: inputName,
       date: inputDate,
       description: inputDescription,
-      forUser: users[userId] ? users[userId].mail : '',
-      forUserId: users[userId] ? users[userId].uid : '',
-      assignedBy: userMail,
+      forUser: userId !== -1 ? users[userId].mail : '',
+      forUserId: userId !== -1 ? users[userId].uid : '',
+      assignedBy: userId !== -1 ? userMail : '',
     };
 
     firebase.task(
@@ -61,8 +61,10 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
       const params = {
         users: snapshot.val(),
         uid: taskValue.assignedById,
+        selectedMail: taskValue.forUser,
         setUsers,
         setUsersMails,
+        setUserId,
       };
       GetUserMails(params);
     });
@@ -108,6 +110,7 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
         <Select
           id="requestList"
           values={usersMails}
+          defaultValue={usersMails[usersMails.indexOf(taskValue.forUser)]}
           onChange={(e) => {
             if (users) {
               setUserId(usersMails.indexOf(e.target.value) - 1);

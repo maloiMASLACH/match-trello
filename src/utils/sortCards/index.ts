@@ -20,4 +20,14 @@ export const sortByPosition = (
   }
   return -1;
 };
+
+export const invertSort = (
+  a:TaskType | ColumnType,
+  b:TaskType | ColumnType,
+) => {
+  if (a.position > b.position) {
+    return -1;
+  }
+  return 1;
+};
 export default sortCards;

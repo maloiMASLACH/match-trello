@@ -3,13 +3,15 @@ import { UserType } from '../../types/globalTypes';
 interface GetUserMailsProps {
   users: { [key: string]: UserType };
   uid: string;
+  selectedMail: string
   setUsers: (e: UserType[]) => void;
   setUsersMails: (e: string[]) => void;
+  setUserId: (e: number) => void;
 }
 
 const GetUserMails = (props: GetUserMailsProps) => {
   const {
-    users, uid, setUsers, setUsersMails,
+    users, uid, selectedMail, setUsers, setUsersMails, setUserId,
   } = props;
   const usersArr = Object.values(users);
 
@@ -20,6 +22,7 @@ const GetUserMails = (props: GetUserMailsProps) => {
 
   setUsers(usersArr);
   setUsersMails(usersMailsArr);
+  setUserId(selectedMail ? usersMailsArr.indexOf(selectedMail) - 1 : -1);
 };
 
 export default GetUserMails;

@@ -28,7 +28,7 @@ const AddForm = (props: NewTaskAddProps) => {
   const [inputDate, setInputDate] = useState('');
   const [inputDescription, setInputDescription] = useState('');
 
-  const [userId, setUserId] = useState(-1);
+  const [userId, setUserId] = useState(0);
 
   const [users, setUsers] = useState<UserType[]>([]);
   const [usersMails, setUsersMails] = useState<string[]>(['']);
@@ -47,8 +47,8 @@ const AddForm = (props: NewTaskAddProps) => {
       date: inputDate,
       completed: false,
       description: inputDescription,
-      forUser: users[userId] ? users[userId].mail : '',
-      forUserId: users[userId] ? users[userId].uid : '',
+      forUser: userId !== -1 ? users[userId].mail : '',
+      forUserId: userId !== -1 ? users[userId].uid : '',
       assignedBy: userId !== -1 ? userMail : '',
       assignedById: uid,
       deskObjId,
@@ -65,8 +65,10 @@ const AddForm = (props: NewTaskAddProps) => {
       const params = {
         users: snapshot.val(),
         uid,
+        selectedMail: '',
         setUsers,
         setUsersMails,
+        setUserId,
       };
       GetUserMails(params);
     });
