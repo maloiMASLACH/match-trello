@@ -23,6 +23,6 @@
     color: var(--global-text-color);
 }
 .welcomeBlock p.welcomeClue{
-    margin-top: 30vh;
+    margin-top: 20vh;
     opacity: 0.4;
 }
