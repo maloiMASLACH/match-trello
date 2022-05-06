@@ -1,18 +1,12 @@
 import React, { useContext, useState } from 'react';
-import './styles.css';
 import { useNavigate } from 'react-router-dom';
-import InputBlock from '../../controls/input';
-import Button from '../../controls/button';
-import { FirebaseContext } from '../../../utils/fireBase';
-import patterns, {
-  validateEmail,
-  validatePassword,
-  validateUserName,
-} from '../../../utils/patterns';
-import RouterLinks from '../../../constants/routerLinks';
+import { RouterLinks, Labels, Placeholders } from '../../../constants';
+import {
+  FirebaseContext, patterns, validateUserName, validateEmail, validatePassword,
+} from '../../../utils';
 import ErrorBLock from '../../blocks/errorBlock';
-import Labels from '../../../constants/labels';
-import Placeholders from '../../../constants/placeholders';
+import { InputBlock, LinkButton } from '../../controls';
+import './styles.css';
 
 const SingUpForm: React.FC = () => {
   const navigate = useNavigate();
@@ -50,6 +44,7 @@ const SingUpForm: React.FC = () => {
         name: inputName,
         mail: inputMail,
         uid: `/${newUser.user!.uid}`,
+        isAdmin: false,
         desks: {},
       }))
       .then(() => firebase.auth.currentUser?.sendEmailVerification())
@@ -103,7 +98,7 @@ const SingUpForm: React.FC = () => {
         <p className="passwordsDontSameMessage">{passwordsDontSameMessage}</p>
       </div>
       {error ? <ErrorBLock errorText={error} /> : null}
-      <Button
+      <LinkButton
         text="SING UP"
         type="submit"
         disabled={!checkIsCorrect}

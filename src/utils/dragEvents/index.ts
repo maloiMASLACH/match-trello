@@ -1,57 +1,57 @@
-import { ColumnType, TaskType } from '../../types/globalTypes';
-import Firebase from '../fireBase';
-
-interface OnDropColumnProps {
-  e: React.DragEvent<HTMLDivElement>;
-  columnValue: ColumnType;
-  currentColumn: ColumnType;
-  uid: string;
-  deskObjId: number;
-  firebase: Firebase;
-}
-
-interface OnDropCardProps {
-  e: React.DragEvent<HTMLDivElement>;
-  taskValue: TaskType;
-  currentCard: TaskType;
-  uid: string;
-  deskObjId: number;
-  columnObjId: number;
-  firebase: Firebase;
-}
+import { ColumnType, DropProps, TaskType } from '../../types';
 
 export const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
   e.preventDefault();
   return null;
 };
-export const onDropColumn = (props: OnDropColumnProps) => {
+export const onDropColumn = (props: DropProps<ColumnType>) => {
   const {
-    e, columnValue, currentColumn, uid, deskObjId, firebase,
+    e, card, currentCard, uid, firebase,
   } = props;
 
-  if (e.currentTarget.getAttribute('draggable') === 'true' && currentColumn.columnName) {
-    firebase.columnPosition(uid, deskObjId, columnValue.id).set(currentColumn.position);
-    firebase.columnPosition(uid, deskObjId, currentColumn.id).set(columnValue.position);
+  if (
+    e.currentTarget.getAttribute('draggable') === 'true'
+  ) {
+    firebase
+      .columnPosition({
+        uid,
+        deskObjId: Number(card.deskObjId),
+        columnObjId: card.id,
+      })
+      .set(currentCard.position);
+    firebase
+      .columnPosition({
+        uid,
+        deskObjId: Number(currentCard.deskObjId),
+        columnObjId: currentCard.id,
+      })
+      .set(card.position);
   }
 };
 
-export const onDropCard = (props: OnDropCardProps) => {
+export const onDropCard = (props: DropProps<TaskType>) => {
   const {
-    e,
-    taskValue,
-    currentCard,
-    uid,
-    deskObjId,
-    columnObjId,
-    firebase,
+    e, card, currentCard, uid, firebase,
   } = props;
 
-  if (e.currentTarget.getAttribute('draggable') === 'true' && currentCard.taskName) {
+  if (
+    e.currentTarget.getAttribute('draggable') === 'true'
+  ) {
     firebase
-      .taskPosition(uid, deskObjId, columnObjId, taskValue.id)
+      .taskPosition({
+        uid,
+        deskObjId: Number(card.deskObjId),
+        columnObjId: Number(card.columnObjId),
+        taskObjId: card.id,
+      })
       .set(currentCard.position);
     firebase
-      .taskPosition(uid, deskObjId, columnObjId, currentCard.id)
-      .set(taskValue.position);
+      .taskPosition({
+        uid,
+        deskObjId: Number(currentCard.deskObjId),
+        columnObjId: Number(currentCard.columnObjId),
+        taskObjId: currentCard.id,
+      })
+      .set(card.position);
   }
 };

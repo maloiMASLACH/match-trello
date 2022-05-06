@@ -1,5 +1,3 @@
-import { RequestsType } from './requestPage';
-
 export interface TaskType {
   taskName: string;
   completed: boolean;
@@ -18,6 +16,7 @@ export interface TaskType {
 export interface ColumnType {
   tasks: { [key: number]: TaskType };
   columnName: string;
+  deskObjId: string;
   id: number;
   position: number;
 }
@@ -31,8 +30,8 @@ export interface UserType {
   mail: string;
   name: string;
   uid: string;
+  isAdmin: boolean;
   desks: { [key: number]: DeskType };
-  requests: RequestsType;
 }
 
 export interface AuthUserType {

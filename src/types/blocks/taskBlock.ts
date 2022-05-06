@@ -1,4 +1,4 @@
-import { TaskType } from './globalTypes';
+import { TaskType } from '../utils/globalTypes';
 
 export interface TaskProps {
   currentCard: TaskType;

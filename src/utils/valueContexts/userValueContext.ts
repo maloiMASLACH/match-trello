@@ -1,12 +1,12 @@
 import React from 'react';
-import { UserType } from '../../types/globalTypes';
+import { UserType } from '../../types';
 
 const UserValueContext = React.createContext<UserType>({
   desks: [],
   mail: '',
   name: '',
+  isAdmin: false,
   uid: '',
-  requests: { sended: {}, received: {} },
 });
 
 export default UserValueContext;

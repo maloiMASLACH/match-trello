@@ -1,18 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import patterns, {
-  validateEmail,
-  validatePassword,
-} from '../../../utils/patterns';
-import RouterLinks from '../../../constants/routerLinks';
-import { FirebaseContext } from '../../../utils/fireBase';
-import InputBlock from '../../controls/input';
-import Button from '../../controls/button';
-import PasswordActionLink from '../../controls/passwordChangeLink/component';
-import './styles.css';
+import { RouterLinks, Labels, Placeholders } from '../../../constants';
+import {
+  FirebaseContext, patterns, validateEmail, validatePassword,
+} from '../../../utils';
 import ErrorBLock from '../../blocks/errorBlock';
-import Labels from '../../../constants/labels';
-import Placeholders from '../../../constants/placeholders';
+import { InputBlock, PasswordActionLink, LinkButton } from '../../controls';
+import './styles.css';
 
 const SingInForm: React.FC = () => {
   const navigate = useNavigate();
@@ -62,7 +56,7 @@ const SingInForm: React.FC = () => {
         />
       </div>
       {error ? <ErrorBLock errorText={error} /> : null}
-      <Button
+      <LinkButton
         text="SING IN"
         type="submit"
         disabled={!isCorrect}

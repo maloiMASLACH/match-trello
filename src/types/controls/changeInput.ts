@@ -4,7 +4,6 @@ export interface ChangeDeskNameProps {
 
 export interface ChangeColumnProps {
   uid: string;
-  deskObjId: number;
   handleChanging: () => void;
 }
 

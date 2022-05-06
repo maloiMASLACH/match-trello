@@ -1,11 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { DeskWithInfoProps } from '../../../types/deskWithInfo';
-import { FirebaseContext } from '../../../utils/fireBase';
-import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
-import UserValueContext from '../../../utils/valueContexts/userValueContext';
-import BackImg from '../../controls/images/back/component';
-import DeleteImg from '../../controls/images/delete';
-import RedactImg from '../../controls/images/redact';
+import { DeskWithInfoProps } from '../../../types';
+import { FirebaseContext, UserValueContext, DeskValueContext } from '../../../utils';
+import { RedactImg, DeleteImg, BackImg } from '../../controls/images';
 import OpenedDesk from '../openedDesk';
 import ChangeNameField from './components/changeNameField';
 import './styles.css';
@@ -23,6 +19,7 @@ const DeskWithInfo = (props: DeskWithInfoProps) => {
 
   const handleOpened = () => {
     setOpenDesk((prevState) => !prevState);
+    handleActive();
   };
 
   const handleChanging = () => {
@@ -52,10 +49,7 @@ const DeskWithInfo = (props: DeskWithInfoProps) => {
             <i
               className="fa fa-eye table"
               aria-hidden="true"
-              onClick={() => {
-                handleOpened();
-                handleActive();
-              }}
+              onClick={handleOpened}
             />
           </div>
         ) : (
@@ -74,10 +68,7 @@ const DeskWithInfo = (props: DeskWithInfoProps) => {
       <div className="openedHead">
         <BackImg
           className="back"
-          onClick={() => {
-            handleOpened();
-            handleActive();
-          }}
+          onClick={handleOpened}
         />
         <h4>{`Desk: ${deskInfo.deskName}`}</h4>
       </div>

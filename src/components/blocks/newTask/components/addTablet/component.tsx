@@ -1,6 +1,6 @@
 import React from 'react';
-import { HandleActive } from '../../../../../types/toggle';
-import AddImg from '../../../../controls/images/add';
+import { HandleActive } from '../../../../../types';
+import { AddImg } from '../../../../controls/images';
 import './styles.css';
 
 const AddTablet = (props: HandleActive) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { DeskType } from '../../types/globalTypes';
+import { DeskType } from '../../types';
 
 const DeskValueContext = React.createContext<DeskType>({
   columns: [],

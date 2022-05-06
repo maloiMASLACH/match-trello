@@ -40,7 +40,8 @@
     justify-content: center;
     background-color: var(--global-title-bg-color);
     margin: 10px auto;
-    width: fit-content;
+    width: 30%;
+    min-width: fit-content;
     padding:  10px 50px;
     border-radius: 30px;
     color: white;

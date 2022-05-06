@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react';
+import { Placeholders } from '../../../../../constants';
+import { NewColumnAddProps } from '../../../../../types';
+import {
+  FirebaseContext, DeskValueContext, sortCards, patterns, validateBlockName,
+} from '../../../../../utils';
+import { InputBlock } from '../../../../controls';
+import { CloseImg } from '../../../../controls/images';
 import './styles.css';
-import { FirebaseContext } from '../../../../../utils/fireBase';
-import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
-import { sortCards } from '../../../../../utils/sortCards';
-import { NewColumnAddProps } from '../../../../../types/newColumn';
-import patterns, { validateBlockName } from '../../../../../utils/patterns';
-import InputBlock from '../../../../controls/input';
-import Placeholders from '../../../../../constants/placeholders';
-import CloseImg from '../../../../controls/images/close';
 
 const AddForm = (props: NewColumnAddProps) => {
   const { uid, handleActive } = props;
@@ -26,11 +25,14 @@ const AddForm = (props: NewColumnAddProps) => {
       lastId = sortedColumns[sortedColumns.length - 1].id + 1;
     }
 
-    firebase.column(uid, deskValue.id, lastId).update({
-      id: lastId,
-      columnName: inputValue,
-      position: lastId,
-    });
+    firebase
+      .column({ uid, deskObjId: deskValue.id, columnObjId: lastId })
+      .update({
+        id: lastId,
+        columnName: inputValue,
+        deskObjId: deskValue.id,
+        position: lastId,
+      });
 
     handleActive();
   };

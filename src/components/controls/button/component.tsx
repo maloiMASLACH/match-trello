@@ -3,7 +3,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './styles.css';
 import '../../../App.css';
-import { StartButtonProps } from '../../../types/button';
+import { StartButtonProps } from '../../../types';
 
 const Button = (props: StartButtonProps) => {
   const {

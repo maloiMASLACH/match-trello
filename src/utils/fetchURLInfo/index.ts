@@ -1,4 +1,4 @@
-import { AuthUserType } from '../../types/globalTypes';
+import { AuthUserType } from '../../types';
 import Firebase from '../fireBase';
 
 const FetchURLInfo = (
@@ -6,12 +6,21 @@ const FetchURLInfo = (
   firebase: Firebase,
 ) => {
   firebase.auth.onAuthStateChanged((authUser) => {
-    setUser({
-      isVerified: authUser?.emailVerified || false,
-      isAdmin: authUser?.uid === 'XyjS1TO9qCYcnRtuy5Oc4Aij1RU2',
-      userId: authUser?.uid || '',
-      userMail: authUser?.email || '',
-    });
+    let userIsAdmin = false;
+
+    firebase
+      .setAdmin(authUser?.uid || '')
+      .once('value', (snapshot) => {
+        userIsAdmin = snapshot.val();
+      })
+      .then(() => {
+        setUser({
+          isVerified: authUser?.emailVerified || false,
+          isAdmin: userIsAdmin,
+          userId: authUser?.uid || '',
+          userMail: authUser?.email || '',
+        });
+      });
   });
 };
 

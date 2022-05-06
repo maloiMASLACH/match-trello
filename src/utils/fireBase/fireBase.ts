@@ -42,73 +42,42 @@ class Firebase {
 
   users = () => this.db.ref('users');
 
+  setAdmin = (uid: string) => this.db.ref(`users/${uid}/isAdmin`);
+
   desk = (uid:string, deskObjId:number) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjId}`);
 
-  column = (
+  column = (props: {
     uid:string,
     deskObjId:number,
     columnObjId:number,
-  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjId}/columns/${columnObjId}`);
+  }) => this.db.ref(`users/${props.uid.slice(1)}/desks/${props.deskObjId}/columns/${props.columnObjId}`);
 
-  columnPosition = (
+  columnPosition = (props: {
     uid:string,
     deskObjId:number,
     columnObjId:number,
-  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjId}/columns/${columnObjId}/position`);
+  }) => this.db.ref(`users/${props.uid.slice(1)}/desks/${props.deskObjId}/columns/${props.columnObjId}/position`);
 
-  task = (
-    uid:string,
-    deskObjId:number,
-    columnObjId:number,
-    taskObjId:number,
-  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjId}/columns/${columnObjId}/tasks/${taskObjId}`);
-
-  taskCompleted = (
+  task = (props: {
     uid:string,
     deskObjId:number,
     columnObjId:number,
     taskObjId:number,
-  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjId}/columns/${columnObjId}/tasks/${taskObjId}/completed`);
+  }) => this.db.ref(`users/${props.uid.slice(1)}/desks/${props.deskObjId}/columns/${props.columnObjId}/tasks/${props.taskObjId}`);
 
-  taskPosition = (
+  taskCompleted = (props: {
     uid:string,
     deskObjId:number,
     columnObjId:number,
     taskObjId:number,
-  ) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjId}/columns/${columnObjId}/tasks/${taskObjId}/position`);
+  }) => this.db.ref(`users/${props.uid.slice(1)}/desks/${props.deskObjId}/columns/${props.columnObjId}/tasks/${props.taskObjId}/completed`);
 
-  sendRequest = (
+  taskPosition = (props: {
     uid:string,
-    sender:string,
+    deskObjId:number,
+    columnObjId:number,
     taskObjId:number,
-  ) => this.db.ref(`users/${uid}/requests/received/${sender}/tasks/${taskObjId}`);
-
-  setRequestComplete = (
-    uid:string,
-    sender:string,
-    taskObjId:number,
-  ) => this.db.ref(`users/${uid}/requests/received/${sender}/tasks/${taskObjId}/completed`);
-
-  sendedTask = (
-    uid:string,
-    receiver:string,
-    taskObjId:number,
-  ) => this.db.ref(`users/${uid}/requests/sended/${receiver}/tasks/${taskObjId}`);
-
-  requesterName = (
-    uid:string,
-    sender:string,
-  ) => this.db.ref(`users/${uid}/requests/received/${sender}/sender/`);
-
-  senderName = (
-    uid:string,
-    receiver:string,
-  ) => this.db.ref(`users/${uid}/requests/sended/${receiver}/sender/`);
-
-  senderTaskList = (
-    uid:string,
-    receiver:string,
-  ) => this.db.ref(`users/${uid}/requests/received/${receiver}/tasks`);
+  }) => this.db.ref(`users/${props.uid.slice(1)}/desks/${props.deskObjId}/columns/${props.columnObjId}/tasks/${props.taskObjId}/position`);
 }
 
 export default Firebase;

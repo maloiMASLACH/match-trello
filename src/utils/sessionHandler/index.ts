@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthUserType } from '../../types/globalTypes';
+import { AuthUserType } from '../../types';
 
 const AuthUserContext = React.createContext<AuthUserType>({
   isVerified: false,

@@ -1,31 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
-import patterns, {
-  validateBlockName,
-  validateDescription,
-} from '../../../../../utils/patterns';
-import { ChangeTaskProps } from '../../../../../types/changeInput';
-import { FirebaseContext } from '../../../../../utils/fireBase';
-import TaskValueContext from '../../../../../utils/valueContexts/taskValueContext';
+import { Placeholders } from '../../../../../constants';
+import { ChangeTaskProps, UserType } from '../../../../../types';
+import {
+  FirebaseContext, TaskValueContext, AuthUserContext,
+  GetUserMails, validateBlockName, validateDescription, patterns,
+} from '../../../../../utils';
+import { InputBlock, TextArea, Select } from '../../../../controls';
 import './styles.css';
-import TextArea from '../../../../controls/textarea';
-import InputBlock from '../../../../controls/input';
-import Placeholders from '../../../../../constants/placeholders';
-import Select from '../../../../controls/select';
-import { UserType } from '../../../../../types/globalTypes';
-import GetUserMails from '../../../../../utils/getUserMails';
-import AuthUserContext from '../../../../../utils/sessionHandler';
 
 const ChangeTaskField = (props: ChangeTaskProps) => {
-  const {
-    handleChanging,
-  } = props;
+  const { handleChanging } = props;
 
   const firebase = useContext(FirebaseContext);
   const taskValue = useContext(TaskValueContext);
   const { userMail } = useContext(AuthUserContext);
 
   const [users, setUsers] = useState<UserType[]>([]);
-  const [usersMails, setUsersMails] = useState<string[]>(['', taskValue.forUser]);
+  const [usersMails, setUsersMails] = useState<string[]>([
+    '',
+    taskValue.forUser,
+  ]);
 
   const [userId, setUserId] = useState(0);
 
@@ -46,12 +40,14 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
       assignedBy: userId !== -1 ? userMail : '',
     };
 
-    firebase.task(
-      taskValue.assignedById,
-      Number(taskValue.deskObjId),
-      Number(taskValue.columnObjId),
-      taskValue.id,
-    ).set(modifiedTask);
+    firebase
+      .task({
+        uid: taskValue.assignedById,
+        deskObjId: Number(taskValue.deskObjId),
+        columnObjId: Number(taskValue.columnObjId),
+        taskObjId: taskValue.id,
+      })
+      .set(modifiedTask);
 
     handleChanging();
   };

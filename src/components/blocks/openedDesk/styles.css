@@ -16,8 +16,16 @@
     display: flex;
     flex-wrap: nowrap;
     overflow: hidden;
+    overflow-x: auto;
     justify-content: start;
     height: 75vh;
+}
+.colons::-webkit-scrollbar {
+    height: 8px;
+    background-color: var(--global-scroll-bg-color);
+}
+.colons::-webkit-scrollbar-thumb {
+    background-color: var(--global-active-color);
 }
 @media screen and (max-width: 1440px) {
     .openedDeskBlock .colons{

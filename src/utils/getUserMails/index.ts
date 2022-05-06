@@ -1,4 +1,4 @@
-import { UserType } from '../../types/globalTypes';
+import { UserType } from '../../types';
 
 interface GetUserMailsProps {
   users: { [key: string]: UserType };

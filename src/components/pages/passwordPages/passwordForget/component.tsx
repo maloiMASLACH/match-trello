@@ -1,13 +1,9 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import patterns, { validateEmail } from '../../../../utils/patterns';
-import RouterLinks from '../../../../constants/routerLinks';
-import { FirebaseContext } from '../../../../utils/fireBase';
-import InputBlock from '../../../controls/input';
-import Button from '../../../controls/button';
+import { RouterLinks, Labels, Placeholders } from '../../../../constants';
+import { FirebaseContext, patterns, validateEmail } from '../../../../utils';
 import ErrorBLock from '../../../blocks/errorBlock';
-import Labels from '../../../../constants/labels';
-import Placeholders from '../../../../constants/placeholders';
+import { InputBlock, LinkButton } from '../../../controls';
 
 const PasswordForget: React.FC = () => {
   const navigate = useNavigate();
@@ -44,7 +40,7 @@ const PasswordForget: React.FC = () => {
         />
       </div>
       {error ? <ErrorBLock errorText={error} /> : null}
-      <Button
+      <LinkButton
         text="reset password"
         type="submit"
         disabled={!isCorrect}

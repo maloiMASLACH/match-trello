@@ -1,4 +1,4 @@
-import { TaskType } from './globalTypes';
+import { TaskType } from '../utils/globalTypes';
 
 export interface AppointeeType {
   tasks: TaskType[];
@@ -14,7 +14,6 @@ export interface AssignedBlockProps {
 
 export interface OpenedHeadProps {
   handleOpen: () => void;
-  handleActive: () => void;
 }
 
 export interface OpenedAssignedBlockProps {

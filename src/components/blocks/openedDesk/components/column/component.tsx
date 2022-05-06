@@ -1,17 +1,16 @@
 import React, { useContext, useState } from 'react';
-import { ColumnProps } from '../../../../../types/openedDesk';
-import { onDragOver, onDropColumn } from '../../../../../utils/dragEvents';
-import './styles.css';
-import OpenedColumn from '../../../openedColomn/component';
-import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
-import { FirebaseContext } from '../../../../../utils/fireBase';
+import { ColumnProps } from '../../../../../types';
+import {
+  FirebaseContext, ColumnValueContext, onDragOver, onDropColumn,
+} from '../../../../../utils';
+import { RedactImg, DeleteImg } from '../../../../controls/images';
+import OpenedColumn from '../../../openedColomn';
 import ChangeNameField from '../../../openedColomn/components/changeNameField';
-import DeleteImg from '../../../../controls/images/delete';
-import RedactImg from '../../../../controls/images/redact';
+import './styles.css';
 
 const Column = (props: ColumnProps) => {
   const {
-    uid, deskObjId, currentColumn, setCurrentColumn,
+    uid, currentColumn, setCurrentColumn,
   } = props;
 
   const firebase = useContext(FirebaseContext);
@@ -31,7 +30,11 @@ const Column = (props: ColumnProps) => {
   };
 
   const deleteColumn = () => {
-    firebase.column(uid, deskObjId, columnValue.id).set(null);
+    firebase.column({
+      uid,
+      deskObjId: Number(columnValue.deskObjId),
+      columnObjId: columnValue.id,
+    }).set(null);
   };
 
   return (
@@ -43,10 +46,9 @@ const Column = (props: ColumnProps) => {
       onDrop={(e) => {
         onDropColumn({
           e,
-          columnValue,
-          currentColumn,
+          card: columnValue,
+          currentCard: currentColumn,
           uid,
-          deskObjId,
           firebase,
         });
       }}
@@ -58,7 +60,6 @@ const Column = (props: ColumnProps) => {
         {isChanging ? (
           <ChangeNameField
             uid={uid}
-            deskObjId={deskObjId}
             handleChanging={handleChanging}
           />
         ) : (
@@ -77,7 +78,7 @@ const Column = (props: ColumnProps) => {
         </div>
       </div>
       {isOpenColumn ? (
-        <OpenedColumn uid={uid} deskObjId={deskObjId} />
+        <OpenedColumn uid={uid} />
       ) : (
         <p>{`${taskLength} task(s)`}</p>
       )}

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import AuthUserContext from '../../../utils/sessionHandler';
+import { AuthUserContext } from '../../../utils';
 import './styles.css';
 
 const WelcomePage: React.FC = () => {

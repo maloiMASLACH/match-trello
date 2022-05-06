@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { OpenedAssignedBlockProps } from '../../../../../types/assignedTask';
-import { TaskType } from '../../../../../types/globalTypes';
-import { sortByPosition } from '../../../../../utils/sortCards';
-import TaskValueContext from '../../../../../utils/valueContexts/taskValueContext';
+import { OpenedAssignedBlockProps, TaskType } from '../../../../../types';
+import { sortByPosition, TaskValueContext } from '../../../../../utils';
 import Task from '../../../taskBlock';
 import './styles.css';
 
@@ -32,7 +30,7 @@ const OpenedAssignBlock = (props: OpenedAssignedBlockProps) => {
 
   return (
     <div className="assignments">
-      {Object.values(assignments || {}).map(
+      {(assignments || []).map(
         (appointee) => appointee.tasks && (
         <div key={appointee.user} className="appointee">
           <div className="appointeeHead">
@@ -46,7 +44,7 @@ const OpenedAssignBlock = (props: OpenedAssignedBlockProps) => {
 
           <div className="assignTasks">
             {isOpen ? (
-              Object.values(appointee.tasks || {})
+              (appointee.tasks || [])
                 .sort(sortByPosition)
                 .map((task) => (
                   <TaskValueContext.Provider key={task.id} value={task}>
@@ -58,9 +56,7 @@ const OpenedAssignBlock = (props: OpenedAssignedBlockProps) => {
                 ))
             ) : (
               <p className="assignLength">
-                {`${
-                  Object.keys(appointee.tasks || {}).length
-                } task(s)`}
+                {`${Object.keys(appointee.tasks || {}).length} task(s)`}
               </p>
             )}
           </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextAreaProps } from '../../../types/textAreaBlock';
+import { TextAreaProps } from '../../../types';
 import './styles.css';
 
 const TextArea = (props: TextAreaProps) => {

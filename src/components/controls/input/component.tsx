@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './styles.css';
-import { InputBlockProps } from '../../../types/input';
+import { InputBlockProps } from '../../../types';
 
 const InputBlock = (props: InputBlockProps) => {
   const {

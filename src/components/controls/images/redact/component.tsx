@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css';
 import '../../../../App.css';
-import { ActiveImgProps } from '../../../../types/activeImg';
+import { ActiveImgProps } from '../../../../types';
 
 const RedactImg = (props: ActiveImgProps) => {
   const { src, alt, ...rest } = props;
