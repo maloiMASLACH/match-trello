@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import RouterLinks from '../../../constants/routerLinks';
-import { FirebaseContext } from '../../../utils/fireBase';
+import { RouterLinks } from '../../../constants';
+import { FirebaseContext } from '../../../utils';
 import './styles.css';
 
 const SingOut = () => {

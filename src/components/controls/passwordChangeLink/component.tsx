@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './styles.css';
-import { ChangeLinkProps } from '../../../types/passwordChangeLink';
+import { ChangeLinkProps } from '../../../types';
 
 const PasswordActionLink = (props: ChangeLinkProps) => {
   const { text, link } = props;

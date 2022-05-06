@@ -1,6 +1,6 @@
 import React from 'react';
+import { SelectProps } from '../../../types';
 import './styles.css';
-import { SelectProps } from '../../../types/select';
 
 const Select = (props: SelectProps) => {
   const {

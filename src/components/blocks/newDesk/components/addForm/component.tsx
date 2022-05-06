@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react';
+import { Placeholders } from '../../../../../constants';
+import { HandleActive } from '../../../../../types';
+import {
+  UserValueContext, FirebaseContext, sortCards, validateBlockName, patterns,
+} from '../../../../../utils';
+import { InputBlock } from '../../../../controls';
+import { CloseImg } from '../../../../controls/images';
 import './styles.css';
-import { FirebaseContext } from '../../../../../utils/fireBase';
-import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
-import { sortCards } from '../../../../../utils/sortCards';
-import { HandleActive } from '../../../../../types/toggle';
-import patterns, { validateBlockName } from '../../../../../utils/patterns';
-import InputBlock from '../../../../controls/input';
-import Placeholders from '../../../../../constants/placeholders';
-import CloseImg from '../../../../controls/images/close';
 
 const AddForm = (props: HandleActive) => {
   const { handleActive } = props;

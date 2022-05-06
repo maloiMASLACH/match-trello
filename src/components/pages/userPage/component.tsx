@@ -1,15 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import RouterLinks from '../../../constants/routerLinks';
-import AuthUserContext from '../../../utils/sessionHandler';
-import PasswordActionLink from '../../controls/passwordChangeLink';
+import { LocalStorageKeys, Themes, RouterLinks } from '../../../constants';
+import { PageWithUserProps, UserType, UserPageProps } from '../../../types';
+import { FirebaseContext, AuthUserContext } from '../../../utils';
+import { Select, PasswordActionLink } from '../../controls';
 import './styles.css';
-import { FirebaseContext } from '../../../utils/fireBase';
-import { UserType } from '../../../types/globalTypes';
-import { PageWithUserProps, UserPageProps } from '../../../types/userPage';
-import themes from '../../../constants/themes';
-import localStorageKeys from '../../../constants/localStorageKeys';
-import Select from '../../controls/select';
 
 const PageWithUser = (props: PageWithUserProps) => {
   const { isVerified, userID, handleTheme } = props;
@@ -20,13 +15,13 @@ const PageWithUser = (props: PageWithUserProps) => {
     desks: [],
     mail: '',
     uid: '',
+    isAdmin: false,
     name: '',
-    requests: { sended: {}, received: {} },
   });
 
   let taskCount = 0;
 
-  const selected = localStorage.getItem(localStorageKeys.Theme) || themes[0];
+  const selected = localStorage.getItem(LocalStorageKeys.Theme) || Themes[0];
 
   useEffect(() => {
     firebase.user(userID).on('value', (snapshot) => {
@@ -72,7 +67,7 @@ const PageWithUser = (props: PageWithUserProps) => {
           <p>Color theme</p>
           <Select
             id="theme"
-            values={themes}
+            values={Themes}
             onChange={handleTheme}
             defaultValue={selected}
           />
@@ -81,9 +76,6 @@ const PageWithUser = (props: PageWithUserProps) => {
       <div className="userButtons">
         <NavLink className="linkToApp" to={`${RouterLinks.App}${userValue.uid}`}>
           Your desks
-        </NavLink>
-        <NavLink className="linkToApp" to={`${RouterLinks.Requests}${userValue.uid}`}>
-          Team requests
         </NavLink>
       </div>
       <PasswordActionLink text="change password" link={RouterLinks.PassReset} />

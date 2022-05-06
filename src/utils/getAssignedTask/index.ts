@@ -1,5 +1,4 @@
-import { AppointeeType } from '../../types/assignedTask';
-import { TaskType, UserType } from '../../types/globalTypes';
+import { UserType, AppointeeType, TaskType } from '../../types';
 
 const GetAssignedTasks = (users: { [key: string]: UserType }, userID: string) => {
   const columns:AppointeeType[] = [];
@@ -21,8 +20,9 @@ const GetAssignedTasks = (users: { [key: string]: UserType }, userID: string) =>
       tasks: taskObj,
     };
 
-    return (Object.values(userObj.tasks).length && columns.push(userObj));
+    return (taskObj.length && columns.push(userObj));
   });
+
   return columns;
 };
 

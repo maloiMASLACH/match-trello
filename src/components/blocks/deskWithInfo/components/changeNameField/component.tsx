@@ -1,12 +1,12 @@
 import React, { useContext, useState } from 'react';
+import { Placeholders } from '../../../../../constants';
+import { ChangeDeskNameProps } from '../../../../../types';
+import {
+  FirebaseContext, UserValueContext, DeskValueContext, patterns,
+} from '../../../../../utils';
+import { validateBlockName } from '../../../../../utils/patterns';
+import { InputBlock } from '../../../../controls';
 import './styles.css';
-import { FirebaseContext } from '../../../../../utils/fireBase';
-import UserValueContext from '../../../../../utils/valueContexts/userValueContext';
-import DeskValueContext from '../../../../../utils/valueContexts/deskValueContext';
-import patterns, { validateBlockName } from '../../../../../utils/patterns';
-import { ChangeDeskNameProps } from '../../../../../types/changeInput';
-import InputBlock from '../../../../controls/input';
-import Placeholders from '../../../../../constants/placeholders';
 
 const ChangeNameField = (props: ChangeDeskNameProps) => {
   const { handleChanging } = props;

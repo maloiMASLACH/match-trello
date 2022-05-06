@@ -39,10 +39,21 @@
   max-height: 60vh;
   justify-content: start;
   overflow: hidden;
+  overflow-y: auto;
   flex-wrap: nowrap;
+  padding-right: 5px;
+}
+.tasks::-webkit-scrollbar {
+  width: 8px;
+  background-color: var(--global-scroll-bg-color);
+}
+.tasks::-webkit-scrollbar-thumb {
+  background-color: var(--global-active-color);
 }
 @media screen and (max-width: 1440px) {
-
+  .appPage div.tasks {
+    overflow: hidden;
+  }
 }
 @media screen and (max-width: 768px) {
   .openedColonBlock h3 {

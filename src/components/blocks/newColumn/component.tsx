@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { NewColumnProps } from '../../../types';
 import AddForm from './components/addForm';
-import './styles.css';
 import AddTablet from './components/addTablet';
-import { NewColumnProps } from '../../../types/newColumn';
+import './styles.css';
 
 const NewColumn = (props: NewColumnProps) => {
   const { uid } = props;

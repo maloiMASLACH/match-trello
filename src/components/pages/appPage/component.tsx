@@ -1,13 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { AppPageProps } from '../../../types/appPage';
-import { UserType } from '../../../types/globalTypes';
-import { FirebaseContext } from '../../../utils/fireBase';
-import GetAssignedTasks from '../../../utils/getAssignedTask';
-import AuthUserContext from '../../../utils/sessionHandler';
-import { sortCards } from '../../../utils/sortCards';
-import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
-import UserValueContext from '../../../utils/valueContexts/userValueContext';
+import { AppPageProps, UserType } from '../../../types';
+import {
+  FirebaseContext, sortCards, GetAssignedTasks, UserValueContext, DeskValueContext, AuthUserContext,
+} from '../../../utils';
 import AssignedBlock from '../../blocks/assignedBlock';
 import DeskWithInfo from '../../blocks/deskWithInfo';
 import NewDesk from '../../blocks/newDesk';
@@ -23,8 +19,8 @@ const PageWithUser = (props: AppPageProps) => {
     mail: '',
     name: '',
     uid: '',
+    isAdmin: false,
     desks: {},
-    requests: { sended: {}, received: {} },
   });
 
   const [isActive, setActive] = useState(false);
@@ -39,15 +35,15 @@ const PageWithUser = (props: AppPageProps) => {
 
   useEffect(() => {
     firebase.users().on('value', (snapshot) => {
-      const res = snapshot.val();
-      setUsers(res);
-      setUserValue(res[userID]);
+      const usersObj = snapshot.val();
+      setUsers(usersObj);
+      setUserValue(usersObj[userID]);
     });
   }, [userID]);
 
   return (
     <UserValueContext.Provider value={userValue}>
-      {isVisitor && (
+      {isVisitor && !isActive && (
         <div className="appHead">
           <h3 className="appTitle">{`${userValue.name}'s desks`}</h3>
         </div>

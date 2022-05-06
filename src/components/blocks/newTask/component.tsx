@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import './styles.css';
+import { NewTaskProps } from '../../../types';
 import AddForm from './components/addForm';
 import AddTablet from './components/addTablet';
-import { NewTaskProps } from '../../../types/newTask';
+import './styles.css';
 
 const NewTask = (props: NewTaskProps) => {
-  const { uid, deskObjId } = props;
+  const { uid } = props;
 
   const [isActive, setActive] = useState<boolean>(false);
 
@@ -14,7 +14,7 @@ const NewTask = (props: NewTaskProps) => {
   };
 
   return isActive ? (
-    <AddForm uid={uid} deskObjId={deskObjId} handleActive={handleActive} />
+    <AddForm uid={uid} handleActive={handleActive} />
   ) : (
     <AddTablet handleActive={handleActive} />
   );

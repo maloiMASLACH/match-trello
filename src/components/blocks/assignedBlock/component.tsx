@@ -1,28 +1,8 @@
 import React, { useState } from 'react';
-import {
-  AssignedBlockProps,
-  OpenedHeadProps,
-} from '../../../types/assignedTask';
-import BackImg from '../../controls/images/back/component';
+import { AssignedBlockProps } from '../../../types';
 import OpenedAssignBlock from './component/openedBlock';
+import OpenedHead from './component/openedHead';
 import './styles.css';
-
-const OpenedHead = (props: OpenedHeadProps) => {
-  const { handleOpen, handleActive } = props;
-
-  return (
-    <div className="openedHead">
-      <BackImg
-        className="back"
-        onClick={() => {
-          handleOpen();
-          handleActive();
-        }}
-      />
-      <h4>Assignments</h4>
-    </div>
-  );
-};
 
 const AssignedBlock = (props: AssignedBlockProps) => {
   const { isActive, handleActive, assignments } = props;
@@ -40,33 +20,27 @@ const AssignedBlock = (props: AssignedBlockProps) => {
 
   const handleOpen = () => {
     setOpenColumn((prevState) => !prevState);
+    handleActive();
   };
 
-  return assignments.length ? (
-    !isOpen ? (
-      <div className={`assignedBlock ${isActive && 'active'}`}>
-        <div className="deskHead">
-          <h3>Assignments</h3>
-          <i
-            className="fa fa-eye table"
-            aria-hidden="true"
-            onClick={() => {
-              handleActive();
-              handleOpen();
-            }}
-          />
-        </div>
-        <p>{`${taskCount} tasks`}</p>
+  return !isOpen ? (
+    <div className={`assignedBlock ${isActive && 'active'}`}>
+      <div className="deskHead">
+        <h4>Assignments</h4>
+        <i
+          className="fa fa-eye table"
+          aria-hidden="true"
+          onClick={handleOpen}
+        />
       </div>
-    ) : (
-      <>
-        <OpenedHead handleActive={handleActive} handleOpen={handleOpen} />
-        <OpenedAssignBlock assignments={assignments} />
-      </>
-    )
-  ) : isOpen ? (
-    <OpenedHead handleActive={handleActive} handleOpen={handleOpen} />
-  ) : null;
+      <p>{`${taskCount} tasks`}</p>
+    </div>
+  ) : (
+    <>
+      <OpenedHead handleOpen={handleOpen} />
+      <OpenedAssignBlock assignments={assignments} />
+    </>
+  );
 };
 
 export default AssignedBlock;

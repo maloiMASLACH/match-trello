@@ -1,12 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { ColumnType } from '../../../types/globalTypes';
-import { invertSort } from '../../../utils/sortCards';
+import { ColumnType } from '../../../types';
+import {
+  UserValueContext, DeskValueContext, invertSort, ColumnValueContext,
+} from '../../../utils';
 import NewColumn from '../newColumn';
-import './styles.css';
 import Column from './components/column';
-import UserValueContext from '../../../utils/valueContexts/userValueContext';
-import DeskValueContext from '../../../utils/valueContexts/deskValueContext';
-import ColumnValueContext from '../../../utils/valueContexts/columnValueContext';
+import './styles.css';
 
 const OpenedDesk = () => {
   const userValue = useContext(UserValueContext);
@@ -16,6 +15,7 @@ const OpenedDesk = () => {
     tasks: [],
     columnName: '',
     id: 0,
+    deskObjId: '',
     position: 0,
   });
 
@@ -35,13 +35,12 @@ const OpenedDesk = () => {
 
   return (
     <div className="openedDeskBlock">
-      <div className="colons" onWheel={(e) => yScroll(e)}>
+      <div className="colons" onWheel={yScroll}>
         <NewColumn uid={userValue.uid} />
         {sortedColumns.map((column: ColumnType) => (
           <ColumnValueContext.Provider key={column.id} value={column}>
             <Column
               uid={userValue.uid}
-              deskObjId={deskInfo.id}
               currentColumn={currentColumn}
               setCurrentColumn={setCurrentColumn}
             />

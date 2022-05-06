@@ -1,8 +1,7 @@
-import { ColumnType } from './globalTypes';
+import { ColumnType } from '../utils/globalTypes';
 
 export interface ColumnProps {
   uid: string;
-  deskObjId: number;
   currentColumn: ColumnType;
   setCurrentColumn: (el: ColumnType) => void;
 }

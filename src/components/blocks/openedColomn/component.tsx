@@ -1,15 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { TaskType } from '../../../types/globalTypes';
-import { sortByPosition } from '../../../utils/sortCards';
+import { OpenedColumnProps, TaskType } from '../../../types';
+import { ColumnValueContext, sortByPosition, TaskValueContext } from '../../../utils';
 import NewTask from '../newTask';
 import Task from '../taskBlock';
 import './styles.css';
-import ColumnValueContext from '../../../utils/valueContexts/columnValueContext';
-import TaskValueContext from '../../../utils/valueContexts/taskValueContext';
-import { OpenedColumnProps } from '../../../types/openedColumn';
 
 const OpenedColumn = (props: OpenedColumnProps) => {
-  const { uid, deskObjId } = props;
+  const { uid } = props;
 
   const columnValue = useContext(ColumnValueContext);
 
@@ -42,7 +39,7 @@ const OpenedColumn = (props: OpenedColumnProps) => {
 
   return (
     <div className="openedColonBlock">
-      <div className="tasks" onWheel={(e) => xScroll(e)}>
+      <div className="tasks" onWheel={xScroll}>
         {sortedColumns.map((task: TaskType) => (
           <TaskValueContext.Provider key={task.id} value={task}>
             <Task
@@ -51,7 +48,7 @@ const OpenedColumn = (props: OpenedColumnProps) => {
             />
           </TaskValueContext.Provider>
         ))}
-        <NewTask uid={uid} deskObjId={deskObjId} />
+        <NewTask uid={uid} />
       </div>
     </div>
   );

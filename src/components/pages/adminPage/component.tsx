@@ -1,14 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { UserType } from '../../../types/globalTypes';
-import { FirebaseContext } from '../../../utils/fireBase';
-import AuthUserContext from '../../../utils/sessionHandler';
+import { RouterLinks } from '../../../constants';
+import { UsersListProps, UserType } from '../../../types';
+import { FirebaseContext, AuthUserContext } from '../../../utils';
+import { LinkButton } from '../../controls';
 import './styles.css';
-import { UsersListProps } from '../../../types/adminPage';
-import RouterLinks from '../../../constants/routerLinks';
 
 const UsersList = (props: UsersListProps) => {
   const { users } = props;
+
+  const firebase = useContext(FirebaseContext);
+
+  const setAdminRules = (user: UserType) => {
+    const { uid, isAdmin } = user;
+    firebase.setAdmin(uid).set(!isAdmin);
+  };
 
   return (
     <>
@@ -23,9 +29,11 @@ const UsersList = (props: UsersListProps) => {
             <NavLink key={user.uid} to={`${RouterLinks.App}${user.uid}`}>
               <p>Desks</p>
             </NavLink>
-            <NavLink key={user.uid} to={`${RouterLinks.Requests}${user.uid}`}>
-              <p>Requests</p>
-            </NavLink>
+            <LinkButton
+              className="changeAdmin"
+              text={user.isAdmin ? 'remove admin rules' : 'add admin rules'}
+              onClick={() => setAdminRules(user)}
+            />
           </div>
         ))}
       </div>

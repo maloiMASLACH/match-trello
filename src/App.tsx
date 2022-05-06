@@ -1,26 +1,22 @@
 import React, {
   ChangeEvent, useContext, useEffect, useState,
 } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import SingInForm from './components/pages/singIn';
 import NavBar from './components/blocks/navbar';
-import RouterLinks from './constants/routerLinks';
-import UserPage from './components/pages/userPage';
-import { FirebaseContext } from './utils/fireBase';
-import AuthUserContext from './utils/sessionHandler';
-import SingUpForm from './components/pages/singUp';
+import AdminPage from './components/pages/adminPage';
 import AppPage from './components/pages/appPage';
+import ErrorPage from './components/pages/errorPage';
 import PasswordForget from './components/pages/passwordPages/passwordForget';
 import PasswordReset from './components/pages/passwordPages/passwordReset';
+import SingInForm from './components/pages/singIn';
+import SingUpForm from './components/pages/singUp';
+import UserPage from './components/pages/userPage';
 import WelcomePage from './components/pages/welcomePage';
-import AdminPage from './components/pages/adminPage';
-import FetchURLInfo from './utils/fetchURLInfo';
-import { AuthUserType } from './types/globalTypes';
-import ErrorPage from './components/pages/errorPage';
-import LocalStorageKeys from './constants/localStorageKeys';
+import { LocalStorageKeys, RouterLinks } from './constants';
 import themes from './constants/themes';
-import RequestPage from './components/pages/requestsPage';
+import { AuthUserType } from './types';
+import { FirebaseContext, FetchURLInfo, AuthUserContext } from './utils';
 
 const App = () => {
   const firebase = useContext(FirebaseContext);
@@ -64,7 +60,6 @@ const App = () => {
               <Route element={<PasswordForget />} path={RouterLinks.PassForget} />
               <Route element={<PasswordReset />} path={RouterLinks.PassReset} />
               <Route element={<AdminPage />} path={RouterLinks.Admin} />
-              <Route element={<RequestPage />} path={`${RouterLinks.Requests}/:uid`} />
             </Routes>
           </div>
         </div>

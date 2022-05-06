@@ -1,19 +1,16 @@
 import React, { useContext, useState } from 'react';
 import clsx from 'clsx';
-import { onDragOver, onDropCard } from '../../../utils/dragEvents';
-import { FirebaseContext } from '../../../utils/fireBase';
 import './styles.css';
-import { TaskProps } from '../../../types/taskBlock';
-import ChangeTaskField from './components/changeNameField';
-import TaskValueContext from '../../../utils/valueContexts/taskValueContext';
-import RedactImg from '../../controls/images/redact';
-import DeleteImg from '../../controls/images/delete';
-import TextColor from '../../../constants/textColors';
+import { TextColor } from '../../../constants';
+import { TaskProps } from '../../../types';
+import {
+  FirebaseContext, TaskValueContext, onDragOver, onDropCard,
+} from '../../../utils';
+import { RedactImg, DeleteImg } from '../../controls/images';
+import ChangeTaskField from './components/changeNameField/component';
 
 const Task = (props: TaskProps) => {
-  const {
-    currentCard, setCurrentCard,
-  } = props;
+  const { currentCard, setCurrentCard } = props;
 
   const firebase = useContext(FirebaseContext);
   const taskValue = useContext(TaskValueContext);
@@ -26,22 +23,24 @@ const Task = (props: TaskProps) => {
 
   const setCompleted = () => {
     firebase
-      .taskCompleted(
-        taskValue.assignedById,
-        Number(taskValue.deskObjId),
-        Number(taskValue.columnObjId),
-        taskValue.id,
-      )
+      .taskCompleted({
+        uid: taskValue.assignedById,
+        deskObjId: Number(taskValue.deskObjId),
+        columnObjId: Number(taskValue.columnObjId),
+        taskObjId: taskValue.id,
+      })
       .set(!taskValue.completed);
   };
 
   const deleteTask = () => {
-    firebase.task(
-      taskValue.assignedById,
-      Number(taskValue.deskObjId),
-      Number(taskValue.columnObjId),
-      taskValue.id,
-    ).set(null);
+    firebase
+      .task({
+        uid: taskValue.assignedById,
+        deskObjId: Number(taskValue.deskObjId),
+        columnObjId: Number(taskValue.columnObjId),
+        taskObjId: taskValue.id,
+      })
+      .set(null);
   };
 
   return (
@@ -54,11 +53,9 @@ const Task = (props: TaskProps) => {
       onDragOver={onDragOver}
       onDrop={(e) => onDropCard({
         e,
-        taskValue,
+        card: taskValue,
         currentCard,
         uid: taskValue.assignedById,
-        deskObjId: Number(taskValue.deskObjId),
-        columnObjId: Number(taskValue.columnObjId),
         firebase,
       })}
       draggable={!isChanging}
@@ -97,9 +94,7 @@ const Task = (props: TaskProps) => {
           </p>
         </>
       ) : (
-        <ChangeTaskField
-          handleChanging={handleChanging}
-        />
+        <ChangeTaskField handleChanging={handleChanging} />
       )}
     </div>
   );

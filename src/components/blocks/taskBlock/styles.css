@@ -82,7 +82,7 @@ input.newTaskName[type=text]:not(.browser-default){
   margin-top: 0px;
   position: relative;
   font-size: medium;
-  width: 95%;
+  width: 101%;
 
 }
 .taskDescription .assigned{

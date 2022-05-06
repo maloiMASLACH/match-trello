@@ -1,9 +1,9 @@
 import React from 'react';
-import './styles.css';
 import { NavLink } from 'react-router-dom';
-import RouterLinks from '../../../constants/routerLinks';
+import { RouterLinks } from '../../../constants';
+import { NavBarProps } from '../../../types';
 import SingOut from '../../pages/singOut';
-import { NavBarProps } from '../../../types/navBar';
+import './styles.css';
 
 const NavBar = (props: NavBarProps) => {
   const { isAuthorized, isAdmin } = props;

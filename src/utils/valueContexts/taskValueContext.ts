@@ -1,5 +1,5 @@
 import React from 'react';
-import { TaskType } from '../../types/globalTypes';
+import { TaskType } from '../../types';
 
 const TaskValueContext = React.createContext<TaskType>({
   taskName: '',

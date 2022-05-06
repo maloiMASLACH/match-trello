@@ -1,9 +1,8 @@
-import { ColumnType, DeskType, TaskType } from '../../types/globalTypes';
-import { RequestType } from '../../types/requestPage';
+import { DeskType, ColumnType, TaskType } from '../../types';
 
 export const sortCards = (
-  a: DeskType | ColumnType | TaskType | RequestType,
-  b: DeskType | ColumnType | TaskType | RequestType,
+  a: DeskType | ColumnType | TaskType,
+  b: DeskType | ColumnType | TaskType,
 ) => {
   if (a.id > b.id) {
     return 1;

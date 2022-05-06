@@ -1,24 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Placeholders } from '../../../../../constants';
+import { NewTaskAddProps, UserType } from '../../../../../types';
+import {
+  FirebaseContext, ColumnValueContext, AuthUserContext,
+  sortCards, GetUserMails, validateBlockName, validateDescription, patterns,
+} from '../../../../../utils';
+import { InputBlock, TextArea, Select } from '../../../../controls';
+import { CloseImg } from '../../../../controls/images';
 import './styles.css';
-import { FirebaseContext } from '../../../../../utils/fireBase';
-import { sortCards } from '../../../../../utils/sortCards';
-import ColumnValueContext from '../../../../../utils/valueContexts/columnValueContext';
-import { NewTaskAddProps } from '../../../../../types/newTask';
-import patterns, {
-  validateBlockName,
-  validateDescription,
-} from '../../../../../utils/patterns';
-import TextArea from '../../../../controls/textarea';
-import InputBlock from '../../../../controls/input';
-import Placeholders from '../../../../../constants/placeholders';
-import CloseImg from '../../../../controls/images/close';
-import { UserType } from '../../../../../types/globalTypes';
-import Select from '../../../../controls/select';
-import GetUserMails from '../../../../../utils/getUserMails';
-import AuthUserContext from '../../../../../utils/sessionHandler';
 
 const AddForm = (props: NewTaskAddProps) => {
-  const { uid, deskObjId, handleActive } = props;
+  const { uid, handleActive } = props;
 
   const firebase = useContext(FirebaseContext);
   const columnValue = useContext(ColumnValueContext);
@@ -42,20 +34,27 @@ const AddForm = (props: NewTaskAddProps) => {
       lastId = sortedTasks[sortedTasks.length - 1].id + 1;
     }
 
-    firebase.task(uid, deskObjId, columnValue.id, lastId).update({
-      taskName: inputName,
-      date: inputDate,
-      completed: false,
-      description: inputDescription,
-      forUser: userId !== -1 ? users[userId].mail : '',
-      forUserId: userId !== -1 ? users[userId].uid : '',
-      assignedBy: userId !== -1 ? userMail : '',
-      assignedById: uid,
-      deskObjId,
-      columnObjId: columnValue.id,
-      id: lastId,
-      position: lastId,
-    });
+    firebase
+      .task({
+        uid,
+        deskObjId: Number(columnValue.deskObjId),
+        columnObjId: columnValue.id,
+        taskObjId: lastId,
+      })
+      .update({
+        taskName: inputName,
+        date: inputDate,
+        completed: false,
+        description: inputDescription,
+        forUser: userId !== -1 ? users[userId].mail : '',
+        forUserId: userId !== -1 ? users[userId].uid : '',
+        assignedBy: userId !== -1 ? userMail : '',
+        assignedById: uid,
+        deskObjId: Number(columnValue.deskObjId),
+        columnObjId: columnValue.id,
+        id: lastId,
+        position: lastId,
+      });
 
     handleActive();
   };

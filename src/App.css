@@ -13,6 +13,7 @@
   --welcome-title-color: rgb(245, 127, 23);
   --welcome-title-shadow: 5px 5px 0px #eb452b, 8px 8px 0px #efa032,
     11px 11px 0px #60b546, 14px 14px 0px #2b92be, 17px 17px 0px #c11ab3;
+  --global-scroll-bg-color: rgb(105, 56, 0);
 }
 .page[data-theme="dark"] {
   --global-bg-color: rgb(25, 25, 25);
@@ -29,6 +30,7 @@
   --welcome-title-color: rgb(255, 255, 255);
   --welcome-title-shadow: 5px 5px 0px #cccccc, 8px 8px 0px #9c9c9c,
     11px 11px 0px #646464, 14px 14px 0px #313131, 17px 17px 0px #0c0c0c;
+  --global-scroll-bg-color: #fff;
 }
 .page[data-theme="blue"] {
   --global-bg-color: #fff;
@@ -45,13 +47,14 @@
   --welcome-title-color: rgb(2, 111, 148);
   --welcome-title-shadow: 5px 5px 0px #3177c7, 8px 8px 0px #b9d4fd,
     11px 11px 0px #b4f0f8, 14px 14px 0px #ffffff, 17px 17px 0px #ffffff;
+  --global-scroll-bg-color: rgb(1, 46, 77);
 }
 .page[data-theme="swamp"] {
   --global-bg-color: linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db);
   --global-title-bg-color: #2b723467;
   --global-border-color: #154e1d;
   --global-block-bg-color: #9ec0db88;
-  --navbar-color: linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db);;
+  --navbar-color: linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db);
   --global-active-color: #2b7235;
   --global-img-filter: brightness(0) invert(1);
   --alt-img-filter: brightness(0) invert(1);
@@ -61,9 +64,10 @@
   --welcome-title-color: #134e15;
   --welcome-title-shadow: 5px 5px 0px #7ebd80, 8px 8px 0px #b9d4fd,
     11px 11px 0px #b4f0f8, 14px 14px 0px #ffffff, 17px 17px 0px #ffffff;
+  --global-scroll-bg-color: #fff;
 }
 .page[data-theme="sky"] {
-  --global-bg-color: linear-gradient(to right, #1c92d2, #f2fcfe);;
+  --global-bg-color: linear-gradient(to right, #1c92d2, #f2fcfe);
   --global-title-bg-color: #1c92d2;
   --global-border-color: #fff;
   --global-block-bg-color: #6bb0e988;
@@ -77,6 +81,7 @@
   --welcome-title-color: #fff;
   --welcome-title-shadow: 5px 5px 0px #6bb0e988, 8px 8px 0px #b9d4fd,
     11px 11px 0px #7fb9d8, 14px 14px 0px #1c92d2, 17px 17px 0px #1c92d2;
+  --global-scroll-bg-color: #1c92d2;
 }
 .page[data-theme="purple"] {
   --global-bg-color: linear-gradient(to right, #41295a, #2f0743);
@@ -93,6 +98,7 @@
   --welcome-title-color: #fff;
   --welcome-title-shadow: 5px 5px 0px #898192a8, 8px 8px 0px #948f99cc,
     11px 11px 0px #41295ab6, 14px 14px 0px #41295ad3, 17px 17px 0px #41295a;
+  --global-scroll-bg-color: #675172;
 }
 .page[data-theme="cherry"] {
   --global-bg-color: linear-gradient(to right, #c92f41, #ca442f);
@@ -108,7 +114,9 @@
   --global-text-color: #fff;
   --welcome-title-color: #fff;
   --welcome-title-shadow: 5px 5px 0px #7a00004b, 8px 8px 0px #7a000098,
-    11px 11px 0px rgba(255, 255, 255, 0.493), 14px 14px 0px #7a000098, 17px 17px 0px rgba(255, 255, 255, 0.281);
+    11px 11px 0px rgba(255, 255, 255, 0.493), 14px 14px 0px #7a000098,
+    17px 17px 0px rgba(255, 255, 255, 0.281);
+  --global-scroll-bg-color: #7a000098;
 }
 button:disabled {
   opacity: 0.5;
@@ -126,9 +134,8 @@ button:not(:disabled):hover {
 .page {
   background: var(--global-bg-color);
 }
-.container{
+.container {
   width: 100vw;
   margin: 0 auto;
   max-width: none;
 }
-
