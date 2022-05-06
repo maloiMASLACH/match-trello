@@ -137,5 +137,5 @@ button:not(:disabled):hover {
 .container {
   width: 100vw;
   margin: 0 auto;
-  max-width: none;
+  max-width: 100vw;
 }
