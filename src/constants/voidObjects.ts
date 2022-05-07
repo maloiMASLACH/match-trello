@@ -1,20 +1,43 @@
-export const task = {
-  taskName: 'task',
-  date: 'tomorrow',
+export const voidTask = {
+  taskName: '',
+  date: '',
+  id: 0,
+  position: 0,
+  forUser: '',
+  forUserId: '',
+  assignedBy: '',
+  assignedById: '',
+  deskObjId: '',
+  columnObjId: '',
+  description: '',
   completed: false,
-  id: 1,
-  position: 1,
 };
 
-export const FirstColumn = {
-  tasks: { 1: task },
-  id: 1,
-  columnName: 'First Column',
-  position: 1,
+export const voidColumn = {
+  tasks: [],
+  columnName: '',
+  id: 0,
+  deskObjId: '',
+  position: 0,
 };
 
-export const FirstDesk = {
-  columns: { 1: FirstColumn },
-  id: 1,
-  deskName: 'First Desk',
+export const voidDesk = {
+  columns: {},
+  id: 0,
+  deskName: '',
+};
+
+export const voidUser = {
+  desks: [],
+  mail: '',
+  name: '',
+  isAdmin: false,
+  uid: '',
+};
+
+export const voidAuthUser = {
+  isVerified: false,
+  isAdmin: false,
+  userId: '',
+  userMail: '',
 };

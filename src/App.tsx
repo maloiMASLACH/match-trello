@@ -4,16 +4,11 @@ import React, {
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import NavBar from './components/blocks/navbar';
-import AdminPage from './components/pages/adminPage';
-import AppPage from './components/pages/appPage';
-import ErrorPage from './components/pages/errorPage';
-import PasswordForget from './components/pages/passwordPages/passwordForget';
-import PasswordReset from './components/pages/passwordPages/passwordReset';
-import SingInForm from './components/pages/singIn';
-import SingUpForm from './components/pages/singUp';
-import UserPage from './components/pages/userPage';
-import WelcomePage from './components/pages/welcomePage';
-import { LocalStorageKeys, RouterLinks } from './constants';
+import {
+  WelcomePage, ErrorPage, SingInForm, SingUpForm,
+  AppPage, UserPage, PasswordForget, PasswordReset, AdminPage,
+} from './components/pages';
+import { LocalStorageKeys, RouterLinks, voidAuthUser } from './constants';
 import themes from './constants/themes';
 import { AuthUserType } from './types';
 import { FirebaseContext, FetchURLInfo, AuthUserContext } from './utils';
@@ -24,12 +19,7 @@ const App = () => {
   const [theme, setTheme] = useState(
     localStorage.getItem(LocalStorageKeys.Theme) || themes[0],
   );
-  const [user, setUser] = useState<AuthUserType>({
-    isVerified: false,
-    isAdmin: false,
-    userId: '',
-    userMail: '',
-  });
+  const [user, setUser] = useState<AuthUserType>(voidAuthUser);
 
   const handleTheme = (option: ChangeEvent<HTMLSelectElement>) => {
     localStorage.setItem(LocalStorageKeys.Theme, option.target.value);

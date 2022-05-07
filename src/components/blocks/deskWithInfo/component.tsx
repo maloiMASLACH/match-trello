@@ -10,8 +10,8 @@ const DeskWithInfo = (props: DeskWithInfoProps) => {
   const { isActive, handleActive } = props;
 
   const firebase = useContext(FirebaseContext);
-  const userValue = useContext(UserValueContext);
-  const deskInfo = useContext(DeskValueContext);
+  const { uid } = useContext(UserValueContext);
+  const { deskName, columns, id } = useContext(DeskValueContext);
 
   const [isChanging, setChanging] = useState<boolean>(false);
 
@@ -27,14 +27,14 @@ const DeskWithInfo = (props: DeskWithInfoProps) => {
   };
 
   const deleteDesk = () => {
-    firebase.desk(userValue.uid, deskInfo.id).set(null);
+    firebase.desk(uid, id).set(null);
   };
 
   let taskCount = 0;
-  const columnCount = Object.keys(deskInfo.columns || []).length;
+  const columnCount = Object.keys(columns || []).length;
 
-  if (deskInfo.columns) {
-    taskCount = Object.values(deskInfo.columns).reduce(
+  if (columns) {
+    taskCount = Object.values(columns).reduce(
       (acc, curr) => acc + Object.keys(curr.tasks || []).length,
       0,
     );
@@ -45,7 +45,7 @@ const DeskWithInfo = (props: DeskWithInfoProps) => {
       <div className="deskHead">
         {!isChanging ? (
           <div className="deskInfo">
-            <h3>{deskInfo.deskName}</h3>
+            <h3>{deskName}</h3>
             <i
               className="fa fa-eye table"
               aria-hidden="true"
@@ -70,7 +70,7 @@ const DeskWithInfo = (props: DeskWithInfoProps) => {
           className="back"
           onClick={handleOpened}
         />
-        <h4>{`Desk: ${deskInfo.deskName}`}</h4>
+        <h4>{`Desk: ${deskName}`}</h4>
       </div>
       <OpenedDesk />
     </>

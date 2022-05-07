@@ -2,11 +2,9 @@ export interface ChangeDeskNameProps {
   handleChanging: () => void;
 }
 
-export interface ChangeColumnProps {
+export interface ChangeColumnProps extends ChangeDeskNameProps {
   uid: string;
-  handleChanging: () => void;
 }
 
-export interface ChangeTaskProps {
-  handleChanging: () => void;
+export interface ChangeTaskProps extends ChangeDeskNameProps {
 }

@@ -6,8 +6,7 @@ export interface AppointeeType {
   userId: string
 }
 
-export interface AssignedBlockProps {
-  assignments: AppointeeType[];
+export interface AssignedBlockProps extends OpenedAssignedBlockProps {
   isActive: boolean;
   handleActive: () => void;
 }

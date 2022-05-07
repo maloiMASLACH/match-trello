@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { voidTask } from '../../../constants';
 import { OpenedColumnProps, TaskType } from '../../../types';
 import { ColumnValueContext, sortByPosition, TaskValueContext } from '../../../utils';
 import NewTask from '../newTask';
@@ -8,24 +9,11 @@ import './styles.css';
 const OpenedColumn = (props: OpenedColumnProps) => {
   const { uid } = props;
 
-  const columnValue = useContext(ColumnValueContext);
+  const { tasks } = useContext(ColumnValueContext);
 
-  const [currentTask, setCurrentTask] = useState<TaskType>({
-    taskName: '',
-    date: '',
-    id: 0,
-    position: 0,
-    forUser: '',
-    forUserId: '',
-    assignedBy: '',
-    assignedById: '',
-    deskObjId: '',
-    columnObjId: '',
-    description: '',
-    completed: false,
-  });
+  const [currentTask, setCurrentTask] = useState<TaskType>(voidTask);
 
-  const sortedColumns = Object.values(columnValue.tasks || []).sort(
+  const sortedColumns = Object.values(tasks || []).sort(
     sortByPosition,
   );
 

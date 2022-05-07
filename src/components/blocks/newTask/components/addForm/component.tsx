@@ -2,8 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Placeholders } from '../../../../../constants';
 import { NewTaskAddProps, UserType } from '../../../../../types';
 import {
-  FirebaseContext, ColumnValueContext, AuthUserContext,
-  sortCards, GetUserMails, validateBlockName, validateDescription, patterns,
+  FirebaseContext,
+  ColumnValueContext,
+  AuthUserContext,
+  sortCards,
+  GetUserMails,
+  validateBlockName,
+  validateDescription,
+  patterns,
 } from '../../../../../utils';
 import { InputBlock, TextArea, Select } from '../../../../controls';
 import { CloseImg } from '../../../../controls/images';
@@ -24,6 +30,10 @@ const AddForm = (props: NewTaskAddProps) => {
 
   const [users, setUsers] = useState<UserType[]>([]);
   const [usersMails, setUsersMails] = useState<string[]>(['']);
+
+  const isDisabled = !patterns.blockName.test(inputName)
+  || !patterns.blockName.test(inputDate)
+  || inputDescription.length > 120;
 
   const addTask = () => {
     let lastId = 0;
@@ -117,15 +127,7 @@ const AddForm = (props: NewTaskAddProps) => {
           }}
         />
       </div>
-      <button
-        type="submit"
-        disabled={
-          !patterns.blockName.test(inputName)
-          || !patterns.blockName.test(inputDate)
-          || inputDescription.length > 120
-        }
-        onClick={addTask}
-      >
+      <button type="submit" disabled={isDisabled} onClick={addTask}>
         confirm
       </button>
       <CloseImg className="addTaskImgClose" onClick={handleActive} />

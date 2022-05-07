@@ -11,7 +11,7 @@ import './styles.css';
 const AddForm = (props: HandleActive) => {
   const { handleActive } = props;
 
-  const userValue = useContext(UserValueContext);
+  const { desks, uid } = useContext(UserValueContext);
   const firebase = useContext(FirebaseContext);
 
   const [inputValue, setInputValue] = useState('');
@@ -19,13 +19,13 @@ const AddForm = (props: HandleActive) => {
   const addDesk = () => {
     let lastId = 0;
 
-    if (userValue.desks) {
-      const sortedDesks = Object.values(userValue.desks).sort(sortCards);
+    if (desks) {
+      const sortedDesks = Object.values(desks).sort(sortCards);
 
       lastId = sortedDesks[sortedDesks.length - 1].id + 1;
     }
 
-    firebase.desk(userValue.uid, lastId).update({
+    firebase.desk(uid, lastId).update({
       id: lastId,
       deskName: inputValue,
     });

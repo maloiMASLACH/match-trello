@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { voidTask } from '../../../../../constants';
 import { OpenedAssignedBlockProps, TaskType } from '../../../../../types';
 import { sortByPosition, TaskValueContext } from '../../../../../utils';
 import Task from '../../../taskBlock';
@@ -13,55 +14,45 @@ const OpenedAssignBlock = (props: OpenedAssignedBlockProps) => {
     setOpenColumn((prevState) => !prevState);
   };
 
-  const [currentTask, setCurrentTask] = useState<TaskType>({
-    taskName: '',
-    date: '',
-    id: 0,
-    position: 0,
-    forUser: '',
-    forUserId: '',
-    assignedBy: '',
-    assignedById: '',
-    deskObjId: '',
-    columnObjId: '',
-    description: '',
-    completed: false,
-  });
+  const [currentTask, setCurrentTask] = useState<TaskType>(voidTask);
 
   return (
     <div className="assignments">
       {(assignments || []).map(
-        (appointee) => appointee.tasks && (
-        <div key={appointee.user} className="appointee">
-          <div className="appointeeHead">
-            <h4>{appointee.user}</h4>
-            <i
-              className="fa fa-eye table"
-              aria-hidden="true"
-              onClick={handleActive}
-            />
-          </div>
+        (appointee) => {
+          const { user, tasks } = appointee;
+          return tasks && (
+            <div key={user} className="appointee">
+              <div className="appointeeHead">
+                <h4>{user}</h4>
+                <i
+                  className="fa fa-eye table"
+                  aria-hidden="true"
+                  onClick={handleActive}
+                />
+              </div>
 
-          <div className="assignTasks">
-            {isOpen ? (
-              (appointee.tasks || [])
-                .sort(sortByPosition)
-                .map((task) => (
-                  <TaskValueContext.Provider key={task.id} value={task}>
-                    <Task
-                      currentCard={currentTask}
-                      setCurrentCard={setCurrentTask}
-                    />
-                  </TaskValueContext.Provider>
-                ))
-            ) : (
-              <p className="assignLength">
-                {`${Object.keys(appointee.tasks || {}).length} task(s)`}
-              </p>
-            )}
-          </div>
-        </div>
-        ),
+              <div className="assignTasks">
+                {isOpen ? (
+                  (tasks || [])
+                    .sort(sortByPosition)
+                    .map((task) => (
+                      <TaskValueContext.Provider key={task.id} value={task}>
+                        <Task
+                          currentCard={currentTask}
+                          setCurrentCard={setCurrentTask}
+                        />
+                      </TaskValueContext.Provider>
+                    ))
+                ) : (
+                  <p className="assignLength">
+                    {`${Object.keys(tasks || {}).length} task(s)`}
+                  </p>
+                )}
+              </div>
+            </div>
+          );
+        },
       )}
     </div>
   );

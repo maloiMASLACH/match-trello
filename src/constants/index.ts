@@ -4,7 +4,9 @@ import Placeholders from './placeholders';
 import RouterLinks from './routerLinks';
 import TextColor from './textColors';
 import Themes from './themes';
-import { task, FirstColumn, FirstDesk } from './voidObjects';
+import {
+  voidAuthUser, voidColumn, voidDesk, voidTask, voidUser,
+} from './voidObjects';
 
 export {
   Labels,
@@ -13,7 +15,9 @@ export {
   RouterLinks,
   TextColor,
   Themes,
-  task,
-  FirstColumn,
-  FirstDesk,
+  voidAuthUser,
+  voidUser,
+  voidColumn,
+  voidDesk,
+  voidTask,
 };

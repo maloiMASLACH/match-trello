@@ -1,12 +1,7 @@
 import React from 'react';
+import { voidUser } from '../../constants';
 import { UserType } from '../../types';
 
-const UserValueContext = React.createContext<UserType>({
-  desks: [],
-  mail: '',
-  name: '',
-  isAdmin: false,
-  uid: '',
-});
+const UserValueContext = React.createContext<UserType>(voidUser);
 
 export default UserValueContext;

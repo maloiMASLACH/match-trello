@@ -12,7 +12,7 @@ const ChangeNameField = (props: ChangeDeskNameProps) => {
   const { handleChanging } = props;
 
   const firebase = useContext(FirebaseContext);
-  const userValue = useContext(UserValueContext);
+  const { uid } = useContext(UserValueContext);
   const deskValue = useContext(DeskValueContext);
 
   const [inputValue, setInputValue] = useState(deskValue.deskName || '');
@@ -23,7 +23,7 @@ const ChangeNameField = (props: ChangeDeskNameProps) => {
       deskName: inputValue,
     };
 
-    firebase.desk(userValue.uid, deskValue.id).set(modifiedDesk);
+    firebase.desk(uid, deskValue.id).set(modifiedDesk);
 
     handleChanging();
   };

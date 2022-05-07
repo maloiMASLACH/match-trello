@@ -2,8 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Placeholders } from '../../../../../constants';
 import { ChangeTaskProps, UserType } from '../../../../../types';
 import {
-  FirebaseContext, TaskValueContext, AuthUserContext,
-  GetUserMails, validateBlockName, validateDescription, patterns,
+  FirebaseContext,
+  TaskValueContext,
+  AuthUserContext,
+  GetUserMails,
+  validateBlockName,
+  validateDescription,
+  patterns,
 } from '../../../../../utils';
 import { InputBlock, TextArea, Select } from '../../../../controls';
 import './styles.css';
@@ -28,6 +33,10 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
   const [inputDescription, setInputDescription] = useState(
     taskValue.description || '',
   );
+
+  const isDisabled = !patterns.blockName.test(inputName)
+    || !patterns.blockName.test(inputDate)
+    || inputDescription.length > 120;
 
   const renameTask = () => {
     const modifiedTask = {
@@ -118,11 +127,7 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
         className="taskRedactSubmit"
         type="submit"
         onClick={renameTask}
-        disabled={
-          !patterns.blockName.test(inputName)
-          || !patterns.blockName.test(inputDate)
-          || inputDescription.length > 120
-        }
+        disabled={isDisabled}
       >
         OK
       </button>
