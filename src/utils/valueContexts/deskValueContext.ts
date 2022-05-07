@@ -1,10 +1,7 @@
 import React from 'react';
+import { voidDesk } from '../../constants';
 import { DeskType } from '../../types';
 
-const DeskValueContext = React.createContext<DeskType>({
-  columns: [],
-  deskName: '',
-  id: 0,
-});
+const DeskValueContext = React.createContext<DeskType>(voidDesk);
 
 export default DeskValueContext;

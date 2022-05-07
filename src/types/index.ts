@@ -36,6 +36,8 @@ import {
   UserType,
   AuthUserType,
 } from './utils/globalTypes';
+import { GetUserMailsProps } from './utils/getAssignedTask';
+import { ColumnFirebaseType, TaskFirebaseType } from './utils/firebaseTypes';
 
 export type {
   UsersListProps,
@@ -75,4 +77,7 @@ export type {
   DeskType,
   UserType,
   AuthUserType,
+  GetUserMailsProps,
+  ColumnFirebaseType,
+  TaskFirebaseType,
 };

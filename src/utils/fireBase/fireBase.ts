@@ -1,6 +1,10 @@
 import app from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/database';
+import {
+  ColumnFirebaseType,
+  TaskFirebaseType,
+} from '../../types/utils/firebaseTypes';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -44,40 +48,37 @@ class Firebase {
 
   setAdmin = (uid: string) => this.db.ref(`users/${uid}/isAdmin`);
 
-  desk = (uid:string, deskObjId:number) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjId}`);
+  desk = (uid: string, deskObjId: number) => this.db.ref(`users/${uid.slice(1)}/desks/${deskObjId}`);
 
-  column = (props: {
-    uid:string,
-    deskObjId:number,
-    columnObjId:number,
-  }) => this.db.ref(`users/${props.uid.slice(1)}/desks/${props.deskObjId}/columns/${props.columnObjId}`);
+  column = (props: ColumnFirebaseType) => this.db.ref(
+    `users/${props.uid.slice(1)}/desks/${props.deskObjId}/columns/${
+      props.columnObjId
+    }`,
+  );
 
-  columnPosition = (props: {
-    uid:string,
-    deskObjId:number,
-    columnObjId:number,
-  }) => this.db.ref(`users/${props.uid.slice(1)}/desks/${props.deskObjId}/columns/${props.columnObjId}/position`);
+  columnPosition = (props: ColumnFirebaseType) => this.db.ref(
+    `users/${props.uid.slice(1)}/desks/${props.deskObjId}/columns/${
+      props.columnObjId
+    }/position`,
+  );
 
-  task = (props: {
-    uid:string,
-    deskObjId:number,
-    columnObjId:number,
-    taskObjId:number,
-  }) => this.db.ref(`users/${props.uid.slice(1)}/desks/${props.deskObjId}/columns/${props.columnObjId}/tasks/${props.taskObjId}`);
+  task = (props: TaskFirebaseType) => this.db.ref(
+    `users/${props.uid.slice(1)}/desks/${props.deskObjId}/columns/${
+      props.columnObjId
+    }/tasks/${props.taskObjId}`,
+  );
 
-  taskCompleted = (props: {
-    uid:string,
-    deskObjId:number,
-    columnObjId:number,
-    taskObjId:number,
-  }) => this.db.ref(`users/${props.uid.slice(1)}/desks/${props.deskObjId}/columns/${props.columnObjId}/tasks/${props.taskObjId}/completed`);
+  taskCompleted = (props: TaskFirebaseType) => this.db.ref(
+    `users/${props.uid.slice(1)}/desks/${props.deskObjId}/columns/${
+      props.columnObjId
+    }/tasks/${props.taskObjId}/completed`,
+  );
 
-  taskPosition = (props: {
-    uid:string,
-    deskObjId:number,
-    columnObjId:number,
-    taskObjId:number,
-  }) => this.db.ref(`users/${props.uid.slice(1)}/desks/${props.deskObjId}/columns/${props.columnObjId}/tasks/${props.taskObjId}/position`);
+  taskPosition = (props: TaskFirebaseType) => this.db.ref(
+    `users/${props.uid.slice(1)}/desks/${props.deskObjId}/columns/${
+      props.columnObjId
+    }/tasks/${props.taskObjId}/position`,
+  );
 }
 
 export default Firebase;

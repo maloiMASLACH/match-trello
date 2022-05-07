@@ -12,25 +12,25 @@ const AddForm = (props: NewColumnAddProps) => {
   const { uid, handleActive } = props;
 
   const firebase = useContext(FirebaseContext);
-  const deskValue = useContext(DeskValueContext);
+  const { columns, id } = useContext(DeskValueContext);
 
   const [inputValue, setInputValue] = useState('');
 
   const addColumn = () => {
     let lastId = 0;
 
-    if (deskValue.columns) {
-      const sortedColumns = Object.values(deskValue.columns).sort(sortCards);
+    if (columns) {
+      const sortedColumns = Object.values(columns).sort(sortCards);
 
       lastId = sortedColumns[sortedColumns.length - 1].id + 1;
     }
 
     firebase
-      .column({ uid, deskObjId: deskValue.id, columnObjId: lastId })
+      .column({ uid, deskObjId: id, columnObjId: lastId })
       .update({
         id: lastId,
         columnName: inputValue,
-        deskObjId: deskValue.id,
+        deskObjId: id,
         position: lastId,
       });
 

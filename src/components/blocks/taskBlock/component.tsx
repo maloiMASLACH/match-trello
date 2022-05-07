@@ -17,29 +17,26 @@ const Task = (props: TaskProps) => {
 
   const [isChanging, setChanging] = useState<boolean>(false);
 
+  const taskAddress = {
+    uid: taskValue.assignedById,
+    deskObjId: Number(taskValue.deskObjId),
+    columnObjId: Number(taskValue.columnObjId),
+    taskObjId: taskValue.id,
+  };
+
   const handleChanging = () => {
     setChanging((prevState) => !prevState);
   };
 
   const setCompleted = () => {
     firebase
-      .taskCompleted({
-        uid: taskValue.assignedById,
-        deskObjId: Number(taskValue.deskObjId),
-        columnObjId: Number(taskValue.columnObjId),
-        taskObjId: taskValue.id,
-      })
+      .taskCompleted(taskAddress)
       .set(!taskValue.completed);
   };
 
   const deleteTask = () => {
     firebase
-      .task({
-        uid: taskValue.assignedById,
-        deskObjId: Number(taskValue.deskObjId),
-        columnObjId: Number(taskValue.columnObjId),
-        taskObjId: taskValue.id,
-      })
+      .task(taskAddress)
       .set(null);
   };
 
