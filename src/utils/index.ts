@@ -1,5 +1,5 @@
 import { onDragOver, onDropColumn, onDropCard } from './dragEvents';
-import FetchURLInfo from './fetchURLInfo';
+import fetchURLInfo from './fetchURLInfo';
 import Firebase, { FirebaseContext } from './fireBase';
 import GetAssignedTasks from './getAssignedTask';
 import GetUserMails from './getUserMails';
@@ -21,7 +21,7 @@ export {
   onDragOver,
   onDropColumn,
   onDropCard,
-  FetchURLInfo,
+  fetchURLInfo,
   Firebase,
   FirebaseContext,
   GetAssignedTasks,

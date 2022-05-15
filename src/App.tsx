@@ -11,7 +11,7 @@ import {
 import { LocalStorageKeys, RouterLinks, voidAuthUser } from './constants';
 import themes from './constants/themes';
 import { AuthUserType } from './types';
-import { FirebaseContext, FetchURLInfo, AuthUserContext } from './utils';
+import { FirebaseContext, fetchURLInfo, AuthUserContext } from './utils';
 
 const App = () => {
   const firebase = useContext(FirebaseContext);
@@ -28,7 +28,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    FetchURLInfo(setUser, firebase);
+    fetchURLInfo(setUser, firebase);
   }, []);
 
   return (
