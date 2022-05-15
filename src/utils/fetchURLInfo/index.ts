@@ -1,7 +1,7 @@
 import { AuthUserType } from '../../types';
 import Firebase from '../fireBase';
 
-const FetchURLInfo = (
+const fetchURLInfo = (
   setUser: (el: AuthUserType) => void,
   firebase: Firebase,
 ) => {
@@ -24,4 +24,4 @@ const FetchURLInfo = (
   });
 };
 
-export default FetchURLInfo;
+export default fetchURLInfo;

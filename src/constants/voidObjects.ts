@@ -1,4 +1,12 @@
-export const voidTask = {
+import {
+  AuthUserType,
+  ColumnType,
+  DeskType,
+  TaskType,
+  UserType,
+} from '../types';
+
+export const voidTask: TaskType = {
   taskName: '',
   date: '',
   id: 0,
@@ -13,7 +21,7 @@ export const voidTask = {
   completed: false,
 };
 
-export const voidColumn = {
+export const voidColumn: ColumnType = {
   tasks: [],
   columnName: '',
   id: 0,
@@ -21,13 +29,13 @@ export const voidColumn = {
   position: 0,
 };
 
-export const voidDesk = {
+export const voidDesk: DeskType = {
   columns: {},
   id: 0,
   deskName: '',
 };
 
-export const voidUser = {
+export const voidUser: UserType = {
   desks: [],
   mail: '',
   name: '',
@@ -35,7 +43,7 @@ export const voidUser = {
   uid: '',
 };
 
-export const voidAuthUser = {
+export const voidAuthUser: AuthUserType = {
   isVerified: false,
   isAdmin: false,
   userId: '',
