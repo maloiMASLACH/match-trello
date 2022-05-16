@@ -5,7 +5,7 @@ import {
   FirebaseContext,
   TaskValueContext,
   AuthUserContext,
-  GetUserMails,
+  getUserMails,
   validateBlockName,
   validateDescription,
   patterns,
@@ -71,7 +71,7 @@ const ChangeTaskField = (props: ChangeTaskProps) => {
         setUsersMails,
         setUserId,
       };
-      GetUserMails(params);
+      getUserMails(params);
     });
   }, []);
 

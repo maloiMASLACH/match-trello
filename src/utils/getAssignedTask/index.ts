@@ -1,6 +1,6 @@
 import { UserType, AppointeeType, TaskType } from '../../types';
 
-const GetAssignedTasks = (users: { [key: string]: UserType }, userID: string) => {
+const getAssignedTasks = (users: { [key: string]: UserType }, userID: string) => {
   const columns:AppointeeType[] = [];
 
   Object.values(users).map((user) => {
@@ -26,4 +26,4 @@ const GetAssignedTasks = (users: { [key: string]: UserType }, userID: string) =>
   return columns;
 };
 
-export default GetAssignedTasks;
+export default getAssignedTasks;

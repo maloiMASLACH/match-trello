@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AppPageProps, UserType } from '../../../types';
 import {
-  FirebaseContext, sortCards, GetAssignedTasks, UserValueContext, DeskValueContext, AuthUserContext,
+  FirebaseContext, sortCards, getAssignedTasks, UserValueContext, DeskValueContext, AuthUserContext,
 } from '../../../utils';
 import AssignedBlock from '../../blocks/assignedBlock';
 import DeskWithInfo from '../../blocks/deskWithInfo';
@@ -27,7 +27,7 @@ const PageWithUser = (props: AppPageProps) => {
 
   const sortedDesks = Object.values(userValue.desks || []).sort(sortCards);
 
-  const assignedTasks = GetAssignedTasks(users, userID);
+  const assignedTasks = getAssignedTasks(users, userID);
 
   const handleActive = () => {
     setActive((prevState) => !prevState);

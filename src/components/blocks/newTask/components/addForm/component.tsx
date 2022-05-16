@@ -6,7 +6,7 @@ import {
   ColumnValueContext,
   AuthUserContext,
   sortCards,
-  GetUserMails,
+  getUserMails,
   validateBlockName,
   validateDescription,
   patterns,
@@ -79,7 +79,7 @@ const AddForm = (props: NewTaskAddProps) => {
         setUsersMails,
         setUserId,
       };
-      GetUserMails(params);
+      getUserMails(params);
     });
   }, []);
 
