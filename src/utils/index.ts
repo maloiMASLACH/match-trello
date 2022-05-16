@@ -1,8 +1,8 @@
 import { onDragOver, onDropColumn, onDropCard } from './dragEvents';
 import fetchURLInfo from './fetchURLInfo';
 import Firebase, { FirebaseContext } from './fireBase';
-import GetAssignedTasks from './getAssignedTask';
-import GetUserMails from './getUserMails';
+import getAssignedTasks from './getAssignedTask';
+import getUserMails from './getUserMails';
 import patterns, {
   validatePassword,
   validateEmail,
@@ -24,8 +24,8 @@ export {
   fetchURLInfo,
   Firebase,
   FirebaseContext,
-  GetAssignedTasks,
-  GetUserMails,
+  getAssignedTasks,
+  getUserMails,
   patterns,
   validatePassword,
   validateEmail,

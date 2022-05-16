@@ -1,6 +1,6 @@
 import { GetUserMailsProps } from '../../types';
 
-const GetUserMails = (props: GetUserMailsProps) => {
+const getUserMails = (props: GetUserMailsProps) => {
   const {
     users, uid, selectedMail, setUsers, setUsersMails, setUserId,
   } = props;
@@ -16,4 +16,4 @@ const GetUserMails = (props: GetUserMailsProps) => {
   setUserId(selectedMail ? usersMailsArr.indexOf(selectedMail) - 1 : -1);
 };
 
-export default GetUserMails;
+export default getUserMails;
